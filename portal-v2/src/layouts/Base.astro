@@ -1,0 +1,130 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  active?: string;
+}
+const { title, active = '' } = Astro.props;
+const navGroups: [string, [string, string, string][]][] = [
+  ['browse', [
+    ['/tokens', 'tokens', 'tokens'],
+    ['/contracts', 'contracts', 'contracts'],
+    ['/lineage', 'lineage', 'lineage'],
+  ]],
+  ['tools', [
+    ['/mint', 'mint', 'mint'],
+    ['/claim', 'claim', 'claim'],
+    ['/walker', 'walker', 'walker'],
+  ]],
+  ['views', [
+    ['/timeline', 'timeline', 'timeline'],
+    ['/irc', 'irc', 'irc'],
+    ['/graph', 'graph', 'graph'],
+  ]],
+  ['system', [
+    ['/taxonomy', 'taxonomy', 'taxonomy'],
+    ['/claims', 'claims', 'claims'],
+    ['/export', 'export', 'export'],
+    ['/knowledge', 'knowledge', 'knowledge'],
+  ]],
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} — atropa.terminal/v2</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="inner">
+        <a class="brand" href="/"><span class="ps1">~/</span>atropa.terminal<span class="dim">/v2</span></a>
+        <nav>
+          {navGroups.map(([group, items]) => (
+            <>
+              <span class="navgroup">{group}</span>
+              {items.map(([href, key, label]) => (
+                <a href={href} class={active === key ? 'active' : ''}>{label}</a>
+              ))}
+            </>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      atropa.terminal/v2 — reference core + tools. Provenance:
+      [src]/[chain] only in the normative layer; every claim machine-checkable
+      in the <a href="/claims">claim registry</a>; reference docs under&nbsp;
+      <a href="/knowledge">/knowledge</a> (mechanics · liquidity ·&nbsp;
+      <a href="/shared-infra">shared-infra</a>). Tools are pure client-side + injected wallet, no server, keys
+      or third-party contracts in the path. Not affiliated with the Atropa
+      developer.
+    </footer>
+    <script>
+      const numKey = (s: string): number | null => {
+        const t = s.replace(/,/g, '').trim();
+        if (!/\d/.test(t)) return null;
+        const n = parseFloat(t);
+        return Number.isFinite(n) ? n : null;
+      };
+      for (const table of Array.from(document.querySelectorAll<HTMLTableElement>('table.sortable'))) {
+        const tbody = table.tBodies[0];
+        const head = table.tHead?.rows[0];
+        if (!tbody || !head) continue;
+        let cur = -1;
+        let dir = 0;
+        let defRows: HTMLTableRowElement[] | null = null;
+        const defaultOrder = (): HTMLTableRowElement[] => {
+          if (!defRows || defRows.some((r) => r.parentElement !== tbody)) defRows = Array.from(tbody.rows);
+          return defRows;
+        };
+        for (const th of Array.from(head.cells)) {
+          if (th.hasAttribute('data-nosort')) continue;
+          th.classList.add('sort-th');
+          th.setAttribute('title', 'click to sort: asc → desc → default');
+          th.addEventListener('click', () => {
+            const i = th.cellIndex;
+            if (cur === i && dir === 1) {
+              dir = -1;
+            } else if (cur === i && dir === -1) {
+              cur = -1;
+              dir = 0;
+              for (const h of Array.from(head.cells)) h.classList.remove('sort-asc', 'sort-desc');
+              for (const r of defaultOrder()) tbody.appendChild(r);
+              return;
+            } else {
+              cur = i;
+              dir = th.dataset.sort === 'desc' || table.dataset.sort === 'desc' && i === 0 ? -1 : 1;
+            }
+            for (const h of Array.from(head.cells)) h.classList.remove('sort-asc', 'sort-desc');
+            th.classList.add(dir === 1 ? 'sort-asc' : 'sort-desc');
+            const rows = defaultOrder().slice();
+            rows.sort((a, b) => {
+              const ca = a.cells[i];
+              const cb = b.cells[i];
+              const rawA = ca?.dataset.value ?? ca?.textContent ?? '';
+              const rawB = cb?.dataset.value ?? cb?.textContent ?? '';
+              const na = numKey(rawA);
+              const nb = numKey(rawB);
+              let c: number;
+              if (na !== null && nb !== null) c = na - nb;
+              else if (na !== null) c = -1;
+              else if (nb !== null) c = 1;
+              else c = String(rawA).trim().localeCompare(String(rawB).trim(), undefined, { numeric: true });
+              return dir * c;
+            });
+            for (const r of rows) tbody.appendChild(r);
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

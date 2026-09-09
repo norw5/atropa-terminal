@@ -1,0 +1,295 @@
+---
+import Base from '../../layouts/Base.astro';
+import { loadTokensFull } from '../../lib/data';
+
+const tokens = loadTokensFull();
+const from = new Set(['v1', 'v2', 'v3-bureau', 'v4', 'post-crisis', 'long-tail']);
+const counts: Record<string, number> = {};
+for (const t of tokens) {
+  const e = from.has(t.tax_era) ? (t.tax_era === 'v3-bureau' ? 'v3' : t.tax_era) : 'other';
+  counts[e] = (counts[e] ?? 0) + 1;
+}
+---
+
+<Base title="tokens" active="tokens">
+  <h1><span style="color:var(--fg-faint)">ls</span> /tokens — every census child, entity-paged</h1>
+  <p style="color:var(--fg-dim);max-width:60rem">
+    All {tokens.length.toLocaleString()} minter children (V1–V4 + Bureau#1) —
+    completeness by construction: coverage is the mechanically-defined census,
+    no editorial selection. Every row links to a generated entity page
+    (taxonomy, lineage, mint economics, custody, liquidity, activity, claims).
+    Era mix: {Object.entries(counts).map(([k, v]) => `${k} ${v.toLocaleString()}`).join(' · ')}.
+  </p>
+
+  <div class="panel">
+    <h2>explorer <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(client island — fetches /data/tokens_v2.compact.json; 200 rows/page)</span></h2>
+    <div class="x-controls">
+      <input type="text" id="x-q" placeholder="grep name / symbol / address…" />
+      <select id="x-v">
+        <option value="">minter: all</option>
+        <option value="V1">V1</option>
+        <option value="V2">V2</option>
+        <option value="V3">V3</option>
+        <option value="V4">V4</option>
+        <option value="BureauMinter#1">BUREAU</option>
+      </select>
+      <select id="x-cls">
+        <option value="">class: all</option>
+        <option value="v1-parity-lock-tt">v1-parity-lock-tt</option>
+        <option value="v2-debenture-tt">v2-debenture-tt</option>
+        <option value="v3-step-tt">v3-step-tt</option>
+        <option value="v4-self-scaled-tt">v4-self-scaled-tt</option>
+        <option value="bureau-tt">bureau-tt</option>
+      </select>
+      <select id="x-era">
+        <option value="">era: all</option>
+        <option value="v1">v1</option>
+        <option value="v2">v2</option>
+        <option value="v3-bureau">v3-bureau</option>
+        <option value="v4">v4</option>
+        <option value="post-crisis">post-crisis</option>
+        <option value="long-tail">long-tail</option>
+      </select>
+      <select id="x-org">
+        <option value="">origin: all</option>
+        <option value="core">core</option>
+        <option value="core-factory">core-factory</option>
+      </select>
+      <select id="x-liq">
+        <option value="">liquidity: any</option>
+        <option value="pooled-live">pooled-live</option>
+        <option value="pooled-dead-all">pooled-dead-all</option>
+        <option value="spine-only-paper">spine-only-paper</option>
+        <option value="burnt-locked-50">flag: burnt-locked-50</option>
+      </select>
+      <span class="x-count" id="x-count"></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="x-table" id="x-table">
+        <thead>
+          <tr>
+            <th class="sort-th" data-col="n">name</th>
+            <th class="sort-th" data-col="s">sym</th>
+            <th class="sort-th" data-col="v">ver</th>
+            <th class="sort-th" data-col="cls">class/era</th>
+            <th class="sort-th num" data-col="sup">supply</th>
+            <th class="sort-th num" data-col="mult">mult</th>
+            <th class="sort-th" data-col="liq">liquidity</th>
+            <th class="sort-th" data-col="org">origin</th>
+            <th class="sort-th" data-col="ts">created</th>
+            <th class="sort-th" data-col="flags">flags</th>
+          </tr>
+        </thead>
+        <tbody id="x-body"></tbody>
+      </table>
+    </div>
+    <div class="x-controls">
+      <button id="x-prev" class="pgbtn">← prev</button>
+      <span class="x-count" id="x-page"></span>
+      <button id="x-next" class="pgbtn">next →</button>
+      <button id="x-csv" class="pgbtn">export CSV (filtered rows)</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>field &amp; class legend <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(the explorer table, explained)</span></h2>
+    <dl class="kv">
+      <dt>name / sym</dt><dd>onchain ERC-20 <span class="mono xs">name()</span> / <span class="mono xs">symbol()</span>, re-probed with the offset-aware decoder — links to the token's entity page</dd>
+      <dt>ver</dt><dd>factory generation (V1–V4, BR = Bureau#1) — the minter that created the child</dd>
+      <dt>class/era</dt><dd>taxonomy class (derived from mechanics, not community names) + era band; definitions on <a href="/knowledge/taxonomy/classes/">/knowledge/taxonomy/classes</a></dd>
+      <dt>supply</dt><dd>totalSupply at the custody snapshot block (human units) — not comparable across tokens as a ranking (arbitrary decimals and initial mints)</dd>
+      <dt>mult</dt><dd>live <span class="mono xs">Multiplier()</span> cost factor for <span class="mono xs">mint()</span> at the snapshot — see <a href="/knowledge/mechanics/multipliers/">multipliers</a></dd>
+      <dt>liquidity</dt><dd><span class="tag">pooled-live</span> at least one pool with live reserves · <span class="tag">pooled-dead-all</span> all pools dead/empty · <span class="tag">spine-only-paper</span> no pool ever · <span class="badge">burnt-locked-50</span> flag = ≥50% of LP burnt — structure on <a href="/knowledge/reference/liquidity/">/knowledge/reference/liquidity</a></dd>
+      <dt>origin</dt><dd><span class="badge">core</span> Maria-authored standalone · <span class="badge">core-factory</span> factory child (core by construction) — community-origin rows exist in the wider registry</dd>
+      <dt>created</dt><dd>creation-block timestamp (UTC date)</dd>
+      <dt>flags</dt><dd><span class="badge canon">CANON</span> = on the dev-published t-share list (alias only) + liquidity flags</dd>
+      <dt>classes</dt>
+      <dd>
+        <span class="tag">v1-parity-lock-tt</span> V1 child, TBILL-parity lock ·
+        <span class="tag">v2-debenture-tt</span> V2 child, Debenture/claim-key model ·
+        <span class="tag">v3-step-tt</span> V3 child, step multiplier ·
+        <span class="tag">v4-self-scaled-tt</span> V4 child, self-scaled minting ·
+        <span class="tag">bureau-tt</span> BureauMinter#1 child
+      </dd>
+    </dl>
+    <p class="dim" style="font-size:0.85rem">
+      No JavaScript? The full census is downloadable as CSV:&nbsp;
+      <a href="/data/tokens.csv" download>tokens.csv</a> — plus every bundle
+      on <a href="/export">/export</a>. Default order = creation date,
+      oldest first; click any column header to sort (asc → desc → default).
+    </p>
+  </div>
+</Base>
+
+<script>
+  type Row = {
+    a: string; n: string; s: string; v: string; cls: string; era: string;
+    org: string; liq: string; lf: string[]; blk: number; ts: number; d: number;
+    sup: number | null; mult: number | null; canon: boolean;
+  };
+
+  const PAGE = 200;
+  let rows: Row[] = [];
+  let view: Row[] = [];
+  let page = 0;
+  let sortCol: string | null = 'ts';
+  let sortDir: 1 | -1 = 1;
+
+  const fmt = (v: number | null, d = 1): string => {
+    if (v === null || v === undefined || Number.isNaN(v)) return '—';
+    const a = Math.abs(v);
+    if (a >= 1e12) return (v / 1e12).toFixed(d) + 'T';
+    if (a >= 1e9) return (v / 1e9).toFixed(d) + 'B';
+    if (a >= 1e6) return (v / 1e6).toFixed(d) + 'M';
+    if (a >= 1e3) return (v / 1e3).toFixed(d) + 'k';
+    return String(Math.round(v * 100) / 100);
+  };
+  const bdate = (t: number | null) => (t ? new Date(t * 1000).toISOString().slice(0, 10) : '—');
+
+  function esc(s: string): string {
+    return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+  }
+
+  const body = document.getElementById('x-body') as HTMLTableSectionElement;
+  const countEl = document.getElementById('x-count') as HTMLElement;
+  const pageEl = document.getElementById('x-page') as HTMLElement;
+
+  function render() {
+    const start = page * PAGE;
+    const slice = view.slice(start, start + PAGE);
+    const frag = document.createDocumentFragment();
+    for (const t of slice) {
+      const tr = document.createElement('tr');
+      const vcls = t.v === 'V1' ? 'v1' : t.v === 'V2' ? 'v2' : t.v === 'V3' ? 'v3' : t.v === 'V4' ? 'v4' : 'br';
+      const vlab = t.v === 'BureauMinter#1' ? 'BR' : t.v;
+      const flags: string[] = [];
+      if (t.canon) flags.push('<span class="badge canon">CANON</span>');
+      for (const f of t.lf || []) flags.push(`<span class="badge">${esc(f)}</span>`);
+      tr.innerHTML =
+        `<td class="wrapok"><a href="/tokens/${t.a}">${t.n ? esc(t.n) : '—'}</a></td>` +
+        `<td class="wrapok">${t.s ? esc(t.s) : '—'}</td>` +
+        `<td><span class="badge ${vcls}">${vlab}</span></td>` +
+        `<td class="wrapok"><span class="tag">${t.cls}</span> <span class="dim">${t.era}</span></td>` +
+        `<td class="num">${fmt(t.sup, 0)}</td>` +
+        `<td class="num">${t.mult != null ? t.mult + '×' : '—'}</td>` +
+        `<td>${t.liq}</td>` +
+        `<td>${t.org}</td>` +
+        `<td>${bdate(t.ts)}</td>` +
+        `<td>${flags.join('')}</td>`;
+      frag.appendChild(tr);
+    }
+    body.innerHTML = '';
+    body.appendChild(frag);
+    const pages = Math.max(1, Math.ceil(view.length / PAGE));
+    countEl.textContent = `${view.length.toLocaleString()} rows`;
+    pageEl.textContent = `page ${page + 1} / ${pages} (rows ${start + 1}–${Math.min(start + PAGE, view.length)})`;
+    (document.getElementById('x-prev') as HTMLButtonElement).disabled = page === 0;
+    (document.getElementById('x-next') as HTMLButtonElement).disabled = page >= pages - 1;
+  }
+
+  function apply(reset = true) {
+    if (reset) page = 0;
+    const q = (document.getElementById('x-q') as HTMLInputElement).value.trim().toLowerCase();
+    const v = (document.getElementById('x-v') as HTMLSelectElement).value;
+    const cls = (document.getElementById('x-cls') as HTMLSelectElement).value;
+    const era = (document.getElementById('x-era') as HTMLSelectElement).value;
+    const org = (document.getElementById('x-org') as HTMLSelectElement).value;
+    const liq = (document.getElementById('x-liq') as HTMLSelectElement).value;
+    let list = rows;
+    if (q) list = list.filter((t) => (t.n || '').toLowerCase().includes(q) || (t.s || '').toLowerCase().includes(q) || t.a.includes(q));
+    if (v) list = list.filter((t) => t.v === v);
+    if (cls) list = list.filter((t) => t.cls === cls);
+    if (era) list = list.filter((t) => t.era === era);
+    if (org) list = list.filter((t) => t.org === org);
+    if (liq === 'pooled-live' || liq === 'pooled-dead-all' || liq === 'spine-only-paper') list = list.filter((t) => t.liq === liq);
+    else if (liq === 'burnt-locked-50') list = list.filter((t) => (t.lf || []).includes('burnt-locked-50'));
+    const cmp: Record<string, (a: Row, b: Row) => number> = {
+      n: (a, b) => (a.n || '').localeCompare(b.n || ''),
+      s: (a, b) => (a.s || '').localeCompare(b.s || ''),
+      v: (a, b) => (a.v || '').localeCompare(b.v || ''),
+      cls: (a, b) => (a.cls || '').localeCompare(b.cls || '') || (a.era || '').localeCompare(b.era || ''),
+      sup: (a, b) => (a.sup ?? 0) - (b.sup ?? 0),
+      mult: (a, b) => (a.mult ?? 0) - (b.mult ?? 0),
+      liq: (a, b) => (a.liq || '').localeCompare(b.liq || ''),
+      org: (a, b) => (a.org || '').localeCompare(b.org || ''),
+      ts: (a, b) => (a.ts ?? 0) - (b.ts ?? 0),
+      flags: (a, b) => ((a.lf || []).length + (a.canon ? 1 : 0)) - ((b.lf || []).length + (b.canon ? 1 : 0)),
+    };
+    view = [...list];
+    if (sortCol && cmp[sortCol]) {
+      view.sort(cmp[sortCol]);
+      if (sortDir === -1) view.reverse();
+    } else {
+      view.sort((a, b) => (a.ts ?? 0) - (b.ts ?? 0) || (a.blk ?? 0) - (b.blk ?? 0));
+    }
+    paintSortHeaders();
+    render();
+  }
+
+  const xTable = document.getElementById('x-table') as HTMLTableElement;
+  function paintSortHeaders() {
+    for (const th of Array.from(xTable.tHead?.rows[0]?.cells ?? [])) {
+      th.classList.remove('sort-asc', 'sort-desc');
+      if (th.dataset.col === sortCol) th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+    }
+  }
+  for (const th of Array.from(xTable.tHead?.rows[0]?.cells ?? [])) {
+      th.setAttribute('title', 'click to sort: asc → desc → default (creation date ascending)');
+    th.addEventListener('click', () => {
+      const col = th.dataset.col || '';
+      if (sortCol === col) {
+        if (sortDir === 1) sortDir = -1;
+        else { sortCol = null; sortDir = 1; }
+      } else {
+        sortCol = col;
+        sortDir = 1;
+      }
+      paintSortHeaders();
+      apply(true);
+    });
+  }
+
+  for (const id of ['x-q', 'x-v', 'x-cls', 'x-era', 'x-org', 'x-liq']) {
+    document.getElementById(id)?.addEventListener('input', () => apply(true));
+  }
+  document.getElementById('x-prev')?.addEventListener('click', () => { if (page > 0) { page -= 1; render(); } });
+  document.getElementById('x-next')?.addEventListener('click', () => { if (page < Math.ceil(view.length / PAGE) - 1) { page += 1; render(); } });
+
+  document.getElementById('x-csv')?.addEventListener('click', () => {
+    const esc = (v: unknown) => {
+      const s = v === null || v === undefined ? '' : String(v);
+      return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+    };
+    const header = ['address', 'name', 'symbol', 'minter_version', 'class', 'era', 'origin', 'liquidity', 'liq_flags', 'block', 'timestamp', 'decimals', 'supply_human', 'multiplier_now', 'tshare_canon', 'parent'];
+    const lines = [header.join(',')];
+    for (const t of view) {
+      lines.push([t.a, t.n, t.s, t.v, t.cls, t.era, t.org, t.liq, (t.lf || []).join('|'), t.blk, t.ts ? new Date(t.ts * 1000).toISOString().slice(0, 10) : '', t.d, t.sup ?? '', t.mult ?? '', t.canon ? 'true' : 'false', t.p || ''].map(esc).join(','));
+    }
+    const blob = new Blob([lines.join('\n') + '\n'], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'atropa-tokens-filtered.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  fetch('/data/tokens_v2.compact.json')
+    .then((r) => r.json())
+    .then((d) => {
+      rows = d.tokens;
+      const q = new URLSearchParams(location.search);
+      for (const [param, id] of [['cls', 'x-cls'], ['era', 'x-era'], ['v', 'x-v'], ['org', 'x-org'], ['liq', 'x-liq']]) {
+        const v = q.get(param);
+        if (v) {
+          const sel = document.getElementById(id) as HTMLSelectElement | null;
+          if (sel && Array.from(sel.options).some((o) => o.value === v)) sel.value = v;
+        }
+      }
+      const text = q.get('q');
+      if (text) (document.getElementById('x-q') as HTMLInputElement).value = text;
+      apply(true);
+    })
+    .catch((e) => {
+      countEl.textContent = 'failed to load /data/tokens_v2.compact.json: ' + e;
+    });
+</script>

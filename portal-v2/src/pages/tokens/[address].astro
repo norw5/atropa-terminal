@@ -1,0 +1,276 @@
+---
+import Base from '../../layouts/Base.astro';
+import Addr from '../../components/Addr.astro';
+import Bars from '../../components/Bars.astro';
+import StatGrid from '../../components/StatGrid.astro';
+import ClaimsFooter from '../../components/ClaimsFooter.astro';
+import { fmtNum, fmtInt, fmtDate } from '../../lib/fmt';
+import {
+  loadTokensFull, loadTokensMeta, loadActivityPerToken, loadLiquidity, loadNames,
+  loadEntityLabels, loadSpineMemberships, loadClaimsByEntity, buildChildrenMap, ancestorChain,
+  loadArtifactsIndex,
+} from '../../lib/data';
+
+const tokens = loadTokensFull();
+const meta = loadTokensMeta();
+const names = loadNames();
+const labels = loadEntityLabels();
+const actPerToken = loadActivityPerToken();
+const liqMap = loadLiquidity();
+const spines = loadSpineMemberships();
+const claimsBy = loadClaimsByEntity();
+const censusSet = new Set(tokens.map((t: any) => t.address.toLowerCase()));
+const byAddress = new Map(tokens.map((t: any) => [t.address.toLowerCase(), t]));
+const childrenMap = buildChildrenMap(tokens);
+
+const DIMS: [string, string][] = [
+  ['tax_creation', 'creation path'],
+  ['tax_pricing', 'mint pricing'],
+  ['tax_redemption', 'redemption'],
+  ['tax_parent_class', 'parent semantics'],
+  ['tax_admin', 'admin surface'],
+  ['tax_liquidity', 'liquidity behavior'],
+  ['tax_era', 'era'],
+  ['tax_rng', 'RNG lineage'],
+];
+
+export async function getStaticPaths() {
+  const toks = loadTokensFull();
+  return toks.map((t: any) => ({
+    params: { address: t.address.toLowerCase() },
+    props: { t },
+  }));
+}
+
+const t = Astro.props.t as any;
+const act = actPerToken[t.address.toLowerCase()] ?? null;
+const liq = liqMap[t.address.toLowerCase()] ?? null;
+const inSpines = spines[t.address.toLowerCase()] ?? [];
+const claimIds = claimsBy[t.address.toLowerCase()] ?? [];
+const kids = childrenMap.get(t.address.toLowerCase()) ?? [];
+const chain = ancestorChain(t, byAddress);
+const parentName = t.parent ? labels[t.parent.toLowerCase()] : null;
+const creatorName = t.creator ? labels[t.creator.toLowerCase()] : null;
+const spineRootAddr = t.spine_root ? t.spine_root.toLowerCase() : null;
+const spineRootToken = spineRootAddr ? byAddress.get(spineRootAddr) ?? null : null;
+const spineRootLabel = spineRootAddr ? labels[spineRootAddr] ?? spineRootAddr : null;
+const dec = t.decimals ?? 18;
+const supply = t.totalSupply_snap ?? t.totalSupply;
+const supplyHuman = supply != null ? supply / 10 ** dec : null;
+const imHuman = t.initial_mint != null ? t.initial_mint / 10 ** dec : null;
+const imDisplay = imHuman != null ? (imHuman >= 0.01 ? fmtNum(imHuman, 0) : `${fmtInt(t.initial_mint)} raw`) : '—';
+const custody = t.custody_parent != null ? t.custody_parent / 10 ** dec : null;
+const versionClass = String(t.minter_version).toLowerCase().startsWith('b') ? 'br' : String(t.minter_version).toLowerCase();
+const hasPage = (a: string | null | undefined) => !!a && censusSet.has(a.toLowerCase());
+const displayName = t.name_clean || t.name || '(unnamed)';
+const title = `${displayName} (${t.symbol_clean || t.symbol || '·'})`;
+
+const monthly = act ? Object.entries<any>(act.monthly ?? {}) : [];
+const artifactsBc = loadArtifactsIndex().bytecode ?? {};
+const bcArt = artifactsBc[t.address.toLowerCase()] ?? null;
+const DEEP_SLUG: Record<string, string> = {
+  '0x812571a12330a74e2a3c1ff8953f6f3aac7a83e9': 'fdic-poor-spines',
+  '0xaa1505c928fd85e10a550cfde9e8f464c3574d8a': 'fdic-poor-spines',
+};
+const deepSlug = DEEP_SLUG[t.address.toLowerCase()] ?? null;
+const monthlyBars = monthly
+  .sort((a, b) => (a[0] < b[0] ? -1 : 1))
+  .map(([m, v]) => ({
+    label: m,
+    value: (Number(v.mint_raw) || 0) / 10 ** dec,
+    title: `${m}: mint ${(Number(v.mint_raw) || 0) / 10 ** dec} (${v.mint_n}), burn ${(Number(v.burn_raw) || 0) / 10 ** dec} (${v.burn_n})`,
+  }));
+---
+
+<Base title={title} active="tokens">
+  <p style="margin:0"><a href="/tokens">← /tokens</a>{t.parent && hasPage(t.parent) && <span> · <a href={`/lineage/${t.spine_root ? t.spine_root.toLowerCase() : t.parent.toLowerCase()}`}>lineage</a></span>}</p>
+  <h1>
+    {displayName}
+    <span style="color:var(--fg-dim);font-weight:400"> {t.symbol_clean || t.symbol || ''}</span>
+    <span class={`badge ${versionClass}`}>{t.minter_version === 'BureauMinter#1' ? 'BUREAU#1' : t.minter_version}</span>
+    {t.tax_alias_tshare_canon && <span class="badge canon">t-share canon</span>}
+    {t.flags?.includes?.('genesis_constructor') && <span class="badge">genesis</span>}
+    {t.flags?.includes?.('unregistered') && <span class="badge">unregistered</span>}
+    {t.flags?.includes?.('gai_batch') && <span class="badge">NewGai batch</span>}
+  </h1>
+
+  {deepSlug && (
+    <div class="note">
+      Genesis anchor — deep-dive page for the spine economies:&nbsp;
+      <a href={`/knowledge/deep/${deepSlug}/`}>/knowledge/deep/{deepSlug}</a>
+    </div>
+  )}
+
+  <StatGrid stats={[
+    { v: fmtNum(supplyHuman, 0), k: 'SUPPLY', sub: `${fmtNum(supply)} raw · ${dec} dec` },
+    { v: t.backing_ratio != null ? (t.backing_ratio * 100).toFixed(1) + '%' : '—', k: 'PARENT BACKING', sub: custody != null ? fmtNum(custody, 0) + ' parent units in custody' : 'no custody data' },
+    { v: t.multiplier_now != null ? t.multiplier_now + '×' : (t.tax_pricing === 'flat-1:1' ? '1×' : '—'), k: 'MULTIPLIER NOW', sub: t.supply_growth != null ? 'growth ' + fmtNum(t.supply_growth, 1) + '×' : t.tax_pricing },
+    { v: liq ? fmtNum(liq.w, 1) : '·', k: 'WPLS LIQUIDITY', sub: liq ? `${liq.p} live pairs` : t.tax_liquidity === 'spine-only-paper' ? 'never had a pool' : 'no live pools' },
+  ]} />
+
+  <div class="panel">
+    <h2>taxonomy</h2>
+    <dl class="kv">
+      <dt>class</dt><dd><span class="tag">{t.tax_class}</span> <a href="/knowledge/taxonomy/classes/">class definitions</a></dd>
+      {DIMS.map(([f, label]) => (
+        <>
+          <dt>{label}</dt>
+          <dd>{t[f]}{(f === 'tax_liquidity' && (t.tax_liq_flags ?? []).length > 0) && <span class="badge">{(t.tax_liq_flags ?? []).join(' · ')}</span>}</dd>
+        </>
+      ))}
+      <dt>origin</dt><dd>{t.tax_origin} {t.tax_origin === 'core' ? '(Maria-deployed)' : t.tax_origin === 'core-factory' ? '(factory child of core)' : ''}</dd>
+    </dl>
+  </div>
+
+  <div class="panel">
+    <h2>identity</h2>
+    <dl class="kv">
+      <dt>address</dt><dd class="addr">{t.address} · <a href={`https://ipfs.scan.pulsechain.com/address/${t.address}`}>blockscout</a></dd>
+      <dt>created via</dt><dd>minter <Addr address={t.minter} internal={false} /> · <a href={`/contracts/${t.minter.toLowerCase()}`}>contract page</a></dd>
+      <dt>creation</dt><dd>block {fmtInt(t.block)} · {fmtDate(t.timestamp)} · tx <a class="addr" href={`https://ipfs.scan.pulsechain.com/tx/${t.creation_tx}`}>{t.creation_tx}</a></dd>
+      <dt>creator</dt><dd><Addr address={t.creator} label={creatorName ?? undefined} /> {t.creator?.toLowerCase() === '0xbf182955401af3f2f7e244cb31184e93e74a2501' ? <span class="badge">Maria #1</span> : ''}</dd>
+      <dt>registry</dt><dd>{t.registered ? 'registered' : 'NOT registered'}{t.registered_owner ? ' · owner ' : ''}{t.registered_owner && <Addr address={t.registered_owner} />}</dd>
+      {t.has_code === false && <dt>code</dt>}
+      {t.has_code === false && <dd style="color:var(--red)">no contract code at census</dd>}
+    </dl>
+  </div>
+
+  <div class="panel">
+    <h2>lineage</h2>
+    <dl class="kv">
+      <dt>parent</dt>
+      <dd>
+        {t.parent ? (
+          hasPage(t.parent) ? (
+            <a class="addr" href={`/tokens/${t.parent.toLowerCase()}`}>{parentName ?? t.parent}</a>
+          ) : (
+            <Addr address={t.parent} label={parentName ?? undefined} />
+          )
+        ) : '— (V1 era: no parent getter)'}
+        {t.tax_parent_class && <span class="badge">{t.tax_parent_class}</span>}
+      </dd>
+      <dt>ancestor chain</dt>
+      <dd>
+        {chain.length > 0 ? (
+          <span class="mono xs">
+            {chain.slice(0, 6).reverse().map((a: any, i: number) => (
+              <span>{i > 0 && ' ← '}{hasPage(a.address) ? <a href={`/tokens/${a.address.toLowerCase()}`}>{a.name_clean || a.name || a.address.slice(0, 10)}</a> : <Addr address={a.address} />}</span>
+            ))}
+            {chain.length > 6 && <span> ← …({chain.length - 6} more)</span>}
+          </span>
+        ) : '—'}
+      </dd>
+      <dt>children</dt>
+      <dd>
+        {kids.length > 0 ? (
+          <>
+            <a href={`/lineage/${t.spine_root ? t.spine_root.toLowerCase() : t.address.toLowerCase()}`}>{kids.length} direct</a>
+            {' — '}
+            <span class="mono xs">
+              {kids.slice(0, 8).map((c: any, i: number) => (
+                <span>{i > 0 && ' · '}{hasPage(c.address) ? <a href={`/tokens/${c.address.toLowerCase()}`}>{c.name_clean || c.name || c.symbol_clean || c.symbol || c.address.slice(0, 8)}</a> : <Addr address={c.address} />}</span>
+              ))}
+              {kids.length > 8 && ` · …(${kids.length - 8} more)`}
+            </span>
+          </>
+        ) : 'none (leaf)'}
+      </dd>
+      <dt>spine</dt>
+      <dd>
+        {spineRootAddr ? (
+          <span>
+            root {spineRootToken
+              ? <a href={`/tokens/${spineRootAddr}`}>{spineRootToken.name_clean || spineRootToken.name || spineRootAddr}</a>
+              : spineRootLabel !== spineRootAddr
+                ? <span title={spineRootAddr}>{spineRootLabel}</span>
+                : <Addr address={spineRootAddr} />}
+            {' · '}<a href={`/lineage/${spineRootAddr}`}>tree</a>
+          </span>
+        ) : '— (V1 root)'} · depth {t.spine_depth ?? '—'}
+      </dd>
+      {inSpines.length > 0 && <dt>curated spines</dt>}
+      {inSpines.length > 0 && (
+        <dd>
+          {inSpines.map((sp: any, i: number) => (
+            <span>{i > 0 && ' · '}<span class="badge">{sp.kind}</span> {sp.name}</span>
+          ))}
+          <div class="mono xs" style="color:var(--fg-faint)">treasurysystem.win curated lists [ext] — membership [chain]</div>
+        </dd>
+      )}
+    </dl>
+  </div>
+
+  <div class="panel">
+    <h2>mint economics</h2>
+    <dl class="kv">
+      <dt>initial mint</dt><dd>{imDisplay} → <Addr address={t.mint_recipient} /></dd>
+      <dt>pricing</dt><dd>{t.tax_pricing}{t.tax_pricing === 'self-scaled' ? ' (× own initial mint)' : t.tax_pricing === 'system-step' ? ' (1.111B-unit steps)' : ''}</dd>
+      <dt>multiplier now</dt><dd>{t.multiplier_now != null ? t.multiplier_now + '×' : 'n/a (flat era)'}</dd>
+      <dt>debenture</dt><dd>{t.debenture == null ? 'n/a (V1/V4)' : t.debenture ? 'true — claimable collateral' : 'false — withdrawn/flipped'}</dd>
+      <dt>supply growth</dt><dd>{t.supply_growth != null ? fmtNum(t.supply_growth, 2) + '× since genesis' : '—'}</dd>
+      <dt>redemption</dt><dd>{t.tax_redemption}</dd>
+    </dl>
+  </div>
+
+  <div class="panel">
+    <h2>custody</h2>
+    {t.backing_ratio === 0 && <div class="note">⚠ backing ratio 0% at snapshot — parent collateral fully withdrawn or claim-farmed; supply is paper. (Mechanics: <a href="/knowledge/mechanics/claim-and-publish/">claim &amp; publish</a>.)</div>}
+    <dl class="kv">
+      <dt>parent custody</dt><dd>{custody != null ? `${fmtNum(custody, 2)} parent units held inside this token` : '—'}</dd>
+      <dt>backing ratio</dt><dd>{t.backing_ratio != null ? (t.backing_ratio * 100).toFixed(2) + '% of supply' : '—'}</dd>
+      <dt>snapshot</dt><dd>census tip block {fmtInt(meta?.tip_block)} · custody @ 27,486,817</dd>
+    </dl>
+  </div>
+
+  {(liq || (t.tax_liq_flags ?? []).length > 0) && (
+    <div class="panel">
+      <h2>liquidity</h2>
+      {t.tax_liq_flags?.includes?.('burnt-locked-50') && <div class="note">⚠ ≥50% of one pool's LP is at dead sinks (burnt-LP census @ crawl block) — extractable liquidity is lower than reserves suggest.</div>}
+      <dl class="kv">
+        <dt>reality</dt><dd>{t.tax_liquidity}{liq ? ` — ${liq.p} live / ${liq.w != null ? fmtNum(liq.w, 1) + ' WPLS anchored' : ''}` : ''}</dd>
+        {liq && <dt>factories</dt>}
+        {liq && <dd>{(liq.f ?? []).join(' + ')}</dd>}
+        {liq && <dt>top counterparties</dt>}
+        {liq && <dd>{(liq.c ?? []).join(', ')}</dd>}
+        {liq?.u != null && <dt>pseudo-USD</dt>}
+        {liq?.u != null && <dd>{fmtNum(liq.u, 1)} <span style="color:var(--fg-faint)">(pDAI-denominated, ranking only)</span></dd>}
+      </dl>
+    </div>
+  )}
+
+  {act && (
+    <div class="panel">
+      <h2>activity <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(onchain event scan — scanned interest set)</span></h2>
+      <dl class="kv">
+        <dt>mints</dt><dd>{fmtInt(act.n_mint)} events · gross {fmtNum(Number(act.gross_minted_raw) / 10 ** dec, 0)}</dd>
+        <dt>burns</dt><dd>{fmtInt(act.n_burn)} events · {fmtNum(Number(act.burned_raw) / 10 ** dec, 0)}</dd>
+        {act.recovery && <dt>claims (Recovery)</dt>}
+        {act.recovery && <dd>{fmtInt(act.recovery.n)} events paying {fmtNum(Number(act.recovery.total_raw) / 10 ** dec, 0)} parent units</dd>}
+        <dt>published</dt><dd>{act.published ? `yes (block ${act.published_block})` : act.version === 'V2' ? 'no — remains an eligible claim key' : 'n/a'}</dd>
+        <dt>TTDATA writes</dt><dd>{fmtInt(act.ttdata_count)}</dd>
+        <dt>distinct minters</dt><dd>{fmtInt(act.distinct_mint_recipients)}</dd>
+      </dl>
+      {monthlyBars.length > 0 && (
+        <>
+          <h3>monthly mints (units)</h3>
+          <Bars bars={monthlyBars} yFmt={(n: number) => fmtNum(n, 0)} color="var(--accent)" />
+        </>
+      )}
+    </div>
+  )}
+
+  <ClaimsFooter claimIds={claimIds} emptyNote={`no registered claim-class singles out this token; class-level claims apply via its <a href="/contracts/${t.minter.toLowerCase()}">minter</a>.`} />
+
+  <p class="provfoot">
+    provenance: census (block {fmtInt(meta?.tip_block)}) · custody snapshot block 27,486,817
+    {act ? ' · event scan to block 27,460,383' : ''} · liquidity crawl blocks
+    27,435,182–27,435,383 · taxonomy {meta?.taxonomy?.rules_version}. All fields
+    onchain-verified ([chain]) or source-verified ([src]); see <a href="/claims">claim registry</a>.&nbsp;
+    <a href={`/mint?token=${t.address.toLowerCase()}`}>mint this token</a>
+    <a href={`/claim?token=${t.address.toLowerCase()}`}>claim / publish</a>
+    <br />
+    {bcArt && <a href={`/artifacts/bytecode/${t.address.toLowerCase()}.json`}>bytecode artifact</a>}
+    {bcArt && <span> · </span>}
+    <a href="/abi/tt-templates.json">era template ABI</a>
+  </p>
+</Base>

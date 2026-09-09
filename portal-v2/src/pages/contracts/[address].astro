@@ -1,0 +1,305 @@
+---
+import Base from '../../layouts/Base.astro';
+import Addr from '../../components/Addr.astro';
+import StatGrid from '../../components/StatGrid.astro';
+import ClaimsFooter from '../../components/ClaimsFooter.astro';
+import { fmtInt, fmtDate, fmtNum } from '../../lib/fmt';
+import { loadRegistry, loadClaimsByEntity, loadTokensFull, buildChildrenMap, loadArtifactsIndex, loadAdminSurface } from '../../lib/data';
+
+const registry = loadRegistry();
+const claimsBy = loadClaimsByEntity();
+const tokens = loadTokensFull();
+const childrenMap = buildChildrenMap(tokens);
+const artifactsIdx = loadArtifactsIndex();
+const artifactsByAddr: Record<string, any> = {};
+for (const [a, v] of Object.entries<any>(artifactsIdx.bytecode ?? {})) artifactsByAddr[a.toLowerCase()] = v;
+const srcByAddr: Record<string, string> = {};
+for (const [a, rel] of Object.entries<any>(artifactsIdx.sources_by_address ?? {})) srcByAddr[a.toLowerCase()] = rel;
+const verifByAddr: Record<string, any> = {};
+for (const [a, v] of Object.entries<any>(artifactsIdx.verified_by_address ?? {})) verifByAddr[a.toLowerCase()] = v;
+const decByAddr: Record<string, any> = {};
+for (const [a, v] of Object.entries<any>(artifactsIdx.decompiled_by_address ?? {})) decByAddr[a.toLowerCase()] = v;
+
+export async function getStaticPaths() {
+  const reg = loadRegistry();
+  return reg.map((r: any) => ({
+    params: { address: r.address.toLowerCase() },
+    props: { r },
+  }));
+}
+
+const r = Astro.props.r as any;
+const aLower = r.address.toLowerCase();
+const bcArt = artifactsByAddr[aLower] ?? null;
+const srcArt = srcByAddr[aLower] ?? null;
+const verifArt = verifByAddr[aLower] ?? null;
+const decArt = decByAddr[aLower] ?? null;
+const abiArt = ['0xc7bdac3e6bb5ec37041a11328723e9927ccf430b', '0xc15c5f699daf5e1135732139f05d2c05b3ef4354', '0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc', '0x394c3d5990cefc7be36b82fdb07a7251ace61cc7', '0xc4f0ce2b0ffa0063b763e2b6c124a1d80e0641b5', '0x9680d815e3ba4fd78c5c1e6ea229abb03734e141', '0xc9be525a582b6f84d928b7901bd18b4315f8502b', '0x5de29c8eac1482221de1945a566b6c65f54a3c3e'].includes(aLower);
+const claimIds = claimsBy[aLower] ?? [];
+const kids = childrenMap.get(aLower) ?? [];
+const isMinter = r.tax_class === 'minter-infrastructure';
+const isHelper = r.tax_class === 'community-helper';
+const isAffection = r.tax_class === 'affection-family';
+const isMathFamily = r.tax_class === 'shared-infrastructure';
+const deployerMaria1 = r.deployer === '0xbf182955401af3f2f7e244cb31184e93e74a2501';
+const deployerMaria2 = r.deployer === '0x7a20189b297343cf26d8548764b04891f37f3414';
+const deployerLabel = deployerMaria1 ? 'Maria #1' : deployerMaria2 ? 'Maria #2'
+  : r.deployer === '0x903030f7e2d6489f38b0f4f96f9b371ec7960f78' ? 'trebizond (custodian EOA)'
+  : r.deployer === '0x771a6f6ebe92fe647e657b8cefc58faaf1778a65' ? 'community builder EOA'
+  : r.deployer === '0x3ec13d6bb18db629941399ee12b5b3a1ea281de6' ? 'third EOA (bureau #4 deployer)'
+  : r.deployer;
+const title = r.label || r.address;
+const MECHANICS_SLUG: Record<string, string> = {
+  '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b': 'v1-tbillminter',
+  '0xc15c5f699daf5e1135732139f05d2c05b3ef4354': 'v2-federalminter',
+  '0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc': 'v3-indexminter',
+  '0x394c3d5990cefc7be36b82fdb07a7251ace61cc7': 'v4-personalminter',
+};
+const mechanicsSlug = MECHANICS_SLUG[r.address.toLowerCase()] ?? 'bureau-minters';
+const DEEP_SLUG: Record<string, string> = {
+  '0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff': 'fed',
+  '0x463413c579d29c26d59a65312657dfce30d545a1': 'tbill',
+  '0xa1bee1dae9af77dac73aa0459ed63b4d93fc6d29': 'mv',
+  '0xb680f0cc810317933f234f67eb6a9e923407f05d': 'math-family',
+  '0xa96bcbed7f01de6ceed14fc86d90f21a36de2143': 'math-family',
+  '0x9ccc2de565da893ab1300674f174545a3e568f93': 'keys-of-ong',
+  '0xd6c31ba0754c4383a41c0e9df042c62b5e918f6d': 'teddybear',
+  '0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6': 'atropa',
+};
+const deepSlug = DEEP_SLUG[r.address.toLowerCase()] ?? null;
+
+const MINT_ROUTING: Record<string, string> = {
+  '0x4ec5f865f6996ac424a1740ef97b8d1c862e0988': 'cdc_mint',
+  '0x5f16f6c242e038437a7ba3c903dfedb747db4a5c': 'zheng_mint',
+};
+const mintRoutingKey = MINT_ROUTING[r.address.toLowerCase()] ?? null;
+const mintRouting = mintRoutingKey ? (loadAdminSurface().splits_5c?.[mintRoutingKey] ?? null) : null;
+const cdcDistinct: string[] = [];
+for (const rc of mintRouting?.recipients ?? []) if (!cdcDistinct.includes(rc)) cdcDistinct.push(rc);
+---
+
+<Base title={title} active="contracts">
+  <p style="margin:0"><a href="/contracts">← /contracts</a></p>
+  <h1>
+    {title}
+    <span class="tag">{r.tax_class}</span>
+    {isMathFamily && <span class="badge">first-class shared infra</span>}
+  </h1>
+
+  {isHelper && (
+    <div class="note">
+      ⚠ third-party community helper — unaudited by this project, ownable by
+      its deployer, and never integrated into any tool we build. Facts-only
+      registry row. <a href="/knowledge/method/provenance/">policy</a>
+    </div>
+  )}
+  {isAffection && (
+    <div class="note">
+      AFFECTION™ mechanics (mint routes, burn behavior, Ⓐ supply, Dysnomia
+      game family) are documented canonically in the separate AFFECTION
+      portal. This page carries the entity half only: taxonomy, identity,
+      liquidity profile, ownership state. Shared infrastructure (MATH/RNG/the
+      math family — the backbone both ecosystems run on) is authoritative
+      here: <a href="/shared-infra">/shared-infra</a>. Both portals consume
+      the same data bundle (<span class="mono xs">shared_infra.compact.json</span>).
+    </div>
+  )}
+  {isMinter && (
+    <div class="note">
+      Factory contract — mint mechanics, the embedded child template and the
+      census of its children live on the mechanics page:&nbsp;
+      <a href={`/knowledge/mechanics/${mechanicsSlug}/`}>/knowledge/mechanics/{mechanicsSlug}</a>
+    </div>
+  )}
+  {deepSlug && (
+    <div class="note">
+      Deep-dive page — the v1 research distillation for this entity
+      (mechanics, ledgers, pinned events):&nbsp;
+      <a href={`/knowledge/deep/${deepSlug}/`}>/knowledge/deep/{deepSlug}</a>
+    </div>
+  )}
+
+  {mintRouting && mintRoutingKey === 'cdc_mint' && (
+    <div class="panel">
+      <h2>mint routing <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">[src-creation-bytecode + chain]</span></h2>
+      <p>
+        <span class="mono xs">Mint()</span> (selector 0x34c73884) is permissionless, but the caller
+        receives nothing: every call pays a constructor-hardcoded wallet
+        list —&nbsp;
+        <b>9 payment legs = 8 distinct wallets</b>, one of them
+        (<span class="mono xs">0x85a067…</span>) paid twice with halved
+        amounts. Amounts are MATH.Random()-derived (observed 0.5–15 cDc
+        per leg per call); the last leg is a fixed slot, not the caller
+        (same recipient across three distinct callers&nbsp;
+        <span class="mono xs">[chain]</span>).
+      </p>
+      <p class="mono xs" style="color:var(--fg-dim)">
+        {cdcDistinct.map((rc: string) => (
+          <span>{rc} · </span>
+        ))}
+        <span>0x85a067b71afb98FA09b62340239D29f50D33e428 (second leg)</span>
+      </p>
+      <p>
+        Design archaeology <span class="mono xs">[src]</span>: this list is the activated variant of
+        the <span class="mono xs">_memburb</span> experiment that ships commented-out in the old-era
+        TT template lineage — the deployed FED template carries it
+        disabled. Decompilation artifact (non-normative research aid):&nbsp;
+        <a href="/artifacts/decompiled/0x4ec5f865f6996ac424a1740ef97b8d1c862e0988.sol" download>heimdall decompile</a>
+      </p>
+    </div>
+  )}
+  {mintRouting && mintRoutingKey === 'zheng_mint' && (
+    <div class="panel">
+      <h2>mint routing <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">[src + chain]</span></h2>
+      <p>
+        <span class="mono xs">Mint()</span> is permissionless and <b>always</b> mints
+        <span class="mono xs">(Random() % 4000) × 10^15</span> units to one hardcoded constant
+        (<span class="mono xs">finfire</span>)&nbsp;— <span class="mono xs">{mintRouting.recipient}</span>.
+        No hardcap exists anywhere in the verified source. The public
+        acquisition route <span class="mono xs">BuyWithAffection</span> sells the finite
+        deploy-minted inventory (≤10M) 1:1 for AFFECTION — that inventory
+        is the de-facto public supply cap, and it is now exhausted&nbsp;
+        <span class="mono xs">[chain]</span>: inventory 0, totalSupply
+        43,702,706.98, so all new supply accrues to finfire only.
+        Verified source:&nbsp;
+        <a href="/artifacts/src/verified/ZHENG_Tetratricopeptides.sol" download>ZHENG_Tetratricopeptides.sol</a>
+      </p>
+    </div>
+  )}
+
+  <StatGrid stats={[
+    { v: r.block ? fmtInt(r.block) : '—', k: 'DEPLOY BLOCK', sub: r.ts ? fmtDate(r.ts) : r.tax_creation === 'fork-carried' ? 'Ethereum fork-carried (fork block)' : r.tax_creation === 'bridge-wrapped' ? 'bridge-wrapped' : '' },
+    { v: kids.length > 0 ? fmtInt(kids.length) : '—', k: 'DIRECT CENSUS CHILDREN', sub: kids.length > 0 ? 'factory children onchain' : isMinter ? 'no children ever minted' : 'not a minter parent' },
+    { v: r.liquidity ? fmtNum(r.liquidity.w, 1) : '·', k: 'WPLS LIQUIDITY', sub: r.liquidity ? `${r.liquidity.p_live ?? '—'} live pairs` : r.tax_liquidity },
+    { v: r.tax_admin, k: 'ADMIN SURFACE', sub: r.tax_admin === 'none-factory' || r.tax_admin === 'none' ? 'no privilege keys' : r.tax_admin === 'renounced' ? 'owner == 0x0' : r.tax_admin === 'live-owner-maria2' ? `owner: Maria #2${r.tax_admin_caps && r.tax_admin_caps !== 'unknown' ? ` — key ${r.tax_admin_caps === 'inert' ? 'functionally inert' : 'caps: ' + r.tax_admin_caps}` : ''}` : r.tax_admin === 'live-owner-other' ? `owner: ${r.tax_owner ? r.tax_owner.slice(0, 12) + '…' : 'third party'}${r.tax_admin_caps && r.tax_admin_caps !== 'unknown' ? ' — caps: ' + r.tax_admin_caps : ''}` : '' },
+  ]} />
+
+  <div class="panel">
+    <h2>identity</h2>
+    <dl class="kv">
+      <dt>address</dt><dd class="addr">{r.address} · <a href={`https://ipfs.scan.pulsechain.com/address/${r.address}`}>blockscout</a></dd>
+      <dt>family</dt><dd>{r.tax_class}{isMathFamily && <> — see <a href="/shared-infra">/shared-infra</a> for the family state probe</>}</dd>
+      <dt>creation</dt>
+      <dd>
+        {r.tax_creation}
+        {r.deployer ? <> · deployer {deployerLabel === r.deployer ? <Addr address={r.deployer} /> : <span title={r.deployer}>{deployerLabel}</span>}</> : ' (no deployer — genesis state or bridge)'}
+        {r.block ? <> · block {fmtInt(r.block)}</> : ''}
+        {r.ts ? <> · {fmtDate(r.ts)}</> : ''}
+        {r.create_tx ? <> · tx <a class="addr" href={`https://ipfs.scan.pulsechain.com/tx/${r.create_tx}`}>{r.create_tx}</a></> : ''}
+        {r.note ? <div class="mono xs" style="color:var(--fg-faint)">{r.note}</div> : ''}
+      </dd>
+      <dt>verification</dt>
+      <dd>{r.verified === true ? `blockscout-verified${r.verified_name ? ` as "${r.verified_name}"` : ''}${r.compiler ? ` (${r.compiler})` : ''}` : r.verified === false ? 'unverified on blockscout (source recovered offchain by this project)' : 'not probed'}</dd>
+      {r.w4_categories && <dt>selector surface</dt>}
+      {r.w4_categories && <dd>{r.w4_categories.join(' · ')}</dd>}
+    </dl>
+  </div>
+
+  {r.bytecode && (
+    <div class="panel">
+      <h2>bytecode facts <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(bytecode archaeology)</span></h2>
+      <dl class="kv">
+        <dt>solc</dt><dd>{r.bytecode.solc}</dd>
+        <dt>template ipfs</dt><dd class="mono xs">{r.bytecode.ipfs}</dd>
+        <dt>runtime size</dt><dd>{fmtInt(r.bytecode.runtime_size)} B</dd>
+        <dt>admin selectors</dt><dd>{r.bytecode.admin_hits === 0 ? 'zero anywhere (apparent hits were ipfs-metadata bytes)' : r.bytecode.admin_hits + ' hits'}</dd>
+      </dl>
+    </div>
+  )}
+
+  <div class="panel">
+    <h2>taxonomy</h2>
+    <dl class="kv">
+      <dt>class</dt><dd><span class="tag">{r.tax_class}</span> · <a href="/knowledge/taxonomy/classes/">definitions</a></dd>
+      <dt>creation path</dt><dd>{r.tax_creation}</dd>
+      <dt>pricing</dt><dd>{r.tax_pricing}</dd>
+      <dt>era</dt><dd>{r.tax_era}</dd>
+      <dt>RNG lineage</dt><dd>{r.tax_rng}</dd>
+      <dt>origin</dt><dd>{r.tax_origin}</dd>
+      <dt>liquidity</dt><dd>{r.tax_liquidity}{(r.tax_liq_flags ?? []).length > 0 && <span class="badge">{(r.tax_liq_flags ?? []).join(' · ')}</span>}</dd>
+      <dt>canon alias</dt><dd>{r.tax_alias_tshare_canon ? 'on the dev-published t-share list (alias only)' : '—'}</dd>
+    </dl>
+  </div>
+
+  {kids.length > 0 && (
+    <div class="panel">
+      <h2>children ({kids.length} direct)</h2>
+      <p class="mono xs">
+        {kids.slice(0, 24).map((c: any, i: number) => (
+          <span>{i > 0 && ' · '}<a href={`/tokens/${c.address.toLowerCase()}`}>{c.name_clean || c.name || c.symbol_clean || c.symbol || c.address.slice(0, 8)}</a></span>
+        ))}
+        {kids.length > 24 && ` · …(${kids.length - 24} more — see /tokens explorer)`}
+      </p>
+      {r.address.toLowerCase() !== '0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff' && (
+        <p><a href={`/lineage/${r.address.toLowerCase()}`}>lineage tree</a></p>
+      )}
+    </div>
+  )}
+
+  {(bcArt || srcArt || abiArt || verifArt || decArt) && (
+    <div class="panel">
+      <h2>artifacts <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(downloads)</span></h2>
+      <ul>
+        {bcArt && (
+          <li>
+            <a href={`/artifacts/bytecode/${aLower}.json`} download>bytecode:{aLower}.json</a>
+            &nbsp;— runtime {fmtInt(bcArt.runtime_bytes)} B{bcArt.block ? ` @ block ${fmtInt(bcArt.block)}` : ''}{bcArt.creation_input ? ' · includes creation input' : ' · runtime only'}&nbsp;
+            <span style="color:var(--fg-faint)">[chain] {bcArt.role === 'registry contract (outside the W1 set)' ? 'registry artifact sweep' : 'bytecode archaeology'}</span>          </li>
+        )}
+        {srcArt && (
+          <li>
+            <a href={srcArt} download>{srcArt.replace('/artifacts/src/', 'src:')}</a>
+            &nbsp;— recovered/verified source&nbsp;
+            <span style="color:var(--fg-faint)">[src]</span>
+          </li>
+        )}
+        {verifArt && (
+          <li>
+            <a href={`/artifacts/verified/${aLower}.json`} download>verified:{aLower}.json</a>
+            &nbsp;— blockscout-verified source ({verifArt.files?.length ?? 1} file{(verifArt.files?.length ?? 1) > 1 ? 's' : ''}) + ABI{verifArt.compiler ? ` · ${verifArt.compiler}` : ''}&nbsp;
+            <span style="color:var(--fg-faint)">[ext-api] as published</span>
+          </li>
+        )}
+        {decArt && (
+          <li>
+            <a href={`/artifacts/decompiled/${aLower}.sol`} download>decompiled:{aLower}.sol</a>
+            &nbsp;— heimdall-rs decompilation, <b>non-normative research aid</b> (readings cross-checked onchain before KB use)&nbsp;
+            <span style="color:var(--fg-faint)">[src-decompiled]</span>
+          </li>
+        )}
+        {abiArt && (
+          <li>
+            <a href={`/abi/${aLower}.json`} download>abi:{aLower}.json</a>
+            &nbsp;— interaction ABI (minter head + child template + ERC-20)&nbsp;
+            <span style="color:var(--fg-faint)">[src]</span>
+          </li>
+        )}
+      </ul>
+      <p class="dim" style="font-size:0.85rem">
+        full set on <a href="/export">/export</a> — every bytecode file, source
+        file and ABI this project holds for the corpus.
+      </p>
+    </div>
+  )}
+
+  <ClaimsFooter claimIds={claimIds} />
+
+  {(isMinter || ['0xc4f0ce2b0ffa0063b763e2b6c124a1d80e0641b5', '0x9680d815e3ba4fd78c5c1e6ea229abb03734e141', '0xc9be525a582b6f84d928b7901bd18b4315f8502b'].includes(r.address.toLowerCase())) && (
+    <div class="panel">
+      <h2>interact</h2>
+      <p>
+        <a href={`/mint?minter=${r.address.toLowerCase()}`}>open in the mint tool</a>&nbsp;
+        (pure client-side, injected wallet, factory called directly — no third-party
+        contract in the path) · ABI artifact:&nbsp;
+        <a href={`/abi/${r.address.toLowerCase()}.json`}>/abi/{r.address.toLowerCase()}.json</a>
+      </p>
+    </div>
+  )}
+
+  <p class="provfoot">
+    provenance: registry classification (taxonomy v1, [chain]/[src] inputs) ·
+    deploy facts from the Maria corpus inventories + pinned research blocks ·
+    admin surface from bytecode archaeology + onchain owner probes. See the&nbsp;
+    <a href="/claims">claim registry</a>.
+  </p>
+</Base>

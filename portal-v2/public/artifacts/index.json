@@ -1,0 +1,4338 @@
+{
+ "_meta": {
+  "description": "per-entity downloadable artifacts \u2014 bytecode (W1 set + registry sweep) + recovered/verified sources + blockscout-verified source/ABI files + curated heimdall decompilations",
+  "provenance": "bytecode [chain] W1 archaeology / registry sweep; sources [src] recovered or blockscout-verified; verified/ [ext-api] as published; decompiled/ heimdall-rs, non-normative",
+  "exclusions": "dysnomia/ and wallet/ source trees are out of scope and not shipped",
+  "sources_by_address_note": "hand-mapped address->source correspondence, [src]-anchored"
+ },
+ "bytecode": {
+  "0x012621e595d07fc25748a45235a1931653760eed": {
+   "role": "census V2 sample",
+   "block": 22362995,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x025c89443421ec5c9dc7fd9a00fd0bf1bddddbaf": {
+   "role": "BUREAU #2 root",
+   "block": null,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x02ddab249a56281a62453db2f91676108367b01a": {
+   "role": "census V1 sample",
+   "block": 22314356,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x035041daa20bb205f004c8f5a7fe1ad2bee025d2": {
+   "role": "census V1 sample",
+   "block": 22439061,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x0b141e2e750012d0af4d855db9f18fc86fd4d296": {
+   "role": "census V3 sample",
+   "block": 26478721,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x0b92ad7ed0da6c44bf71b3fcee668d1670000ff5": {
+   "role": "BUREAU #1 root",
+   "block": null,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc": {
+   "role": "minter V3",
+   "block": null,
+   "runtime_bytes": 19238,
+   "creation_input": true
+  },
+  "0x0c86a053798bc0024a993956057557b03f8445dd": {
+   "role": "census BureauMinter#1 sample",
+   "block": 23275976,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x0d964f1f97e72120550c448171e693f1bee3c9d2": {
+   "role": "census V3 sample",
+   "block": 22590539,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x0fc23a1651c5950d85855f70720c0cc67b78ec35": {
+   "role": "census V4 sample",
+   "block": 24233687,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x1260e0a10d04e881d141d2f77ae99d84fa7a09f4": {
+   "role": "census V2 sample",
+   "block": 27041491,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x13cc695d65fb7f3ec992346abe7da590dd594192": {
+   "role": "census BureauMinter#1 sample",
+   "block": 23246184,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x1443157af432279a3d288d844c9da01ff0677b8c": {
+   "role": "census V3 sample",
+   "block": 25670262,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x1456bbecdd2a3191f57c6cfb52915c0e537ef51c": {
+   "role": "census V1 sample",
+   "block": 22362965,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x16951ce6d1d1d67e9239192e3eae4d250576d90c": {
+   "role": "\u321e",
+   "block": null,
+   "runtime_bytes": 5918,
+   "creation_input": false
+  },
+  "0x174e7dddbdec1e91a8c59f55f0525c5a7639328f": {
+   "role": "census V3 sample",
+   "block": 25653596,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x1820e5fd6674a0c0d17761a4b5eb113cfddd6955": {
+   "role": "census V1 sample",
+   "block": 24557597,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x18c81bcbf52b1940283cedbecbd75c2417f2f913": {
+   "role": "census V4 sample",
+   "block": 23563469,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x19048db627152c615b83ccd8effa8901c1315d67": {
+   "role": "census V2 sample",
+   "block": 22483113,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x1aa29a26a50b6866f8db0fa30d233b0e282b2106": {
+   "role": "census V2 sample",
+   "block": 22526602,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff": {
+   "role": "FED (V1-era TT template, verified src)",
+   "block": null,
+   "runtime_bytes": 8409,
+   "creation_input": false
+  },
+  "0x1dfdd5db70368c117d46ad9c4855805aa1133d55": {
+   "role": "census V2 sample",
+   "block": 25926053,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x1e5753f6ff9f2277225c24a3a1e033bc8b0a4339": {
+   "role": "census V1 sample",
+   "block": 22306998,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x1f1469a35c7e04a52d1379ee92e6e20ecc2e9d3e": {
+   "role": "census V4 sample",
+   "block": 22889047,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x1ff00d048d58e701e2550c081bfc556d2806ade5": {
+   "role": "IYC",
+   "block": null,
+   "runtime_bytes": 9602,
+   "creation_input": false
+  },
+  "0x23e2a3c65474f91c910ee85ffcc7b436365dc51a": {
+   "role": "census V2 sample",
+   "block": 27041482,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x24ba357d27359579e0831eebef2363965bff44d9": {
+   "role": "census V3 sample",
+   "block": 22607306,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x272a9103b0ad61be3836032d9952329cd670a7d7": {
+   "role": "census V4 sample",
+   "block": 27218204,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x28e0c4a4628cd2d5092e30bd15e2576686725470": {
+   "role": "census V2 sample",
+   "block": 25926823,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x298cf364c33c311ad0394e7116a9bd32bb352e8e": {
+   "role": "census V3 sample",
+   "block": 26503469,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x2a5861cd6c780cb7c3757327c913c0503e670299": {
+   "role": "census V2 sample",
+   "block": 23436106,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x2a8c125cca39983f6c23b585e713dd3c7e2cba11": {
+   "role": "census V1 sample",
+   "block": 22459331,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x2ca2df7e9b17223ec86a771e023c1a9e3534381f": {
+   "role": "census V2 sample",
+   "block": 27041505,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x2e09b55bb3b89338db23411398a9e9560e808f26": {
+   "role": "census V4 sample",
+   "block": 25402608,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x2e70cf852273165152f538f6fb99cd28ea5bebee": {
+   "role": "census V1 sample",
+   "block": 22339769,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x2f8473b4893b787eb0f3e48fec93b1edbcf7ef60": {
+   "role": "census BureauMinter#1 sample",
+   "block": 22602259,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x2fc3e5715f0a20b27b67325cb885309138cd414a": {
+   "role": "census V4 sample",
+   "block": 23956060,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x312f1dd1467d1ef2265652970e45239f508227d0": {
+   "role": "BUREAU #3 root",
+   "block": null,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x3488f3572cd0aefcee0b9d24908fca1fa20fd75e": {
+   "role": "census V3 sample",
+   "block": 26503525,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x34b21e393f2e018aa5f182aec469c07a70ce88e5": {
+   "role": "census V1 sample",
+   "block": 22331555,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x350c997fe374c25c21a5a8f202581bf70ed44db4": {
+   "role": "census V2 sample",
+   "block": 22362949,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x35c282ad04365e1de2d512ba1ad833a3bf5daaf6": {
+   "role": "census V3 sample",
+   "block": 26653809,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x394c3d5990cefc7be36b82fdb07a7251ace61cc7": {
+   "role": "minter V4",
+   "block": null,
+   "runtime_bytes": 21954,
+   "creation_input": true
+  },
+  "0x3ab9a29302316ae7b6d867fcee9884333098112d": {
+   "role": "census V3 sample",
+   "block": 22906062,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x3bc7ab48ad7b6bfdcac1281c8b49861823452460": {
+   "role": "SKILLS (V4 genesis)",
+   "block": null,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x3c1c1d1e32897d3e8597bb3204f93fb66a0d863f": {
+   "role": "census V4 sample",
+   "block": 24394969,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x3eb3bce16e760ab7e4e2b01babd11be15990edeb": {
+   "role": "census V3 sample",
+   "block": 23369132,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x4061eca7183ed152ab1a874b44854dfe8f8e95c8": {
+   "role": "census V1 sample",
+   "block": 22469587,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x41b068b762464eea506ee752b8fd19cb42ad1647": {
+   "role": "census V1 sample",
+   "block": 27039598,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x4365c3265869994b4ca651423b1a11bc75a5f3f1": {
+   "role": "census V2 sample",
+   "block": 25917938,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x4415ac63c2525ad05b7650427a9a4cd6d6ca007f": {
+   "role": "census V4 sample",
+   "block": 23818140,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x463413c579d29c26d59a65312657dfce30d545a1": {
+   "role": "TBILL (verified src)",
+   "block": null,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0x480b0da32b3a1d2812acd74d8729cd5dbd91c6e3": {
+   "role": "census V4 sample",
+   "block": 23692126,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x4becd9ddd5e65b3c14c709fac4b004ab45d918d4": {
+   "role": "census V3 sample",
+   "block": 23715212,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x4c61fd627b616687facd8ec67b709a610160dcbb": {
+   "role": "census BureauMinter#1 sample",
+   "block": 22602505,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x4d6ae4b2753ea61579f4fac3c48f8bb741476f65": {
+   "role": "census V3 sample",
+   "block": 26656456,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x4f8e3446d4a214cd53002ae51d5a768862a719c5": {
+   "role": "census V2 sample",
+   "block": 22363127,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x51160f352ed148c89d48dfe6384edd07afa24e0e": {
+   "role": "DFM (V2)",
+   "block": null,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x54299aa85c2e92faf47263f90d27dcdb96613074": {
+   "role": "census V3 sample",
+   "block": 22647726,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x54e46b91d79280841a2a4fdfa63634dc6aa5cf82": {
+   "role": "census V3 sample",
+   "block": 22591079,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x58b4040de897eeb3a578b48b7dd83c263299f1b5": {
+   "role": "census V2 sample",
+   "block": 27041492,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x58e1990c02313f12956fd7d7ca60538337a8239f": {
+   "role": "census V1 sample",
+   "block": 24083693,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x59e4f79deff147f5e113cdc1bd74537e147352d9": {
+   "role": "census V1 sample",
+   "block": 22939450,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x5a14740cefc8e21adb75ad0025b79fdcd1bc29f9": {
+   "role": "census V1 sample",
+   "block": 22346672,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x5b172b63a3c63414d11b9afefb2596d763d7084a": {
+   "role": "census V3 sample",
+   "block": 26998099,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x5bed4cae209859df9d1e23d303a92b90a49685e5": {
+   "role": "census V4 sample",
+   "block": 24439897,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x5de29c8eac1482221de1945a566b6c65f54a3c3e": {
+   "role": "minter Bureau4",
+   "block": null,
+   "runtime_bytes": 18511,
+   "creation_input": true
+  },
+  "0x5e27247fcc38100fd5c6d59d0ab433924f023153": {
+   "role": "census V3 sample",
+   "block": 24510323,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x601f6d55a663249f0c679aea5b960f29cde691d8": {
+   "role": "census V3 sample",
+   "block": 23922041,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x62803a41f065a84004ad46a1f804c4ed1eafbc60": {
+   "role": "census V4 sample",
+   "block": 23867664,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x628f327a4645145a0d27e155f5ffd5fd9e30aff5": {
+   "role": "census V4 sample",
+   "block": 22755643,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x62b9918b4f3b2f6d024cf3eab8dc2a1e6dc02379": {
+   "role": "census V4 sample",
+   "block": 27212590,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x62bb4ae584513762a5021f8524aacd485b47e5b4": {
+   "role": "census V2 sample",
+   "block": 22448652,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x634543cf750c1db70395185517622549795e1603": {
+   "role": "census V1 sample",
+   "block": 22592210,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x6600ab8c643c31778cad0155818b48f03ddbd1e8": {
+   "role": "census V4 sample",
+   "block": 24652792,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x66d8c180072a34438bb68e27160e4d455dbf5e6f": {
+   "role": "census V4 sample",
+   "block": 27388301,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x680a56c828cceb04da4c7486d814bf3573c4cc98": {
+   "role": "census V4 sample",
+   "block": 24138939,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x698e07465f05a6d2779e8f10f09e3add78049cf7": {
+   "role": "census V4 sample",
+   "block": 25611477,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x6a964a6cf48e6c850c4ad8b8ab2d5a384e287be5": {
+   "role": "census V3 sample",
+   "block": 22590450,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x6b19cd51956e82eac572de4a979c4c9d60b43e79": {
+   "role": "census V1 sample",
+   "block": 22519686,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x700a8962f4cfdb9edee0b140495b18f7d83f3fc6": {
+   "role": "census V1 sample",
+   "block": 22304435,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x713d73f178d74f326325db870646a0ae249ac4f5": {
+   "role": "census V3 sample",
+   "block": 23940636,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x71d35e140e7add4d318fb0ccb69deb3c78c115a8": {
+   "role": "census V2 sample",
+   "block": 23668962,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x73c0cb0b98db715fb8f1bbfcea82db719fbbed0c": {
+   "role": "census V2 sample",
+   "block": 22461228,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x742142de985f584ea825b6492793c8077fb84320": {
+   "role": "census V1 sample",
+   "block": 22303912,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x74dec0571dee0bf249e4f1e1c4771a1b68e53cc3": {
+   "role": "census V4 sample",
+   "block": 25010675,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x75fbf856c7d103faf102d0324d067fd05f674635": {
+   "role": "census V2 sample",
+   "block": 22362962,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x783d1aedc8c133dbdf11e9952d24a4b5e78f7206": {
+   "role": "census V3 sample",
+   "block": 27145337,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x7a14c8e2dfd8d1cb74d7b53cb3d011e02428e683": {
+   "role": "census V4 sample",
+   "block": 22874116,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x7d2520c0eff78c54948600ec6c68acc7a2e4d1cf": {
+   "role": "SEMIOTIC (V4 genesis, unregistered)",
+   "block": null,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x7dff6903778d2f2ebc45e7419b2f0e21350cf4c7": {
+   "role": "census V3 sample",
+   "block": 22591151,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x7e926e51747b97177a27313720bd83bbd611b6f6": {
+   "role": "census V2 sample",
+   "block": 22363032,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x7fc0a16b6b826bcb2d64634589695f8d6d7f0b53": {
+   "role": "census V4 sample",
+   "block": 22755821,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x812571a12330a74e2a3c1ff8953f6f3aac7a83e9": {
+   "role": "FDIC (V2 genesis)",
+   "block": null,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x85290b70e7c8b48e1c9aafa25efe7dc8585f1179": {
+   "role": "census V3 sample",
+   "block": 23594280,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x85717ce5e5479fcac0c33b453a1a4f9c25669a7a": {
+   "role": "census V1 sample",
+   "block": 22474275,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x89c66870db99bc40b58b184c00e0c592e1af4451": {
+   "role": "census V1 sample",
+   "block": 22448599,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x8bca581d9415870fb4a23314cf2202cdd6ced628": {
+   "role": "census V3 sample",
+   "block": 26536462,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x91e1338cf29c34ab686dc19c42071f0e47cc7d1f": {
+   "role": "census V2 sample",
+   "block": 27041504,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x93f492c87973546317d356637d2b0794073c6f7f": {
+   "role": "census V1 sample",
+   "block": 22305201,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x95a089e17311a4fcdd63c75b4e9bf55d969f62a5": {
+   "role": "census V1 sample",
+   "block": 24362043,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x95e09ec255e1c378176eb3b5afded834d37e159c": {
+   "role": "census V4 sample",
+   "block": 22755821,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x9680d815e3ba4fd78c5c1e6ea229abb03734e141": {
+   "role": "minter Bureau2",
+   "block": null,
+   "runtime_bytes": 4003,
+   "creation_input": true
+  },
+  "0x9740863aa2b5fe354d9dd0313c23d86dc1eab75d": {
+   "role": "census V4 sample",
+   "block": 23940971,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0x983a249a3c88f8c3fa22681d83c45400c8b1c996": {
+   "role": "census V2 sample",
+   "block": 25900367,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x99adb301828be038d4845fe8195cfff20ae5cf62": {
+   "role": "census V3 sample",
+   "block": 26072881,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x9bd75428ae8e7d3fa4eebadb4ccd182fa4eb5e7f": {
+   "role": "census V3 sample",
+   "block": 22897809,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0x9ccc2de565da893ab1300674f174545a3e568f93": {
+   "role": "Keys Of Ong",
+   "block": null,
+   "runtime_bytes": 6156,
+   "creation_input": false
+  },
+  "0x9d184edd853fc050def638cbb4b95ddf0d0a7473": {
+   "role": "census V1 sample",
+   "block": 23468684,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0x9dbc2db8285d6006728b05d448793fafba9e1b79": {
+   "role": "census V3 sample",
+   "block": 22593250,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xa0aa017aa9b4eea39e66d88561daa7c9f025eae9": {
+   "role": "census V1 sample",
+   "block": 22312667,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xa1bee1dae9af77dac73aa0459ed63b4d93fc6d29": {
+   "role": "MV (verified src)",
+   "block": null,
+   "runtime_bytes": 8021,
+   "creation_input": false
+  },
+  "0xa2f9a0d1a3ee40eb318480e5632a7fda862ce9a5": {
+   "role": "census V3 sample",
+   "block": 22618993,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xa4cc6424db9f50a74812d1cca165baf297fd2794": {
+   "role": "census V1 sample",
+   "block": 22313243,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xa884d3c479e6e7a50c3e27187bc1c0676edf6771": {
+   "role": "census V2 sample",
+   "block": 22363266,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xaa1505c928fd85e10a550cfde9e8f464c3574d8a": {
+   "role": "POOR (V3 genesis)",
+   "block": null,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xaaf6dce3184314ef26957f33ce23005beaeb0970": {
+   "role": "census V2 sample",
+   "block": 25915057,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xab31a04224ed0fbd3e22836b2269d91fa269285c": {
+   "role": "census V4 sample",
+   "block": 27411658,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xac57300da6e17e9e83e71b9f6f75d08dc3836532": {
+   "role": "NOTS (V4 genesis)",
+   "block": null,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xac93e663120e32df2b63f58631b9785a441ca1cb": {
+   "role": "census V2 sample",
+   "block": 22382477,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xacb2535d5b684907296d70eb81b08d4e3dfe542f": {
+   "role": "census V2 sample",
+   "block": 22469725,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xade6c7004d8d4df93f459c3a181c8a026a21a1cf": {
+   "role": "census V4 sample",
+   "block": 24062738,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xae488a2b6fe8fe922019c1442c60f9dec0282894": {
+   "role": "Basilica",
+   "block": null,
+   "runtime_bytes": 8854,
+   "creation_input": false
+  },
+  "0xb091685796cb09a55389af9f51d3e23ce9d21700": {
+   "role": "census V2 sample",
+   "block": 23505032,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xb2eab19ebeb56423f3fad079b46587b2d0ffffcd": {
+   "role": "census V2 sample",
+   "block": 25911300,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xb3d450f56fba2d21728e33a3c3e52815e43dabbf": {
+   "role": "census V1 sample",
+   "block": 22462200,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xb40db6669223e89df5af9fe25c4a87080b9846b9": {
+   "role": "census V2 sample",
+   "block": 23344486,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xb5b302a259b66a0e788a5bffbe7be303c465c646": {
+   "role": "census V1 sample",
+   "block": 22312836,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xb607aaa1c8e9477408b637119568da6c51f8df44": {
+   "role": "census V2 sample",
+   "block": 22500585,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xb680f0cc810317933f234f67eb6a9e923407f05d": {
+   "role": "MATH libAtropaMath",
+   "block": null,
+   "runtime_bytes": 10162,
+   "creation_input": false
+  },
+  "0xb85b0807c69e7d44fc5d3f953eb38d1e1406cd05": {
+   "role": "census V1 sample",
+   "block": 24706185,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xb94918a47bf39b5bb6ced782010125869f9504e1": {
+   "role": "census V2 sample",
+   "block": 22363120,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xb9fffc1dcb7ac3c4083a2ac8a9585d2735c938e4": {
+   "role": "census BureauMinter#1 sample",
+   "block": 27361046,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xbd3a054ea3b7f4905c2e6efdcecfeac096f420ec": {
+   "role": "census V3 sample",
+   "block": 23799449,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xbdeb7d929bd372790111cee83963b8388458e194": {
+   "role": "census V1 sample",
+   "block": 22387653,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xbee059e75e7eb33cb8d88c30c7139434808f53e9": {
+   "role": "census V4 sample",
+   "block": 22755821,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xbf59919781941e91895c464c7d7c7fbce8c80f0f": {
+   "role": "census V3 sample",
+   "block": 22591095,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xc0389054dbc522f54625ae3c22a08d11128fd2d0": {
+   "role": "census V3 sample",
+   "block": 25317861,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xc0a185373f52be6ac459c9081c901cc535ee1c4a": {
+   "role": "census V3 sample",
+   "block": 25393538,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xc15c5f699daf5e1135732139f05d2c05b3ef4354": {
+   "role": "minter V2",
+   "block": null,
+   "runtime_bytes": 18569,
+   "creation_input": true
+  },
+  "0xc21d8f5f039b9cc4bc7cb4d18673f91bbd451fcf": {
+   "role": "census V4 sample",
+   "block": 22967897,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xc4670be46357504413af4a040a84408a506c248f": {
+   "role": "census V2 sample",
+   "block": 25943427,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xc4f0ce2b0ffa0063b763e2b6c124a1d80e0641b5": {
+   "role": "minter Bureau1",
+   "block": null,
+   "runtime_bytes": 18953,
+   "creation_input": true
+  },
+  "0xc4f24bb1bcd0582862f2f11de7a3af0facf0a817": {
+   "role": "NINE (V4 genesis)",
+   "block": null,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xc6b46f110b9cbfd639525987fe7886e2395ba0a3": {
+   "role": "census V4 sample",
+   "block": 22755821,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xc7145e1290b1d1221aba5ae48d4ace17c6be088f": {
+   "role": "Tellerz (V2, BUREAU parent)",
+   "block": null,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xc7bdac3e6bb5ec37041a11328723e9927ccf430b": {
+   "role": "minter V1",
+   "block": null,
+   "runtime_bytes": 13147,
+   "creation_input": true
+  },
+  "0xc813a32cb49a71d1b31bd05f67ed9ce8f33be6f1": {
+   "role": "census V1 sample",
+   "block": 22306661,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xc92a2a21cdde718b75fca9a6c4c8421111462dda": {
+   "role": "census V1 sample",
+   "block": 23708041,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xc9be525a582b6f84d928b7901bd18b4315f8502b": {
+   "role": "minter Bureau3",
+   "block": null,
+   "runtime_bytes": 4375,
+   "creation_input": true
+  },
+  "0xca0b3c0cd8f4ddd42058106e8867606749d379ab": {
+   "role": "census V1 sample",
+   "block": 22306938,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xcac05e060383f4efffbffe8b09982b6cb946590b": {
+   "role": "census V1 sample",
+   "block": 23343401,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xccdef431f54cf9a8bde69b79a751356f66fb713a": {
+   "role": "census V2 sample",
+   "block": 23596151,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xcf43a8b0690747bb5b40dc01803a76cefd7cd81d": {
+   "role": "BUREAU #4 root",
+   "block": null,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xd09216db67077d8659e68ddb88eb9c3b329fe7a7": {
+   "role": "census V1 sample",
+   "block": 24526669,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xd47da491e252cfb1e0dc949daa7de488c28c1d68": {
+   "role": "census V4 sample",
+   "block": 26152590,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xd4e0847d1eb564a4c0a93d12147211a1d121ec5c": {
+   "role": "census V1 sample",
+   "block": 24425393,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xd5505016abdf0bde251a79f4fbbab424742a328b": {
+   "role": "census V3 sample",
+   "block": 23950719,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xd62bc95dacfcda21f7b7269c0056e893228fb547": {
+   "role": "census V4 sample",
+   "block": 23314595,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xd6b2033baf803319bc4d7b460244971bc30b2c90": {
+   "role": "census V1 sample",
+   "block": 22309039,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xd8d4e2f77d9dde3add9069c482b04abd4d01fd87": {
+   "role": "census V4 sample",
+   "block": 22838594,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xd9eca31f5f19a1c5ed551d5f923e758a76b616bc": {
+   "role": "census V1 sample",
+   "block": 22306973,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xd9ffb30f7e51d45cc4564be342642fda2655ed7d": {
+   "role": "census V4 sample",
+   "block": 27218204,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xdac30cc96a572e6034fc7bbcb04c70ea4c86b575": {
+   "role": "census V4 sample",
+   "block": 27218204,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xdc0223b4a80d2ab2518a03aa407ad160361065d1": {
+   "role": "census V2 sample",
+   "block": 22601080,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xdc33643d3aee1d42357abc16463e9fb349578240": {
+   "role": "census V2 sample",
+   "block": 22433913,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xdd3da5f8c93db180e34fc33d2630a732a7f9db5c": {
+   "role": "census V3 sample",
+   "block": 22590504,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xde738508502511ebf3d538e60e3a6f0859b9ef9c": {
+   "role": "census V3 sample",
+   "block": 22590855,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xe0916403de9f54d14af6ec8ba4c7ac12d5517402": {
+   "role": "census V2 sample",
+   "block": 27041530,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xe1030d35b912dd2a209998788dbcd564869a522c": {
+   "role": "census V1 sample",
+   "block": 22321015,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xe19122dddedad61b4994677dcfbfa8a6125ac349": {
+   "role": "census V3 sample",
+   "block": 24014555,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xe37acc54711562510fafc45d8199ee329ebbcedd": {
+   "role": "PARADE (V2)",
+   "block": null,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xe5ca7ab6980b3039e50ae4fb17dc6b968cbb1c52": {
+   "role": "census V4 sample",
+   "block": 23906031,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xebec632e71957306c5d32f7f5de76d043f84dda1": {
+   "role": "census V4 sample",
+   "block": 24002221,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xecf82317056c9270cdec724474acde68885bf8d6": {
+   "role": "census V2 sample",
+   "block": 22363066,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xed12a3535490bd386e78fe690f3181c99c5bab50": {
+   "role": "census V2 sample",
+   "block": 23613336,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xee90fef542b39cd88714fac7169587108213bee9": {
+   "role": "census V3 sample",
+   "block": 24832286,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xee998060234e14be6164d64070c0f79a0abd7365": {
+   "role": "census V3 sample",
+   "block": 22590524,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xf040ea03edb11f44412e0dadbd0f2d3babed1207": {
+   "role": "census V2 sample",
+   "block": 27041481,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xf04c87a4c18e3beeefb293ea0e478532774e9827": {
+   "role": "census V4 sample",
+   "block": 27218204,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xf3480fe715196e01593129c7bf4eba6569601529": {
+   "role": "census V3 sample",
+   "block": 25322445,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xf3e25435160597bba9f66304d4fa2b6807a1fe8b": {
+   "role": "census V1 sample",
+   "block": 22306977,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xf5db670171611f6fb45424e2a077b90a7f5f698f": {
+   "role": "census V3 sample",
+   "block": 23961328,
+   "runtime_bytes": 11540,
+   "creation_input": false
+  },
+  "0xfa1ae7a0d8d2d10cbda3ffccc019d44b7d7be9db": {
+   "role": "census V1 sample",
+   "block": 22472589,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xfaaa2fdac5aaf5ef10917ba417a26cb363a01548": {
+   "role": "census V2 sample",
+   "block": 27041472,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0xfaf02ef158637a518790fc54fcbb57199fcd9e81": {
+   "role": "census V4 sample",
+   "block": 27218204,
+   "runtime_bytes": 10300,
+   "creation_input": false
+  },
+  "0xfba8aa83aaf92ea5e2ae2315dc659f4976ff6c6a": {
+   "role": "census V1 sample",
+   "block": 22306533,
+   "runtime_bytes": 7749,
+   "creation_input": false
+  },
+  "0xfcb446f7c2db1c7171c470cbf74216e5a2d35ff2": {
+   "role": "census V2 sample",
+   "block": 23306199,
+   "runtime_bytes": 11269,
+   "creation_input": false
+  },
+  "0x008fb244289a3fdb9700cc2208848df0b89f40aa": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1324,
+   "creation_input": false
+  },
+  "0x02dcdd04e3f455d838cd1249292c58f3b79e3c3c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 328,
+   "creation_input": false
+  },
+  "0x054d43ef7c9ccf5b8ebf5e7120b32ff6b429cc05": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9180,
+   "creation_input": false
+  },
+  "0x06c27c650b09f36dee21a242a5600ad3ddfaa2f1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4533,
+   "creation_input": false
+  },
+  "0x0767ed257beee2f4659e31ab80aee3fd2d5cd81b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4533,
+   "creation_input": false
+  },
+  "0x07f7ddc83678ecb76c9c4df1a80ebd2fc39bb654": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9065,
+   "creation_input": false
+  },
+  "0x084b547a779f4ebc10aa3960459ff8c43c372255": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8308,
+   "creation_input": false
+  },
+  "0x088a0d204d02abe2f8226122ca2c54a01ce90704": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 13628,
+   "creation_input": false
+  },
+  "0x08eca0d14c08268305558692c8b64d4a0ad257b4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4507,
+   "creation_input": false
+  },
+  "0x08fe5c72173044314a74705089d014a4416ed71d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x09e05ff6142f2f9de8b6b65855a1d56b6cfe4c58": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6004,
+   "creation_input": false
+  },
+  "0x0a2063209b0e45087327194bd76cdf768c65ff2b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1324,
+   "creation_input": false
+  },
+  "0x0b04a3af4c4d562694707fb93b7bca28c057dcb3": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x0b1307dc5d90a0b60be18d2634843343ebc098af": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0x0bf1b7a5a3a4ad951e995651effcf82d4662fe95": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9062,
+   "creation_input": false
+  },
+  "0x0c662a3df5d6fbf1902ab5fa2fe40a0ce377620f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x0c7ee86eb6b7bacbe6020957f5db8ba91b0d53cf": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 5332,
+   "creation_input": false
+  },
+  "0x0cb6f5a34ad42ec934882a05265a7d5f59b51a2f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 328,
+   "creation_input": false
+  },
+  "0x0d4b0c8c4c32def9c742014ff17bb21b30b3a762": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x0d4df81c334153d54a678ad0d25c617b69414e19": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x0eb4ee7d5ff28cbf68565a174f7e5e186c36b4b3": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x0ecc1089cd0635de892d2937c5dae3d437af6b0c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8409,
+   "creation_input": false
+  },
+  "0x1162104a7b8766784153dd2d6ac0eceaecd28117": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x1235fc9d69a215b898a38cdd0129eec13657b31f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x13e4b2649a63901067840da4fc5d589e957d4e0a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 5963,
+   "creation_input": false
+  },
+  "0x15975f7bbd7a3a6355c6c5adbef9a8d37c104606": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7935,
+   "creation_input": false
+  },
+  "0x15d2840fe575873a3a1789fe8db9124ddb9fca76": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9925,
+   "creation_input": false
+  },
+  "0x15d38573d2feeb82e7ad5187ab8c1d52810b1f07": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 328,
+   "creation_input": false
+  },
+  "0x173216ed67ebf3e6767d86e8b3ff32e0d64437bf": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2029,
+   "creation_input": false
+  },
+  "0x174a0ad99c60c20d9b3d94c3095bc1fb9ddefd62": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7754,
+   "creation_input": false
+  },
+  "0x17e136fd4c821ae25a611faf187753b6e84736a4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 13252,
+   "creation_input": false
+  },
+  "0x185d2f123d04f1a243bfbfd5b15f11fb4f314b23": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 3637,
+   "creation_input": false
+  },
+  "0x1942ba1ea7c21a070d70c4efe64b21694283f23e": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x1a4e22af07f52a1e68c908ff077fef183a50ebe3": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8409,
+   "creation_input": false
+  },
+  "0x1b8f9e19360d1dc94295d984b7ca7ea9b810d9ee": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6935,
+   "creation_input": false
+  },
+  "0x1b98fcc59ef301f22f6af49f3aab9794f9d0ee74": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x1c86019cc2c591e7539b26d04351f4a97a7759f9": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6512,
+   "creation_input": false
+  },
+  "0x1efd3d64f98b212b24c95f8dccc44c3a4fd52ae7": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 5936,
+   "creation_input": false
+  },
+  "0x1f1f195b34e64ab2369d1c61cc4b50689262df42": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6072,
+   "creation_input": false
+  },
+  "0x1f40738cc8fedd5418902f235ef2a4d5886a78f1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2293,
+   "creation_input": false
+  },
+  "0x1f6972a02b947f959466fb16ea822f969800d144": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x1f737f7994811fe994fe72957c374e5cd5d5418a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9669,
+   "creation_input": false
+  },
+  "0x1ff493d1eca7041099f2cca0adcad5902e506162": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8409,
+   "creation_input": false
+  },
+  "0x203e366a1821570b2f84ff5ae8b3bdeb48dc4fa1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x20bf7bcc498b2f0f0a1e94ffec9dd00ceb59f875": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4533,
+   "creation_input": false
+  },
+  "0x20fb1f0f0e11d96278bb9832cdb561eb08c26d25": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6755,
+   "creation_input": false
+  },
+  "0x210febcfd632ce314a72c4a83f416ccfa3bf847b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x2234da59c2d5edb197594c95dbba7a99bcd91230": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4582,
+   "creation_input": false
+  },
+  "0x22610d6ba8c4b12793f2bb42533bcfd7ae6a902f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6072,
+   "creation_input": false
+  },
+  "0x22811d185d2996841e79f2668af87e574890aef8": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x22b31c5e8d65cc7e9410bbd0769408b53b3dbe12": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9938,
+   "creation_input": false
+  },
+  "0x22fe84a0e095893d9ff13247074de5643a81bd19": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 17421,
+   "creation_input": false
+  },
+  "0x232a27ab6941281b3f474fe5ff7cc89816fb675a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 16309,
+   "creation_input": false
+  },
+  "0x23e00766bba54982c562582ea89c2381e20b5fc6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 343,
+   "creation_input": false
+  },
+  "0x241da2613b0a01c2f60acb636b21a8e082e2f2f0": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x242e264680054232661af225467ec286e3f95652": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7816,
+   "creation_input": false
+  },
+  "0x24f0154c1dce548adf15da2098fdd8b8a3b8151d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 16523,
+   "creation_input": false
+  },
+  "0x2556f7f8d82ebcdd7b821b0981c38d9da9439cdd": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0x25d53961a27791b9d8b2d74fb3e937c8eaeadc38": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 10432,
+   "creation_input": false
+  },
+  "0x261babfcb9fc4f37ef331b81e7930704955c5e11": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1959,
+   "creation_input": false
+  },
+  "0x26d5906c4cdf8c9f09cbd94049f99deaa874fb0b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 12322,
+   "creation_input": false
+  },
+  "0x271197efe41073681577cdbbfd6ee1da259baa3c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6935,
+   "creation_input": false
+  },
+  "0x27a4f4db98798098748712f2317774f98cec7ed5": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x283a7e68dbb4d26cb3878ca9084ed3d0e45cf5c5": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x2959221675bdf0e59d0cc3de834a998fa5ffb9f4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7828,
+   "creation_input": false
+  },
+  "0x296e797f481c15d6fe138cea09bda3a1c2869216": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x2b943bf3cfc3b7a42dc7d13898171802bcd3aea9": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 13944,
+   "creation_input": false
+  },
+  "0x2c1fb497cd0858cf68c96af6e2a801d121d97e27": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 15425,
+   "creation_input": false
+  },
+  "0x2db160ceea0f1b4ca0159fcf67fccf8e549191ff": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7434,
+   "creation_input": false
+  },
+  "0x2e5898b2e107a3caf4f0597acfe5d2e6d73f2196": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7816,
+   "creation_input": false
+  },
+  "0x2eac5ff91b1432827701e52cbbdad63fa0c32d0d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x2ef8f161719f99062780f54733efb4ff1516f277": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9324,
+   "creation_input": false
+  },
+  "0x2fa079d2daa29ec8925484f9e9021e9191fe4ae4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0x2fc636e7fdf9f3e8d61033103052079781a6e7d2": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9083,
+   "creation_input": false
+  },
+  "0x307a3694dfc453c6692db3e9f3f07ff328167dce": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 18877,
+   "creation_input": false
+  },
+  "0x30c4e7a7b6a19c704742d55b546872c7f01615d7": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8676,
+   "creation_input": false
+  },
+  "0x320252f4218271184967e090ad000dc4b50e51b6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x325950f00cbebdff0ec6637bad2d386e0c629841": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9020,
+   "creation_input": false
+  },
+  "0x32fe87852390332daf169537f364f5642516daad": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x33f3355727e4f00d6422bf0a7bde6036fdf48bb5": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x345e15235a5a3d6f1a4a88234a7e611f14745475": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x347bc40503e0ce23fe0f5587f232cd2d07d4eb89": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 13493,
+   "creation_input": false
+  },
+  "0x363dccbcabf8e602ba237399da4845cc45d0d68b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x367382032bf3e1e8fbe0afe149a86b8349b2c292": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2406,
+   "creation_input": false
+  },
+  "0x36824a24780ccf79e973d355cd16a12279cf8700": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x36946e462e80f85fc573129d9485d0b01e1f5af4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 15727,
+   "creation_input": false
+  },
+  "0x36d4ac3df7bf8aa3843ad40c8b3eb67e3d18b4e1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0x379877af60547140cad225457ca226c8a3cc8c67": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x37bc2807dd055c4bc85dd954a2ffa72e6857a110": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x380c3a6e2fd91cffb5a88bdef9da85654a94f93d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4937,
+   "creation_input": false
+  },
+  "0x3815d67214216ec3683652c6f1da4fd99f677d0b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8290,
+   "creation_input": false
+  },
+  "0x38d739b86233f7bc9cf82b231aec4ffa749c2efb": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x3c5b8de790304069b44354a4446a4c37682f542b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x3cca11b99e3338f57b0fcb0d203d747aeae01ce5": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7757,
+   "creation_input": false
+  },
+  "0x3d67511733d976800467119264c3d4cd9fa23041": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x3dbac51cca2bdff70790cbb6acf0a9a844369081": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2293,
+   "creation_input": false
+  },
+  "0x3e8a9d55db391751a381d0c3822f727ea81dbdda": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8409,
+   "creation_input": false
+  },
+  "0x3f92d9ee64a3e1405302e68ee0fde9e085f8ce4b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x40e6d331e168815ff1a546a3b0cce71272e9f4cd": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6812,
+   "creation_input": false
+  },
+  "0x4144f4bfb114e257333eff57271e8f1106631ff4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7983,
+   "creation_input": false
+  },
+  "0x4243568fa2bbad327ee36e06c16824cad8b37819": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0x42f46d922f04d3290a80161ead3ddeffe7d0b402": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4507,
+   "creation_input": false
+  },
+  "0x4443123a54a05baf16089a3c922d0b9cf5901032": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8607,
+   "creation_input": false
+  },
+  "0x44ffc153a77ecc6cec5c4277d938714aecec440c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1324,
+   "creation_input": false
+  },
+  "0x45101a71de96219a70671b0d6975f92e99eff8a9": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x4546993bf7870aba48e0cde1168edbe6473a320f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6755,
+   "creation_input": false
+  },
+  "0x47171ebe6dead933d09498bb92230851bda53713": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8475,
+   "creation_input": false
+  },
+  "0x47d8a312e58798a2fec37cd0895aeda42e0155b0": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8442,
+   "creation_input": false
+  },
+  "0x48f628c079353ecc4db75f0d05de9299e083f3c2": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7734,
+   "creation_input": false
+  },
+  "0x4a458d04909a42f79d31805762b2abc38ab9407d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x4a668d5c9d76850ffa4d5948fa6724c158aba092": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6755,
+   "creation_input": false
+  },
+  "0x4c1518286e1b8d5669fe965ef174b8b4ae2f017b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8204,
+   "creation_input": false
+  },
+  "0x4cf830c0714f01cf506ec3fbbae7874b18a29691": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8626,
+   "creation_input": false
+  },
+  "0x4d4f041e967cc5c0af132a179d20f46d49062fbe": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8887,
+   "creation_input": false
+  },
+  "0x4e5dc8ddee98471db9e32f4320bdc4e77c184e44": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8776,
+   "creation_input": false
+  },
+  "0x4ec5f865f6996ac424a1740ef97b8d1c862e0988": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 5109,
+   "creation_input": false
+  },
+  "0x4ed2ad8a609ff412fe88113b998d6eb28a4d4542": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7339,
+   "creation_input": false
+  },
+  "0x50211aa4d3d4880b5b80f683e27dd185e11c306c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8492,
+   "creation_input": false
+  },
+  "0x502b41adabff7a93c8d742eb2576d2871bdb2ba1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x50e40e8555aab6b9c6cff691e14070b6f38142cb": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0x50e72874dcd7c198d370ac27c7b3cce9f9a0defd": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x51a7aabcca69b3c0f82b3b9ce5104fde3efaece6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7998,
+   "creation_input": false
+  },
+  "0x51c36aa04ffc2139f6d34436d0edc7f5ffc6d6fb": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x52a4682880e990ebed5309764c7bd29c4ae22deb": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6935,
+   "creation_input": false
+  },
+  "0x52c32a667669a59f051ed174aaa9560f52d916e9": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x53ccc8d706b1d2add9058bc12ff0875f378ee099": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x54d88f0c4a738247dadf160923e1b1c5dc4f510f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x557f7e30aa6d909cfe8a229a4cb178ab186ec622": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0x580192164ceb11721abd1b5116be328529653e22": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 17386,
+   "creation_input": false
+  },
+  "0x583d1c1427308f7f96bfd3e0d7a3f9674d8bf8ec": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x5a49433d997de8af3e83d8c59d0a196680174d98": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1959,
+   "creation_input": false
+  },
+  "0x5d4cb28ea61125a1fd3c927162c6f1969dd26788": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0x5ed157c157a430a5bc4f0f1b0bd78ebee6533479": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8676,
+   "creation_input": false
+  },
+  "0x5ef3011243b03f817223a19f277638397048a0dc": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9614,
+   "creation_input": false
+  },
+  "0x5f16f6c242e038437a7ba3c903dfedb747db4a5c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 3332,
+   "creation_input": false
+  },
+  "0x603c6a0d4a565941658dc85cfb45da908b838c2c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9057,
+   "creation_input": false
+  },
+  "0x60df6bb066a0c643789559a7de0f8997fab89f33": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x61dcf6a5df780a1e552f0f80afad23a9ae16755f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 3255,
+   "creation_input": false
+  },
+  "0x6236073377ac7e0ab694957da5d7d4241e72ebc6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x6293373bf0dae2050641973d49b7b2f71adc91a1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x63a7ba5532a16fdcd5fd5f5f4c25dab610602673": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6072,
+   "creation_input": false
+  },
+  "0x67c13559f2eb56d8f8c088c4303d0c46583b4237": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6759,
+   "creation_input": false
+  },
+  "0x68e87fa19984f45c68945bbd4c81bf3481750429": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7997,
+   "creation_input": false
+  },
+  "0x69d4d6842d47838da249fb6fd685757e18908545": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7434,
+   "creation_input": false
+  },
+  "0x6a3a99f6db83c8397b57033734fc29f3f5b58f46": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 16309,
+   "creation_input": false
+  },
+  "0x6b175474e89094c44da98b954eedeac495271d0f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7904,
+   "creation_input": false
+  },
+  "0x6cb1a1eebf2e399858cd78e54afd9f357fca1fcb": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8647,
+   "creation_input": false
+  },
+  "0x6f6909ba6d083b3e76c15258c1fc17f73bcdd7bb": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 10012,
+   "creation_input": false
+  },
+  "0x6ff9b356093799be6435e16002e282e42c805d6a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x70af3be6a8d9d7ed82adfda866585a00b496c9de": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6072,
+   "creation_input": false
+  },
+  "0x71448a8888e5272c9b5b9a72a336eadf68b30fc2": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x7181d563d8f06613b645eba433751bf791a288e4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9180,
+   "creation_input": false
+  },
+  "0x71d8cb4828f129929d82a35686f2ac73f3901ec9": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8776,
+   "creation_input": false
+  },
+  "0x72ae7a4dcbef4bfde425c9a1811446ffcc29166e": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x72f96a39ac9408b5458e5597bbc22060552dedf4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x731d8bbb9468c945be208b1d689a1aeff0df4435": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6682,
+   "creation_input": false
+  },
+  "0x7325bb0568725fd4b53ab75ce021ad8ff764490d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x73a19fafb359faf519c9707b781dfdb88407d10d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 17422,
+   "creation_input": false
+  },
+  "0x744f1a65491cfd4a50b95c0d3cff8095c4448848": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 13261,
+   "creation_input": false
+  },
+  "0x748f3dedf7a31ded9cf6421f44f967e3ed85e83a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x752c3d7dfc54417eab7be7404beef8d8e087efa4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1324,
+   "creation_input": false
+  },
+  "0x7614fabf7e0b0dfcc0e02a14e720677148c5141d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x7674516ad438dd67a057fbc1119168d9a7d2a9b1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4533,
+   "creation_input": false
+  },
+  "0x7759a6d283192ef2ba082923d28bec6ebfaf9d68": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x77bed67181cef592472bcb7f97736c560340e006": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6935,
+   "creation_input": false
+  },
+  "0x79f8ab95bfe3c832aceb804d2ca20c85e2c48287": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2406,
+   "creation_input": false
+  },
+  "0x7a3e33ce772ef28438bcb4f564dc300289cc63f4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1959,
+   "creation_input": false
+  },
+  "0x7abac9ebedaa90976ad112f1e57dda2e73b80b8a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 3767,
+   "creation_input": false
+  },
+  "0x7b75385a86e00c17ee4fc0ddf85e26711984f058": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6755,
+   "creation_input": false
+  },
+  "0x7c4a08584ca8d889e87fc93331224bcb7947fe0c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x7e80579ef57a2b80e1e7bc181a5cac98767d24ab": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x7ec9043c321a8759ee5f917da943979ec70cf8e3": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 13628,
+   "creation_input": false
+  },
+  "0x7ecb028b1d2c371e8bdccdaadd39c73bd5019fca": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x7f51fdb20246d7a673036f11c743e99a4af01de0": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x7fb09ee1a2c0e8b6d1c4e19c0248b3cbc0113af6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x7fbf264a9b3b6a28c21cfc93ca91f081ddb09949": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7053,
+   "creation_input": false
+  },
+  "0x80c105217885707ba0003ffae7ab01466e5e8488": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 10138,
+   "creation_input": false
+  },
+  "0x81625dc44101400b0329e9e590caee997821fbb1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x83a918056ab9316837dc48a216119d679d561d91": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x840cbd20a70774becac4e932fff6fb1f5417997f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x846e799e2c08f5adead02c2135b687c91c888910": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1324,
+   "creation_input": false
+  },
+  "0x8511970af1823e79f26e5cb9ed2e7b2bc7aa581b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4558,
+   "creation_input": false
+  },
+  "0x85498abc21da6e4455ed74211cab5f55c0415d6f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6861,
+   "creation_input": false
+  },
+  "0x85b22505fd17a9c5003cd48476c7bc61da522445": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8511,
+   "creation_input": false
+  },
+  "0x86f0985cd6ab3196ea8dceba87b92a2e22124633": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7816,
+   "creation_input": false
+  },
+  "0x89e8cd6306abbab8e39eed0d53566d8dc2e02c01": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x8a03b032c5494219b212e5a74a49e2aa7f9d206f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x8b090509eae0feb4a0b934de1b4345161fa9a62d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4533,
+   "creation_input": false
+  },
+  "0x8b16115ff716b4c52706122cb4e974f7a72e5af1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 12492,
+   "creation_input": false
+  },
+  "0x8b8b26bb6c5fd4867339ab2f0acf3ae5129bd2f0": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x8b8d5a3b5dfe072f10ff928bb28fb2036b31a6b1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8607,
+   "creation_input": false
+  },
+  "0x8c7c7b79df33a846e50ee753487de96f6ed87a2a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6682,
+   "creation_input": false
+  },
+  "0x8e1d639a3fdbd2072d905adcb4ccc6cb3fd8986e": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x8f326f4530d02c6c5bbf8acd46ddbb0391871e85": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x8fc9e80c26e735fe25ec524b3fc350edfbc5980a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6996,
+   "creation_input": false
+  },
+  "0x9047fad9598963b031172372196bd307f048dde3": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8409,
+   "creation_input": false
+  },
+  "0x9064bee4180b279f6b4e35e752485fede78d6853": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1324,
+   "creation_input": false
+  },
+  "0x91ce91421d499e24c1b5df5768f3d47ad5fe4f80": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4507,
+   "creation_input": false
+  },
+  "0x920401fdce49fc70a2d4cd70db0dd90212a97f98": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0x93335cff017c0fd28fbc58971c9ffc78fea12081": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x935b5d93967d7e546d9d6be4abd3f119c812976f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6755,
+   "creation_input": false
+  },
+  "0x9388775d774cd477673931327b7e36b0ccc5d3a5": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x953a5f4d1f09d4108a89f7da4e52a4d7d7d12dd5": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x96eb28a11a1169caebfbbb1885dc1613ddb5f93d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1959,
+   "creation_input": false
+  },
+  "0x9759a6ac90977b93b58547b4a71c78317f391a28": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2916,
+   "creation_input": false
+  },
+  "0x982b52a54916b899c60031772cc85b041613510e": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0x99717f0924f10beb9b818ae018914b94fa047fa6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x99ea07d822ed6f79230fea9e8ba33e69c1971e9b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6755,
+   "creation_input": false
+  },
+  "0x9a3796cf41b7cba6921fd50c3f5204ed6506c3e7": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x9a4bd1d5c231fb8bf9c242f517ec3bb174d6ac60": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8628,
+   "creation_input": false
+  },
+  "0x9bfbcec5ae5352f83cef23c57758b020c71394cb": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x9c3d2c93993f196aac232ede26321b95f5702545": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0x9dc72e4ad4d11841993f6c0a087f5b9fb458aa7c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1959,
+   "creation_input": false
+  },
+  "0x9fd7441f440a16ad65900b876e7879a70dbb7813": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9815,
+   "creation_input": false
+  },
+  "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2186,
+   "creation_input": false
+  },
+  "0xa2262d7728c689526693ae893d0fd8a352c7073c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9086,
+   "creation_input": false
+  },
+  "0xa28e8aa4d6257157de64a547c90b38c3c540ef72": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0xa333561a5e08c002c083e3798dc8d504a262c9ef": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 14828,
+   "creation_input": false
+  },
+  "0xa35c9b5e576be2e0ba9cc7224b0941cc8acc4c9c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7874,
+   "creation_input": false
+  },
+  "0xa4d4988f35e93ad91bd625722e065d08bb47553c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8172,
+   "creation_input": false
+  },
+  "0xa505b36154e6be8ec74be63cb5f8882eabc05374": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 12973,
+   "creation_input": false
+  },
+  "0xa537d6f4c1c8f8c41f1004cc34c00e7db40179cc": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8596,
+   "creation_input": false
+  },
+  "0xa63f8061a67ecdbf147cd1b60f91cf95464e868d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6935,
+   "creation_input": false
+  },
+  "0xa78fed26d175b4b2c83f69ca3ea195123ca30381": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 12725,
+   "creation_input": false
+  },
+  "0xa8a3c7d844269ec73bed1111f336be4db7b29ce8": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2406,
+   "creation_input": false
+  },
+  "0xa8e8412d9b4341239269cba38ad949fe4870be34": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0xa9353a16ca53a2009febf62029f8555216588fea": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 13502,
+   "creation_input": false
+  },
+  "0xa96bcbed7f01de6ceed14fc86d90f21a36de2143": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 14319,
+   "creation_input": false
+  },
+  "0xaefb058bd268bdb0764f66e810a57d29ff6438d6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8976,
+   "creation_input": false
+  },
+  "0xb0f0fdf5594d2a63660a2f71932f7fba1426c4e4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8776,
+   "creation_input": false
+  },
+  "0xb2d8e9717931f58ef6d2c8ee548ec964091fb6e7": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xb2f814f75369af421508b7ef81c8776866709730": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8626,
+   "creation_input": false
+  },
+  "0xb30099ee83fe52cd80ff37f7808e1eede0830122": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8582,
+   "creation_input": false
+  },
+  "0xb434ead3ab89407715f1c6ffabc397588a71ce06": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1959,
+   "creation_input": false
+  },
+  "0xb493edfba13ce0692f0c37b6a1ccba6983d25e06": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8409,
+   "creation_input": false
+  },
+  "0xb4c1248812dabf72cb2e82175b4c0acffe4d2b10": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xb51db2755c4799caece05acfa8df9506de437add": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4507,
+   "creation_input": false
+  },
+  "0xb6936b8e82626405f6e601d54a8292881d86b47d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xb6a6392c47dc2f0b7ad0cc54671e96e5a876d24e": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 5936,
+   "creation_input": false
+  },
+  "0xb863a70dc54708822e669074fe4a2fa4e0591bc1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2293,
+   "creation_input": false
+  },
+  "0xb8face58cb05c55bbba9c564a550cc2402a40b5b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xb9a44de20f26a027e467cb6c2f98766f01904189": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xba5bcc299895b77d67f660962575b427b341bb88": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xbb341fd5c855c206f5538cc649f90d84df19b65a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xbda4a610ed06e6c1e66b12271034ec4665b27615": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7313,
+   "creation_input": false
+  },
+  "0xbef60db7a8e370364d6d610cb1cda91e76f7fbbc": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7557,
+   "creation_input": false
+  },
+  "0xbf3f4f1dd5a9d81a8e7b5b1b671aff9cbeab9c52": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2293,
+   "creation_input": false
+  },
+  "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 3124,
+   "creation_input": false
+  },
+  "0xc15f11ff2765c2614c8360401606feebdb472974": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xc196247aa267db0df216d5385bcd23e5cf25ea6a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0xc26c78d6cb95e58228544462dd6e9a02868b1306": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8409,
+   "creation_input": false
+  },
+  "0xc2f43edd0bedc81003d75e33c6e34c8da0f16604": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xc38943d71233f1d36beac4692ac37bad41ef9284": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6498,
+   "creation_input": false
+  },
+  "0xc51f841f71ea783c1df0a6bad282953e5f759fe9": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2406,
+   "creation_input": false
+  },
+  "0xc659cc2cc464c85e9dc498a3def5dc01670c50c6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xc67db6c6a442b0e29f318d6c771da2f59a8a824f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6072,
+   "creation_input": false
+  },
+  "0xc6824f72ec5548221b71abdedf99f55df6646f88": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2069,
+   "creation_input": false
+  },
+  "0xc6f085de4f388a48ce2942857455147a37870086": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 10012,
+   "creation_input": false
+  },
+  "0xc7eb14e178220e84530748a71b91f07c3545de50": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4925,
+   "creation_input": false
+  },
+  "0xc814bbc04e847c17a40854887f2bc9ae8ad88451": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2096,
+   "creation_input": false
+  },
+  "0xcb0400d5dc95c1d59cfdde7497d4afe06b3900c7": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xcb1982b26c72e0ffe17500a08d2b88a79e7dad3f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2406,
+   "creation_input": false
+  },
+  "0xcbe13c3292f7226ff5fd096a4dc53c52a4ed4daa": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8002,
+   "creation_input": false
+  },
+  "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0xcd19062a6d3019b02a676d72e51d8de7a398de25": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xcd6159d0a1aae415e0c1504e90a5d741a28afc98": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xcd775778f15fff2fb43c0d8149cb888c099f0ac1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xcd960cac63fdc93d83cc1bf217dbe646dab52870": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8937,
+   "creation_input": false
+  },
+  "0xce1d47ce3a91e054c111d9cc3b4bae50843200da": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 23769,
+   "creation_input": false
+  },
+  "0xcec82dd6584a5d6fbed3b868bbfd76857f7060e3": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6742,
+   "creation_input": false
+  },
+  "0xd18a27a8df4df35df570743aa47b08ccf8ab256b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xd2a048ef4e018348eebc245a4402db7b46c8e223": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1959,
+   "creation_input": false
+  },
+  "0xd2d26e25ab8753ff60fa430cf7b7d685752879be": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xd4554a12470050353a0865bfa9051372ccb1038f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 9091,
+   "creation_input": false
+  },
+  "0xd486088912f40e3d6f196e7cdc6ceae68a93803f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xd4fd96ba83d3e6ff1a0baa44c32def94e641d97c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7754,
+   "creation_input": false
+  },
+  "0xd6077a029fb5bef33b02391d7f0349c345f6ddb1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xd63be074ca7d8dba78b8bbff7875582db0f28233": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 10552,
+   "creation_input": false
+  },
+  "0xd64f26bcf78df919d587b6743fcff5b155815bd6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xd6c31ba0754c4383a41c0e9df042c62b5e918f6d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6935,
+   "creation_input": false
+  },
+  "0xd734705875c29bc84fb9c88435f334fbecf76d11": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xd9278476796b0998b61a708921d835501d689203": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xdabaa0fcb4aeaf014ae9e79837a4487d20a3ab06": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8652,
+   "creation_input": false
+  },
+  "0xdac17f958d2ee523a2206206994597c13d831ec7": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 11075,
+   "creation_input": false
+  },
+  "0xddb009b0cacfddc032761f7b5bf525d543f7c002": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8553,
+   "creation_input": false
+  },
+  "0xde4ef7ea464c7771803b9838aea07ce41089b054": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xde65090088df0b2d80a5ec6a7b56ece36ee83ce8": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6935,
+   "creation_input": false
+  },
+  "0xdf606c14351fd52bf502d5f60d105320cf5d99d5": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 12791,
+   "creation_input": false
+  },
+  "0xdf6a16689a893095c721542e5d3ce55bbcc23ac6": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0xe0f0ba6627af89a7ed1d887d1cddcccd8d79ae11": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xe2e1a5d691ccb9e88b84e23a1166b4e6bd6904dc": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xe3fadebffa0e577bd36cbea1f90537e5e42f881b": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xe47df1cda064b6c81c161aa14e2fbaddf0c66347": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2069,
+   "creation_input": false
+  },
+  "0xe48205f93ae55d822f49d33df06b5b26e9d5245d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6498,
+   "creation_input": false
+  },
+  "0xe4daed98828c79f353a10950d4026d6bb1c166c5": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4507,
+   "creation_input": false
+  },
+  "0xe5d3a6e88590fc2a8037d9ccbd816c05b1ff5f11": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xe63191967735c52f5de78ce2471759a9963ce118": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xe63b65d23434555841e71ea32f470ea4879e973d": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xe7313ef267e8a5646b5ea04b51f536956d79e62f": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 2693,
+   "creation_input": false
+  },
+  "0xe780bb76a24345734b1b94e2b4cc8d64f23ad822": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6682,
+   "creation_input": false
+  },
+  "0xe949a217809d1fab4018e22d6810500399951dae": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xe981ced8b779eb052882aedcddde8c07c532fadc": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xe9ce7430ec463b9cd9dddb9543f6fd3100708875": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1959,
+   "creation_input": false
+  },
+  "0xea0a3ae400b3f5657f865adeb705804c5d96294c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xea74629cc0f1ed75c164119a9d1942fd5cf4c6d2": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8464,
+   "creation_input": false
+  },
+  "0xea9a677a1d3484ea8afef6fe3666a8e0f5669c0a": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6357,
+   "creation_input": false
+  },
+  "0xed52753272a291761a934b1398c14e0ffdaaeaa3": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7434,
+   "creation_input": false
+  },
+  "0xee62ee9a354e55df7c39209b4304161369333ff7": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xee67825ef27588faee39cfefb465eb0a242a740c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7734,
+   "creation_input": false
+  },
+  "0xeefebc96ee38ef13c6196d2d9534e0e74383af00": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 13628,
+   "creation_input": false
+  },
+  "0xef2125f5d1f7a3d68038f27e681258d13a73e718": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 3116,
+   "creation_input": false
+  },
+  "0xefd766ccb38eaf1dfd701853bfce31359239f305": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 328,
+   "creation_input": false
+  },
+  "0xf0d7962c8153b2445127e8ca5361578f9f5d0957": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4533,
+   "creation_input": false
+  },
+  "0xf1026c1a67a5243903ffd11cd4e2f7e2a0571ac0": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xf18b09a5b358b720f23d736163d328dba0bddf41": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7434,
+   "creation_input": false
+  },
+  "0xf2563864c22022deb03ce929c26c54033a69e9d5": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 12727,
+   "creation_input": false
+  },
+  "0xf2a202c9cd126f36abda6bbfba14f314922335de": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 8676,
+   "creation_input": false
+  },
+  "0xf2be09eb43c1ed2791d0324baa0649e62cda4bbf": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7734,
+   "creation_input": false
+  },
+  "0xf3352be5de1e6232755c7dbd15a84fc3614a419c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xf4c5dabc4fdc3ca74262a8155c2f92f8875ff0fe": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xf50fcb9c3aa984c468206a1a40832eef384e0cb1": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 4533,
+   "creation_input": false
+  },
+  "0xf520404cf4fa5b633626333775b05f5df94e1a9c": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6935,
+   "creation_input": false
+  },
+  "0xf5e3cc8d22b10d967be49fe103e496f449c8604e": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0xf646ed2fc7873c7c412bffb07e2e8038f8eb7895": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 1974,
+   "creation_input": false
+  },
+  "0xf65d7943e77569e76ee060aef84e243d7a34c496": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 13265,
+   "creation_input": false
+  },
+  "0xf69e9f943674027cedf05564a8d5a01041d07c62": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7405,
+   "creation_input": false
+  },
+  "0xf6e286fe1f22d9d0e2fe48b6d3b5506841f51fc4": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xf77c946c18a77b5dda5e839da9818c4d1f087393": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xf7ebb9bc80fb6395373c6bbdf690fcffb217a691": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xf7ef7188ca663bab6b7b72ec5df79a048fd8ba25": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xf8ab3393b1f5cd6184fb6800a1fc802043c4063e": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xf8b6e89b851e03c724aad1f5170230a60490b819": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7815,
+   "creation_input": false
+  },
+  "0xf9bc351eef0f1242953dde097c9e6e57b8ff3a42": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xfa4d9c6e012d946853386113acbf166dec5465bb": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 7571,
+   "creation_input": false
+  },
+  "0xfe5f16cfba8ebc0e407b58662a20a144107484dc": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xfe9b99ecc43cb423408b975cc5ff439e5abacb61": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  },
+  "0xff3922fc24c99960c7a4319f62db23769a57dab8": {
+   "role": "registry contract (outside the W1 set)",
+   "block": 27501697,
+   "runtime_bytes": 6781,
+   "creation_input": false
+  }
+ },
+ "sources": {
+  "Batcher.sol": 407,
+  "ConsensusBFT.yul": 3457,
+  "ConsensusPKI.yul": 4573,
+  "Target.sol": 3503,
+  "addresses.sol": 10021,
+  "bureauminter.sol": 6304,
+  "compile.sh": 264,
+  "compile_linux.sh": 560,
+  "compiler_config.json": 352,
+  "federalminter.sol": 5902,
+  "indexminter.sol": 6269,
+  "personalminter.sol": 9049,
+  "verified/Atropa.sol": 20867,
+  "verified/FED_TT.sol": 54524,
+  "verified/Gai.sol": 20821,
+  "verified/MATH_atropaMath.sol": 4840,
+  "verified/Metis.sol": 20889,
+  "verified/TBILL_TreasuryBill.sol": 20911,
+  "verified/TeddyBear.sol": 20799,
+  "verified/WBTC_fake_parent.sol": 18450,
+  "verified/ZHENG_Tetratricopeptides.sol": 1766,
+  "decompiled/v1-tbillminter_decompiled.sol": 2050
+ },
+ "sources_by_address": {
+  "0xc15c5f699daf5e1135732139f05d2c05b3ef4354": "/artifacts/src/federalminter.sol",
+  "0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc": "/artifacts/src/indexminter.sol",
+  "0x394c3d5990cefc7be36b82fdb07a7251ace61cc7": "/artifacts/src/personalminter.sol",
+  "0xc4f0ce2b0ffa0063b763e2b6c124a1d80e0641b5": "/artifacts/src/bureauminter.sol",
+  "0xc7bdac3e6bb5ec37041a11328723e9927ccf430b": "/artifacts/src/decompiled/v1-tbillminter_decompiled.sol",
+  "0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff": "/artifacts/src/verified/FED_TT.sol",
+  "0x463413c579d29c26d59a65312657dfce30d545a1": "/artifacts/src/verified/TBILL_TreasuryBill.sol",
+  "0xb680f0cc810317933f234f67eb6a9e923407f05d": "/artifacts/src/verified/MATH_atropaMath.sol",
+  "0xd6c31ba0754c4383a41c0e9df042c62b5e918f6d": "/artifacts/src/verified/TeddyBear.sol",
+  "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6": "/artifacts/src/verified/Atropa.sol",
+  "0xd6077a029fb5bef33b02391d7f0349c345f6ddb1": "/artifacts/src/verified/Gai.sol",
+  "0x36d4ac3df7bf8aa3843ad40c8b3eb67e3d18b4e1": "/artifacts/src/verified/Metis.sol"
+ },
+ "verified_by_address": {
+  "0x02dcdd04e3f455d838cd1249292c58f3b79e3c3c": {
+   "name": "TokenProxy",
+   "compiler": "v0.7.5+commit.eb77ed08",
+   "verified_at": "2026-02-09T13:50:55.928792Z",
+   "files": [
+    "TokenProxy.sol"
+   ],
+   "path": "/artifacts/verified/0x02dcdd04e3f455d838cd1249292c58f3b79e3c3c.json"
+  },
+  "0x08fe5c72173044314a74705089d014a4416ed71d": {
+   "name": "Dampf",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:47:40.424170Z",
+   "files": [
+    "Dampf.sol"
+   ],
+   "path": "/artifacts/verified/0x08fe5c72173044314a74705089d014a4416ed71d.json"
+  },
+  "0x09e05ff6142f2f9de8b6b65855a1d56b6cfe4c58": {
+   "name": "ESM",
+   "compiler": "v0.6.12+commit.27d51765",
+   "verified_at": "2025-03-26T03:17:01.579702Z",
+   "files": [
+    "0x09e05ff6142f2f9de8b6b65855a1d56b6cfe4c58.sol"
+   ],
+   "path": "/artifacts/verified/0x09e05ff6142f2f9de8b6b65855a1d56b6cfe4c58.json"
+  },
+  "0x0b1307dc5d90a0b60be18d2634843343ebc098af": {
+   "name": "Legal",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T14:16:08.115700Z",
+   "files": [
+    "Legal.sol"
+   ],
+   "path": "/artifacts/verified/0x0b1307dc5d90a0b60be18d2634843343ebc098af.json"
+  },
+  "0x0cb6f5a34ad42ec934882a05265a7d5f59b51a2f": {
+   "name": "TokenProxy",
+   "compiler": "v0.7.5+commit.eb77ed08",
+   "verified_at": "2026-07-06T08:39:40.737340Z",
+   "files": [
+    "/Proxy.sol",
+    "contracts/upgradeable_contracts/modules/factory/TokenProxy.sol"
+   ],
+   "path": "/artifacts/verified/0x0cb6f5a34ad42ec934882a05265a7d5f59b51a2f.json"
+  },
+  "0x0eb4ee7d5ff28cbf68565a174f7e5e186c36b4b3": {
+   "name": "Mantissa",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:46:56.797689Z",
+   "files": [
+    "Mantissa.sol"
+   ],
+   "path": "/artifacts/verified/0x0eb4ee7d5ff28cbf68565a174f7e5e186c36b4b3.json"
+  },
+  "0x1162104a7b8766784153dd2d6ac0eceaecd28117": {
+   "name": "HOST",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:47:38.472697Z",
+   "files": [
+    "HOST.sol"
+   ],
+   "path": "/artifacts/verified/0x1162104a7b8766784153dd2d6ac0eceaecd28117.json"
+  },
+  "0x15d38573d2feeb82e7ad5187ab8c1d52810b1f07": {
+   "name": "TokenProxy",
+   "compiler": "v0.7.5+commit.eb77ed08",
+   "verified_at": "2026-07-06T07:15:51.965625Z",
+   "files": [
+    "/Proxy.sol",
+    "contracts/upgradeable_contracts/modules/factory/TokenProxy.sol"
+   ],
+   "path": "/artifacts/verified/0x15d38573d2feeb82e7ad5187ab8c1d52810b1f07.json"
+  },
+  "0x173216ed67ebf3e6767d86e8b3ff32e0d64437bf": {
+   "name": "WITHOUT",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-09-15T16:56:51.695470Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/extensions/IERC20Metadata.sol",
+    "without.sol"
+   ],
+   "path": "/artifacts/verified/0x173216ed67ebf3e6767d86e8b3ff32e0d64437bf.json"
+  },
+  "0x1942ba1ea7c21a070d70c4efe64b21694283f23e": {
+   "name": "No",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:49:12.523012Z",
+   "files": [
+    "No.sol"
+   ],
+   "path": "/artifacts/verified/0x1942ba1ea7c21a070d70c4efe64b21694283f23e.json"
+  },
+  "0x1b8f9e19360d1dc94295d984b7ca7ea9b810d9ee": {
+   "name": "Scissors",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T15:22:35.212636Z",
+   "files": [
+    "Scissors.sol"
+   ],
+   "path": "/artifacts/verified/0x1b8f9e19360d1dc94295d984b7ca7ea9b810d9ee.json"
+  },
+  "0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff": {
+   "name": "TT",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T18:18:48.167750Z",
+   "files": [
+    "TT.sol"
+   ],
+   "path": "/artifacts/verified/0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff.json"
+  },
+  "0x203e366a1821570b2f84ff5ae8b3bdeb48dc4fa1": {
+   "name": "CROWS",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:47:11.645424Z",
+   "files": [
+    "CROWS.sol"
+   ],
+   "path": "/artifacts/verified/0x203e366a1821570b2f84ff5ae8b3bdeb48dc4fa1.json"
+  },
+  "0x2234da59c2d5edb197594c95dbba7a99bcd91230": {
+   "name": "SECURITY",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:49:32.255348Z",
+   "files": [
+    "SECURITY.sol"
+   ],
+   "path": "/artifacts/verified/0x2234da59c2d5edb197594c95dbba7a99bcd91230.json"
+  },
+  "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599": {
+   "name": "WBTC",
+   "compiler": "v0.4.24+commit.e67f0147",
+   "verified_at": "2024-03-15T00:04:53.787720Z",
+   "files": [
+    "WBTC.sol"
+   ],
+   "path": "/artifacts/verified/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599.json"
+  },
+  "0x232a27ab6941281b3f474fe5ff7cc89816fb675a": {
+   "name": "Conjecture",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-07T04:22:15.640616Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/_4",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "conjecture.sol"
+   ],
+   "path": "/artifacts/verified/0x232a27ab6941281b3f474fe5ff7cc89816fb675a.json"
+  },
+  "0x241da2613b0a01c2f60acb636b21a8e082e2f2f0": {
+   "name": "ACAB",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:49:46.697806Z",
+   "files": [
+    "ACAB.sol"
+   ],
+   "path": "/artifacts/verified/0x241da2613b0a01c2f60acb636b21a8e082e2f2f0.json"
+  },
+  "0x24f0154c1dce548adf15da2098fdd8b8a3b8151d": {
+   "name": "Affection",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-07T05:34:07.870869Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/_4",
+    "/_5",
+    "/_6",
+    "/_7",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "rng.sol"
+   ],
+   "path": "/artifacts/verified/0x24f0154c1dce548adf15da2098fdd8b8a3b8151d.json"
+  },
+  "0x2556f7f8d82ebcdd7b821b0981c38d9da9439cdd": {
+   "name": "dOWN",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T12:00:48.062676Z",
+   "files": [
+    "dOWN.sol"
+   ],
+   "path": "/artifacts/verified/0x2556f7f8d82ebcdd7b821b0981c38d9da9439cdd.json"
+  },
+  "0x271197efe41073681577cdbbfd6ee1da259baa3c": {
+   "name": "Ying",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T15:24:09.858100Z",
+   "files": [
+    "Ying.sol"
+   ],
+   "path": "/artifacts/verified/0x271197efe41073681577cdbbfd6ee1da259baa3c.json"
+  },
+  "0x2c1fb497cd0858cf68c96af6e2a801d121d97e27": {
+   "name": "Dynamic",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-07T03:24:44.628386Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/_4",
+    "/_5",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "dynamic.sol"
+   ],
+   "path": "/artifacts/verified/0x2c1fb497cd0858cf68c96af6e2a801d121d97e27.json"
+  },
+  "0x2fc636e7fdf9f3e8d61033103052079781a6e7d2": {
+   "name": "atropacoin",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-05-29T18:37:32.328233Z",
+   "files": [
+    "0x2fc636e7fdf9f3e8d61033103052079781a6e7d2.sol"
+   ],
+   "path": "/artifacts/verified/0x2fc636e7fdf9f3e8d61033103052079781a6e7d2.json"
+  },
+  "0x347bc40503e0ce23fe0f5587f232cd2d07d4eb89": {
+   "name": "Di",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T12:34:52.166936Z",
+   "files": [
+    "Di.sol"
+   ],
+   "path": "/artifacts/verified/0x347bc40503e0ce23fe0f5587f232cd2d07d4eb89.json"
+  },
+  "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b": {
+   "name": "Vat",
+   "compiler": "v0.5.12+commit.7709ece9",
+   "verified_at": "2024-04-04T21:07:14.130211Z",
+   "files": [
+    "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b.sol"
+   ],
+   "path": "/artifacts/verified/0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b.json"
+  },
+  "0x36d4ac3df7bf8aa3843ad40c8b3eb67e3d18b4e1": {
+   "name": "Metis",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T12:36:39.843164Z",
+   "files": [
+    "Metis.sol"
+   ],
+   "path": "/artifacts/verified/0x36d4ac3df7bf8aa3843ad40c8b3eb67e3d18b4e1.json"
+  },
+  "0x380c3a6e2fd91cffb5a88bdef9da85654a94f93d": {
+   "name": "TSToken",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-04-13T23:17:32.258440Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "ts.sol"
+   ],
+   "path": "/artifacts/verified/0x380c3a6e2fd91cffb5a88bdef9da85654a94f93d.json"
+  },
+  "0x3d67511733d976800467119264c3d4cd9fa23041": {
+   "name": "Tse",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:17.608863Z",
+   "files": [
+    "Tse.sol"
+   ],
+   "path": "/artifacts/verified/0x3d67511733d976800467119264c3d4cd9fa23041.json"
+  },
+  "0x4243568fa2bbad327ee36e06c16824cad8b37819": {
+   "name": "TSFi",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T14:20:46.823086Z",
+   "files": [
+    "TSFi.sol"
+   ],
+   "path": "/artifacts/verified/0x4243568fa2bbad327ee36e06c16824cad8b37819.json"
+  },
+  "0x463413c579d29c26d59a65312657dfce30d545a1": {
+   "name": "TreasuryBill",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-11T23:57:39.523621Z",
+   "files": [
+    "TreasuryBill.sol"
+   ],
+   "path": "/artifacts/verified/0x463413c579d29c26d59a65312657dfce30d545a1.json"
+  },
+  "0x4a458d04909a42f79d31805762b2abc38ab9407d": {
+   "name": "Hahnarch",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:53.602484Z",
+   "files": [
+    "Hahnarch.sol"
+   ],
+   "path": "/artifacts/verified/0x4a458d04909a42f79d31805762b2abc38ab9407d.json"
+  },
+  "0x50e72874dcd7c198d370ac27c7b3cce9f9a0defd": {
+   "name": "Final",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:46:16.286963Z",
+   "files": [
+    "Final.sol"
+   ],
+   "path": "/artifacts/verified/0x50e72874dcd7c198d370ac27c7b3cce9f9a0defd.json"
+  },
+  "0x51c36aa04ffc2139f6d34436d0edc7f5ffc6d6fb": {
+   "name": "HegelBet",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:44.194889Z",
+   "files": [
+    "HegelBet.sol"
+   ],
+   "path": "/artifacts/verified/0x51c36aa04ffc2139f6d34436d0edc7f5ffc6d6fb.json"
+  },
+  "0x52a4682880e990ebed5309764c7bd29c4ae22deb": {
+   "name": "Yu",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T15:24:01.099980Z",
+   "files": [
+    "Yu.sol"
+   ],
+   "path": "/artifacts/verified/0x52a4682880e990ebed5309764c7bd29c4ae22deb.json"
+  },
+  "0x557f7e30aa6d909cfe8a229a4cb178ab186ec622": {
+   "name": "Har",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T12:34:41.501794Z",
+   "files": [
+    "Har.sol"
+   ],
+   "path": "/artifacts/verified/0x557f7e30aa6d909cfe8a229a4cb178ab186ec622.json"
+  },
+  "0x580192164ceb11721abd1b5116be328529653e22": {
+   "name": "Dynamic",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-07T03:42:21.006328Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/_4",
+    "/_5",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "dynamic.sol"
+   ],
+   "path": "/artifacts/verified/0x580192164ceb11721abd1b5116be328529653e22.json"
+  },
+  "0x583d1c1427308f7f96bfd3e0d7a3f9674d8bf8ec": {
+   "name": "Zuo",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:41.122553Z",
+   "files": [
+    "Zuo.sol"
+   ],
+   "path": "/artifacts/verified/0x583d1c1427308f7f96bfd3e0d7a3f9674d8bf8ec.json"
+  },
+  "0x5ef3011243b03f817223a19f277638397048a0dc": {
+   "name": "atropaMath",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-07T00:53:02.406143Z",
+   "files": [
+    "0x5ef3011243b03f817223a19f277638397048a0dc.sol"
+   ],
+   "path": "/artifacts/verified/0x5ef3011243b03f817223a19f277638397048a0dc.json"
+  },
+  "0x5f16f6c242e038437a7ba3c903dfedb747db4a5c": {
+   "name": "ZHENG",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-07-31T07:08:23.117019Z",
+   "files": [
+    "/",
+    "/Context.sol",
+    "/ERC20/ERC20.sol",
+    "/ERC20/IERC20.sol",
+    "/ERC20/extensions/ERC20Burnable.sol",
+    "/ERC20/extensions/IERC20Metadata.sol",
+    "/Ownable.sol",
+    "/draft-IERC6093.sol",
+    "generic.sol"
+   ],
+   "path": "/artifacts/verified/0x5f16f6c242e038437a7ba3c903dfedb747db4a5c.json"
+  },
+  "0x61dcf6a5df780a1e552f0f80afad23a9ae16755f": {
+   "name": "ORDER",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-07-25T20:06:48.918441Z",
+   "files": [
+    "/",
+    "/Context.sol",
+    "/ERC20/ERC20.sol",
+    "/ERC20/IERC20.sol",
+    "/ERC20/extensions/ERC20Burnable.sol",
+    "/ERC20/extensions/IERC20Metadata.sol",
+    "/Ownable.sol",
+    "/draft-IERC6093.sol",
+    "generic.sol"
+   ],
+   "path": "/artifacts/verified/0x61dcf6a5df780a1e552f0f80afad23a9ae16755f.json"
+  },
+  "0x6236073377ac7e0ab694957da5d7d4241e72ebc6": {
+   "name": "PhD",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:05.375188Z",
+   "files": [
+    "PhD.sol"
+   ],
+   "path": "/artifacts/verified/0x6236073377ac7e0ab694957da5d7d4241e72ebc6.json"
+  },
+  "0x6293373bf0dae2050641973d49b7b2f71adc91a1": {
+   "name": "TwoCentClub",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:49:22.594458Z",
+   "files": [
+    "TwoCentClub.sol"
+   ],
+   "path": "/artifacts/verified/0x6293373bf0dae2050641973d49b7b2f71adc91a1.json"
+  },
+  "0x6a3a99f6db83c8397b57033734fc29f3f5b58f46": {
+   "name": "Conjecture",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-07T03:46:24.834105Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/_4",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "conjecture.sol"
+   ],
+   "path": "/artifacts/verified/0x6a3a99f6db83c8397b57033734fc29f3f5b58f46.json"
+  },
+  "0x6b175474e89094c44da98b954eedeac495271d0f": {
+   "name": "Dai",
+   "compiler": "v0.5.12+commit.7709ece9",
+   "verified_at": "2024-04-04T20:30:05.626291Z",
+   "files": [
+    "0x6b175474e89094c44da98b954eedeac495271d0f.sol"
+   ],
+   "path": "/artifacts/verified/0x6b175474e89094c44da98b954eedeac495271d0f.json"
+  },
+  "0x72f96a39ac9408b5458e5597bbc22060552dedf4": {
+   "name": "Sukuk",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:52:39.655100Z",
+   "files": [
+    "Sukuk.sol"
+   ],
+   "path": "/artifacts/verified/0x72f96a39ac9408b5458e5597bbc22060552dedf4.json"
+  },
+  "0x73a19fafb359faf519c9707b781dfdb88407d10d": {
+   "name": "Dynamic",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-07T04:05:32.995935Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/_4",
+    "/_5",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "dynamic.sol"
+   ],
+   "path": "/artifacts/verified/0x73a19fafb359faf519c9707b781dfdb88407d10d.json"
+  },
+  "0x752c3d7dfc54417eab7be7404beef8d8e087efa4": {
+   "name": "atropaMath",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-06T01:59:36.901696Z",
+   "files": [
+    "0x752c3d7dfc54417eab7be7404beef8d8e087efa4.sol"
+   ],
+   "path": "/artifacts/verified/0x752c3d7dfc54417eab7be7404beef8d8e087efa4.json"
+  },
+  "0x7674516ad438dd67a057fbc1119168d9a7d2a9b1": {
+   "name": "STAY",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T16:31:38.737306Z",
+   "files": [
+    "STAY.sol"
+   ],
+   "path": "/artifacts/verified/0x7674516ad438dd67a057fbc1119168d9a7d2a9b1.json"
+  },
+  "0x7759a6d283192ef2ba082923d28bec6ebfaf9d68": {
+   "name": "LEPROSY",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:49:57.224075Z",
+   "files": [
+    "LEPROSY.sol"
+   ],
+   "path": "/artifacts/verified/0x7759a6d283192ef2ba082923d28bec6ebfaf9d68.json"
+  },
+  "0x77bed67181cef592472bcb7f97736c560340e006": {
+   "name": "Bullion5",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T15:27:20.069771Z",
+   "files": [
+    "Bullion5.sol"
+   ],
+   "path": "/artifacts/verified/0x77bed67181cef592472bcb7f97736c560340e006.json"
+  },
+  "0x7abac9ebedaa90976ad112f1e57dda2e73b80b8a": {
+   "name": "AD",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-09-15T08:11:46.728619Z",
+   "files": [
+    "/",
+    "/_1",
+    "/_10",
+    "/_11",
+    "/_12",
+    "/_13",
+    "/_14",
+    "/_15",
+    "/_16",
+    "/_2",
+    "/_3",
+    "/_4",
+    "/_5",
+    "/_6",
+    "/_7",
+    "/_8",
+    "/_9",
+    "solidity/old/AD.sol"
+   ],
+   "path": "/artifacts/verified/0x7abac9ebedaa90976ad112f1e57dda2e73b80b8a.json"
+  },
+  "0x7f51fdb20246d7a673036f11c743e99a4af01de0": {
+   "name": "Kremlin",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:15.139029Z",
+   "files": [
+    "Kremlin.sol"
+   ],
+   "path": "/artifacts/verified/0x7f51fdb20246d7a673036f11c743e99a4af01de0.json"
+  },
+  "0x7fb09ee1a2c0e8b6d1c4e19c0248b3cbc0113af6": {
+   "name": "AbUrbeCondita",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:47:57.487042Z",
+   "files": [
+    "AbUrbeCondita.sol"
+   ],
+   "path": "/artifacts/verified/0x7fb09ee1a2c0e8b6d1c4e19c0248b3cbc0113af6.json"
+  },
+  "0x83a918056ab9316837dc48a216119d679d561d91": {
+   "name": "Ka",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:46:19.132672Z",
+   "files": [
+    "Ka.sol"
+   ],
+   "path": "/artifacts/verified/0x83a918056ab9316837dc48a216119d679d561d91.json"
+  },
+  "0x840cbd20a70774becac4e932fff6fb1f5417997f": {
+   "name": "Buddhaghosa",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:38.399945Z",
+   "files": [
+    "Buddhaghosa.sol"
+   ],
+   "path": "/artifacts/verified/0x840cbd20a70774becac4e932fff6fb1f5417997f.json"
+  },
+  "0x89e8cd6306abbab8e39eed0d53566d8dc2e02c01": {
+   "name": "Rab",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:56.864843Z",
+   "files": [
+    "Rab.sol"
+   ],
+   "path": "/artifacts/verified/0x89e8cd6306abbab8e39eed0d53566d8dc2e02c01.json"
+  },
+  "0x8a03b032c5494219b212e5a74a49e2aa7f9d206f": {
+   "name": "Dreidel",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:46:45.627439Z",
+   "files": [
+    "Dreidel.sol"
+   ],
+   "path": "/artifacts/verified/0x8a03b032c5494219b212e5a74a49e2aa7f9d206f.json"
+  },
+  "0x8b090509eae0feb4a0b934de1b4345161fa9a62d": {
+   "name": "INDEPENDENCE",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T16:31:50.587000Z",
+   "files": [
+    "INDEPENDENCE.sol"
+   ],
+   "path": "/artifacts/verified/0x8b090509eae0feb4a0b934de1b4345161fa9a62d.json"
+  },
+  "0x8b8b26bb6c5fd4867339ab2f0acf3ae5129bd2f0": {
+   "name": "Frock",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T15:04:28.437469Z",
+   "files": [
+    "Frock.sol"
+   ],
+   "path": "/artifacts/verified/0x8b8b26bb6c5fd4867339ab2f0acf3ae5129bd2f0.json"
+  },
+  "0x9759a6ac90977b93b58547b4a71c78317f391a28": {
+   "name": "DaiJoin",
+   "compiler": "v0.5.12+commit.7709ece9",
+   "verified_at": "2024-04-04T20:44:38.738367Z",
+   "files": [
+    "0x9759a6ac90977b93b58547b4a71c78317f391a28.sol"
+   ],
+   "path": "/artifacts/verified/0x9759a6ac90977b93b58547b4a71c78317f391a28.json"
+  },
+  "0x9a3796cf41b7cba6921fd50c3f5204ed6506c3e7": {
+   "name": "Neptune",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:46:58.868905Z",
+   "files": [
+    "Neptune.sol"
+   ],
+   "path": "/artifacts/verified/0x9a3796cf41b7cba6921fd50c3f5204ed6506c3e7.json"
+  },
+  "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
+   "name": "FiatTokenProxy",
+   "compiler": "v0.4.24+commit.e67f0147",
+   "verified_at": "2024-05-30T16:25:11.670786Z",
+   "files": [
+    "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.sol"
+   ],
+   "path": "/artifacts/verified/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.json"
+  },
+  "0xa2262d7728c689526693ae893d0fd8a352c7073c": {
+   "name": "atropacoin",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-05-28T17:10:26.292234Z",
+   "files": [
+    "0xa2262d7728c689526693ae893d0fd8a352c7073c.sol"
+   ],
+   "path": "/artifacts/verified/0xa2262d7728c689526693ae893d0fd8a352c7073c.json"
+  },
+  "0xa35c9b5e576be2e0ba9cc7224b0941cc8acc4c9c": {
+   "name": "ABIToken",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-02-06T01:34:46.058111Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "abi.sol"
+   ],
+   "path": "/artifacts/verified/0xa35c9b5e576be2e0ba9cc7224b0941cc8acc4c9c.json"
+  },
+  "0xa505b36154e6be8ec74be63cb5f8882eabc05374": {
+   "name": "Dynamic",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-07T02:50:38.529456Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/_4",
+    "/_5",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "dynamic.sol"
+   ],
+   "path": "/artifacts/verified/0xa505b36154e6be8ec74be63cb5f8882eabc05374.json"
+  },
+  "0xa63f8061a67ecdbf147cd1b60f91cf95464e868d": {
+   "name": "LOL",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T15:22:43.368597Z",
+   "files": [
+    "LOL.sol"
+   ],
+   "path": "/artifacts/verified/0xa63f8061a67ecdbf147cd1b60f91cf95464e868d.json"
+  },
+  "0xa96bcbed7f01de6ceed14fc86d90f21a36de2143": {
+   "name": "RNG",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-06T02:30:11.757028Z",
+   "files": [
+    "rng_flattened.sol"
+   ],
+   "path": "/artifacts/verified/0xa96bcbed7f01de6ceed14fc86d90f21a36de2143.json"
+  },
+  "0xb4c1248812dabf72cb2e82175b4c0acffe4d2b10": {
+   "name": "Cherokee",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:46:43.019473Z",
+   "files": [
+    "Cherokee.sol"
+   ],
+   "path": "/artifacts/verified/0xb4c1248812dabf72cb2e82175b4c0acffe4d2b10.json"
+  },
+  "0xb680f0cc810317933f234f67eb6a9e923407f05d": {
+   "name": "atropaMath",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-07T01:28:16.727540Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "atropamath.sol"
+   ],
+   "path": "/artifacts/verified/0xb680f0cc810317933f234f67eb6a9e923407f05d.json"
+  },
+  "0xb6936b8e82626405f6e601d54a8292881d86b47d": {
+   "name": "Disco",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:47:26.933437Z",
+   "files": [
+    "Disco.sol"
+   ],
+   "path": "/artifacts/verified/0xb6936b8e82626405f6e601d54a8292881d86b47d.json"
+  },
+  "0xb9a44de20f26a027e467cb6c2f98766f01904189": {
+   "name": "Wheel",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:46:33.227098Z",
+   "files": [
+    "Wheel.sol"
+   ],
+   "path": "/artifacts/verified/0xb9a44de20f26a027e467cb6c2f98766f01904189.json"
+  },
+  "0xbb341fd5c855c206f5538cc649f90d84df19b65a": {
+   "name": "SIM",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T15:03:09.504038Z",
+   "files": [
+    "SIM.sol"
+   ],
+   "path": "/artifacts/verified/0xbb341fd5c855c206f5538cc649f90d84df19b65a.json"
+  },
+  "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {
+   "name": "WETH9",
+   "compiler": "v0.4.19+commit.c4cbbb05",
+   "verified_at": "2024-11-02T05:20:58.645629Z",
+   "files": [
+    "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.sol"
+   ],
+   "path": "/artifacts/verified/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.json"
+  },
+  "0xc67db6c6a442b0e29f318d6c771da2f59a8a824f": {
+   "name": "Dynamic",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-08-27T05:49:03.605034Z",
+   "files": [
+    "rng_flattened.sol"
+   ],
+   "path": "/artifacts/verified/0xc67db6c6a442b0e29f318d6c771da2f59a8a824f.json"
+  },
+  "0xc6824f72ec5548221b71abdedf99f55df6646f88": {
+   "name": "Conjecture",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-06-06T03:07:44.374784Z",
+   "files": [
+    "rng_flattened.sol"
+   ],
+   "path": "/artifacts/verified/0xc6824f72ec5548221b71abdedf99f55df6646f88.json"
+  },
+  "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6": {
+   "name": "Atropa",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-11T23:36:33.985644Z",
+   "files": [
+    "Atropa.sol"
+   ],
+   "path": "/artifacts/verified/0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6.json"
+  },
+  "0xcd19062a6d3019b02a676d72e51d8de7a398de25": {
+   "name": "Theta",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:47:01.674340Z",
+   "files": [
+    "Theta.sol"
+   ],
+   "path": "/artifacts/verified/0xcd19062a6d3019b02a676d72e51d8de7a398de25.json"
+  },
+  "0xcd6159d0a1aae415e0c1504e90a5d741a28afc98": {
+   "name": "EasternLightning",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:43:41.662500Z",
+   "files": [
+    "EasternLightning.sol"
+   ],
+   "path": "/artifacts/verified/0xcd6159d0a1aae415e0c1504e90a5d741a28afc98.json"
+  },
+  "0xce1d47ce3a91e054c111d9cc3b4bae50843200da": {
+   "name": "Blotter",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-07-30T07:26:24.766718Z",
+   "files": [
+    "/",
+    "/Context.sol",
+    "/ERC20/ERC20.sol",
+    "/ERC20/IERC20.sol",
+    "/ERC20/extensions/ERC20Burnable.sol",
+    "/ERC20/extensions/IERC20Metadata.sol",
+    "/Ownable.sol",
+    "/_1",
+    "/_10",
+    "/_2",
+    "/_3",
+    "/_4",
+    "/_5",
+    "/_6",
+    "/_7",
+    "/_8",
+    "/_9",
+    "/draft-IERC6093.sol",
+    "rng.sol"
+   ],
+   "path": "/artifacts/verified/0xce1d47ce3a91e054c111d9cc3b4bae50843200da.json"
+  },
+  "0xd6077a029fb5bef33b02391d7f0349c345f6ddb1": {
+   "name": "Gai",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:47:24.035492Z",
+   "files": [
+    "Gai.sol"
+   ],
+   "path": "/artifacts/verified/0xd6077a029fb5bef33b02391d7f0349c345f6ddb1.json"
+  },
+  "0xd64f26bcf78df919d587b6743fcff5b155815bd6": {
+   "name": "IRC",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:49:10.175534Z",
+   "files": [
+    "IRC.sol"
+   ],
+   "path": "/artifacts/verified/0xd64f26bcf78df919d587b6743fcff5b155815bd6.json"
+  },
+  "0xd6c31ba0754c4383a41c0e9df042c62b5e918f6d": {
+   "name": "TeddyBear",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T15:19:39.771352Z",
+   "files": [
+    "TeddyBear.sol"
+   ],
+   "path": "/artifacts/verified/0xd6c31ba0754c4383a41c0e9df042c62b5e918f6d.json"
+  },
+  "0xdac17f958d2ee523a2206206994597c13d831ec7": {
+   "name": "TetherToken",
+   "compiler": "v0.4.18+commit.9cf6e910",
+   "verified_at": "2024-05-30T16:46:27.707574Z",
+   "files": [
+    "0xdac17f958d2ee523a2206206994597c13d831ec7.sol"
+   ],
+   "path": "/artifacts/verified/0xdac17f958d2ee523a2206206994597c13d831ec7.json"
+  },
+  "0xde4ef7ea464c7771803b9838aea07ce41089b054": {
+   "name": "Greenland",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:29.036929Z",
+   "files": [
+    "Greenland.sol"
+   ],
+   "path": "/artifacts/verified/0xde4ef7ea464c7771803b9838aea07ce41089b054.json"
+  },
+  "0xde65090088df0b2d80a5ec6a7b56ece36ee83ce8": {
+   "name": "Poppy",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T15:23:11.110894Z",
+   "files": [
+    "Poppy.sol"
+   ],
+   "path": "/artifacts/verified/0xde65090088df0b2d80a5ec6a7b56ece36ee83ce8.json"
+  },
+  "0xdf6a16689a893095c721542e5d3ce55bbcc23ac6": {
+   "name": "Two",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T12:01:03.944920Z",
+   "files": [
+    "Two.sol"
+   ],
+   "path": "/artifacts/verified/0xdf6a16689a893095c721542e5d3ce55bbcc23ac6.json"
+  },
+  "0xe2e1a5d691ccb9e88b84e23a1166b4e6bd6904dc": {
+   "name": "Zzk",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T15:04:36.870504Z",
+   "files": [
+    "Zzk.sol"
+   ],
+   "path": "/artifacts/verified/0xe2e1a5d691ccb9e88b84e23a1166b4e6bd6904dc.json"
+  },
+  "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996": {
+   "name": "BFF",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:49:25.039949Z",
+   "files": [
+    "BFF.sol"
+   ],
+   "path": "/artifacts/verified/0xe35a842eb1edca4c710b6c1b1565ce7df13f5996.json"
+  },
+  "0xe5d3a6e88590fc2a8037d9ccbd816c05b1ff5f11": {
+   "name": "Buckingham",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:50:01.067064Z",
+   "files": [
+    "Buckingham.sol"
+   ],
+   "path": "/artifacts/verified/0xe5d3a6e88590fc2a8037d9ccbd816c05b1ff5f11.json"
+  },
+  "0xe63191967735c52f5de78ce2471759a9963ce118": {
+   "name": "QingDao",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:26.524858Z",
+   "files": [
+    "QingDao.sol"
+   ],
+   "path": "/artifacts/verified/0xe63191967735c52f5de78ce2471759a9963ce118.json"
+  },
+  "0xe949a217809d1fab4018e22d6810500399951dae": {
+   "name": "Lillies",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:48:08.343579Z",
+   "files": [
+    "Lillies.sol"
+   ],
+   "path": "/artifacts/verified/0xe949a217809d1fab4018e22d6810500399951dae.json"
+  },
+  "0xee62ee9a354e55df7c39209b4304161369333ff7": {
+   "name": "Malta",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:49:35.256491Z",
+   "files": [
+    "Malta.sol"
+   ],
+   "path": "/artifacts/verified/0xee62ee9a354e55df7c39209b4304161369333ff7.json"
+  },
+  "0xef2125f5d1f7a3d68038f27e681258d13a73e718": {
+   "name": "RESTRAINING_ORDER",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-09-22T03:55:33.460895Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "generic.sol"
+   ],
+   "path": "/artifacts/verified/0xef2125f5d1f7a3d68038f27e681258d13a73e718.json"
+  },
+  "0xefd766ccb38eaf1dfd701853bfce31359239f305": {
+   "name": "TokenProxy",
+   "compiler": "v0.7.5+commit.eb77ed08",
+   "verified_at": "2023-05-31T18:20:33.194818Z",
+   "files": [
+    "/",
+    "contracts/upgradeable_contracts/modules/factory/TokenProxy.sol"
+   ],
+   "path": "/artifacts/verified/0xefd766ccb38eaf1dfd701853bfce31359239f305.json"
+  },
+  "0xf520404cf4fa5b633626333775b05f5df94e1a9c": {
+   "name": "Bin",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T15:24:21.749594Z",
+   "files": [
+    "Bin.sol"
+   ],
+   "path": "/artifacts/verified/0xf520404cf4fa5b633626333775b05f5df94e1a9c.json"
+  },
+  "0xf646ed2fc7873c7c412bffb07e2e8038f8eb7895": {
+   "name": "ASGARD",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2024-09-12T19:11:17.815782Z",
+   "files": [
+    "/",
+    "/ERC20.sol",
+    "/IERC20.sol",
+    "/_1",
+    "/_2",
+    "/_3",
+    "/extensions/ERC20Burnable.sol",
+    "/extensions/IERC20Metadata.sol",
+    "solidity/old/generic.sol"
+   ],
+   "path": "/artifacts/verified/0xf646ed2fc7873c7c412bffb07e2e8038f8eb7895.json"
+  },
+  "0xf77c946c18a77b5dda5e839da9818c4d1f087393": {
+   "name": "DEI",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:47:43.571736Z",
+   "files": [
+    "DEI.sol"
+   ],
+   "path": "/artifacts/verified/0xf77c946c18a77b5dda5e839da9818c4d1f087393.json"
+  },
+  "0xf7ebb9bc80fb6395373c6bbdf690fcffb217a691": {
+   "name": "BillBurr",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:49:49.821599Z",
+   "files": [
+    "BillBurr.sol"
+   ],
+   "path": "/artifacts/verified/0xf7ebb9bc80fb6395373c6bbdf690fcffb217a691.json"
+  },
+  "0xf8ab3393b1f5cd6184fb6800a1fc802043c4063e": {
+   "name": "Monats",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:47:14.757522Z",
+   "files": [
+    "Monats.sol"
+   ],
+   "path": "/artifacts/verified/0xf8ab3393b1f5cd6184fb6800a1fc802043c4063e.json"
+  },
+  "0xfa4d9c6e012d946853386113acbf166dec5465bb": {
+   "name": "Ojeon",
+   "compiler": "v0.8.18+commit.87f61d96",
+   "verified_at": "2026-07-12T12:00:52.417990Z",
+   "files": [
+    "Ojeon.sol"
+   ],
+   "path": "/artifacts/verified/0xfa4d9c6e012d946853386113acbf166dec5465bb.json"
+  },
+  "0xfe9b99ecc43cb423408b975cc5ff439e5abacb61": {
+   "name": "Liberty",
+   "compiler": "v0.8.21+commit.d9974bed",
+   "verified_at": "2026-07-12T14:46:36.082618Z",
+   "files": [
+    "Liberty.sol"
+   ],
+   "path": "/artifacts/verified/0xfe9b99ecc43cb423408b975cc5ff439e5abacb61.json"
+  }
+ },
+ "decompiled_by_address": {
+  "0xa1bee1dae9af77dac73aa0459ed63b4d93fc6d29": {
+   "file": "/artifacts/decompiled/0xa1bee1dae9af77dac73aa0459ed63b4d93fc6d29.sol",
+   "what": "MV / WM \u2014 Rho() six-leg split decode",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  },
+  "0x4ec5f865f6996ac424a1740ef97b8d1c862e0988": {
+   "file": "/artifacts/decompiled/0x4ec5f865f6996ac424a1740ef97b8d1c862e0988.sol",
+   "what": "cDc \u2014 hardcoded wallet-list Mint() routing",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  },
+  "0x2fc636e7fdf9f3e8d61033103052079781a6e7d2": {
+   "file": "/artifacts/decompiled/0x2fc636e7fdf9f3e8d61033103052079781a6e7d2.sol",
+   "what": "G5 \u2014 math family (INDEPENDENCE-owned)",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  },
+  "0xa2262d7728c689526693ae893d0fd8a352c7073c": {
+   "file": "/artifacts/decompiled/0xa2262d7728c689526693ae893d0fd8a352c7073c.sol",
+   "what": "PI \u2014 math family (INDEPENDENCE-owned)",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  },
+  "0x232a27ab6941281b3f474fe5ff7cc89816fb675a": {
+   "file": "/artifacts/decompiled/0x232a27ab6941281b3f474fe5ff7cc89816fb675a.sol",
+   "what": "Fa \u2014 math family",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  },
+  "0x73a19fafb359faf519c9707b781dfdb88407d10d": {
+   "file": "/artifacts/decompiled/0x73a19fafb359faf519c9707b781dfdb88407d10d.sol",
+   "what": "Faung \u2014 math family",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  },
+  "0x307a3694dfc453c6692db3e9f3f07ff328167dce": {
+   "file": "/artifacts/decompiled/0x307a3694dfc453c6692db3e9f3f07ff328167dce.sol",
+   "what": "MultiHop \u2014 community helper",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  },
+  "0x185d2f123d04f1a243bfbfd5b15f11fb4f314b23": {
+   "file": "/artifacts/decompiled/0x185d2f123d04f1a243bfbfd5b15f11fb4f314b23.sol",
+   "what": "Sweeper \u2014 community helper",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  },
+  "0xe7313ef267e8a5646b5ea04b51f536956d79e62f": {
+   "file": "/artifacts/decompiled/0xe7313ef267e8a5646b5ea04b51f536956d79e62f.sol",
+   "what": "UserSweeper \u2014 community helper",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  },
+  "0xa333561a5e08c002c083e3798dc8d504a262c9ef": {
+   "file": "/artifacts/decompiled/0xa333561a5e08c002c083e3798dc8d504a262c9ef.sol",
+   "what": "LogoVoting \u2014 community helper",
+   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
+  }
+ }
+}

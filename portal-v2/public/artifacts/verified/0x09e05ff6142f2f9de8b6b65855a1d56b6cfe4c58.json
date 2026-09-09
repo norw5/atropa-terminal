@@ -1,0 +1,394 @@
+{
+ "address": "0x09e05ff6142f2f9de8b6b65855a1d56b6cfe4c58",
+ "name": "ESM",
+ "language": "solidity",
+ "compiler_version": "v0.6.12+commit.27d51765",
+ "optimization": false,
+ "optimization_runs": null,
+ "evm_version": "default",
+ "verified_at": "2025-03-26T03:17:01.579702Z",
+ "fully_verified": false,
+ "proxy_type": null,
+ "external_libraries": [],
+ "sources": {
+  "0x09e05ff6142f2f9de8b6b65855a1d56b6cfe4c58.sol": "/**\n *Submitted for verification at Etherscan.io on 2022-02-02\n*/\n\n// SPDX-License-Identifier: AGPL-3.0-or-later\npragma solidity >=0.6.12;\n\n////// src/ESM.sol\n\n/// ESM.sol\n\n// Copyright (C) 2019-2022 Dai Foundation\n\n// This program is free software: you can redistribute it and/or modify\n// it under the terms of the GNU Affero General Public License as published by\n// the Free Software Foundation, either version 3 of the License, or\n// (at your option) any later version.\n//\n// This program is distributed in the hope that it will be useful,\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n// GNU Affero General Public License for more details.\n//\n// You should have received a copy of the GNU Affero General Public License\n// along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\n/* pragma solidity >=0.6.12; */\n\ninterface GemLike {\n    function balanceOf(address) external view returns (uint256);\n\n    function burn(uint256) external;\n\n    function transfer(address, uint256) external returns (bool);\n\n    function transferFrom(address, address, uint256) external returns (bool);\n}\n\ninterface EndLike {\n    function live() external view returns (uint256);\n\n    function vat() external view returns (address);\n\n    function cage() external;\n}\n\ninterface DenyLike {\n    function deny(address) external;\n}\n\ncontract ESM {\n\n    uint256 constant WAD = 10 ** 18;\n\n    GemLike public immutable gem;   // collateral (MKR token)\n    address public immutable proxy; // Pause proxy\n\n    mapping(address => uint256) public wards; // auth\n    mapping(address => uint256) public sum;   // per-address balance\n\n    uint256 public Sum;  // total balance\n    uint256 public min;  // minimum activation threshold [wad]\n    EndLike public end;  // cage module\n    uint256 public live; // active flag\n\n    event Fire();\n    event Join(address indexed usr, uint256 wad);\n    event File(bytes32 indexed what, uint256 data);\n    event File(bytes32 indexed what, address data);\n    event Rely(address indexed usr);\n    event Deny(address indexed usr);\n    event DenyProxy(address indexed base, address indexed pause);\n\n    constructor(address gem_, address end_, address proxy_, uint256 min_) public {\n        gem = GemLike(gem_);\n        end = EndLike(end_);\n        proxy = proxy_;\n        min = min_;\n        live = 1;\n\n        wards[msg.sender] = 1;\n        emit Rely(msg.sender);\n    }\n\n    function revokesGovernanceAccess() external view returns (bool ret) {\n        ret = proxy != address(0);\n    }\n\n    // -- math --\n    function add(uint256 x, uint256 y) internal pure returns (uint256 z) {\n        z = x + y;\n        require(z >= x);\n    }\n\n    // --- Auth ---\n    function rely(address usr) external auth {\n        wards[usr] = 1;\n\n        emit Rely(usr);\n    }\n\n    function deny(address usr) external auth {\n        wards[usr] = 0;\n\n        emit Deny(usr);\n    }\n    modifier auth {\n        require(wards[msg.sender] == 1, \"ESM/not-authorized\");\n        _;\n    }\n\n    // -- admin --\n    function file(bytes32 what, uint256 data) external auth {\n        if (what == \"min\") {\n            require(data > WAD, \"ESM/min-too-small\");\n            min = data;\n        } else {\n            revert(\"ESM/file-unrecognized-param\");\n        }\n\n        emit File(what, data);\n    }\n\n    function file(bytes32 what, address data) external auth {\n        if (what == \"end\") {\n            end = EndLike(data);\n        } else {\n            revert(\"ESM/file-unrecognized-param\");\n        }\n\n        emit File(what, data);\n    }\n\n    function cage() external auth {\n        live = 0;\n    }\n\n    function fire() external {\n        require(live == 1, \"ESM/permanently-disabled\");\n        require(Sum >= min, \"ESM/min-not-reached\");\n\n        if (proxy != address(0)) {\n            DenyLike(end.vat()).deny(proxy);\n        }\n        end.cage();\n\n        emit Fire();\n    }\n\n    function denyProxy(address target) external {\n        require(live == 1, \"ESM/permanently-disabled\");\n        require(Sum >= min, \"ESM/min-not-reached\");\n\n        DenyLike(target).deny(proxy);\n        emit DenyProxy(target, proxy);\n    }\n\n    function join(uint256 wad) external {\n        require(live == 1, \"ESM/permanently-disabled\");\n        require(end.live() == 1, \"ESM/system-already-shutdown\");\n\n        sum[msg.sender] = add(sum[msg.sender], wad);\n        Sum = add(Sum, wad);\n\n        require(gem.transferFrom(msg.sender, address(this), wad), \"ESM/transfer-failed\");\n        emit Join(msg.sender, wad);\n    }\n\n    function burn() external {\n        gem.burn(gem.balanceOf(address(this)));\n    }\n}"
+ },
+ "source_sha256": {
+  "0x09e05ff6142f2f9de8b6b65855a1d56b6cfe4c58.sol": "4267c9320344090b48501508c25e477541d7e7efbc22a7d0846520b87a709851"
+ },
+ "abi": [
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "gem_",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "end_",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "proxy_",
+     "type": "address"
+    },
+    {
+     "internalType": "uint256",
+     "name": "min_",
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "nonpayable",
+   "type": "constructor"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "usr",
+     "type": "address"
+    }
+   ],
+   "name": "Deny",
+   "type": "event"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "base",
+     "type": "address"
+    },
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "pause",
+     "type": "address"
+    }
+   ],
+   "name": "DenyProxy",
+   "type": "event"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": true,
+     "internalType": "bytes32",
+     "name": "what",
+     "type": "bytes32"
+    },
+    {
+     "indexed": false,
+     "internalType": "uint256",
+     "name": "data",
+     "type": "uint256"
+    }
+   ],
+   "name": "File",
+   "type": "event"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": true,
+     "internalType": "bytes32",
+     "name": "what",
+     "type": "bytes32"
+    },
+    {
+     "indexed": false,
+     "internalType": "address",
+     "name": "data",
+     "type": "address"
+    }
+   ],
+   "name": "File",
+   "type": "event"
+  },
+  {
+   "anonymous": false,
+   "inputs": [],
+   "name": "Fire",
+   "type": "event"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "usr",
+     "type": "address"
+    },
+    {
+     "indexed": false,
+     "internalType": "uint256",
+     "name": "wad",
+     "type": "uint256"
+    }
+   ],
+   "name": "Join",
+   "type": "event"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "usr",
+     "type": "address"
+    }
+   ],
+   "name": "Rely",
+   "type": "event"
+  },
+  {
+   "inputs": [],
+   "name": "Sum",
+   "outputs": [
+    {
+     "internalType": "uint256",
+     "name": "",
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "burn",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "cage",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "usr",
+     "type": "address"
+    }
+   ],
+   "name": "deny",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "target",
+     "type": "address"
+    }
+   ],
+   "name": "denyProxy",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "end",
+   "outputs": [
+    {
+     "internalType": "contract EndLike",
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "bytes32",
+     "name": "what",
+     "type": "bytes32"
+    },
+    {
+     "internalType": "uint256",
+     "name": "data",
+     "type": "uint256"
+    }
+   ],
+   "name": "file",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "bytes32",
+     "name": "what",
+     "type": "bytes32"
+    },
+    {
+     "internalType": "address",
+     "name": "data",
+     "type": "address"
+    }
+   ],
+   "name": "file",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "fire",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "gem",
+   "outputs": [
+    {
+     "internalType": "contract GemLike",
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "uint256",
+     "name": "wad",
+     "type": "uint256"
+    }
+   ],
+   "name": "join",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "live",
+   "outputs": [
+    {
+     "internalType": "uint256",
+     "name": "",
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "min",
+   "outputs": [
+    {
+     "internalType": "uint256",
+     "name": "",
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "proxy",
+   "outputs": [
+    {
+     "internalType": "address",
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "usr",
+     "type": "address"
+    }
+   ],
+   "name": "rely",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "revokesGovernanceAccess",
+   "outputs": [
+    {
+     "internalType": "bool",
+     "name": "ret",
+     "type": "bool"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "name": "sum",
+   "outputs": [
+    {
+     "internalType": "uint256",
+     "name": "",
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "name": "wards",
+   "outputs": [
+    {
+     "internalType": "uint256",
+     "name": "",
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  }
+ ],
+ "provenance": "[ext-api] blockscout-verified source + ABI (api/v2 smart-contracts) as published by the deployer community; captured by the registry sweep"
+}

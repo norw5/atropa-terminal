@@ -1,0 +1,274 @@
+---
+import Base from '../layouts/Base.astro';
+import StatGrid from '../components/StatGrid.astro';
+import {
+  loadTaxonomy, loadRegistry, loadTokensFull, loadClaims,
+  buildChildrenMap, lineageRoots, loadTimeline,
+} from '../lib/data';
+import { eraColor } from '../lib/eras';
+
+let tax: any = null;
+let registry: any[] = [];
+let tokens: any[] = [];
+let claims: any[] = [];
+let timeline: any = { events: [], eras: [] };
+try {
+  tax = loadTaxonomy();
+  registry = loadRegistry();
+  tokens = loadTokensFull();
+  claims = loadClaims();
+  timeline = loadTimeline();
+} catch {}
+
+const d = (t: number | null | undefined) => (t ? new Date(t * 1000).toISOString().slice(0, 10) : '—');
+
+const FACTORY_ORDER = ['V1', 'V2', 'V3', 'V4', 'BureauMinter#1'];
+const FACTORY_LABEL: Record<string, string> = { 'BureauMinter#1': 'BR#1' };
+const FACTORY_NOTE: Record<string, string> = {
+  V1: 'TbillMinter — TBILL-parity lock, no parent',
+  V2: 'FederalMinter — debenture/claim-key model',
+  V3: 'IndexMinter — step multiplier',
+  V4: 'PersonalMinter — self-scaled multiplier',
+  'BureauMinter#1': 'BureauMinter#1 — fixed BUREAU parent',
+};
+const factories = FACTORY_ORDER.map((v) => {
+  const kids = tokens.filter((t: any) => t.minter_version === v);
+  const ts = kids.map((t: any) => t.timestamp).filter(Boolean) as number[];
+  return {
+    v,
+    label: FACTORY_LABEL[v] ?? v,
+    n: kids.length,
+    first: ts.length ? Math.min(...ts) : null,
+    last: ts.length ? Math.max(...ts) : null,
+  };
+});
+const maxFactory = Math.max(...factories.map((f) => f.n), 1);
+
+const eraEvents: Record<string, number> = {};
+const eraRange: Record<string, [number, number]> = {};
+for (const e of timeline.events ?? []) {
+  eraEvents[e.era] = (eraEvents[e.era] ?? 0) + 1;
+  if (e.ts) {
+    const r = eraRange[e.era];
+    if (!r) eraRange[e.era] = [e.ts, e.ts];
+    else if (e.ts < r[0]) r[0] = e.ts;
+    else if (e.ts > r[1]) r[1] = e.ts;
+  }
+}
+const eras = (timeline.eras ?? []).map((e: any) => ({
+  ...e,
+  n: eraEvents[e.key] ?? 0,
+})).filter((e: any) => e.n > 0);
+const eraTotal = eras.reduce((s: number, e: any) => s + e.n, 0) || 1;
+
+const roots = lineageRoots(tokens, buildChildrenMap(tokens));
+const children = buildChildrenMap(tokens);
+let maxDepth = 0;
+let deepest = '';
+for (const r of roots) {
+  if (r.depth > maxDepth) { maxDepth = r.depth; deepest = r.root; }
+}
+
+const allTs = (timeline.events ?? []).map((e: any) => e.ts).filter(Boolean) as number[];
+const firstEvent = allTs.length ? Math.min(...allTs) : null;
+const lastEvent = allTs.length ? Math.max(...allTs) : null;
+const lastCensus = Math.max(...tokens.map((t: any) => t.timestamp ?? 0), 0);
+const spanEnd = Math.max(lastEvent ?? 0, lastCensus) || null;
+
+const counts = tax?._meta?.counts ?? {};
+const topClasses = Object.entries(counts).sort((a: any, b: any) => b[1] - a[1]).slice(0, 6);
+
+const TOOLS = [
+  ['/mint', 'mint', 'create a treasury token through any factory (V2/V3/V4 + bureau) or mint an existing child — live multiplier cost preview, MV + parent approvals signed wallet→contract directly.'],
+  ['/claim', 'claim', 'claim against an unpublished sibling key or self-redeem (V4), and publish V2 tokens — with the custody ceiling, key-eligibility gates and the publish ≠ protection preview shown before any tx.'],
+  ['/walker', 'walker', 'walk a lineage parent↔child and mint along the way — the community hop-tools idea rebuilt with zero custody and zero third-party approvals.'],
+];
+const VIEWS = [
+  ['/timeline', 'timeline', `${(timeline.events ?? []).length} block-exact events across ${eras.length} era bands — the TBILL ledger, crisis sequence, supply cliffs`],
+  ['/irc', 'irc', 'the full 103,550-line dev-channel log — verbatim corpus with full-text, date and user search'],
+  ['/graph', 'graph', 'the liquidity web as a 1,981-node graph — 2D canvas and 3D WebGL, click-to-detail with pool aggregates'],
+];
+const KB_ENTRIES = [
+  ['/knowledge/overview/', 'overview', 'what the system is · the actors · how the pieces fit · the eras — start here'],
+  ['/knowledge/', 'the knowledge base', 'guided reading paths · method · mechanics · deep dives · reference pages'],
+  ['/knowledge/deep/', 'deep dives', 'FED · TBILL · MV · math family · Keys Of Ong · TeddyBear · Atropa · the FDIC/POOR spines'],
+  ['/knowledge/mechanics/', 'mechanics', 'V1–V4 + bureau minters · registry/tx.origin · claim & publish · multipliers'],
+  ['/knowledge/reference/liquidity/', 'liquidity reference', 'pool classes · burnt census · forked vs bridge numeraires'],
+  ['/knowledge/reference/admin-surface/', 'admin surface', 'who owns what, and what the keys can actually do'],
+  ['/shared-infra', 'shared infra', 'MATH · RNG · the math family — the backbone both portals consume'],
+  ['/taxonomy', 'taxonomy', 'eight machine-derivable dimensions → principal classes'],
+  ['/claims', 'claim registry', `${claims.length} machine-checkable claim-classes`],
+];
+---
+
+<Base title="reference core" active="index">
+  <div class="hero">
+    <p class="boot mono xs">~/atropa.terminal/v2 &nbsp;·&nbsp; pulsechain chain-id 369 &nbsp;·&nbsp; provenance [src]/[chain] &nbsp;·&nbsp; tools wallet-direct</p>
+    <h1><span class="ps1 dim">~/</span>atropa.terminal — treasury-system reference core</h1>
+    <p class="hero-sub">
+      A machine-checked knowledge base and toolset for the Atropa Treasury
+      System: every factory child, every classified contract, the mechanics
+      that govern them, and the liquidity web around them — each fact tied to
+      recovered source or an onchain read.
+    </p>
+    <pre class="bootlog mono">$ atropa --census --registry --chronology --tools
+  <span class="hl">{tokens.length.toLocaleString()}</span> minter children ......... {factories.map((f) => `${f.label} ${f.n.toLocaleString()}`).join(' · ')}
+  <span class="hl">{registry.length.toLocaleString()}</span> classified contracts ..... minters · reserves · shared infra · helpers · corpora
+  <span class="hl">{roots.length.toLocaleString()}</span> lineage trees ............ deepest spine {maxDepth} deep
+  <span class="hl">{claims.length.toLocaleString()}</span> claim-classes ............ every statement machine-checkable
+  chronology <span class="hl">{d(firstEvent)} → {d(spanEnd)}</span> &nbsp;{(timeline.events ?? []).length} events across {eras.length} eras
+  tools online ............... mint · claim · walk <span class="dim">(injected wallet, no server, no custody)</span></pre>
+  </div>
+
+  <StatGrid stats={[
+    { v: tokens.length.toLocaleString(), k: 'TOKEN ENTITY PAGES', sub: <><a href="/tokens">/tokens</a> — every census child</> },
+    { v: registry.length.toLocaleString(), k: 'CONTRACT ENTITY PAGES', sub: <><a href="/contracts">/contracts</a> — the classified registry</> },
+    { v: roots.length.toLocaleString(), k: 'LINEAGE TREES', sub: <><a href="/lineage">/lineage</a> — parent→child forests</> },
+    { v: claims.length.toLocaleString(), k: 'CLAIM-CLASSES', sub: <><a href="/claims">/claims</a> — machine-checkable</> },
+  ]} />
+
+  <div class="panel">
+    <h2 id="census">census by factory <span class="dim" style="font-weight:400;font-size:0.8rem">— completeness by construction; rows link into the explorer</span></h2>
+    <table class="sortable">
+      <thead><tr><th>factory</th><th>children</th><th class="num">share</th><th>first child</th><th>last child</th><th>scale</th></tr></thead>
+      <tbody>
+        {factories.map((f) => (
+          <tr>
+            <td class="nowrap"><a href={`/tokens?v=${encodeURIComponent(f.v)}`}>{f.label}</a> <span class="dim mono xs">{FACTORY_NOTE[f.v]}</span></td>
+            <td class="num">{f.n.toLocaleString()}</td>
+            <td class="num">{(100 * f.n / tokens.length).toFixed(1)}%</td>
+            <td class="nowrap">{d(f.first)}</td>
+            <td class="nowrap">{d(f.last)}</td>
+            <td style="min-width:220px"><div class="fbar"><span style={`width:${Math.max(2, Math.round(100 * f.n / maxFactory))}%;background:${f.v === 'V1' ? 'var(--blue)' : f.v === 'V2' ? 'var(--green)' : f.v === 'V3' ? '#ffc85c' : f.v === 'V4' ? '#d18cff' : '#7ee0e0'};`}></span></div></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2 id="eras">eras <span class="dim" style="font-weight:400;font-size:0.8rem">— taxonomy era bands over the master chronology; <a href="/timeline">/timeline</a></span></h2>
+    <div class="eraband">
+      {eras.map((e: any) => (
+        <a class="seg" href="/timeline" style={`flex:${Math.max(100 * e.n / eraTotal, 4)};background:${eraColor(e.key)};opacity:0.75`} title={`${e.label}: ${e.note} — ${e.n} events`}>{e.label}</a>
+      ))}
+    </div>
+    <table class="sortable" style="margin-top:0.6rem">
+      <thead><tr><th>era</th><th class="num">events</th><th>window</th><th>definition</th></tr></thead>
+      <tbody>
+        {eras.map((e: any) => {
+          const r = eraRange[e.key];
+          return <tr>
+            <td class="nowrap"><span class="erachip" style={`border-color:${eraColor(e.key)};color:${eraColor(e.key)}`}>{e.label}</span></td>
+            <td class="num">{e.n.toLocaleString()}</td>
+            <td class="nowrap dim">{r ? `${d(r[0])} → ${d(r[1])}` : '—'}</td>
+            <td class="wrapok dim">{e.note}</td>
+          </tr>;
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="homegrid">
+    <div class="panel">
+      <h2 id="tools">live tools <span class="dim" style="font-weight:400;font-size:0.8rem">— pure client-side · injected wallet · zero custody</span></h2>
+      {TOOLS.map(([href, name, desc]) => (
+        <div class="homecard">
+          <h3><a href={href}>/{name}</a></h3>
+          <p class="dim">{desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="panel">
+      <h2 id="views">views <span class="dim" style="font-weight:400;font-size:0.8rem">— chronology · corpus · graph</span></h2>
+      {VIEWS.map(([href, name, desc]) => (
+        <div class="homecard">
+          <h3><a href={href}>/{name}</a></h3>
+          <p class="dim">{desc}</p>
+        </div>
+      ))}
+      <div class="homecard">
+        <h3><a href="/export">/export</a></h3>
+        <p class="dim">every bundle, the census CSV, sources + bytecode artifacts and the docs tarball — views of the same data layer this site renders from.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2 id="kb">knowledge-base entry points</h2>
+    <div class="kbgrid">
+      {KB_ENTRIES.map(([href, name, desc]) => (
+        <a class="kbcard" href={href}>
+          <span class="k">{name}</span>
+          <span class="d">{desc}</span>
+        </a>
+      ))}
+    </div>
+    <p class="dim" style="font-size:0.85rem;margin-bottom:0">
+      Principal classes by entity count:&nbsp;
+      {topClasses.map(([c, n]: any) => <a class="clschip" href="/taxonomy">{c} {n.toLocaleString()}</a>)}{' '}
+      — class rules on <a href="/knowledge/taxonomy/classes/">/knowledge/taxonomy/classes</a>.
+    </p>
+  </div>
+</Base>
+
+<style>
+  .hero {
+    border: 1px solid var(--border);
+    background:
+      radial-gradient(1px 1px at 8% 22%, rgba(255, 214, 150, 0.22), transparent 1.2px),
+      radial-gradient(1px 1px at 21% 68%, rgba(255, 214, 150, 0.16), transparent 1.2px),
+      radial-gradient(1.5px 1.5px at 33% 12%, rgba(255, 214, 150, 0.2), transparent 1.6px),
+      radial-gradient(1px 1px at 47% 82%, rgba(255, 214, 150, 0.14), transparent 1.2px),
+      radial-gradient(1px 1px at 58% 34%, rgba(255, 214, 150, 0.22), transparent 1.2px),
+      radial-gradient(1.5px 1.5px at 69% 58%, rgba(255, 214, 150, 0.16), transparent 1.6px),
+      radial-gradient(1px 1px at 81% 18%, rgba(255, 214, 150, 0.2), transparent 1.2px),
+      radial-gradient(1px 1px at 92% 74%, rgba(255, 214, 150, 0.18), transparent 1.2px),
+      radial-gradient(1px 1px at 96% 40%, rgba(255, 214, 150, 0.12), transparent 1.2px),
+      linear-gradient(180deg, rgba(245, 176, 77, 0.03), transparent 55%),
+      var(--bg2);
+    background-repeat: no-repeat;
+    padding: 1.1rem 1.2rem 0.9rem;
+    margin: 0.8rem 0;
+  }
+  .hero .boot { color: var(--fg-faint); margin: 0 0 0.5rem; }
+  .hero h1 { margin: 0 0 0.5rem; }
+  .hero-sub { color: var(--fg-dim); max-width: 58rem; margin: 0 0 0.8rem; font-size: 0.951rem; }
+  .bootlog {
+    background: rgba(13, 11, 8, 0.72);
+    border: 1px solid var(--border);
+    color: var(--fg-dim);
+    margin: 0;
+    padding: 0.7rem 1rem;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+  .bootlog .hl { color: var(--accent); font-weight: 700; }
+  .fbar { background: var(--bg3); border: 1px solid var(--border); height: 0.8rem; }
+  .fbar span { display: block; height: 100%; min-width: 2px; }
+  .eraband { display: flex; flex-wrap: wrap; gap: 0; }
+  .eraband .seg {
+    display: inline-block; min-width: 14px; text-align: center; font-size: 0.66rem;
+    color: var(--bg); padding: 2px 6px; cursor: pointer; overflow: hidden; text-decoration: none;
+  }
+  .eraband .seg:hover { opacity: 1 !important; text-decoration: none; }
+  .erachip { border: 1px solid var(--border-bright); padding: 0 0.25rem; white-space: nowrap; font-size: 0.78rem; }
+  .homegrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 0.8rem; }
+  .homegrid > .panel { margin: 0; }
+  .homecard { padding: 0.5rem 0; border-bottom: 1px dotted var(--border); }
+  .homecard:last-child { border-bottom: none; }
+  .homecard h3 { margin: 0 0 0.25rem; }
+  .homecard p { margin: 0; font-size: 0.82rem; }
+  .kbgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.6rem; margin: 0.6rem 0; }
+  .kbcard {
+    display: flex; flex-direction: column; gap: 0.15rem;
+    border: 1px solid var(--border); background: var(--bg2); padding: 0.5rem 0.7rem;
+    text-decoration: none;
+  }
+  .kbcard:hover { border-color: var(--accent-dim); text-decoration: none; }
+  .kbcard .k { color: var(--accent); font-weight: 600; }
+  .kbcard .d { color: var(--fg-dim); font-size: 0.78rem; }
+  .clschip { margin-right: 0.5em; }
+  .clschip:not(:last-child)::after { content: "·"; color: var(--fg-faint); margin-left: 0.5em; }
+</style>

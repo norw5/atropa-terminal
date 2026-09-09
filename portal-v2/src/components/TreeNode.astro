@@ -1,0 +1,54 @@
+---
+import { fmtInt } from '../lib/fmt';
+import TreeNode from './TreeNode.astro';
+
+interface Props {
+  node: any;
+  childrenMap: Map<string, any[]>;
+  depth: number;
+  sizes: Map<string, number>;
+  linkable: Set<string>;
+  isRoot?: boolean;
+}
+const { node, childrenMap, depth, sizes, linkable, isRoot = false } = Astro.props;
+
+const a = typeof node === 'string' ? node : node.address.toLowerCase();
+const kids = childrenMap.get(a) ?? [];
+const size = sizes.get(a) ?? kids.length;
+const label = typeof node === 'string'
+  ? node
+  : (node.name_clean || node.name || node.symbol_clean || node.symbol || node.address.slice(0, 10));
+const ver = typeof node === 'string' ? null : node.minter_version;
+const verClass = ver ? (String(ver).toLowerCase().startsWith('b') ? 'br' : String(ver).toLowerCase()) : '';
+const open = depth < 1 || (isRoot && depth < 2);
+const known = linkable.has(a);
+---
+{kids.length === 0 ? (
+  <li class="tree-node">
+    {known ? (
+      <a href={`/tokens/${a}`} title={typeof node === 'string' ? node : node.address}>{label}</a>
+    ) : (
+      <span class="addr mono xs" title={typeof node === 'string' ? node : node.address}>{label}</span>
+    )}
+    {ver && <span class={`badge ${verClass}`}>{ver === 'BureauMinter#1' ? 'BR' : ver}</span>}
+  </li>
+) : (
+  <li>
+    <details open={open}>
+      <summary class="tree-node">
+        {known ? (
+          <a href={`/tokens/${a}`} title={typeof node === 'string' ? node : node.address}>{label}</a>
+        ) : (
+          <span class="addr mono xs" title={typeof node === 'string' ? node : node.address}>{label}</span>
+        )}
+        {ver && <span class={`badge ${verClass}`}>{ver === 'BureauMinter#1' ? 'BR' : ver}</span>}
+        <span class="tree-count">[{fmtInt(kids.length)} direct / {fmtInt(size)} subtree]</span>
+      </summary>
+      <ul class="tree">
+        {kids.map((k: any) => (
+          <TreeNode node={k} childrenMap={childrenMap} depth={depth + 1} sizes={sizes} linkable={linkable} />
+        ))}
+      </ul>
+    </details>
+  </li>
+)}

@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import { loadSharedInfra } from '../lib/data';
+
+const infra = loadSharedInfra();
+const fam = Object.values(infra.family) as any[];
+const recon = infra.reconciliation_rng_mints_per_generate;
+const ledger = recon.math_rng_ledger;
+const curve = infra.usage_curve;
+const MATHseries = curve.MATH.buckets;
+const maxN = Math.max(...MATHseries.map((b: any) => b[1]));
+const barW = 6;
+---
+
+<Base title="shared infrastructure" active="infra">
+  <h1>shared infrastructure <span class="dim">— MATH · RNG · math family</span></h1>
+  <p class="dim">
+    First-class layer (authoritative here; single data source shared with the
+    AFFECTION portal — <code>shared_infra.compact.json</code>). State pinned
+    [chain] @ block {infra._meta.state_block}.
+  </p>
+
+  <div class="panel">
+    <h2>family</h2>
+    <table class="sortable">
+      <thead><tr><th>label</th><th>address</th><th>owner</th><th class="num">supply</th></tr></thead>
+      <tbody>
+        {fam.map((c) => (
+          <tr>
+            <td>{Object.entries(infra.family).find(([, v]: any) => v.address === c.address)?.[0]}</td>
+            <td class="mono xs">{c.address}</td>
+            <td>
+              {c.owner_is_maria2 ? <span class="tag">maria2</span> : c.owner_is_zero ? <span class="badge">renounced</span> : <span class="mono xs">{c.owner}</span>}
+            </td>
+            <td class="num">{c.totalSupply_units?.toLocaleString?.() ?? '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="dim xs">
+      cap semantics: {infra.cap_semantics.conditional} — {infra.cap_semantics.note}
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>RNG mints per Generate() — reconciled</h2>
+    <p>{recon.summary}</p>
+    <ul class="dim">
+      <li>RNG conditional [src]: <code>{recon.rng_conditional_src}</code></li>
+      <li>AFFECTION conditional [src]: <code>{recon.affection_conditional_src}</code></li>
+      <li>
+        MATH↔RNG ledger [chain]: {ledger.math_from_zero_mints.toLocaleString()} vs
+        {ledger.rng_from_zero_mints.toLocaleString()} from-zero mints →
+        <strong>Δ {ledger.delta.toLocaleString()}</strong> = {ledger.delta_meaning}
+      </li>
+      <li>
+        current state agrees to the unit:
+        {ledger.current_state_check.MATH_supply.toLocaleString()} MATH vs
+        {ledger.current_state_check.RNG_supply.toLocaleString()} RNG
+        (Δ {ledger.current_state_check.current_delta.toLocaleString()})
+      </li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>Random() usage curve <span class="dim">— from-zero self-mints per 200k-block bucket</span></h2>
+    <svg class="spark" viewBox={`0 0 ${MATHseries.length * (barW + 1)} 60`} style="width:100%;height:96px">
+      {MATHseries.map((b: any, i: number) => (
+        <rect x={i * (barW + 1)} y={60 - (b[1] / maxN) * 56} width={barW} height={(b[1] / maxN) * 56} fill="var(--accent-dim)" />
+      ))}
+    </svg>
+    <p class="dim xs">
+      {curve.MATH.mints_total.toLocaleString()} MATH · {curve.RNG.mints_total.toLocaleString()} RNG
+      from-zero mints all-time; affection-era peak 2024-07; second era 2025-11→ (third-party grinders;
+      MATH is a de-facto public onchain RNG oracle).
+    </p>
+  </div>
+</Base>

@@ -1,0 +1,59 @@
+{
+ "address": "0x752c3d7dfc54417eab7be7404beef8d8e087efa4",
+ "name": "atropaMath",
+ "language": "solidity",
+ "compiler_version": "v0.8.21+commit.d9974bed",
+ "optimization": false,
+ "optimization_runs": null,
+ "evm_version": "default",
+ "verified_at": "2024-06-06T01:59:36.901696Z",
+ "fully_verified": false,
+ "proxy_type": null,
+ "external_libraries": [
+  {
+   "address_hash": "0x752C3D7DfC54417eAb7bE7404BEeF8d8E087eFA4",
+   "name": "atropamath"
+  },
+  {
+   "address_hash": "0xc6824f72eC5548221b71ABdedf99F55dF6646F88",
+   "name": "conjecture"
+  },
+  {
+   "address_hash": "0xC67Db6c6a442B0e29f318d6c771Da2F59a8A824F",
+   "name": "dynamic"
+  }
+ ],
+ "sources": {
+  "0x752c3d7dfc54417eab7be7404beef8d8e087efa4.sol": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\n\nlibrary atropaMath {\n    uint64 constant MotzkinPrime = 953467954114363;\n\n    struct bar {\n        address[] a;\n    }\n    \n    function hashWith(address a, address b) public pure returns (uint256 hash) {        \n        hash = 0;\n        uint160 _a = uint160(a);\n        uint160 _b = uint160(b) / 15;\n        unchecked {\n            while(hash == 0) {\n                hash = (_a**_b)%MotzkinPrime;\n                _b = _b/2;\n            }\n        }\n        //return modExp(uint256(uint160(a)), uint256(uint160(b)), MotzkinPrime);\n    }\n\n    function modExp64(uint64 _b, uint64 _e, uint64 _m) public returns(uint64 result) {\n        uint256 B = _b;\n        uint256 E = _e;\n        uint256 M = _m;\n        uint64 R = uint64(modExp(B, E, M) % 18446744073709551615);\n        return R;\n    }\n\n    function modExp(uint256 _b, uint256 _e, uint256 _m) public returns (uint256 result) {\n        assembly {\n            // Free memory pointer\n            let pointer := mload(0x40)\n\n            // Define length of base, exponent and modulus. 0x20 == 32 bytes\n            mstore(pointer, 0x20)\n            mstore(add(pointer, 0x20), 0x20)\n            mstore(add(pointer, 0x40), 0x20)\n\n            // Define variables base, exponent and modulus\n            mstore(add(pointer, 0x60), _b)\n            mstore(add(pointer, 0x80), _e)\n            mstore(add(pointer, 0xa0), _m)\n\n            // Store the result\n            let value := mload(0xc0)\n\n            // Call the precompiled contract 0x05 = bigModExp\n            if iszero(call(not(0), 0x05, 0, pointer, 0xc0, value, 0x20)) {\n                revert(0, 0)\n            }\n\n            result := mload(value)\n        }\n    }\n}"
+ },
+ "source_sha256": {
+  "0x752c3d7dfc54417eab7be7404beef8d8e087efa4.sol": "5e9d03308958ad2aa8e947b14c1eaf237efaf99a5ff0a19fdd89be7e23083c52"
+ },
+ "abi": [
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "a",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "b",
+     "type": "address"
+    }
+   ],
+   "name": "hashWith",
+   "outputs": [
+    {
+     "internalType": "uint256",
+     "name": "hash",
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "pure",
+   "type": "function"
+  }
+ ],
+ "provenance": "[ext-api] blockscout-verified source + ABI (api/v2 smart-contracts) as published by the deployer community; captured by the registry sweep"
+}

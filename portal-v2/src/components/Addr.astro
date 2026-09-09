@@ -1,0 +1,19 @@
+---
+interface Props {
+  address: string | null | undefined;
+  label?: string | null;
+  internal?: boolean;
+}
+const { address, label, internal = false } = Astro.props;
+const display = label || (address ? address.slice(0, 10) + '…' + address.slice(-8) : '—');
+const href = address
+  ? internal
+    ? `/tokens/${address.toLowerCase()}`
+    : `https://ipfs.scan.pulsechain.com/address/${address}`
+  : '#';
+---
+{address ? (
+  <a class="addr" href={href} title={address}>{display}</a>
+) : (
+  <span class="addr">—</span>
+)}

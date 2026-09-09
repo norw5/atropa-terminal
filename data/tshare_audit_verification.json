@@ -1,0 +1,395 @@
+[
+ {
+  "address": "0x069F475eFF71A0C8268E0D094D47a560E866A587",
+  "name": "Treasury Share \u327e",
+  "symbol": "TREASURY SHARE",
+  "supply": 3911717652291254578066064,
+  "parent": "0x463413c579d29c26d59a65312657dfce30d545a1",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x09a0Ba06D1d49e4B23017C76105dD5BC4a798Ac5",
+  "name": "That You Have Never Seen In Your",
+  "symbol": "ASIAN DOGS \u32e8",
+  "supply": 1000000001347698511,
+  "parent": "0x84d317737611feb25ec3207fba5945f3cb44c143",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x09E3710CDef8AcF6C5833a832238FCB24420A210",
+  "name": "ZZ Top Coin",
+  "symbol": "Ecumenical Patriarchate of Const",
+  "supply": 12,
+  "parent": "0xc04a78edcf15d491dbbb6087568ebd0c81b176d7",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x16951Ce6D1D1D67E9239192e3eaE4d250576d90c",
+  "name": "\u321e",
+  "symbol": "\u321e",
+  "supply": 18000000000000000000000000,
+  "parent": null,
+  "creator": null,
+  "registry": {}
+ },
+ {
+  "address": "0x20D8F92b889d2846c1551C8CEfc0a5674e4bf20e",
+  "name": "Bride Of Finvestible \u327e",
+  "symbol": "Finvesta \u327e",
+  "supply": 4936531928005,
+  "parent": "0xdd0d66dff1e8231dbc7e8d4f46014a82d6c56af2",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x236776e1c6BA13641f39b4920c4D77d3e746C233",
+  "name": "Ayatollah Mr Bailey Khomeini",
+  "symbol": "Elton John Coin",
+  "supply": 228000000001331188009,
+  "parent": "0x84d317737611feb25ec3207fba5945f3cb44c143",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x2476B9357E8440Ecc0B15766395AB999d2861378",
+  "name": "Sticker Teddy Bear",
+  "symbol": "KIBO \u327e",
+  "supply": 282010783079067210870145,
+  "parent": "0xd6c31ba0754c4383a41c0e9df042c62b5e918f6d",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x30655F1915ab39E06931aa3be10AD1A430982DD7",
+  "name": "PulseX LP",
+  "symbol": "PLP",
+  "supply": 106213680185878957156759347,
+  "parent": null,
+  "creator": null,
+  "registry": {}
+ },
+ {
+  "address": "0x36d4Ac3DF7Bf8aa3843Ad40C8b3eB67e3d18b4e1",
+  "name": "\u0e21\u0e34\u0e15\u0e34",
+  "symbol": "\u0e44\u0e21\u0e34\u0e15\u0e34\u0e0b\u0e2a\u0e4c",
+  "supply": 1111111111000000000000000000,
+  "parent": null,
+  "creator": null,
+  "registry": {}
+ },
+ {
+  "address": "0x38D47E9bc2fF68F168B5308d3e12e6deD96DB1F4",
+  "name": "maybe",
+  "symbol": "PRECOCIOUS \u327e",
+  "supply": 7689047654407408491028168,
+  "parent": "0xd6077a029fb5bef33b02391d7f0349c345f6ddb1",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x3B007874a25530806D229317791Dc8E933160F82",
+  "name": "pow(pow(pow(pow(953467954114363,",
+  "symbol": "PHILIP \u327e",
+  "supply": 2490849742752,
+  "parent": "0x463413c579d29c26d59a65312657dfce30d545a1",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x3EcfDFAE860aB8Eb90d6232fEF9614CDc06a98f0",
+  "name": "Meurjeurs & Ackwizishims",
+  "symbol": "Shar Chiu \u32e8",
+  "supply": 5320804630655,
+  "parent": "0xd86dd89f1537b9b9606626e0c091f23f360da920",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x497418567Bc55D7A9279577b163756C4A34C15AF",
+  "name": "Intellectual Linguistic Processi",
+  "symbol": "ILP \u327e",
+  "supply": 1000000000000000000,
+  "parent": "0x394c3d5990cefc7be36b82fdb07a7251ace61cc7",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x4a19fb19B90676c16E6C1a39DE94AEB58B0b3595",
+  "name": "INSTINCT",
+  "symbol": "\u1c65\u1c64\u1c68\u1c61\u1c5a\u1c71 \u327e",
+  "supply": 29610298685320344,
+  "parent": "0x677d995e824edcd4e43131d39d913a7629df5cc1",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x4E496dB9f67B59C0277cc69aB0E0372ff0768C13",
+  "name": "TRIGLYCERIDE",
+  "symbol": "\u1c74\u1c68\u1c5f\u1c6d\u1c5c\u1c5e\u1c64\u1c65\u1c6e\u1c68\ufffd",
+  "supply": 10918,
+  "parent": "0xaa2ffd682965c78bd8b0ba87b1b01ca2860b34be",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x5D7cb27F535CEbC45d0A6e9B198B3C5e21553FA1",
+  "name": "Ayatollah Mr Oaks Khamenei",
+  "symbol": "Geddy Lee Coin",
+  "supply": 228000000001709591062,
+  "parent": "0x84d317737611feb25ec3207fba5945f3cb44c143",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x64B43b22d2adAEC58DbEaFBacb4Ac2521F94CAee",
+  "name": "DARPA Teddy Bear",
+  "symbol": "DARPA \u327e",
+  "supply": 1728608855201131044888032,
+  "parent": "0xd6c31ba0754c4383a41c0e9df042c62b5e918f6d",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x677d995e824EdCd4E43131D39d913A7629dF5CC1",
+  "name": "VERBOTEN",
+  "symbol": "\u1c75\u1c77\u1c5a\u1c62\u1c5a\u1c68 \u327e",
+  "supply": 133953044676175262007,
+  "parent": "0x36d4ac3df7bf8aa3843ad40c8b3eb67e3d18b4e1",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x6b013464A6052c206181D35a9E6505291782d6Df",
+  "name": "BIOHAZARD",
+  "symbol": "\u1c60\u1c5a\u1c60\u1c6e\u1c6d\u1c64\u1c71 \u327e",
+  "supply": 13225012372,
+  "parent": "0x7e38217ab67cecd07518ca7300447de1ae6de05f",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x6CEFe8C817f359Ded0420aD68bA53c248F7BCe6c",
+  "name": "Dysnomia Savings and Loan",
+  "symbol": "DSaL \u327e",
+  "supply": 150003835151026294366193,
+  "parent": "0xa8cc4625f8929a555fff916989f3ad1afa257f2b",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x6f782Ed2EE37b67e057e0C7d325E790D9E3E3c02",
+  "name": "og snodgrass growth strategies a",
+  "symbol": "Patriarch Of Jerusalem \u327e",
+  "supply": 21344,
+  "parent": "0x23fad246395f5039c89c7a35aa064731b4c2ecff",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x7074c6cA71cC3CE8ED3a7248f37Bd204F1Cbd95f",
+  "name": "Official WWE Coin",
+  "symbol": "WWE \u327e",
+  "supply": 313000041186236,
+  "parent": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x732CD53BFbBf9E12766D8dBE81BA3737CE2b3B05",
+  "name": "Dai Ichi",
+  "symbol": "DAIICHI \u327e",
+  "supply": 33450550380713364615538,
+  "parent": "0x6b175474e89094c44da98b954eedeac495271d0f",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x7d2520C0EfF78c54948600Ec6C68aCc7A2E4D1cf",
+  "name": "SEMIOTIC",
+  "symbol": "\u2744\ufe0f",
+  "supply": 2635011533433333331970,
+  "parent": "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {}
+ },
+ {
+  "address": "0x7E38217Ab67CeCd07518CA7300447DE1AE6de05f",
+  "name": "STUPID",
+  "symbol": "\u1c60\u1c5e\u1c5f\u1c70\u1c5a\u1c65\u1c6f\u1c73\u1c68\u1c64\ufffd",
+  "supply": 12788183405474,
+  "parent": "0x4a19fb19b90676c16e6c1a39de94aeb58b0b3595",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x84d317737611feB25Ec3207fBa5945f3cb44C143",
+  "name": "Acquired Taste Coin",
+  "symbol": "IPO \u32e8",
+  "supply": 1000000016899538093,
+  "parent": "0x3ecfdfae860ab8eb90d6232fef9614cdc06a98f0",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x8D4a4EF426c43bd32cb07CCcF00418dacce6D67B",
+  "name": "The Building Block Number",
+  "symbol": "DOPAMINE \u327e",
+  "supply": 591347697995,
+  "parent": "0x463413c579d29c26d59a65312657dfce30d545a1",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x901efc77E098ea01066cDb4F32fE60829b97C9b5",
+  "name": "Seniorship At The IPO",
+  "symbol": "SENIORSHIP \u32e8",
+  "supply": 1000000001257422682,
+  "parent": "0x84d317737611feb25ec3207fba5945f3cb44c143",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0x9CCc2de565da893AB1300674F174545A3E568F93",
+  "name": "Keys Of Ong",
+  "symbol": "ARCADIA",
+  "supply": 7729999999999999999969,
+  "parent": null,
+  "creator": null,
+  "registry": {}
+ },
+ {
+  "address": "0xAA2fFd682965c78bD8b0ba87B1B01ca2860b34bE",
+  "name": "SLAVE",
+  "symbol": "\u1c5f\u1c6d\u1c5f\u1c68 \u327e",
+  "supply": 13087805,
+  "parent": "0x6b013464a6052c206181d35a9e6505291782d6df",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0xC625e30CdD0849163cf0299c920EceD2A487798f",
+  "name": "Then We Take Youtube",
+  "symbol": "First We Take Twitter Like A Pir",
+  "supply": 1000000001260349751,
+  "parent": "0x84d317737611feb25ec3207fba5945f3cb44c143",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0xd6077a029fb5bef33b02391d7f0349c345f6ddb1",
+  "name": "\u0eae\u0eb9\u0e87\u0eca\u0ec4",
+  "symbol": "\u0eae\u0eb9\u0e87\u0eca",
+  "supply": 4000000000000000000000000000,
+  "parent": null,
+  "creator": null,
+  "registry": {}
+ },
+ {
+  "address": "0xd6e9aD3E6E7Afb468bc5D4fA59b5cBc638f796c4",
+  "name": "No Questions Asked Coin",
+  "symbol": "BODYGUARD",
+  "supply": 228000000001465694112,
+  "parent": "0x84d317737611feb25ec3207fba5945f3cb44c143",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0xdd0d66dff1e8231dbc7e8d4f46014a82d6c56af2",
+  "name": "PulseX LP",
+  "symbol": "PLP",
+  "supply": 4718174097629260,
+  "parent": null,
+  "creator": null,
+  "registry": {}
+ },
+ {
+  "address": "0xe5aA3B2Cfa151f41337bf75Dc5B4181E83e6D041",
+  "name": "Like Asian Dogs On Youtube",
+  "symbol": "TERMS OF SERVICE \u32e8",
+  "supply": 1000000001294385114,
+  "parent": "0x84d317737611feb25ec3207fba5945f3cb44c143",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V3": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0xf7029312cadE04b3264f54a31E1E1C011B88E65B",
+  "name": "pow(pow(pow(953467954114363,5)-3",
+  "symbol": "GLASNOST \u327e",
+  "supply": 19540324647761,
+  "parent": "0x463413c579d29c26d59a65312657dfce30d545a1",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ },
+ {
+  "address": "0xfAF4F9d646c6B50a4fc4562Dd620BD3661Bb9b85",
+  "name": "Maybe All Of It",
+  "symbol": "ASSOCIATION",
+  "supply": 111000000001813873235,
+  "parent": "0x20d8f92b889d2846c1551c8cefc0a5674e4bf20e",
+  "creator": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+  "registry": {
+   "V4": "0xbf182955401af3f2f7e244cb31184e93e74a2501"
+  }
+ }
+]

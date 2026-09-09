@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { loadClaims, loadTokensFull } from '../lib/data';
+
+const claims = loadClaims();
+const censusSet = new Set(loadTokensFull().map((t: any) => t.address.toLowerCase()));
+const byCat: Record<string, any[]> = {};
+for (const c of claims) (byCat[c.category] ||= []).push(c);
+const cats = Object.entries(byCat).sort((a, b) => b[1].length - a[1].length);
+---
+
+<Base title="claim registry" active="claims">
+  <h1>claim registry <span class="dim">— the machine-checkable half of the KB</span></h1>
+  <p class="dim">
+    {claims.length} claim-class rows generated from the same data layer as the
+    pages ({cats.map(([c, rows]) => `${c} ${rows.length}`).join(' · ')}).
+    Granularity: claim-class — one row per class of fact, never per instance.
+    Normative rows are [src]/[chain] only.
+  </p>
+
+  {cats.map(([cat, rows]) => (
+    <div class="panel">
+      <h2>{cat} <span class="dim">({rows.length})</span></h2>
+      <table class="sortable">
+        <thead><tr><th>id</th><th>statement</th><th>prov</th><th>proof ref / artifact</th><th class="num">block</th><th>entities</th></tr></thead>
+        <tbody>
+          {rows.map((c) => (
+            <tr>
+              <td class="nowrap mono xs" id={c.id}>{c.id}</td>
+              <td class="wrapok">{c.statement}</td>
+              <td class="nowrap"><span class="tag">{c.provenance}</span></td>
+              <td class="mono xs">
+                {c.proof_ref}
+                {c.artifact && <div class="dim">{c.artifact}</div>}
+              </td>
+              <td class="num">{c.pinned_block ?? ''}</td>
+              <td class="mono xs">{(c.entities ?? []).map((e: string) => <a href={censusSet.has(e) ? `/tokens/${e}` : `/contracts/${e}`}>{e.slice(0, 8)}… </a>)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ))}
+</Base>

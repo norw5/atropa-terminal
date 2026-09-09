@@ -1,0 +1,91 @@
+---
+import Base from '../../layouts/Base.astro';
+import TreeNode from '../../components/TreeNode.astro';
+import Addr from '../../components/Addr.astro';
+import { fmtInt } from '../../lib/fmt';
+import { loadTokensFull, loadRegistry, loadEntityLabels, buildChildrenMap, subtreeSize } from '../../lib/data';
+
+const tokens = loadTokensFull();
+const registry = loadRegistry();
+const labels = loadEntityLabels();
+const childrenMap = buildChildrenMap(tokens);
+const censusSet = new Set(tokens.map((t: any) => t.address.toLowerCase()));
+const registrySet = new Set(registry.map((r: any) => r.address.toLowerCase()));
+const linkable = new Set([...censusSet, ...registrySet]);
+
+function computeSizes(rootAddr: string): Map<string, number> {
+  const sizes = new Map<string, number>();
+  const memo = (a: string, seen: Set<string>): number => {
+    if (sizes.has(a)) return sizes.get(a)!;
+    if (seen.has(a)) return 0;
+    seen.add(a);
+    let n = 0;
+    for (const c of childrenMap.get(a) ?? []) n += 1 + memo(c.address.toLowerCase(), seen);
+    sizes.set(a, n);
+    return n;
+  };
+  memo(rootAddr, new Set());
+  return sizes;
+}
+
+export async function getStaticPaths() {
+  const toks = loadTokensFull();
+  const cmap = buildChildrenMap(toks);
+  const rootSet = new Set<string>();
+  for (const t of toks) {
+    const r = (t.spine_root || '').toLowerCase();
+    if (r && r !== t.address.toLowerCase()) rootSet.add(r);
+    else if (!t.parent && t.minter_version === 'V1' && (cmap.get(t.address.toLowerCase()) ?? []).length > 0) {
+      rootSet.add(t.address.toLowerCase());
+    }
+  }
+  return [...rootSet].sort().map((root) => ({
+    params: { root },
+    props: { root },
+  }));
+}
+
+const root = (Astro.props.root as string).toLowerCase();
+const sizes = computeSizes(root);
+const size = sizes.get(root) ?? 0;
+const rootToken = tokens.find((t: any) => t.address.toLowerCase() === root) ?? null;
+const rootReg = registry.find((r: any) => r.address.toLowerCase() === root) ?? null;
+const rootName = rootToken ? (rootToken.name_clean || rootToken.name || rootToken.address.slice(0, 10))
+  : rootReg ? rootReg.label
+  : labels[root] ?? null;
+const rootNode = rootToken ?? (rootReg ? { address: rootReg.address, name_clean: rootReg.label, minter_version: null } : root);
+const { depth } = subtreeSize(root, childrenMap);
+const title = `lineage: ${rootName ?? root.slice(0, 12)}`;
+---
+
+<Base title={title} active="lineage">
+  <p style="margin:0"><a href="/lineage">← /lineage</a></p>
+  <h1>
+    {rootName ?? <span class="addr mono xs">{root}</span>}
+    <span class="dim"> — lineage tree</span>
+  </h1>
+
+  <div class="statgrid">
+    <div class="stat"><div class="v">{fmtInt(size)}</div><div class="k">SUBTREE NODES</div><div class="sub">descendants of the root</div></div>
+    <div class="stat"><div class="v">{depth}</div><div class="k">MAX DEPTH</div><div class="sub">longest parent chain under root</div></div>
+    <div class="stat"><div class="v">{fmtInt((childrenMap.get(root) ?? []).length)}</div><div class="k">DIRECT CHILDREN</div><div class="sub">tokens whose parent == root</div></div>
+    <div class="stat"><div class="v">{rootToken ? 'census TT' : rootReg ? 'registry' : 'external'}</div><div class="k">ROOT KIND</div><div class="sub">{rootToken ? <a href={`/tokens/${root}`}>entity page</a> : rootReg ? <a href={`/contracts/${root}`}>entity page</a> : <Addr address={root} />}</div></div>
+  </div>
+
+  <div class="panel">
+    <h2>tree <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(&lt;details&gt; collapsible — no JS required; counts = [direct / subtree])</span></h2>
+    {size === 0 ? (
+      <p class="dim">No descendants — this root anchors nothing (data integrity note: reported as spine root but no parent edges resolve to it).</p>
+    ) : (
+      <ul class="tree" style="padding-left:0;border-left:none">
+        <TreeNode node={rootNode} childrenMap={childrenMap} depth={0} sizes={sizes} linkable={linkable} isRoot />
+      </ul>
+    )}
+  </div>
+
+  <p style="color:var(--fg-faint);font-size:0.78rem">
+    provenance: census parent graph ([chain] Parent() getters, dual-method
+    census, block 27,430,375 era) · spine roots from spine_root derivation ·
+    tree order = creation block ascending.
+  </p>
+</Base>

@@ -1,0 +1,3961 @@
+{
+ "_meta": {
+  "block": 27501164,
+  "caps_vocabulary": "none | inert (owner gates only renounce/transfer) | owner-mint | owner-pool | owner-parameter | owner-withdraw | owner-pausable-withdraw | governance | inert-rescue-open | bridge-operator | unknown",
+  "generated": "2026-09-09T12:33:50+00:00",
+  "owner_census": {
+   "live": 164,
+   "no_owner_fn": 85,
+   "renounced": 107
+  },
+  "provenance": "[chain] owner() census + [src]/[src-decompiled] capability census"
+ },
+ "contracts": {
+  "0x008fb244289a3fdb9700cc2208848df0b89f40aa": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x02dcdd04e3f455d838cd1249292c58f3b79e3c3c": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Wrapped Ether from Ethereum",
+   "owner": "0x4fd0aaa7506f3d9cb8274bdb946ec42a1b8751ef",
+   "owner_kind": "bridge-operator"
+  },
+  "0x054d43ef7c9ccf5b8ebf5e7120b32ff6b429cc05": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "HEXiKo_O (ROYALTY\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x06c27c650b09f36dee21a242a5600ad3ddfaa2f1": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Failure To Appear (STUTTER\u2122)",
+   "owner": "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x0767ed257beee2f4659e31ab80aee3fd2d5cd81b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Hammer Time (DISCOVERY\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x07f7ddc83678ecb76c9c4df1a80ebd2fc39bb654": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-pool",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "RemovePool",
+    "SetPool"
+   ],
+   "label": "HEXiKo_O (ROYALTY\u2122)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "RemovePool",
+    "SetPool",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x084b547a779f4ebc10aa3960459ff8c43c372255": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x088a0d204d02abe2f8226122ca2c54a01ce90704": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Integrative Hedge (HEDGE\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x08eca0d14c08268305558692c8b64d4a0ad257b4": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x08fe5c72173044314a74705089d014a4416ed71d": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u2810 (\u2819\u281c\u280d\u280f\u2816)",
+   "owner": "0xf520404cf4fa5b633626333775b05f5df94e1a9c",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x09e05ff6142f2f9de8b6b65855a1d56b6cfe4c58": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "ESM",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x0a2063209b0e45087327194bd76cdf768c65ff2b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x0b04a3af4c4d562694707fb93b7bca28c057dcb3": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "The Blood King (UBALDO)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x0b1307dc5d90a0b60be18d2634843343ebc098af": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-mint",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "mint"
+   ],
+   "label": "LEGAL (LEGAL)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "mint",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x0bf1b7a5a3a4ad951e995651effcf82d4662fe95": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "V3 minter",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x0c662a3df5d6fbf1902ab5fa2fe40a0ce377620f": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u1c6f\u1c68 (\u1c70\u1c69\u1c6f\u1c68\u1c73\u1c71)",
+   "owner": "0x22811d185d2996841e79f2668af87e574890aef8",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x0c7ee86eb6b7bacbe6020957f5db8ba91b0d53cf": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Dead Honey Pot (DeadHoneyPot)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x0cb6f5a34ad42ec934882a05265a7d5f59b51a2f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Tether USD from Ethereum",
+   "owner": "0x4fd0aaa7506f3d9cb8274bdb946ec42a1b8751ef",
+   "owner_kind": "bridge-operator"
+  },
+  "0x0d4b0c8c4c32def9c742014ff17bb21b30b3a762": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u4dfd\u4df8 (\u4de5\u4ddd\u4dcf\u4dd1\u4dfd\u4df8)",
+   "owner": "0x22811d185d2996841e79f2668af87e574890aef8",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x0d4df81c334153d54a678ad0d25c617b69414e19": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Allantoin (SPEED)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x0eb4ee7d5ff28cbf68565a174f7e5e186c36b4b3": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u0a32 (\u0a13\u0a70\u0a2b\u0a03\u0a19\u0a3c\u0a4c\u0a18\u0a01)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x0ecc1089cd0635de892d2937c5dae3d437af6b0c": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "ICE",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x1162104a7b8766784153dd2d6ac0eceaecd28117": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u03ee\u03ec\u03ee\u03e8 (HOST)",
+   "owner": "0xb6936b8e82626405f6e601d54a8292881d86b47d",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x1235fc9d69a215b898a38cdd0129eec13657b31f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Uncle Tom (\u05e4\u05d5\u05df \u05d8\u05d0\u05dd)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x13e4b2649a63901067840da4fc5d589e957d4e0a": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Pick 4 (LOTTO)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x15975f7bbd7a3a6355c6c5adbef9a8d37c104606": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x15d2840fe575873a3a1789fe8db9124ddb9fca76": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "HEXiKo_O (ROYALTY\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x15d38573d2feeb82e7ad5187ab8c1d52810b1f07": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "USD Coin from Ethereum",
+   "owner": "0x4fd0aaa7506f3d9cb8274bdb946ec42a1b8751ef",
+   "owner_kind": "bridge-operator"
+  },
+  "0x16951ce6d1d1d67e9239192e3eae4d250576d90c": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u321e",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x173216ed67ebf3e6767d86e8b3ff32e0d64437bf": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-mint",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "Mint"
+   ],
+   "label": "Not Exist (TOD)",
+   "owner": "0xbf182955401af3f2f7e244cb31184e93e74a2501",
+   "owner_gated": [
+    "Mint",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria1"
+  },
+  "0x174a0ad99c60c20d9b3d94c3095bc1fb9ddefd62": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u2c51 (\u2c4f\u2c5f\u2c3f\u2c3a\u2c39\u2c53\u2c52)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x17e136fd4c821ae25a611faf187753b6e84736a4": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Random Number Generator (RNG)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x185d2f123d04f1a243bfbfd5b15f11fb4f314b23": {
+   "basis": "[src-decompiled] W5 (KB 05): stuck-token rescue is permissionless",
+   "block": 27501164,
+   "caps": "inert-rescue-open",
+   "caps_source": "curated",
+   "label": "Sweeper",
+   "owner": "0x771a6f6ebe92fe647e657b8cefc58faaf1778a65",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "community-builder"
+  },
+  "0x1942ba1ea7c21a070d70c4efe64b21694283f23e": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u0627\u0644\u0644\u0627 (\u0627\u0644\u0627\u0645\u0627\u0631\u0627\u062a)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x1a4e22af07f52a1e68c908ff077fef183a50ebe3": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Mufti",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x1b8f9e19360d1dc94295d984b7ca7ea9b810d9ee": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u327e (scissors \u327e)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x1b98fcc59ef301f22f6af49f3aab9794f9d0ee74": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "American Institute of Mining, Metallurgical, and Petroleum Engineers (MURDER\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x1c86019cc2c591e7539b26d04351f4a97a7759f9": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "bzr cohort (generic.sol _bzrs member)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff": {
+   "basis": "[src] verified FED_TT.sol: no Ownable in the TT template",
+   "block": 27501164,
+   "caps": "none",
+   "caps_source": "curated",
+   "label": "FED F327eD",
+   "owner": "",
+   "owner_gated": [],
+   "owner_kind": "none"
+  },
+  "0x1efd3d64f98b212b24c95f8dccc44c3a4fd52ae7": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Pick 4 (LOTTO)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x1f1f195b34e64ab2369d1c61cc4b50689262df42": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x1f40738cc8fedd5418902f235ef2a4d5886a78f1": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x1f6972a02b947f959466fb16ea822f969800d144": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "The Bannatyne Club (PETIT CRUS)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x1f737f7994811fe994fe72957c374e5cd5d5418a": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u2468 (\u30c6\u30c7\u30a3\u30d9\u30a2)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x1ff00d048d58e701e2550c081bfc556d2806ade5": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Immutable Youtube Comments (IYC)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x1ff493d1eca7041099f2cca0adcad5902e506162": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "GOSHEN (\u6751\u5c71 \u5bcc\u5e02)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x203e366a1821570b2f84ff5ae8b3bdeb48dc4fa1": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "CROWS \u326b (CROWS \u326b)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x20bf7bcc498b2f0f0a1e94ffec9dd00ceb59f875": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "SUSPEND (PROSTITUTION\u2122)",
+   "owner": "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x20fb1f0f0e11d96278bb9832cdb561eb08c26d25": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x210febcfd632ce314a72c4a83f416ccfa3bf847b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Lurleen Burns Wallace (EPICURUS)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x2234da59c2d5edb197594c95dbba7a99bcd91230": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Sound Castle Coloring Book (SECURITY\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "pWBTC",
+   "owner": "0xca06411bd7a7296d7dbdd0050dfc846e95febeb7",
+   "owner_kind": "third-party"
+  },
+  "0x22610d6ba8c4b12793f2bb42533bcfd7ae6a902f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x22811d185d2996841e79f2668af87e574890aef8": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Sandringham House (SAND)",
+   "owner": "0x000000000000000000000000000000000000dead",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "burn-sink"
+  },
+  "0x22b31c5e8d65cc7e9410bbd0769408b53b3dbe12": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-pool",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "RemovePool",
+    "SetPool"
+   ],
+   "label": "HEXiKo_O (ROYALTY\u2122)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "RemovePool",
+    "SetPool",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x22fe84a0e095893d9ff13247074de5643a81bd19": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "libDynamic v1.0 (Faung)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x232a27ab6941281b3f474fe5ff7cc89816fb675a": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "curated",
+   "label": "Fa libConjecture v1.0",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x23e00766bba54982c562582ea89c2381e20b5fc6": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x241da2613b0a01c2f60acb636b21a8e082e2f2f0": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Innit \u2122 (ACAB)",
+   "owner": "0x903030f7e2d6489f38b0f4f96f9b371ec7960f78",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "trebizond"
+  },
+  "0x242e264680054232661af225467ec286e3f95652": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "NOVN (Novartis AG)",
+   "owner": "0x4c1518286e1b8d5669fe965ef174b8b4ae2f017b",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x24f0154c1dce548adf15da2098fdd8b8a3b8151d": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "AFFECTION",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x2556f7f8d82ebcdd7b821b0981c38d9da9439cdd": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "dOWN (dOWN)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x25d53961a27791b9d8b2d74fb3e937c8eaeadc38": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u2466 (First Pulse Mutual Bond)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x261babfcb9fc4f37ef331b81e7930704955c5e11": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Robert Beck Redford (Erdo\u011fan\u2122)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x26d5906c4cdf8c9f09cbd94049f99deaa874fb0b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u0780\u07b0 (\u0796\u07ae\u0794\u07a8\u0790\u07b0\u078b\u07ad\u0788\u07af\u0780\u07a9)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x271197efe41073681577cdbbfd6ee1da259baa3c": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u7c6f (\u7c6f)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x27a4f4db98798098748712f2317774f98cec7ed5": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ud804\udda8\ud804\uddbc\ud804\udda4\ud804\uddbc\ud804\udda6\ud804\uddca\ud804\uddb4\ud804\udda0\ud804\uddc0\ud804\uddb1\ud804\uddc0 (\ud804\udda2\ud804\uddae\ud804\uddbe\ud804\uddb1\ud804\uddc0)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x283a7e68dbb4d26cb3878ca9084ed3d0e45cf5c5": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "ACCOUNT (\u14b9A\u14b41\u14b10)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x2959221675bdf0e59d0cc3de834a998fa5ffb9f4": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u2467 (BULLION \u2467)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x296e797f481c15d6fe138cea09bda3a1c2869216": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "YouTube \u3262 (YT \u3262)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x2b943bf3cfc3b7a42dc7d13898171802bcd3aea9": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Random Number Generator (RNG)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x2c1fb497cd0858cf68c96af6e2a801d121d97e27": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "libDynamic v1.0 (Faung)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x2db160ceea0f1b4ca0159fcf67fccf8e549191ff": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "CU\u327eNY\u327e",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x2e5898b2e107a3caf4f0597acfe5d2e6d73f2196": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "CiA \u327e (CiA \u327e)",
+   "owner": "0x0000000000000000000000000000000000000001",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "burn-sink"
+  },
+  "0x2eac5ff91b1432827701e52cbbdad63fa0c32d0d": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u041a\u0438\u043c\u043a\u0430\u043d (ZION)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x2ef8f161719f99062780f54733efb4ff1516f277": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "libConjecture v1.0 (Fa)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x2fa079d2daa29ec8925484f9e9021e9191fe4ae4": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "iCE \u327e (iCE Advertisements \u327e)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x2fc636e7fdf9f3e8d61033103052079781a6e7d2": {
+   "basis": "[src-decompiled] heimdall session 17 (owner = INDEPENDENCE contract)",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "curated",
+   "label": "G5 GIMME FIVE",
+   "owner": "0x8b090509eae0feb4a0b934de1b4345161fa9a62d",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "independence-contract"
+  },
+  "0x307a3694dfc453c6692db3e9f3f07ff328167dce": {
+   "basis": "[src-decompiled] W5 (KB 05)",
+   "block": 27501164,
+   "caps": "owner-pausable-withdraw",
+   "caps_source": "curated",
+   "label": "MultiHop",
+   "owner": "0x771a6f6ebe92fe647e657b8cefc58faaf1778a65",
+   "owner_gated": [
+    "enableContract",
+    "disableContract",
+    "emergencyWithdraw(address,uint256,address)",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "community-builder"
+  },
+  "0x30c4e7a7b6a19c704742d55b546872c7f01615d7": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x320252f4218271184967e090ad000dc4b50e51b6": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "American Engineers' Council for Professional Development (\u0633\u0644\u0637\u0646\u0629 \u0639\u064f\u0645\u0627\u0646)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x325950f00cbebdff0ec6637bad2d386e0c629841": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x32fe87852390332daf169537f364f5642516daad": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u03a0\u039d\u0395\u03a5\u039c\u0391 (WAR)",
+   "owner": "0x22811d185d2996841e79f2668af87e574890aef8",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x33f3355727e4f00d6422bf0a7bde6036fdf48bb5": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Happy \"Julius Caesar\" Rockefeller (FAKE\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x345e15235a5a3d6f1a4a88234a7e611f14745475": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ud83d\udc9c Purple Heart Recipient \ud83d\udc9c (DEVITATION)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x347bc40503e0ce23fe0f5587f232cd2d07d4eb89": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u7b2b\u7b2c\u4f5c\u7b08 (\u7b2c\u4f5c)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Vat",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x363dccbcabf8e602ba237399da4845cc45d0d68b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ud803\udfe1\ud803\udff1\ud803\udff6\ud803\udfe6\ud803\udfe7 (NUT)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x367382032bf3e1e8fbe0afe149a86b8349b2c292": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x36824a24780ccf79e973d355cd16a12279cf8700": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Interessanti (VATHEK)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x36946e462e80f85fc573129d9485d0b01e1f5af4": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "libConjecture v1.0 (Fa)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x36d4ac3df7bf8aa3843ad40c8b3eb67e3d18b4e1": {
+   "basis": "[src] verified Metis.sol; owner Maria #2 [chain] session 17 \u2014 LIVE owner-mint key",
+   "block": 27501164,
+   "caps": "owner-mint",
+   "caps_source": "curated",
+   "label": "\u0e21\u0e34\u0e15\u0e34 (\u0e44\u0e21\u0e34\u0e15\u0e34\u0e0b\u0e2a\u0e4c)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership",
+    "mint(address,uint256)"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x379877af60547140cad225457ca226c8a3cc8c67": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "United States Constitution (\u14a01\u14a06\u14a07)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x37bc2807dd055c4bc85dd954a2ffa72e6857a110": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Bhutan \ud83d\udc51 (\u03a6\u0393\u0394)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x380c3a6e2fd91cffb5a88bdef9da85654a94f93d": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-mint",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "mint"
+   ],
+   "label": "Time Stamp (TS)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "mint",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x3815d67214216ec3683652c6f1da4fd99f677d0b": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass Fake (OTPF)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x38d739b86233f7bc9cf82b231aec4ffa749c2efb": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u0710\u0721\u071d\u0715 (\u0710\u0721\u071d\u0715 \u0725\u0722\u071d\u0308\u0722\u0710 \u070f\u0729\u0715\u0721)",
+   "owner": "0x4c1518286e1b8d5669fe965ef174b8b4ae2f017b",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x394c3d5990cefc7be36b82fdb07a7251ace61cc7": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "V4 minter",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x3c5b8de790304069b44354a4446a4c37682f542b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u0e1b\u0e4a\u0e32\u0e35\u0e01\u0e4b\u0e17\u0e48\u0e32\u0e37\u0e07\u0e37\u0e30 (\u084e\u0848\u084b\u0859\u0856)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x3cca11b99e3338f57b0fcb0d203d747aeae01ce5": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u0627\u0644\u0644\u0627 (\u0627\u0644\u0627\u0645\u0627\u0631\u0627\u062a)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x3d67511733d976800467119264c3d4cd9fa23041": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u6cfd (\u2469)",
+   "owner": "0xdf6a16689a893095c721542e5d3ce55bbcc23ac6",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x3dbac51cca2bdff70790cbb6acf0a9a844369081": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x3e8a9d55db391751a381d0c3822f727ea81dbdda": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "abC^n*",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x3f92d9ee64a3e1405302e68ee0fde9e085f8ce4b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u10c5\u10f8 (HOES)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x40e6d331e168815ff1a546a3b0cce71272e9f4cd": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "O.T.O.",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x4144f4bfb114e257333eff57271e8f1106631ff4": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u2467 (BULLION \u2467)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x4243568fa2bbad327ee36e06c16824cad8b37819": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "TSFi (TSFi)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x42f46d922f04d3290a80161ead3ddeffe7d0b402": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x4443123a54a05baf16089a3c922d0b9cf5901032": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass Fake (OTPF)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x44ffc153a77ecc6cec5c4277d938714aecec440c": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x45101a71de96219a70671b0d6975f92e99eff8a9": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "The Bradford Club (GRAND CRUS)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x4546993bf7870aba48e0cde1168edbe6473a320f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x463413c579d29c26d59a65312657dfce30d545a1": {
+   "basis": "[src] verified TBILL_TreasuryBill.sol; key burned 2025-04-01 blk 23101492",
+   "block": 27501164,
+   "caps": "owner-mint",
+   "caps_source": "curated",
+   "label": "TREASURY BILL (TREASURY BILL \u327e)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership",
+    "mint(address,uint256)"
+   ],
+   "owner_kind": "renounced"
+  },
+  "0x47171ebe6dead933d09498bb92230851bda53713": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "bzr cohort (generic.sol _bzrs member)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x47d8a312e58798a2fec37cd0895aeda42e0155b0": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "bzr cohort (generic.sol _bzrs member)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x48f628c079353ecc4db75f0d05de9299e083f3c2": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "FREEBIES (Massacre Freebies ?)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x4a458d04909a42f79d31805762b2abc38ab9407d": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u05d4\u05d7'\u05e0\u05e8\u05da (\u05e3\u05e7\u05e9\u05df)",
+   "owner": "0x72f96a39ac9408b5458e5597bbc22060552dedf4",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x4a668d5c9d76850ffa4d5948fa6724c158aba092": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x4c1518286e1b8d5669fe965ef174b8b4ae2f017b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Annabelle: The Profit \u3276 (BEL \u3276)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x4cf830c0714f01cf506ec3fbbae7874b18a29691": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x4d4f041e967cc5c0af132a179d20f46d49062fbe": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x4e5dc8ddee98471db9e32f4320bdc4e77c184e44": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x4ec5f865f6996ac424a1740ef97b8d1c862e0988": {
+   "basis": "[src-decompiled] heimdall session 17: no Ownable",
+   "block": 27501164,
+   "caps": "none",
+   "caps_source": "curated",
+   "label": "cDc",
+   "owner": "",
+   "owner_gated": [],
+   "owner_kind": "none"
+  },
+  "0x4ed2ad8a609ff412fe88113b998d6eb28a4d4542": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Centrifuged Hydrogen Peroxide (The 5th Column)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x50211aa4d3d4880b5b80f683e27dd185e11c306c": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x502b41adabff7a93c8d742eb2576d2871bdb2ba1": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Bob Dylan (BARD)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x50e40e8555aab6b9c6cff691e14070b6f38142cb": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "RazoR 1911 \u327e (RZR \u327e)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x50e72874dcd7c198d370ac27c7b3cce9f9a0defd": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ud801\udc0f (\u1528\ud801\udc0f\ud801\udc24\u1246\u152a)",
+   "owner": "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x51a7aabcca69b3c0f82b3b9ce5104fde3efaece6": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Tristar and Red Sector Incorporated (TRSI)",
+   "owner": "0xa7bc844a76e727ec5250f3849148c21f4b43ceea",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x51c36aa04ffc2139f6d34436d0edc7f5ffc6d6fb": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Hegemony (\u0639\u062c\u0569)",
+   "owner": "0x583d1c1427308f7f96bfd3e0d7a3f9674d8bf8ec",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x52a4682880e990ebed5309764c7bd29c4ae22deb": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\uc720 (\uc720)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x52c32a667669a59f051ed174aaa9560f52d916e9": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u1c08\u1c32\u1c00\u1c29\u1c1d\u1c31\u1c4d\u1c2f (\u1c4d\u1c2f)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x53ccc8d706b1d2add9058bc12ff0875f378ee099": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "LOAN (\u7008)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x54d88f0c4a738247dadf160923e1b1c5dc4f510f": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ud805\udc99\ud805\udcc2\ud805\udcaa\ud805\udcb2\ud805\udcc5\ud805\udcab\ud805\udcb1\ud805\udc99\ud805\udcc3 \ud838\udd4f (\ud805\udc99\ud805\udcb0\ud805\udcc5 \ud838\udd4f)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x557f7e30aa6d909cfe8a229a4cb178ab186ec622": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u0281 (\u0281 \u326d)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x580192164ceb11721abd1b5116be328529653e22": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "libDynamic v1.0 (Faung)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x583d1c1427308f7f96bfd3e0d7a3f9674d8bf8ec": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Z\u00fcrich (Z\u016f)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x5a49433d997de8af3e83d8c59d0a196680174d98": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "SuGaR pLUMz (NINJATARD)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x5d4cb28ea61125a1fd3c927162c6f1969dd26788": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "PWA \u327e (Pirates With Attitude \u327e)",
+   "owner": "0x046eb71eb92e3ed2534d005ab4436b4b8db24dfa",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x5de29c8eac1482221de1945a566b6c65f54a3c3e": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Bureau#4 minter",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x5ed157c157a430a5bc4f0f1b0bd78ebee6533479": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x5ef3011243b03f817223a19f277638397048a0dc": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "MATH v1.0 libAtropaMath",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x5f16f6c242e038437a7ba3c903dfedb747db4a5c": {
+   "basis": "[src] verified ZHENG_Tetratricopeptides.sol: no Ownable",
+   "block": 27501164,
+   "caps": "none",
+   "caps_source": "curated",
+   "label": "Tetratricopeptides (\u6b63)",
+   "owner": "",
+   "owner_gated": [],
+   "owner_kind": "none"
+  },
+  "0x603c6a0d4a565941658dc85cfb45da908b838c2c": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x60df6bb066a0c643789559a7de0f8997fab89f33": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u0d34\u0d41\u0d41 (\u0d38\u0d4d\u0d15\u0d3e\u0d42\u0d02\u0d15\u0d4d\u0d37\u0d34\u0d41\u0d41)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x61dcf6a5df780a1e552f0f80afad23a9ae16755f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ue910\ue901 (\ue910)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x6236073377ac7e0ab694957da5d7d4241e72ebc6": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ua905\ua92a\ua910\ua927\ua917\ua92c (PhD)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x6293373bf0dae2050641973d49b7b2f71adc91a1": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "2 Cent Club (2CC)",
+   "owner": "0x52a4682880e990ebed5309764c7bd29c4ae22deb",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x63a7ba5532a16fdcd5fd5f5f4c25dab610602673": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x67c13559f2eb56d8f8c088c4303d0c46583b4237": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "O.T.O.",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x68e87fa19984f45c68945bbd4c81bf3481750429": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-parameter",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "Unresolved_21343a9c"
+   ],
+   "label": "\ud807\udc83\ud807\udc84\ud807\udc77\ud807\udc76 (\ud807\udc70)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "Unresolved_21343a9c",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x69d4d6842d47838da249fb6fd685757e18908545": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u50ee\u327e\u327e",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x6a3a99f6db83c8397b57033734fc29f3f5b58f46": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "libConjecture v1.0 (Fa)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x6b175474e89094c44da98b954eedeac495271d0f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "pDAI",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x6cb1a1eebf2e399858cd78e54afd9f357fca1fcb": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x6f6909ba6d083b3e76c15258c1fc17f73bcdd7bb": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "HEXiKo_O (ROYALTY\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x6ff9b356093799be6435e16002e282e42c805d6a": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Chlorphenesin (ROHYPNOL)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x70af3be6a8d9d7ed82adfda866585a00b496c9de": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x71448a8888e5272c9b5b9a72a336eadf68b30fc2": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "MANDATE (\ud822\udd7f)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x7181d563d8f06613b645eba433751bf791a288e4": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "HEXiKo_O (ROYALTY\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x71d8cb4828f129929d82a35686f2ac73f3901ec9": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x72ae7a4dcbef4bfde425c9a1811446ffcc29166e": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "TRAEGER (GRILL)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x72f96a39ac9408b5458e5597bbc22060552dedf4": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "JAMES COOK (\u0635\u0643)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x731d8bbb9468c945be208b1d689a1aeff0df4435": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Pick 4 (LOTTO)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x7325bb0568725fd4b53ab75ce021ad8ff764490d": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "MENSA\u2122 (\ud804\ude2b\ud804\ude24\ud804\ude02\ud804\ude25\ud804\ude29\ud804\ude07\ud804\ude2b)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x73a19fafb359faf519c9707b781dfdb88407d10d": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "curated",
+   "label": "Faung libDynamic v1.0",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x744f1a65491cfd4a50b95c0d3cff8095c4448848": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Test Token (UNDEPLOYED\u2122)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x748f3dedf7a31ded9cf6421f44f967e3ed85e83a": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u1698 (\u1698\ua807\u1763\ua932\u1698)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x752c3d7dfc54417eab7be7404beef8d8e087efa4": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x7614fabf7e0b0dfcc0e02a14e720677148c5141d": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Century Means Silence (PUNK)",
+   "owner": "0x22811d185d2996841e79f2668af87e574890aef8",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x7674516ad438dd67a057fbc1119168d9a7d2a9b1": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Stay Of Proceedings (\u00ae\u2122)",
+   "owner": "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x7759a6d283192ef2ba082923d28bec6ebfaf9d68": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "LEPROSY (\ud83c\udf08)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x77bed67181cef592472bcb7f97736c560340e006": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Bullion (BULLION \u2464)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x79f8ab95bfe3c832aceb804d2ca20c85e2c48287": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x7a3e33ce772ef28438bcb4f564dc300289cc63f4": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Notice That Ol' En Banc Faggot OJ \"The Federal Reserve Deficit\" Simpson You Musta Quit Lookin For (Durek Verrett)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x7abac9ebedaa90976ad112f1e57dda2e73b80b8a": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "The Tigard Foundation (AD)",
+   "owner": "0x7abac9ebedaa90976ad112f1e57dda2e73b80b8a",
+   "owner_gated": [],
+   "owner_kind": "third-party"
+  },
+  "0x7b75385a86e00c17ee4fc0ddf85e26711984f058": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x7c4a08584ca8d889e87fc93331224bcb7947fe0c": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Tokenized Asset (yjOz1IqBkQk)",
+   "owner": "0x903030f7e2d6489f38b0f4f96f9b371ec7960f78",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "trebizond"
+  },
+  "0x7e80579ef57a2b80e1e7bc181a5cac98767d24ab": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Always Ready, Always There (\ud806\udeca\ud806\udee4\ud806\uded6\ud806\udeda)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x7ec9043c321a8759ee5f917da943979ec70cf8e3": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Integrative Hedge (HEDGE\u2122)",
+   "owner": "0x903030f7e2d6489f38b0f4f96f9b371ec7960f78",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "trebizond"
+  },
+  "0x7ecb028b1d2c371e8bdccdaadd39c73bd5019fca": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Secretary Of The United States Department Of Homeland Security (JETHRO)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x7f51fdb20246d7a673036f11c743e99a4af01de0": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ud801\udcba\ud801\udcca\ud802\udcf4\ud801\udcc3\ud801\udcb1 (\u514b\u91cc\u59c6\u6797)",
+   "owner": "0x7fb09ee1a2c0e8b6d1c4e19c0248b3cbc0113af6",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x7fb09ee1a2c0e8b6d1c4e19c0248b3cbc0113af6": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u07e6 \u327a (\u07dd\u07d0\u07d4\u07ce\u07cc\u07d6\u07e6)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x7fbf264a9b3b6a28c21cfc93ca91f081ddb09949": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Voltaire \u327e",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x80c105217885707ba0003ffae7ab01466e5e8488": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-pool",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "RemovePool",
+    "SIGMA",
+    "SetPool"
+   ],
+   "label": "Ryerson Department Of Mines (NIGGER\u2122)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "RemovePool",
+    "SIGMA",
+    "SetPool",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x81625dc44101400b0329e9e590caee997821fbb1": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u053b (\u0587\u0553\u054b\u0543\u0544)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x83a918056ab9316837dc48a216119d679d561d91": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u13a7\u13c3 (\u13a7\u13c3\u13ae\u13b8\u13cd\u13a9)",
+   "owner": "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x840cbd20a70774becac4e932fff6fb1f5417997f": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u1974\u1967\u195d\u1955 (\u4f5b\u97f3)",
+   "owner": "0x4c1518286e1b8d5669fe965ef174b8b4ae2f017b",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x846e799e2c08f5adead02c2135b687c91c888910": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x8511970af1823e79f26e5cb9ed2e7b2bc7aa581b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "bzr cohort (generic.sol _bzrs member)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x85498abc21da6e4455ed74211cab5f55c0415d6f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "2600 \u327e",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x85b22505fd17a9c5003cd48476c7bc61da522445": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x86f0985cd6ab3196ea8dceba87b92a2e22124633": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "FairLight \u327e (FLT \u327e)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x89e8cd6306abbab8e39eed0d53566d8dc2e02c01": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u05e8\u05d1\u05e0\u05d9\u05e9\u05e2 \u05d5\u05d5\u05d9\u05e1\u05e0\u05e9\u05d0\u05e4\u05d8 (\u05e8\u05d1)",
+   "owner": "0x903030f7e2d6489f38b0f4f96f9b371ec7960f78",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "trebizond"
+  },
+  "0x8a03b032c5494219b212e5a74a49e2aa7f9d206f": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u05d3\u05e8\u05f2\u05d3\u05dc \u327b (\u327b)",
+   "owner": "0xb4c1248812dabf72cb2e82175b4c0acffe4d2b10",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x8b090509eae0feb4a0b934de1b4345161fa9a62d": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "INDEPENDENCE (\u00a9\u2122)",
+   "owner": "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x8b16115ff716b4c52706122cb4e974f7a72e5af1": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Public Record (BAIL\u2122)",
+   "owner": "0x903030f7e2d6489f38b0f4f96f9b371ec7960f78",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "trebizond"
+  },
+  "0x8b8b26bb6c5fd4867339ab2f0acf3ae5129bd2f0": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Vatican City State (FROCK)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x8b8d5a3b5dfe072f10ff928bb28fb2036b31a6b1": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass Fake (OTPF)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x8c7c7b79df33a846e50ee753487de96f6ed87a2a": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Pick 4 (LOTTO)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x8e1d639a3fdbd2072d905adcb4ccc6cb3fd8986e": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "2 Cent Club (2CC)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x8f326f4530d02c6c5bbf8acd46ddbb0391871e85": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u1743\u1748\u1750\u1746 (CANASTA)",
+   "owner": "0x22811d185d2996841e79f2668af87e574890aef8",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0x8fc9e80c26e735fe25ec524b3fc350edfbc5980a": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x9047fad9598963b031172372196bd307f048dde3": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "MINISTRY",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x9064bee4180b279f6b4e35e752485fede78d6853": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x91ce91421d499e24c1b5df5768f3d47ad5fe4f80": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x920401fdce49fc70a2d4cd70db0dd90212a97f98": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Gokuldham Society \u534d (\u534d)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x93335cff017c0fd28fbc58971c9ffc78fea12081": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u176e\u1772Creations\u1763\u176a\u1773Of\u1763\u176a\u1773Tag\u1770\u1772 (\u1762)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x935b5d93967d7e546d9d6be4abd3f119c812976f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x9388775d774cd477673931327b7e36b0ccc5d3a5": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "President Of The United States Of American (CLETUS)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x953a5f4d1f09d4108a89f7da4e52a4d7d7d12dd5": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ud834\udc09\ud834\udc0a\ud834\udc13\ud834\udc38 (\ud834\udc27)",
+   "owner": "0x903030f7e2d6489f38b0f4f96f9b371ec7960f78",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "trebizond"
+  },
+  "0x9680d815e3ba4fd78c5c1e6ea229abb03734e141": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Bureau#2 minter",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x96eb28a11a1169caebfbbb1885dc1613ddb5f93d": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Papa Curly Adebisi KRS One Lloyd Austin (United States Secretary Of Defense\u2122)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x9759a6ac90977b93b58547b4a71c78317f391a28": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "DaiJoin",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x982b52a54916b899c60031772cc85b041613510e": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\uffba\u327e (KPOP)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x99717f0924f10beb9b818ae018914b94fa047fa6": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Archdiocese Of Alabama (EXIMIA)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x99ea07d822ed6f79230fea9e8ba33e69c1971e9b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x9a3796cf41b7cba6921fd50c3f5204ed6506c3e7": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ud800\udddb\ud800\uddf9\ud800\uddfa\ud800\udde7\ud800\uddf1 (\ud800\uddf4)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x9a4bd1d5c231fb8bf9c242f517ec3bb174d6ac60": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass Fake (OTPF)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0x9bfbcec5ae5352f83cef23c57758b020c71394cb": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "MEASURE (\u100a\u03a6\u03a40)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x9c3d2c93993f196aac232ede26321b95f5702545": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "United States Deputy Secretary of the Interior (\u25cc\ud836\ude17CRAZY\u25cc\ud836\ude17)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0x9ccc2de565da893ab1300674f174545a3e568f93": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Keys Of Ong",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x9dc72e4ad4d11841993f6c0a087f5b9fb458aa7c": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "In The Know (GBABY)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0x9fd7441f440a16ad65900b876e7879a70dbb7813": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "HEXiKo_O (ROYALTY\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "pUSDC",
+   "owner": "0xfcb19e6a322b27c06842a71e8c725399f049ae3a",
+   "owner_kind": "third-party"
+  },
+  "0xa1bee1dae9af77dac73aa0459ed63b4d93fc6d29": {
+   "basis": "[src-decompiled] heimdall session 17; renounced [chain]",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "curated",
+   "label": "MV WM",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "renounced"
+  },
+  "0xa2262d7728c689526693ae893d0fd8a352c7073c": {
+   "basis": "[src-decompiled] heimdall session 17 (owner = INDEPENDENCE contract)",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "curated",
+   "label": "PI pINDEPENDENCE",
+   "owner": "0x8b090509eae0feb4a0b934de1b4345161fa9a62d",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "independence-contract"
+  },
+  "0xa28e8aa4d6257157de64a547c90b38c3c540ef72": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ua870 (\ua875\ua858\ua84b\ua86d\ua870\ua846\ua873\ua874\ua86b)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xa333561a5e08c002c083e3798dc8d504a262c9ef": {
+   "basis": "[src-decompiled] W5 (KB 05)",
+   "block": 27501164,
+   "caps": "governance",
+   "caps_source": "curated",
+   "label": "LogoVoting",
+   "owner": "0x771a6f6ebe92fe647e657b8cefc58faaf1778a65",
+   "owner_gated": [
+    "resetProposal",
+    "setWhitelistedProposer-style",
+    "topHoldersCount(uint256)"
+   ],
+   "owner_kind": "community-builder"
+  },
+  "0xa35c9b5e576be2e0ba9cc7224b0941cc8acc4c9c": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-mint",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "mint"
+   ],
+   "label": "ABI (ABI)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "mint",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xa4d4988f35e93ad91bd625722e065d08bb47553c": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xa505b36154e6be8ec74be63cb5f8882eabc05374": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "libDynamic v1.0 (Faung)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xa537d6f4c1c8f8c41f1004cc34c00e7db40179cc": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u95ee\u9898 (\u95ee\u9898)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xa63f8061a67ecdbf147cd1b60f91cf95464e868d": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u078d\u07ae\u078d\u07b0 (\u078d)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xa78fed26d175b4b2c83f69ca3ea195123ca30381": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-parameter",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "SIGMA"
+   ],
+   "label": "YesNukes (NUKES\u2122)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "SIGMA",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xa8a3c7d844269ec73bed1111f336be4db7b29ce8": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xa8e8412d9b4341239269cba38ad949fe4870be34": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u4e0a\u6d77\u5e7f\u64ad\u7535\u89c6\u53f0 (SMG \u3263)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xa9353a16ca53a2009febf62029f8555216588fea": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Derivative Subsidy (SUBSIDY\u2122)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xa96bcbed7f01de6ceed14fc86d90f21a36de2143": {
+   "basis": "[src] rng.sol (affection corpus, cross-checked)",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "curated",
+   "label": "RNG Random Number Generator",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xae488a2b6fe8fe922019c1442c60f9dec0282894": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Basilica",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xaefb058bd268bdb0764f66e810a57d29ff6438d6": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "V\u327eSA",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xb0f0fdf5594d2a63660a2f71932f7fba1426c4e4": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xb2d8e9717931f58ef6d2c8ee548ec964091fb6e7": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u0015\u0081\u001a\b (\u0007)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xb2f814f75369af421508b7ef81c8776866709730": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xb30099ee83fe52cd80ff37f7808e1eede0830122": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xb434ead3ab89407715f1c6ffabc397588a71ce06": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "It's Not Forbidden (Berwickshire Naturalists' Club)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xb493edfba13ce0692f0c37b6a1ccba6983d25e06": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "LUKE",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xb4c1248812dabf72cb2e82175b4c0acffe4d2b10": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u1724\u1734 (\u172e\u1733\u172a\u172f\u1733\u1730\u1732\u1736\u1724\u1734)",
+   "owner": "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xb51db2755c4799caece05acfa8df9506de437add": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "unnamed trebizond deployment",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xb680f0cc810317933f234f67eb6a9e923407f05d": {
+   "basis": "[src] verified MATH_atropaMath.sol",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "curated",
+   "label": "MATH v1.1 libAtropaMath",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xb6936b8e82626405f6e601d54a8292881d86b47d": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ua9a7\ua9ba\ua9b4 (\ua9a7\ua9bf\ua99b\ua9bc\ua98f\ua9b6\ua983\ua9c7)",
+   "owner": "0x1b8f9e19360d1dc94295d984b7ca7ea9b810d9ee",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xb6a6392c47dc2f0b7ad0cc54671e96e5a876d24e": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Pick 4 (LOTTO)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xb863a70dc54708822e669074fe4a2fa4e0591bc1": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xb8face58cb05c55bbba9c564a550cc2402a40b5b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ud838\udd00\ud838\udd11\ud838\udd21\ud838\udd22\ud838\udd23\ud838\udd2a\ud838\udd0b\ud838\udd29 \ud838\udd4f (\ud838\udd4f)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xb9a44de20f26a027e467cb6c2f98766f01904189": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ud801\udc27\u13c6 (\ud801\udc27 \u13a6\u13c6\u13d9\u13d7)",
+   "owner": "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xba5bcc299895b77d67f660962575b427b341bb88": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "CODE (\u14003)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xbb341fd5c855c206f5538cc649f90d84df19b65a": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u05de\u05d5\u05e0\u05d5\u05e4\u05d9\u05d6\u05d9\u05d8\u05d9\u05d6\u05dd (\u05e1\u05dd)",
+   "owner": "0x22811d185d2996841e79f2668af87e574890aef8",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xbda4a610ed06e6c1e66b12271034ec4665b27615": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "RTV KLAN (KLAN)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xbef60db7a8e370364d6d610cb1cda91e76f7fbbc": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "bzr cohort (generic.sol _bzrs member)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xbf3f4f1dd5a9d81a8e7b5b1b671aff9cbeab9c52": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "pWETH",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc15c5f699daf5e1135732139f05d2c05b3ef4354": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "V2 minter",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc15f11ff2765c2614c8360401606feebdb472974": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ua5eb\ua5e7\ua5f9\ua5d1 (\ua5e3\ua5e3\ua5e3)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xc196247aa267db0df216d5385bcd23e5cf25ea6a": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "RTV KLAN (KLAN)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xc26c78d6cb95e58228544462dd6e9a02868b1306": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Taboor",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc2f43edd0bedc81003d75e33c6e34c8da0f16604": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Lanolin (COCAINE)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xc38943d71233f1d36beac4692ac37bad41ef9284": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "bzr cohort (generic.sol _bzrs member)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc4f0ce2b0ffa0063b763e2b6c124a1d80e0641b5": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Bureau#1 minter",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc51f841f71ea783c1df0a6bad282953e5f759fe9": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc659cc2cc464c85e9dc498a3def5dc01670c50c6": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Johann Konrad Bolleter (LANKERSHIM)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xc67db6c6a442b0e29f318d6c771da2f59a8a824f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc6824f72ec5548221b71abdedf99f55df6646f88": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc6f085de4f388a48ce2942857455147a37870086": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-pool",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "RemovePool",
+    "SIGMA",
+    "SetPool"
+   ],
+   "label": "HEXiKo_O (ROYALTY\u2122)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "RemovePool",
+    "SIGMA",
+    "SetPool",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xc7bdac3e6bb5ec37041a11328723e9927ccf430b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "V1 minter",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc7eb14e178220e84530748a71b91f07c3545de50": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "GNE\u327eESIS\u327e",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc814bbc04e847c17a40854887f2bc9ae8ad88451": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xc9be525a582b6f84d928b7901bd18b4315f8502b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Bureau#3 minter",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xcb0400d5dc95c1d59cfdde7497d4afe06b3900c7": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Epsom Salts (COMBAT\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xcb1982b26c72e0ffe17500a08d2b88a79e7dad3f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xcbe13c3292f7226ff5fd096a4dc53c52a4ed4daa": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Saturday Night Live \u326d (SNL \u327e)",
+   "owner": "0x8e00887c90ef5f7ac5c78c20f308aa3d4276a92b",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6": {
+   "basis": "[src] verified Atropa.sol; renounced [chain] session 17",
+   "block": 27501164,
+   "caps": "owner-mint",
+   "caps_source": "curated",
+   "label": "Atropa (ATROPA)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership",
+    "mint(address,uint256)"
+   ],
+   "owner_kind": "renounced"
+  },
+  "0xcd19062a6d3019b02a676d72e51d8de7a398de25": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u04e8 \u327e (\u04e8)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xcd6159d0a1aae415e0c1504e90a5d741a28afc98": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u5168\u80fd\u795e\u6559\u4f1a (\u4e1c\u65b9\u95ea\u7535)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xcd775778f15fff2fb43c0d8149cb888c099f0ac1": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Tokenized Asset (Timestamp: 17:50)",
+   "owner": "0x903030f7e2d6489f38b0f4f96f9b371ec7960f78",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "trebizond"
+  },
+  "0xcd960cac63fdc93d83cc1bf217dbe646dab52870": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xce1d47ce3a91e054c111d9cc3b4bae50843200da": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-parameter",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "SetBuyPrice",
+    "Unresolved_cdf476c9",
+    "Unresolved_dc7d37ef",
+    "Write"
+   ],
+   "label": "BL\u00c4TTER\u2122 (\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\ud83c\udd2e)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "SetBuyPrice",
+    "Unresolved_cdf476c9",
+    "Unresolved_dc7d37ef",
+    "Write",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xcec82dd6584a5d6fbed3b868bbfd76857f7060e3": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "H\u0f25X \u327e",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xd18a27a8df4df35df570743aa47b08ccf8ab256b": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u281b\u2851 (\u2851\u281b\u288f)",
+   "owner": "0x174a0ad99c60c20d9b3d94c3095bc1fb9ddefd62",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xd2a048ef4e018348eebc245a4402db7b46c8e223": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Dysnomia Genesis Rewards Token (dGENESIS)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xd2d26e25ab8753ff60fa430cf7b7d685752879be": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Tokenized Asset (WTkfg3LiJZA)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xd4554a12470050353a0865bfa9051372ccb1038f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "HEXiKo_O (ROYALTY\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xd486088912f40e3d6f196e7cdc6ceae68a93803f": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Oprah Winfrey (\ud806\ude44\ud806\ude40\ud806\ude31\ud806\ude2b\ud806\ude1e\ud806\ude3f\ud806\ude44)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xd4fd96ba83d3e6ff1a0baa44c32def94e641d97c": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ud800\udf0e (\ud800\udf0e\ud800\udf20\ud800\udf10\ud800\udf00)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xd6077a029fb5bef33b02391d7f0349c345f6ddb1": {
+   "basis": "[src] verified Gai.sol; owner = CROWS contract [chain] session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "curated",
+   "label": "\u0eae\u0eb9\u0e87\u0eca\u0ec4 (\u0eae\u0eb9\u0e87\u0eca)",
+   "owner": "0x203e366a1821570b2f84ff5ae8b3bdeb48dc4fa1",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xd63be074ca7d8dba78b8bbff7875582db0f28233": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u2468 (\u30c6\u30c7\u30a3\u30d9\u30a2)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xd64f26bcf78df919d587b6743fcff5b155815bd6": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "irc.debian.org#pulsechain (IRC)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xd6c31ba0754c4383a41c0e9df042c62b5e918f6d": {
+   "basis": "[src] verified TeddyBear.sol; renounced [chain] session 17",
+   "block": 27501164,
+   "caps": "owner-mint",
+   "caps_source": "curated",
+   "label": "BEAR (TEDDY BEAR \u327e)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership",
+    "mint(address,uint256)"
+   ],
+   "owner_kind": "renounced"
+  },
+  "0xd734705875c29bc84fb9c88435f334fbecf76d11": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u190d\u1923 \u1914\u1921\u1934 \u1908\u1918\u1920 (United States President James K Polk)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xd9278476796b0998b61a708921d835501d689203": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ud802\ude17\ud802\ude01\ud802\ude1e\ud802\ude10\ud802\ude2e \ud802\ude25\ud802\ude35\ud802\ude2b\ud802\ude10\ud802\ude05\ud802\ude23\ud802\ude27\ud802\ude03\ud802\ude12 (BRAUN)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xdabaa0fcb4aeaf014ae9e79837a4487d20a3ab06": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xdac17f958d2ee523a2206206994597c13d831ec7": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "pUSDT",
+   "owner": "0xc6cde7c39eb2f0f0095f41570af89efc2c1ea828",
+   "owner_kind": "third-party"
+  },
+  "0xddb009b0cacfddc032761f7b5bf525d543f7c002": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "bzr cohort (generic.sol _bzrs member)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xde4ef7ea464c7771803b9838aea07ce41089b054": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u0554\u0548\u054f (\u0533\u0550\u0535\u0546\u053c\u0531\u0546\u0534\u053b\u0531)",
+   "owner": "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xde65090088df0b2d80a5ec6a7b56ece36ee83ce8": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "POPPY (POPPY \u327e)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xdf606c14351fd52bf502d5f60d105320cf5d99d5": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-parameter",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "SIGMA"
+   ],
+   "label": "Warning (MUNITION\u2122)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "SIGMA",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xdf6a16689a893095c721542e5d3ce55bbcc23ac6": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u3263 (\u3263)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xe0f0ba6627af89a7ed1d887d1cddcccd8d79ae11": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ud803\udd11\ud803\udd24\ud803\udd07\ud803\udd25\ud803\udd21\ud803\udd26\ud803\udd1a\u03cf\u03d6\u03df (\u8599\u5200\u8853\u03df\u03df)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xe2e1a5d691ccb9e88b84e23a1166b4e6bd6904dc": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u017di\u017eek (\u017dI\u017dEK)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ud804\udc2d\ud804\udc2d\ud804\udc2d\ud804\udc2d\ud804\udc2d (BFF)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xe3fadebffa0e577bd36cbea1f90537e5e42f881b": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "The Penrose Society (PENROSE)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xe47df1cda064b6c81c161aa14e2fbaddf0c66347": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xe48205f93ae55d822f49d33df06b5b26e9d5245d": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "bzr cohort (generic.sol _bzrs member)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xe4daed98828c79f353a10950d4026d6bb1c166c5": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "",
+   "owner": "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xe5d3a6e88590fc2a8037d9ccbd816c05b1ff5f11": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\ud801\udc12\ud801\udc2c\ud801\udc3f\ud801\udc28\ud801\udc4d\ud801\udc38\ud801\udc30\ud801\udc4b (\ud801\udc12\ud801\udc04\ud801\udc17)",
+   "owner": "0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xe63191967735c52f5de78ce2471759a9963ce118": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u6e05\u5bfc (\u6e05\u5bfc)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xe63b65d23434555841e71ea32f470ea4879e973d": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u674e\u514b\u5f3a (\u514b\u5f3a)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xe7313ef267e8a5646b5ea04b51f536956d79e62f": {
+   "basis": "[src-decompiled] W5 (KB 05)",
+   "block": 27501164,
+   "caps": "owner-withdraw",
+   "caps_source": "curated",
+   "label": "UserSweeper",
+   "owner": "0x771a6f6ebe92fe647e657b8cefc58faaf1778a65",
+   "owner_gated": [
+    "withdraw(address)"
+   ],
+   "owner_kind": "community-builder"
+  },
+  "0xe780bb76a24345734b1b94e2b4cc8d64f23ad822": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Pick 4 (LOTTO)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xe949a217809d1fab4018e22d6810500399951dae": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Lillies (\ud805\ude87\ud805\ude82\ud805\udea5\ud805\ude83\ud805\udea5)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xe981ced8b779eb052882aedcddde8c07c532fadc": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Uniswap\u2122 (\ud83c\ude39)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xe9ce7430ec463b9cd9dddb9543f6fd3100708875": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Michael Mann (\u05e0\u05ea\u05e0\u05d9\u05d4\u05d5\u2122)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xea0a3ae400b3f5657f865adeb705804c5d96294c": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Conrad Ferdinand Meyer (666)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xea74629cc0f1ed75c164119a9d1942fd5cf4c6d2": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "bzr cohort (generic.sol _bzrs member)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xea9a677a1d3484ea8afef6fe3666a8e0f5669c0a": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xed52753272a291761a934b1398c14e0ffdaaeaa3": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "MONBIOT",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xee62ee9a354e55df7c39209b4304161369333ff7": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u2720 (Knights Of Malta \u2720)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xee67825ef27588faee39cfefb465eb0a242a740c": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "LOAN (\u7008)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xeefebc96ee38ef13c6196d2d9534e0e74383af00": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Integrative Hedge (HEDGE)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xef2125f5d1f7a3d68038f27e681258d13a73e718": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ua45f\ua00a\ua185\ua28f\ua1b9\ua185\ua1ec (\u9650\u5236\u4ee4\u2122)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xefd766ccb38eaf1dfd701853bfce31359239f305": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Dai Stablecoin from Ethereum",
+   "owner": "0x4fd0aaa7506f3d9cb8274bdb946ec42a1b8751ef",
+   "owner_kind": "bridge-operator"
+  },
+  "0xf0d7962c8153b2445127e8ca5361578f9f5d0957": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u0645\u062d\u0645\u062f \u0628\u0646 \u0627\u0644\u062d\u0627\u062c \u0642\u0627\u0633\u0645 (YAHYA\u2122)",
+   "owner": "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xf1026c1a67a5243903ffd11cd4e2f7e2a0571ac0": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Office Of Louise Glaum (OATH)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xf18b09a5b358b720f23d736163d328dba0bddf41": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "H\u327eX",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xf2563864c22022deb03ce929c26c54033a69e9d5": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-parameter",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "SIGMA"
+   ],
+   "label": "Ditto (DIBS\u2122)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "SIGMA",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xf2a202c9cd126f36abda6bbfba14f314922335de": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "One Time Pass (OTP)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xf2be09eb43c1ed2791d0324baa0649e62cda4bbf": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u0810\u0800 (\u0818\u0813\u0829\u0810\u082c\u0800\u082b\u080b\u0820)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xf3352be5de1e6232755c7dbd15a84fc3614a419c": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Tokenized Asset (99-W690JMUo)",
+   "owner": "0x903030f7e2d6489f38b0f4f96f9b371ec7960f78",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "trebizond"
+  },
+  "0xf4c5dabc4fdc3ca74262a8155c2f92f8875ff0fe": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Tokenized Asset (2srMJMLcyDg)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xf50fcb9c3aa984c468206a1a40832eef384e0cb1": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Helsinki Dyschourd (IMMUNITY\u2122)",
+   "owner": "0xe35a842eb1edca4c710b6c1b1565ce7df13f5996",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xf520404cf4fa5b633626333775b05f5df94e1a9c": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u7f24 (\u7f24 \u327e)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xf5e3cc8d22b10d967be49fe103e496f449c8604e": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "LIT \u327e (ScrollZ \u327e)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xf646ed2fc7873c7c412bffb07e2e8038f8eb7895": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Make The Grade (\u00c1SGARD)",
+   "owner": "",
+   "owner_kind": "none"
+  },
+  "0xf65d7943e77569e76ee060aef84e243d7a34c496": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Ginger (GINGER\u2122)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xf69e9f943674027cedf05564a8d5a01041d07c62": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "owner-mint",
+   "caps_source": "decompile",
+   "custom_gates": [
+    "mint"
+   ],
+   "label": "\u09aa\u0981\u09a6\u09be\u09c7\u09bc\u09a8\u09c1\u09bf\u0982 (\u09aa\u0981\u09a6\u09be\u09c7\u09bc\u09a8\u09c1\u09bf\u0982)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "mint",
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xf6e286fe1f22d9d0e2fe48b6d3b5506841f51fc4": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Verlagsallerhand (\ufe17)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xf77c946c18a77b5dda5e839da9818c4d1f087393": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "GOD (De Civitate Dei)",
+   "owner": "0x08fe5c72173044314a74705089d014a4416ed71d",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xf7ebb9bc80fb6395373c6bbdf690fcffb217a691": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "BURR \u326b (Bill Burr \u326b)",
+   "owner": "0x7a20189b297343cf26d8548764b04891f37f3414",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "maria2"
+  },
+  "0xf7ef7188ca663bab6b7b72ec5df79a048fd8ba25": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u4217 (WELT)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xf8ab3393b1f5cd6184fb6800a1fc802043c4063e": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u018e\ud809\udc70 (monat money \u018e\ud809\udc70)",
+   "owner": "0x203e366a1821570b2f84ff5ae8b3bdeb48dc4fa1",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xf8b6e89b851e03c724aad1f5170230a60490b819": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "ACiD Productions \u327e (ACiD \u327e)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xf9bc351eef0f1242953dde097c9e6e57b8ff3a42": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "\u0dbb\u0dd4\u0db0\u0dd2\u0dbb \u0db8\u0dad\u0dca\u0db4\u0dd0\u0db1\u0dca (MORPH)",
+   "owner": "0x22811d185d2996841e79f2668af87e574890aef8",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "third-party"
+  },
+  "0xfa4d9c6e012d946853386113acbf166dec5465bb": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\u321d (\u321d)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xfe5f16cfba8ebc0e407b58662a20a144107484dc": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "Gaon (GAON)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xfe9b99ecc43cb423408b975cc5ff439e5abacb61": {
+   "block": 27501164,
+   "caps": "unknown",
+   "caps_source": "pending",
+   "label": "\ud804\udea3\ud804\ude81\ud804\ude9f\ud804\ude83\ud804\udea2\ud804\ude96\ud804\ude80 (\ud805\udf3e)",
+   "owner": "0x0000000000000000000000000000000000000000",
+   "owner_kind": "renounced"
+  },
+  "0xff3922fc24c99960c7a4319f62db23769a57dab8": {
+   "basis": "[src-decompiled] heimdall session 17",
+   "block": 27501164,
+   "caps": "inert",
+   "caps_source": "decompile",
+   "custom_gates": [],
+   "label": "Large Comfy Chair (LCC)",
+   "owner": "0x903030f7e2d6489f38b0f4f96f9b371ec7960f78",
+   "owner_gated": [
+    "renounceOwnership",
+    "transferOwnership"
+   ],
+   "owner_kind": "trebizond"
+  }
+ },
+ "splits_5c": {
+  "cdc_mint": {
+   "amounts": "MATH.Random()-driven per leg (halving-ish pattern), observed 0.5-15 cDc per leg per call",
+   "fn": "Mint() (0x34c73884), permissionless",
+   "nb": "constructor-hardcoded wallet list pays 9 legs per Mint() = 8 distinct wallets (0x85a067.. paid twice, halved amounts) \u2014 session-18 receipt recount fixed the session-17 \"8 slots / 7 distinct\" miscount; mirrors the commented _memburb list in old/generic.sol + verified FED_TT.sol",
+   "provenance": "[src-creation-bytecode] PUSH20 literals in constructor; [chain] receipts: every Mint() pays all 9 legs (8 distinct, one wallet twice), Random()-derived amounts, caller receives nothing (last leg is a fixed slot, NOT msg.sender \u2014 same recipient across three distinct callers)",
+   "recipients": [
+    "0x55D36c8F5cd5434c81e78CA55aA93E6c9e233413",
+    "0x765414e37D836d3EFDe7613d2C576D063A8340BE",
+    "0xfbB82f6bb52E6B2DbAF9910970907637513cd177",
+    "0x6938aF0304979f42f5eae7bC038D5b74417A0808",
+    "0xB3d08A184E4BfF273F2aC451a2871a37cB3E70D0",
+    "0x4A1dCD832638ca3325fcb7b0638b0b08F60d0C55",
+    "0x85a067b71afb98FA09b62340239D29f50D33e428",
+    "0x85a067b71afb98FA09b62340239D29f50D33e428",
+    "0xCe28607BB80a69c73173a933a25519e745B03Ce9"
+   ],
+   "rumor": "verified: hardcoded wallet list receives all mints; nuance: 9 legs / 8 distinct wallets; permissionless to call but only the list is paid",
+   "token": "0x4ec5F865f6996Ac424a1740ef97b8d1c862e0988"
+  },
+  "corpus_sweep": {
+   "findings": [
+    "bail.sol Dumvert(): hardcoded trebizond cuts (50k Ying + 50k LOL per redemption) \u2014 known precedent, re-confirmed [src]",
+    "the cDc 8-wallet _memburb list exists COMMENTED-OUT in old/generic.sol + verified FED_TT.sol (design archaeology; the deployed FED template ships it disabled)",
+    "no other hardcoded split constants or recipient wallets found in the in-scope source tree; remaining literals are the addresses.sol named-layer (105 plain ERC20s) + infrastructure constants"
+   ],
+   "scope": "139 distinct 40-hex literals across docs/solidity (minters/TT templates/reserves/math family/old era/verified; dysnomia+wallet excluded per scope rules)"
+  },
+  "mv_rho": {
+   "fn": "Rho() (0xa4566950), permissionless",
+   "liveness": "[chain] no Rho() call since block 27,420,067 (2026-08-02); function reverts only on zero-caller (caller leg) \u2014 live for any EOA",
+   "per_call": [
+    {
+     "amount_mv": 4.0,
+     "amount_raw": 4000000000000000000,
+     "to": "0x000000000000000000000000000000000000dead"
+    },
+    {
+     "amount_mv": 1.0,
+     "amount_raw": 1000000000000000000,
+     "to": "0x7a20189b297343cf26d8548764b04891f37f3414"
+    },
+    {
+     "amount_mv": 0.018014398509481985,
+     "amount_raw": 18014398509481984,
+     "to": "0x046eB71EB92E3eD2534d005ab4436B4b8dB24DFa"
+    },
+    {
+     "amount_mv": 0.001628413597910449,
+     "amount_raw": 1628413597910449,
+     "to": "0x9abF7504162E5ca517D504a16E8aDdCB10115Aab"
+    },
+    {
+     "amount_mv": 3.814697265625e-06,
+     "amount_raw": 3814697265625,
+     "to": "0x7ae04eD7f1082d8AA1c19893E9eC4039a666C02C"
+    },
+    {
+     "amount_mv": 1.0,
+     "amount_raw": 1000000000000000000,
+     "to": "msg.sender"
+    }
+   ],
+   "provenance": "[src-decompiled] heimdall + [chain] 8,400-mint window blocks 27,243,800-27,247,267 decoded; split constant per call",
+   "rumor": "structure verified (dead + 414 + three fixed wallets + caller); exact percentages differ from the community claim",
+   "token": "0xA1BEe1daE9Af77dAC73aA0459eD63b4D93fC6d29"
+  },
+  "note": "session-17 5c findings \u2014 [ext] rumor vs [src]/[chain] mechanics; verdicts owner-approved session 18 and surfaced on the entity pages (MV deep page, cDc + ZHENG fact boxes)",
+  "zheng_mint": {
+   "amount": "(Random() % 4000) * 10^15 per call",
+   "fn": "Mint() (0x34c73884-adjacent per verified source), permissionless",
+   "public_route": "BuyWithAffection(amount): AFFECTION 1:1 from contract inventory; inventory = (Random() % 10000000) * 1e18 minted at deploy",
+   "recipient": "0xDD89fC734FC6E9408E2d1f6CDc1FFc7491d3249b (finfire, constant)",
+   "rumor": "directionally confirmed, mechanically imprecise: no hardcap exists in code; Mint() ALWAYS routed to finfire; the public supply is the finite initial inventory (now exhausted)",
+   "state": "[chain] contract inventory = 0 (bought out); totalSupply 43,702,706.98; finfire holds 5.47 \u2014 all new supply accrues to finfire only",
+   "token": "0x5F16F6c242e038437A7bA3C903DFeDb747Db4a5C"
+  }
+ }
+}

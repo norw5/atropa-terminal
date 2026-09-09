@@ -1,0 +1,197 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="irc" active="irc">
+  <h1><span style="color:var(--fg-faint)">tail -f</span> /irc — the full #atropa_logged corpus</h1>
+  <p style="color:var(--fg-dim);max-width:64rem">
+    The complete owner-provided channel log (2023-10-20 → 2024-12-03) —
+    every line, messages and system events, byte-faithful to the source
+    file. Completeness is the anti-cherry-picking property: nothing is
+    excerpted here, and the raw file is downloadable below (sha256 pinned).
+    Coverage ends <b>before</b> the 2025 pDAI crisis. Provenance tag for
+    everything shown: <span class="tag">[irc]</span> — primary-source lore
+    and leads, never citation-grade for normative claims without onchain
+    corroboration.
+  </p>
+
+  <div class="panel">
+    <div class="x-controls">
+      <input type="text" id="i-q" placeholder="full-text search (substring, case-insensitive)…" style="min-width:320px" />
+      <select id="i-user"><option value="">user: all</option></select>
+      <label class="mono xs dim">from</label><input type="date" id="i-from" />
+      <label class="mono xs dim">to</label><input type="date" id="i-to" />
+      <select id="i-sys">
+        <option value="msgs">messages only</option>
+        <option value="all">include system lines</option>
+      </select>
+      <span class="x-count" id="i-count"></span>
+    </div>
+    <div id="i-months" class="glegend"></div>
+    <div style="overflow-x:auto;max-height:70vh;overflow-y:auto;border:1px solid var(--border)">
+      <table class="x-table" id="i-table">
+        <thead><tr><th class="num">line</th><th>time (UTC)</th><th>user</th><th>text</th></tr></thead>
+        <tbody id="i-body"></tbody>
+      </table>
+    </div>
+    <div class="x-controls">
+      <button id="i-prev" class="pgbtn">← prev</button>
+      <span class="x-count" id="i-page"></span>
+      <button id="i-next" class="pgbtn">next →</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>corpus</h2>
+    <div id="i-meta" class="kv"></div>
+    <p>
+      raw log (verbatim): <a href="/data/atropa_logged.txt" download>/data/atropa_logged.txt</a>&nbsp;
+      · parsed bundle: <a href="/data/irc.compact.json" download>/data/irc.compact.json</a>
+    </p>
+  </div>
+</Base>
+
+<script>
+  type Doc = {
+    _meta: any;
+    users: { u: string; n: number; first: number; last: number }[];
+    user_index: Record<string, number>;
+    months: Record<string, number>;
+    L: number[]; T: number[]; U: number[]; M: string[];
+  };
+  const PAGE = 300;
+  let doc: Doc | null = null;
+  let userByIndex: string[] = [];
+  let view: number[] = [];
+  let page = 0;
+
+  const $ = (id: string) => document.getElementById(id) as HTMLElement;
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+  const linkify = (s: string) =>
+    esc(s).replace(/(https?:\/\/[^\s<]+)/g, (u) => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
+  const fmtTs = (t: number) => new Date(t * 1000).toISOString().replace('T', ' ').slice(0, 19);
+  const fmtDay = (t: number) => new Date(t * 1000).toISOString().slice(0, 10);
+
+  function render() {
+    const body = $('i-body');
+    const start = page * PAGE;
+    const slice = view.slice(start, start + PAGE);
+    const frag = document.createDocumentFragment();
+    const q = ($('i-q') as HTMLInputElement).value.trim().toLowerCase();
+    for (const i of slice) {
+      const tr = document.createElement('tr');
+      const isSys = doc!.U[i] === 0;
+      if (isSys) tr.className = 'dead';
+      let text = doc!.M[i];
+      if (q) {
+        const lower = text.toLowerCase();
+        let html = '';
+        let pos = 0;
+        let hit: number;
+        while ((hit = lower.indexOf(q, pos)) !== -1) {
+          html += esc(text.slice(pos, hit)) + '<mark>' + esc(text.slice(hit, hit + q.length)) + '</mark>';
+          pos = hit + q.length;
+        }
+        html += esc(text.slice(pos));
+        text = html;
+      } else {
+        text = linkify(text);
+      }
+      tr.innerHTML =
+        `<td class="num">${doc!.L[i]}</td>` +
+        `<td class="nowrap">${fmtTs(doc!.T[i])}</td>` +
+        `<td class="nowrap">${isSys ? '*' : `<b>${esc(userByIndex[doc!.U[i]])}</b>`}</td>` +
+        `<td class="wrapok">${text}</td>`;
+      frag.appendChild(tr);
+    }
+    body.innerHTML = '';
+    body.appendChild(frag);
+    const pages = Math.max(1, Math.ceil(view.length / PAGE));
+    $('i-count').textContent = `${view.length.toLocaleString()} lines`;
+    $('i-page').textContent = `page ${page + 1} / ${pages}`;
+    ($('i-prev') as HTMLButtonElement).disabled = page === 0;
+    ($('i-next') as HTMLButtonElement).disabled = page >= pages - 1;
+  }
+
+  function apply(reset = true) {
+    if (!doc) return;
+    if (reset) page = 0;
+    const q = ($('i-q') as HTMLInputElement).value.trim().toLowerCase();
+    const u = ($('i-user') as HTMLSelectElement).value;
+    const from = ($('i-from') as HTMLInputElement).valueAsDate;
+    const to = ($('i-to') as HTMLInputElement).valueAsDate;
+    const sys = ($('i-sys') as HTMLSelectElement).value;
+    const fromTs = from ? Math.floor(from.getTime() / 1000) : null;
+    const toTs = to ? Math.floor(to.getTime() / 1000) + 86399 : null;
+    const out: number[] = [];
+    for (let i = 0; i < doc.M.length; i++) {
+      if (sys === 'msgs' && doc.U[i] === 0) continue;
+      if (u && userByIndex[doc.U[i]] !== u) continue;
+      if (fromTs !== null && doc.T[i] < fromTs) continue;
+      if (toTs !== null && doc.T[i] > toTs) continue;
+      if (q && !doc.M[i].toLowerCase().includes(q)) continue;
+      out.push(i);
+    }
+    view = out;
+    render();
+  }
+
+  fetch('/data/irc.compact.json')
+    .then((r) => r.json())
+    .then((d: Doc) => {
+      doc = d;
+      userByIndex = Array.from({ length: Object.keys(d.user_index).length }, () => '?');
+      for (const [name, idx] of Object.entries(d.user_index)) userByIndex[idx] = name;
+      const sel = $('i-user') as HTMLSelectElement;
+      for (const u of d.users.slice(0, 120)) {
+        const o = document.createElement('option');
+        o.value = u.u;
+        o.textContent = `${u.u} (${u.n.toLocaleString()})`;
+        sel.appendChild(o);
+      }
+      const m = d._meta;
+      $('i-meta').innerHTML =
+        `<dt>lines parsed</dt><dd>${m.n_parsed.toLocaleString()} of ${m.n_lines_file.toLocaleString()} (${m.n_messages.toLocaleString()} messages · ${m.n_system.toLocaleString()} system · ${m.n_unparsed_appended} continuations appended)</dd>` +
+        `<dt>window</dt><dd>${fmtDay(m.first_ts)} → ${fmtDay(m.last_ts)}</dd>` +
+        `<dt>speakers</dt><dd>${d.users.filter((x) => x.u !== '*').length.toLocaleString()} nicks; top: ${d.users.slice(0, 6).map((x) => `${x.u} ${x.n.toLocaleString()}`).join(' · ')}</dd>` +
+        `<dt>source integrity</dt><dd class="mono xs">sha256 ${m.sha256}</dd>` +
+        `<dt>caveats</dt><dd>${m.timezone} · year inferred (${m.year_inference})</dd>`;
+      const maxMonth = Math.max(...Object.values(d.months));
+      const mg = $('i-months');
+      const total = Object.values(d.months).reduce((a, b) => a + b, 0);
+      for (const [mo, n] of Object.entries(d.months)) {
+        const b = document.createElement('button');
+        b.className = 'pgbtn';
+        b.style.padding = '0.1rem 0.25rem';
+        b.title = `${mo}: ${n.toLocaleString()} lines`;
+        b.textContent = mo.slice(2);
+        b.addEventListener('click', () => {
+          ($('i-from') as HTMLInputElement).value = `${mo}-01`;
+          ($('i-to') as HTMLInputElement).value = `${mo}-01`;
+          apply(true);
+        });
+        const wrap = document.createElement('span');
+        wrap.style.cssText = 'display:inline-flex;flex-direction:column;align-items:center;gap:1px';
+        const bar = document.createElement('span');
+        bar.style.cssText = `display:inline-block;width:2.4em;height:${Math.max(2, Math.round(28 * n / maxMonth))}px;background:var(--accent-dim);border:1px solid var(--border-bright)`;
+        bar.style.opacity = String(0.35 + 0.65 * (n / maxMonth));
+        wrap.appendChild(bar);
+        wrap.appendChild(b);
+        mg.appendChild(wrap);
+      }
+      const totalEl = document.createElement('span');
+      totalEl.className = 'x-count';
+      totalEl.textContent = `${total.toLocaleString()} lines total`;
+      mg.appendChild(totalEl);
+      apply(true);
+    })
+    .catch((e) => {
+      $('i-count').textContent = 'failed to load /data/irc.compact.json: ' + e;
+    });
+
+  for (const id of ['i-q', 'i-user', 'i-from', 'i-to', 'i-sys']) {
+    $(id).addEventListener('input', () => apply(true));
+  }
+  $('i-prev').addEventListener('click', () => { if (page > 0) { page -= 1; render(); } });
+  $('i-next').addEventListener('click', () => { if (page < Math.ceil(view.length / PAGE) - 1) { page += 1; render(); } });
+</script>

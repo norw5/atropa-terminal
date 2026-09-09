@@ -1,0 +1,548 @@
+{
+ "address": "0x7abac9ebedaa90976ad112f1e57dda2e73b80b8a",
+ "name": "AD",
+ "language": "solidity",
+ "compiler_version": "v0.8.21+commit.d9974bed",
+ "optimization": true,
+ "optimization_runs": 200,
+ "evm_version": "shanghai",
+ "verified_at": "2024-09-15T08:11:46.728619Z",
+ "fully_verified": true,
+ "proxy_type": null,
+ "external_libraries": [],
+ "sources": {
+  "solidity/old/AD.sol": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"../dysnomia/interfaces/11b_lauinterface.sol\";\nimport \"../dysnomia/interfaces/libstrings.sol\";\nimport \"../dysnomia/lib/multiownable.sol\";\nimport \"../addresses.sol\";\n\ninterface atropaMath {\n    function Random() external returns (uint64);\n    function hashWith(address a, address b) external returns (uint256);\n    function modExp64(uint64 _b, uint64 _e, uint64 _m) external returns(uint64);\n    function modExp(uint256 _b, uint256 _e, uint256 _m) external returns (uint256);\n    function MotzkinPrime() external returns(uint64);\n}\n\ncontract AD is MultiOwnable {\n    mapping(address account => int256) private _balances;\n    int256 private _totalSupply;\n\n    string internal __name;\n    string internal __symbol;\n\n    uint64 constant public MotzkinPrime = 953467954114363;\n    atropaMath public Xiao;\n    int256 public maxSupply;\n    mapping(address => int256) private _marketRates;\n\n    constructor() MultiOwnable(msg.sender) {\n        __name = \"The Tigard Foundation\";\n        __symbol = \"AD\";\n        Xiao = atropaMath(libAtropaMathContract);\n        maxSupply = int64(Xiao.Random() % 111111) * -1;\n        _addMarketRate(AFFECTIONContract, 1 * int256(10 ** decimals()));\n        _mintToCap();\n    }\n\n    function mintToCap() public onlyOwners {\n        _mintToCap();\n    }\n\n    function _mintToCap() internal {\n        if(totalSupply() < (maxSupply * int256(10 ** decimals())))\n            _mint(address(this), int64(Xiao.Random()) * int256(10 ** decimals()));\n    }\n\n    function _addMarketRate(address _a, int256 _r) internal {\n        _marketRates[_a] = _r;\n    }\n\n    function GetMarketRate(address _a) public view returns(int256) {\n        return _marketRates[_a];\n    }\n\n    error MarketRateNotFound(address asset);\n    function Purchase(address _t, int256 _a) public {\n        if(_marketRates[_t] == 0) revert MarketRateNotFound(_t);\n        AD BuyToken = AD(_t);\n        int256 cost = (_a * _marketRates[_t]) / int256(10 ** decimals());\n        bool success1 = BuyToken.transferFrom(msg.sender, address(this), cost);\n        require(success1, string.concat(unicode\"Need Approved \", BuyToken.name()));\n        AD(address(this)).transfer(msg.sender, _a);\n    }\n\n    function Redeem(address _t, int256 _a) public {\n        if(_marketRates[_t] == 0) revert MarketRateNotFound(_t);\n        AD BuyToken = AD(_t);\n        int256 cost = (_a * _marketRates[_t]) / int256(10 ** decimals());\n        bool success1 = AD(address(this)).transferFrom(msg.sender, address(this), _a);\n        require(success1, string.concat(unicode\"Need Approved \", AD(address(this)).name()));\n        BuyToken.transfer(msg.sender, cost);\n    }\n\n    function name() public view virtual returns (string memory) {\n        return __name;\n    }\n\n    function symbol() public view virtual returns (string memory) {\n        return __symbol;\n    }\n\n    function decimals() public view virtual returns (uint8) {\n        return 18;\n    }\n\n    function totalSupply() public view virtual returns (int256) {\n        return _totalSupply;\n    }\n\n    function balanceOf(address account) public view virtual returns (int256) {\n        return _balances[account];\n    }\n\n    function transfer(address to, int256 value) public virtual returns (bool) {\n        address owner = msg.sender;\n        _transfer(owner, to, value);\n        return true;\n    }\n\n    function transferFrom(address from, address to, int256 value) public virtual returns (bool) {\n        _transfer(from, to, value);\n        return true;\n    }\n\n    function _transfer(address from, address to, int256 value) internal {\n        _update(from, to, value);\n    }\n\n    function _update(address from, address to, int256 value) internal virtual {\n        if (from == address(0)) {\n            _totalSupply -= value;\n        } else {\n            int256 fromBalance = _balances[from];\n            if (fromBalance < value) {\n                revert DysnomiaInsufficientBalance(tx.origin, msg.sender, from, to, address(this), fromBalance, value);\n            }\n            unchecked {\n                _balances[from] = fromBalance + value;\n            }\n        }\n\n        if (to == address(0)) {\n            unchecked {\n                _totalSupply += value;\n            }\n        } else {\n            unchecked {\n                _balances[to] -= value;\n            }\n        }\n\n        emit Transfer(from, to, value);\n    }\n\n    function _mint(address account, int256 value) internal {\n        _update(address(0), account, value);\n    }\n\n    event Transfer(address indexed from, address indexed to, int256 value);\n    event Approval(address indexed owner, address indexed spender, int256 value);\n\n    error DysnomiaInsufficientBalance(address origin, address sender, address from, address to, address what, int256 balance, int256 needed);\n    error DysnomiaInsufficientAllowance(address origin, address sender, address owner, address spender, address what, int256 allowance, int256 needed);\n}\n",
+  "/": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./03b_shiointerface.sol\";\n\ninterface SHIOFactory {\n    function New(address Rod, address Cone, address MathLib) external returns(SHIO);\n}",
+  "/_1": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./02b_shainterface.sol\";\n\ninterface SHAFactory {\n    function New(string memory name, string memory symbol, address MathLib) external returns(SHA);\n}",
+  "/_2": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\n\ninterface LIBSTRINGS {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function has(address _contract, string memory what) external view returns (bool does);\n    function CheckPalindrome(string memory S) external pure returns(bool);\n    function CheckPalindrome(bytes memory S) external pure returns(bool);\n    function Reverse(string memory S) external pure returns(string memory Reversed);\n    function Reverse(bytes memory S) external pure returns(bytes memory Reversed);\n    function RandomAcronym(uint8 MaxLength) external returns(bytes memory Acronym);\n    function CaseInsensitiveCompare(bytes1 A, bytes1 B) external pure returns (bool);\n    function CheckAcronym(string memory _A, string memory _B) external pure returns(bool);\n    function CheckAcronym(bytes memory _acronym, string memory _Beta) external pure returns(bool);\n    function log10(uint256 value) external pure returns (uint256);\n    function String(uint256 value) external pure returns (string memory buffer);\n    function Hex(address account) external pure returns(string memory);\n    function Hex(uint256 value) external pure returns(string memory);\n    function Hex(bytes32 value) external pure returns(string memory);\n    function Hex(bytes memory data) external pure returns(string memory);\n}",
+  "/_3": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./04b_yiinterface.sol\";\n\ninterface ZHENG {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function Eta() external returns(YI);\n    function GetRodByIdx(uint64 _theta) external returns(Bao memory);\n    function InstallRod(uint64 Theta, Bao memory Beta, uint64 DIRAC) external returns(Bao memory);\n    function InstallCone(uint64 Theta, Bao memory Beta, uint64 DIRAC) external returns(Bao memory);\n    function Mau(string memory name, string memory symbol, uint64 Xi, uint64 Rho, uint64 Upsilon) external returns (Bao memory On);\n    function Iodize(SHIO Shio) external;\n}",
+  "/_4": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./09b_siuinterface.sol\";\n\ninterface VOID {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function Nu() external returns(SIU);\n    function GetLibraryAddress(string memory name) external view returns (address);\n    function AddLibrary(string memory name, address _a) external;\n    function Clear(uint64 Iota) external returns(uint64);\n    function Sign(uint64 DIRAC1) external returns(Bao memory);\n    function Log(string memory LogLine) external;\n    function Log(uint64 Sigma, string memory LogLine) external;\n    function Log(address Sigma, string memory LogLine) external;\n    function Chat(string memory chatline) external;\n    function SetAttribute(string memory name, string memory value) external;\n    function GetAttribute(string memory name) external view returns (string memory);\n    function Alias(address name, string memory value) external;\n    function Alias(address name) external view returns (string memory);\n    function Alias(Bao memory Theta, string memory value) external;\n    function Alias(Bao memory Theta) external view returns (string memory);\n    function Enter() external returns(uint64[3] memory Saat, Bao memory On);\n    function Enter(string memory name, string memory symbol) external returns(uint64[3] memory Saat, Bao memory On);\n}",
+  "/_5": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./07b_yauinterface.sol\";\n\nstruct Tai {\n    Bao Bang;\n    Bao Lai;\n    Bao Le;\n}\n\ninterface YANG {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);    \n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function Mu() external returns(YAU);\n    function Rho() external returns(Tai memory);\n    function Pole(uint256) external returns(uint64);\n}",
+  "/_6": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./05b_zhenginterface.sol\";\n\ninterface ZHOU {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function Upsilon() external returns(ZHENG);\n    function Monopole() external returns(uint64);\n    function Xi() external returns(uint64);\n    function Alpha(string memory Name, string memory Symbol) external returns (SHA);\n    function React(uint64 Iota) external returns (Bao memory);\n}",
+  "/_7": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./02b_shainterface.sol\";\n\nstruct Shao {\n    SHA Rod;\n    SHA Cone;\n\n    uint64 Barn;\n}\n\ninterface SHIO {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function Rho() external view returns(Shao memory);\n    function Manifold() external returns(uint64);\n    function Monopole() external returns(uint64);\n    function Rod() external view returns(SHA);\n    function Cone() external view returns(SHA);\n    function Generate(uint64 Xi, uint64 Alpha, uint64 Beta) external;\n    function Isomerize() external;\n    function Isolate() external;\n    function Magnetize() external returns(uint64);\n    function React(uint64 Pi) external returns(uint64, uint64);\n    function Log(uint64 Soul, uint64 Aura, string memory LogLine) external;\n}",
+  "/_8": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./10b_voidinterface.sol\";\n\ninterface LAU {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function Eta() external returns(VOID);\n    function Saat(uint256) external returns(uint64);\n    function On() external returns(Bao memory);\n    function Withdraw(address what, uint256 amount) external;\n    function Username() external view returns (string memory);\n    function Username(string memory newUsername) external;\n    function Chat(string memory chatline) external;\n    function Alias(address name, string memory value) external;\n    function Alias(address name) external view returns (string memory);\n    function Alias(Bao memory Theta, string memory value) external;\n    function Alias(Bao memory Theta) external view returns (string memory);\n}",
+  "/_9": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./08b_yanginterface.sol\";\n\ninterface SIU {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function Psi() external returns(YANG);\n    function Aura() external view returns (uint64);\n    function Miu(string memory name, string memory symbol) external returns(uint64[3] memory Saat, Bao memory On);\n}",
+  "/_10": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"./06b_zhouinterface.sol\";\n\ninterface YAU {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function Tau() external returns(ZHOU);\n    function Theta() external returns(Bao memory);\n    function Monopole() external returns(uint64);\n    function Shio() external returns(SHIO);\n    function React() external returns(Bao memory);\n}",
+  "/_11": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"../include/fa.sol\";\n\ninterface SHA {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns (string memory);\n    function Dynamo() external returns (uint64);\n    function View() external returns (Fa memory);\n    function Fuse(uint64 _rho, uint64 Upsilon, uint64 Ohm) external;\n    function Avail(uint64 Xi) external;\n    function Form(uint64 Chi) external;\n    function Polarize() external;\n    function Conjugate(uint64 Chi) external;\n    function Conify(uint64 _Beta) external;\n    function Saturate(uint64 _Beta, uint64 Epsilon, uint64 Theta) external;\n    function Bond() external;\n    function Adduct(uint64 _Phi) external returns(uint64);\n    function React(uint64 Pi, uint64 Theta) external returns(uint64, uint64);\n}",
+  "/_12": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"../include/bao.sol\";\nimport \"./02d_shafactoryinterface.sol\";\nimport \"./03b_shiointerface.sol\";\nimport \"./03d_shiofactoryinterface.sol\";\n\ninterface YI {\n    function Rename(string memory newName, string memory newSymbol) external;\n    function GetMarketRate(address _a) external view returns(uint256);\n    function Purchase(address _t, uint256 _a) external;\n    function Redeem(address _t, uint256 _a) external;\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function decimals() external view returns (uint8);\n    function totalSupply() external view returns (uint256);\n    function balanceOf(address account) external view returns (uint256);\n    function transfer(address to, uint256 value) external returns (bool);\n    function allowance(address owner, address spender) external view returns (uint256);\n    function approve(address spender, uint256 value) external returns (bool);\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n    function addOwner(address newOwner) external;\n    function renounceOwnership(address toRemove) external;\n    function owner(address cOwner) external view returns (bool);\n    function mintToCap() external;\n    function Type() external view returns(string memory);\n    function Psi() external returns(SHIO);\n    function Xi() external returns(uint64);        \n    function Ring() external returns(uint64);\n    function Beta(string calldata Name, string calldata Symbol) external returns(SHA);\n    function Kappa(SHA Rod, SHA Cone) external returns(SHIO);\n    function Bing(Bao memory _b) external;\n    function Bang(address _a) external view returns(Bao memory);\n    function React(Bao memory Gamma, uint64 Pi) external returns(Bao memory);\n    function SHAFactoryInterface() external returns(SHAFactory);\n    function SHIOFactoryInterface() external returns(SHIOFactory);\n }",
+  "/_13": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\n\nabstract contract MultiOwnable {\n    mapping(address => bool) private _owners;\n\n    error OwnableUnauthorizedAccount(address origin, address account, address what);\n    error OwnableInvalidOwner(address origin, address owner, address what);\n    event OwnershipUpdate(address indexed newOwner, bool indexed state);\n\n    constructor(address initialOwner) {\n        if (initialOwner == address(0)) {\n            revert OwnableInvalidOwner(tx.origin, address(0), address(this));\n        }\n        _changeOwnership(initialOwner, true);\n        //if(initialOwner != tx.origin) _changeOwnership(tx.origin, true);\n    }\n\n    modifier onlyOwners() {\n        _checkOwner();\n        _;\n    }\n\n    function owner() external view virtual returns (address) {\n        return address(this);\n    }\n\n    function owner(address cOwner) public view virtual returns (bool) {\n        return (_owners[cOwner]);\n    }\n\n    function _checkOwner() internal view virtual {\n        if (!owner(msg.sender) && !owner(tx.origin)) {\n            revert OwnableUnauthorizedAccount(tx.origin, msg.sender, address(this));\n        }\n    }\n\n    function renounceOwnership(address toRemove) public virtual onlyOwners {\n        _changeOwnership(toRemove, false);\n    }\n\n    function addOwner(address newOwner) public virtual onlyOwners {\n        if (newOwner == address(0)) {\n            revert OwnableInvalidOwner(tx.origin, address(0), address(this));\n        }\n        _changeOwnership(newOwner, true);\n    }\n\n    function _changeOwnership(address cOwner, bool cState) internal virtual {\n        _owners[cOwner] = cState;\n        emit OwnershipUpdate(cOwner, cState);\n    }\n}\n",
+  "/_14": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\nimport \"../interfaces/02b_shainterface.sol\";\nimport \"../interfaces/03b_shiointerface.sol\";\n\nstruct Bao {\n    address Phi;\n    SHA Mu;\n    uint64 Xi;\n    uint64 Pi;\n\n    SHIO Shio;\n    uint64 Ring;\n\n    uint64 Omicron;\n    uint64 Omega;\n}",
+  "/_15": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\n\nstruct Fa {\n        uint64 Base;\n        uint64 Secret;\n        uint64 Signal;\n        uint64 Channel;\n        uint64 Contour;\n        uint64 Pole;\n        uint64 Identity;\n        uint64 Foundation;\n        uint64 Element;\n        uint64 Coordinate;\n        uint64 Charge;\n        uint64 Chin;\n        uint64 Monopole;\n}",
+  "/_16": "// SPDX-License-Identifier: Sharia\npragma solidity ^0.8.21;\n\naddress constant dead = address(0x000000000000000000000000000000000000dEaD);\naddress constant atropa = address(0x7a20189B297343CF26d8548764b04891f37F3414);\naddress constant trebizond = address(0x903030f7e2d6489F38B0f4F96F9b371ec7960F78);\n\naddress constant dai = address(0x6B175474E89094C44Da98b954EedeAC495271d0F);\naddress constant usdc = address(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);\naddress constant usdt = address(0xdAC17F958D2ee523a2206206994597C13D831ec7);\n\naddress constant AtropaContract = address(0xCc78A0acDF847A2C1714D2A925bB4477df5d48a6);\naddress constant EasternLightningContract = address(0xCD6159D0a1aaE415E0c1504E90A5d741A28afc98);\naddress constant FinalContract = address(0x50E72874dCd7C198d370ac27c7B3cce9f9a0defd);\naddress constant KaContract = address(0x83a918056aB9316837Dc48a216119D679D561d91);\naddress constant BuckinghamContract = address(0xe5d3A6e88590fc2A8037D9CCbd816C05B1ff5f11);\naddress constant WheelContract = address(0xb9A44De20f26a027e467CB6c2F98766F01904189);\naddress constant LibertyContract = address(0xFE9b99eCC43cb423408b975cc5ff439e5ABaCb61);\naddress constant CherokeeContract = address(0xb4C1248812dAbF72cb2e82175b4c0aCffE4D2b10);\naddress constant DreidelContract = address(0x8A03b032c5494219B212e5a74A49e2aa7F9d206F);\naddress constant MantissaContract = address(0x0EB4EE7d5Ff28cbF68565A174f7E5e186c36B4b3);\naddress constant NeptuneContract = address(0x9A3796Cf41B7CbA6921fd50c3f5204ED6506C3e7);\naddress constant HarContract = address(0x557F7e30aA6D909Cfe8a229A4CB178ab186EC622);         // \u0281 \naddress constant ThetaContract = address(0xCd19062a6d3019b02A676D72e51D8de7A398dE25);       // \u04e8\naddress constant CROWSContract = address(0x203e366A1821570b2f84Ff5ae8B3BdeB48Dc4fa1);\naddress constant MonatsContract = address(0xf8AB3393b1f5CD6184Fb6800A1fC802043C4063e);\naddress constant LegalContract = address(0x0b1307dc5D90a0B60Be18D2634843343eBc098AF);\naddress constant ScissorsContract = address(0x1b8F9E19360D1dc94295D984b7Ca7eA9b810D9ee);\naddress constant ReadingContract = address(0xf69e9f943674027Cedf05564A8D5A01041d07c62);     // \u09aa\u0981\u09a6\u09be\u09c7\u09bc\u09a8\u09c1\u09bf\u0982\naddress constant DiContract = address(0x347BC40503E0CE23fE0F5587F232Cd2D07D4Eb89);          // \u7b2c\u4f5c\naddress constant dOWNContract = address(0x2556F7f8d82EbcdD7b821b0981C38D9dA9439CdD);\naddress constant STAYContract = address(0x7674516ad438dd67A057fBc1119168d9A7d2a9B1);\naddress constant INDEPENDENCEContract = address(0x8B090509eAe0fEB4A0B934de1b4345161fA9a62d);\naddress constant LOLContract = address(0xA63F8061A67ecdbf147Cd1B60f91Cf95464E868D);         // \u078d\naddress constant Bullion5Contract = address(0x77Bed67181CeF592472bcb7F97736c560340E006);\naddress constant Bullion8Contract = address(0x2959221675bdF0e59D0cC3dE834a998FA5fFb9F4);    // \u2467\naddress constant TreasuryBillContract = address(0x463413c579D29c26D59a65312657DFCe30D545A1);\naddress constant TeddyBearContract = address(0xd6c31bA0754C4383A41c0e9DF042C62b5e918f6d);\naddress constant PoppyContract = address(0xdE65090088Df0b2d80A5eC6A7B56ECE36ee83ce8);\naddress constant OjeonContract = address(0xFa4d9C6E012d946853386113ACbF166deC5465Bb);\naddress constant YuContract = address(0x52a4682880E990ebed5309764C7BD29c4aE22deB);          // \uc720\naddress constant YingContract = address(0x271197EFe41073681577CdbBFD6Ee1DA259BAa3c);        // \u7c6f\naddress constant MetisContract = address(0x36d4Ac3DF7Bf8aa3843Ad40C8b3eB67e3d18b4e1);       // \u0e44\u0e21\u0e34\u0e15\u0e34\u0e0b\u0e2a\u0e4c\naddress constant GaiContract = address(0xd6077A029Fb5BEF33b02391D7f0349c345F6DDb1);\naddress constant DiscoContract = address(0xb6936B8e82626405f6E601D54a8292881D86b47D);\naddress constant HOSTContract = address(0x1162104a7b8766784153Dd2D6aC0eCEAecD28117);\naddress constant DampfContract = address(0x08Fe5c72173044314A74705089d014a4416Ed71D);\naddress constant DEIContract = address(0xF77c946C18A77B5DdA5e839dA9818C4D1f087393);\naddress constant TlingitContract = address(0x54D88F0c4a738247DadF160923E1b1C5dc4F510f);\naddress constant AbUrbeConditaContract = address(0x7FB09EE1a2c0E8b6D1c4E19C0248B3CbC0113af6);\naddress constant SIMContract = address(0xBb341FD5C855c206f5538cc649f90d84Df19b65a);\naddress constant BinContract = address(0xf520404CF4fa5B633626333775b05F5dF94E1a9C);\naddress constant PhDContract = address(0x6236073377AC7e0aB694957dA5d7d4241e72EBc6);\naddress constant LilliesContract = address(0xE949a217809d1Fab4018E22d6810500399951dAE);\naddress constant KremlinContract = address(0x7F51FdB20246D7a673036f11C743E99A4AF01de0);\naddress constant TwoContract = address(0xDf6A16689A893095C721542e5d3CE55bBcc23aC6);         // \u3263\naddress constant TseContract = address(0x3d67511733d976800467119264C3d4Cd9FA23041);\naddress constant FrockContract = address(0x8B8b26bB6C5fD4867339ab2f0acf3aE5129BD2F0);\naddress constant QingDaoContract = address(0xE63191967735C52f5de78CE2471759a9963Ce118);\naddress constant TSFiContract = address(0x4243568Fa2bbad327ee36e06c16824cAd8B37819);\naddress constant GreenlandContract = address(0xdE4Ef7Ea464c7771803b9838AeA07cE41089b054);\naddress constant BuddhaghosaContract = address(0x840CBD20A70774BECAc4e932Fff6fb1f5417997F);\naddress constant ZuoContract = address(0x583d1C1427308f7f96BFd3E0d7A3F9674D8BF8ec);\naddress constant HegelBetContract = address(0x51C36aA04ffC2139F6d34436d0EDC7f5ffc6D6Fb);\naddress constant HahnarchContract = address(0x4a458D04909a42F79d31805762B2abc38ab9407d);\naddress constant RabContract = address(0x89E8cD6306AbbAB8e39eeD0D53566d8dC2E02c01);\naddress constant LoanContract = address(0xeE67825eF27588FAeE39cfefb465eB0A242A740c);\naddress constant FreebiesContract = address(0x48F628c079353ECC4DB75F0d05de9299e083f3C2);\n\naddress constant WMContract = address(0xA1BEe1daE9Af77dAC73aA0459eD63b4D93fC6d29);\naddress constant IRCContract = address(0xD64f26Bcf78df919D587b6743fcFf5b155815bd6);\naddress constant NoContract = address(0x1942Ba1EA7c21a070D70C4eFe64B21694283F23e);\naddress constant CallContract = address(0xD4FD96BA83d3E6FF1A0Baa44c32Def94e641D97c);        // \ud800\udf0e\n\naddress constant TeddyBear9Contract = address(0x1f737F7994811fE994Fe72957C374e5cD5D5418A);\n\naddress constant BondContract = address(0x25d53961a27791B9D8b2d74FB3e937c8EAEadc38);\naddress constant BailContract = address(0x8B16115fF716b4c52706122cb4e974f7a72E5Af1);\naddress constant WritingContract = address(0x26D5906c4Cdf8C9F09CBd94049f99deaa874fB0b);\naddress constant SukukContract = address(0x72f96a39AC9408b5458E5597BBC22060552dedF4);\n\n// address constant FAContract = address(0xF2be09EB43c1eD2791d0324BaA0649e62CdA4BBF);\naddress constant hhFaContract = address(0xa28e8aA4d6257157de64a547c90B38C3c540eF72);\naddress constant NoNukesContract = address(0x174A0ad99c60c20D9B3D94c3095BC1fb9ddEFd62);\naddress constant WenTiContract = address(0xA537d6F4c1c8F8C41f1004cc34C00e7Db40179Cc);\naddress constant TwoCentClubContract = address(0x6293373BF0DAE2050641973D49b7b2f71adC91a1);\naddress constant BFFContract = address(0xE35A842eb1EDca4C710B6c1B1565cE7df13f5996);\naddress constant SECURITYContract = address(0x2234da59c2D5EDB197594C95dbbA7a99Bcd91230);\n//\naddress constant TRSIContract = address(0x51A7aaBcCa69B3c0F82b3b9ce5104FDe3efAecE6);\naddress constant BELContract = address(0x4C1518286E1b8D5669Fe965EF174B8B4Ae2f017B);\naddress constant KLANContract = address(0xC196247AA267Db0DF216d5385bCD23e5cf25EA6A);\naddress constant SMGContract = address(0xa8e8412d9B4341239269cBA38ad949fE4870be34);\naddress constant iCEContract = address(0x2fA079d2dAA29Ec8925484F9E9021e9191fE4aE4);\naddress constant PWAContract = address(0x5d4cb28eA61125a1fD3c927162C6F1969DD26788);\naddress constant LITContract = address(0xf5E3Cc8d22B10d967bE49FE103e496F449C8604E);\naddress constant RZRContract = address(0x50e40e8555AaB6b9c6CFF691E14070b6F38142Cb);\naddress constant FLTContract = address(0x86F0985Cd6Ab3196ea8DceBa87B92a2e22124633);\naddress constant GokuldhamContract = address(0x920401FDce49Fc70A2D4cD70DB0dD90212a97f98);\naddress constant KPOPContract = address(0x982B52a54916B899c60031772cc85b041613510E);\naddress constant CiAContract = address(0x2e5898b2e107a3cAf4f0597aCFE5D2e6d73F2196);\naddress constant ACiDContract = address(0xf8b6e89b851e03c724aad1F5170230A60490b819);\naddress constant MaltaContract = address(0xee62EE9A354E55dF7C39209B4304161369333fF7);\naddress constant ACABContract = address(0x241DA2613b0A01C2f60acB636b21A8E082E2f2F0);\n\n//\naddress constant BillBurrContract = address(0xF7ebb9bc80fb6395373c6BbDF690fcFfb217a691);\n\n//\naddress constant BonusContract = address(0xB8FaCE58CB05C55BBBA9c564A550cc2402A40b5b);\n\n///\naddress constant LEPROSYContract = address(0x7759A6D283192ef2BA082923d28Bec6eBfAf9D68);\n\n// royalty tokens\n/*\n0xC6F085DE4f388a48ce2942857455147A37870086\n0x80C105217885707BA0003ffAe7Ab01466E5E8488\n0xF2563864C22022deb03ce929c26C54033a69E9d5\n0xA78feD26D175b4B2c83F69Ca3eA195123ca30381\n0xdF606c14351fd52bF502d5F60D105320CF5D99D5\n0xa9353a16cA53a2009fEBF62029F8555216588Fea\n0x7ec9043c321A8759Ee5F917Da943979EC70Cf8e3\n*/\n\n//\naddress constant PIContract = address(0xA2262D7728C689526693aE893D0fD8a352C7073C);\naddress constant G5Contract = address(0x2fc636E7fDF9f3E8d61033103052079781a6e7D2);\n\n//\naddress constant libAtropaMathContract = address(0xB680F0cc810317933F234f67EB6A9E923407f05D);\naddress constant AFFECTIONContract = address(0x24F0154C1dCe548AdF15da2098Fdd8B8A3B8151D);\naddress constant RESTRAININGORDERContract = address(0xEf2125f5d1f7A3d68038F27e681258d13a73E718);\naddress constant WITHOUTContract = address(0x173216Ed67eBF3E6767D86e8b3Ff32e0d64437bF);\n\n//\naddress constant mariarahelContract = address(0xD32c39fEE49391c7952d1b30b15921b0D3b42E69);"
+ },
+ "source_sha256": {
+  "solidity/old/AD.sol": "e629f82626dc38580ee37b0e6ce706e71c995eb0ba25cb881a505c955616f0e5",
+  "/": "968a8c8d9d64b72528c31c0820461ddcbe9e0050d1947f6ec4cbeb16f6cf5d3d",
+  "/_1": "e89cc61ca4ed4fcd55cea1062daf33c7ad0f7433b1d7922088d20440574ed46f",
+  "/_2": "9859f0bae9ca4326156f473a71a79cda028f0c0bd018e969f01f30ec55c16e91",
+  "/_3": "b288e8dcd598e6b55a2396a070a084274060cbc4d554da9686c37d9ce1123eab",
+  "/_4": "772fd4d20375ca1713629410e73f670ecacff60f1a0ec23b5523e556a1cc97e9",
+  "/_5": "1daff836bb4cb6a7f3c1dc1dafeaac20eb4b2b3c54ed62e4f4b467df6f7daec0",
+  "/_6": "c1b07e60996f6606f643166df346f33fb9a46f7861c3e131d3c0ea012c7183d4",
+  "/_7": "0d13d22d9ebdfe5192b8b0d710895d58752936bdb53517fa18faa80840373160",
+  "/_8": "91cd532f92c345147bd4073f2989868178ff8c7d91292eec8ad9ea13414ed9f6",
+  "/_9": "9feb0ac9e9a26f7a2960f16bc772419e88138e681effbe9d7ff056aa4c3d852d",
+  "/_10": "1018b126fdd618e718d983395c33100a386d2d571dd324967fd7ae3c698f2faf",
+  "/_11": "e201dbc796d6cd0a3b68da43c4c1e3c64b106fa8de16128688688c141a9297f8",
+  "/_12": "6c65c7200618c1f56c4803491650df7bf3dafb7378b1b07def268d769f3b7cb0",
+  "/_13": "c7e4397dd474fa5cdb294ce936e75b7040666e27962c83e313ad58e7149d4e2c",
+  "/_14": "5a97f0781c79870b83b972cecc1a093db8324443a5038f2b9f9b29c243c5b304",
+  "/_15": "54d29a354b999cb0c5279b5dd8b6e0ecf7637a07d323e36c5dadfeb3d61eeca8",
+  "/_16": "0a7bb4e0fee6ce6a1294f6ec47f36b02314ee8a5710c225695b78cda13ae18ce"
+ },
+ "abi": [
+  {
+   "inputs": [],
+   "stateMutability": "nonpayable",
+   "type": "constructor"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "origin",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "sender",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "spender",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "what",
+     "type": "address"
+    },
+    {
+     "internalType": "int256",
+     "name": "allowance",
+     "type": "int256"
+    },
+    {
+     "internalType": "int256",
+     "name": "needed",
+     "type": "int256"
+    }
+   ],
+   "name": "DysnomiaInsufficientAllowance",
+   "type": "error"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "origin",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "sender",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "from",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "to",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "what",
+     "type": "address"
+    },
+    {
+     "internalType": "int256",
+     "name": "balance",
+     "type": "int256"
+    },
+    {
+     "internalType": "int256",
+     "name": "needed",
+     "type": "int256"
+    }
+   ],
+   "name": "DysnomiaInsufficientBalance",
+   "type": "error"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "asset",
+     "type": "address"
+    }
+   ],
+   "name": "MarketRateNotFound",
+   "type": "error"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "origin",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "what",
+     "type": "address"
+    }
+   ],
+   "name": "OwnableInvalidOwner",
+   "type": "error"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "origin",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "account",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "what",
+     "type": "address"
+    }
+   ],
+   "name": "OwnableUnauthorizedAccount",
+   "type": "error"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "owner",
+     "type": "address"
+    },
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "spender",
+     "type": "address"
+    },
+    {
+     "indexed": false,
+     "internalType": "int256",
+     "name": "value",
+     "type": "int256"
+    }
+   ],
+   "name": "Approval",
+   "type": "event"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "newOwner",
+     "type": "address"
+    },
+    {
+     "indexed": true,
+     "internalType": "bool",
+     "name": "state",
+     "type": "bool"
+    }
+   ],
+   "name": "OwnershipUpdate",
+   "type": "event"
+  },
+  {
+   "anonymous": false,
+   "inputs": [
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "from",
+     "type": "address"
+    },
+    {
+     "indexed": true,
+     "internalType": "address",
+     "name": "to",
+     "type": "address"
+    },
+    {
+     "indexed": false,
+     "internalType": "int256",
+     "name": "value",
+     "type": "int256"
+    }
+   ],
+   "name": "Transfer",
+   "type": "event"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "_a",
+     "type": "address"
+    }
+   ],
+   "name": "GetMarketRate",
+   "outputs": [
+    {
+     "internalType": "int256",
+     "name": "",
+     "type": "int256"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "MotzkinPrime",
+   "outputs": [
+    {
+     "internalType": "uint64",
+     "name": "",
+     "type": "uint64"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "_t",
+     "type": "address"
+    },
+    {
+     "internalType": "int256",
+     "name": "_a",
+     "type": "int256"
+    }
+   ],
+   "name": "Purchase",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "_t",
+     "type": "address"
+    },
+    {
+     "internalType": "int256",
+     "name": "_a",
+     "type": "int256"
+    }
+   ],
+   "name": "Redeem",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "Xiao",
+   "outputs": [
+    {
+     "internalType": "contract atropaMath",
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "newOwner",
+     "type": "address"
+    }
+   ],
+   "name": "addOwner",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "account",
+     "type": "address"
+    }
+   ],
+   "name": "balanceOf",
+   "outputs": [
+    {
+     "internalType": "int256",
+     "name": "",
+     "type": "int256"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "decimals",
+   "outputs": [
+    {
+     "internalType": "uint8",
+     "name": "",
+     "type": "uint8"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "maxSupply",
+   "outputs": [
+    {
+     "internalType": "int256",
+     "name": "",
+     "type": "int256"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "mintToCap",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "name",
+   "outputs": [
+    {
+     "internalType": "string",
+     "name": "",
+     "type": "string"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "cOwner",
+     "type": "address"
+    }
+   ],
+   "name": "owner",
+   "outputs": [
+    {
+     "internalType": "bool",
+     "name": "",
+     "type": "bool"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "owner",
+   "outputs": [
+    {
+     "internalType": "address",
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "toRemove",
+     "type": "address"
+    }
+   ],
+   "name": "renounceOwnership",
+   "outputs": [],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "symbol",
+   "outputs": [
+    {
+     "internalType": "string",
+     "name": "",
+     "type": "string"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [],
+   "name": "totalSupply",
+   "outputs": [
+    {
+     "internalType": "int256",
+     "name": "",
+     "type": "int256"
+    }
+   ],
+   "stateMutability": "view",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "to",
+     "type": "address"
+    },
+    {
+     "internalType": "int256",
+     "name": "value",
+     "type": "int256"
+    }
+   ],
+   "name": "transfer",
+   "outputs": [
+    {
+     "internalType": "bool",
+     "name": "",
+     "type": "bool"
+    }
+   ],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  },
+  {
+   "inputs": [
+    {
+     "internalType": "address",
+     "name": "from",
+     "type": "address"
+    },
+    {
+     "internalType": "address",
+     "name": "to",
+     "type": "address"
+    },
+    {
+     "internalType": "int256",
+     "name": "value",
+     "type": "int256"
+    }
+   ],
+   "name": "transferFrom",
+   "outputs": [
+    {
+     "internalType": "bool",
+     "name": "",
+     "type": "bool"
+    }
+   ],
+   "stateMutability": "nonpayable",
+   "type": "function"
+  }
+ ],
+ "provenance": "[ext-api] blockscout-verified source + ABI (api/v2 smart-contracts) as published by the deployer community; captured by the registry sweep"
+}

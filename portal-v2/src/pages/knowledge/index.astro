@@ -1,0 +1,189 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const docs = (await getCollection('kbv2')).sort((a, b) => a.id.localeCompare(b.id));
+const slug = (id: string) => id.replace(/\.md$/, '').replace(/\/readme$/, '');
+const title = (id: string) => {
+  const s = id.replace(/\.md$/, '').replace(/\/readme$/i, '');
+  return s.split('/').pop()!;
+};
+
+const DESC: Record<string, string> = {
+  overview: 'what the system is, the actors, how the pieces fit, the eras, a glossary — the entry point',
+  'deep/readme': 'the deep-dive selection criterion + the set at a glance',
+  'deep/fed': "V2's root reserve — the permissionless TBILL-parity sink and the farm substrate",
+  'deep/tbill': "V1's fixed reserve — the complete ownership chain and the mint/burn ledger",
+  'deep/mv': 'the universal creation payment — the Rho() six-leg decode, fee accrual, burn-by-distribution',
+  'deep/math-family': 'the shared RNG backbone — family tiers, the owner-key census, oracle-scale usage',
+  'deep/keys-of-ong': 'the pre-V1 RNG prediction game — Dong mechanics, neutral facts only',
+  'deep/teddybear': 'the deepest ecosystem-owned book — fixed supply, the 2025 sell record',
+  'deep/atropa': 'the namesake token — flagship burnt pool, the 2025 burn cliffs',
+  'deep/fdic-poor-spines': 'the two genesis anchors — the claim-farm spine and the community feed',
+  'mechanics/readme': 'the five factory generations at a glance',
+  'mechanics/v1-tbillminter': 'TBILL parity with no exit — the bytecode-reconstructed first generation',
+  'mechanics/v2-federalminter': 'claim keys + publish — the debenture model, the largest generation',
+  'mechanics/v3-indexminter': 'any parent, escalating mint price, gated sibling claims',
+  'mechanics/v4-personalminter': 'per-token price ladders + self-redeem; the NewGai batches decoded',
+  'mechanics/bureau-minters': 'four same-day V3-adjacent variants — proxy, proxy, canonical, rebuild',
+  'mechanics/registry-and-tx-origin': 'who owns a child — the tx.origin registry and the cross-minter fallback chain',
+  'mechanics/claim-and-publish': 'redemption semantics per generation, and why publish ≠ protection',
+  'mechanics/multipliers': 'V3 step and V4 self-scaled pricing, with worked examples',
+  'mechanics/hu-ladder': 'the per-token permission ladder — levels 1/5/10/100/255',
+  'reference/shared-infra': 'MATH/RNG orbit mechanics, cap semantics, the mints-per-Generate reconciliation',
+  'reference/liquidity': 'pool classes, the burnt-LP census, the numeraire taxonomy',
+  'reference/admin-surface': 'what every live owner key in the registry can actually do',
+  'taxonomy/readme': 'the eight machine-derivable dimensions and their rules',
+  'taxonomy/classes': 'the class catalog — every class with its defining rule',
+  'method/provenance': 'tags, the claim registry, reproducibility',
+  'method/coverage': 'completeness by construction — the anti-cherry-picking rule',
+  readme: 'how this content tree is organized + the editorial rules',
+};
+
+const PATH1: [string, string, string][] = [
+  ['overview', '1', 'the orientation — what this system is, who built it, the design idea in one page'],
+  ['mechanics', '2', 'the five factory generations at a glance'],
+  ['mechanics/v1-tbillminter', '3', 'the first model: lock TBILL 1:1, forever, no exit'],
+  ['mechanics/v2-federalminter', '4', 'the pivot: collateral becomes recoverable through claim keys'],
+  ['mechanics/claim-and-publish', '5', 'what the claim model let the community do — including the farms'],
+  ['deep/fdic-poor-spines', '6', 'the two lineage economies that grew on the genesis tokens'],
+];
+const PATH2: [string, string, string][] = [
+  ['mechanics/multipliers', '·', 'how mint pricing escalates (V3 steps, V4 self-scaled)'],
+  ['mechanics/registry-and-tx-origin', '·', 'the ownership convention everything else assumes'],
+  ['mechanics/hu-ladder', '·', 'the per-token permission system'],
+  ['mechanics/v3-indexminter', '·', 'gated claims + the index idea'],
+  ['mechanics/v4-personalminter', '·', 'self-redeem closes the claim arc'],
+  ['mechanics/bureau-minters', '·', 'the same-day variant quartet'],
+  ['reference/shared-infra', '·', 'the deterministic RNG orbit under every TT'],
+  ['deep/mv', '·', 'the fee asset — where creation payments went'],
+  ['deep/math-family', '·', 'the backbone as entities — keys, caps, usage'],
+  ['reference/admin-surface', '·', 'every live owner key, enumerated'],
+  ['reference/liquidity', '·', 'the webs, the burnt tradition, the numeraires'],
+];
+const PATH3: [string, string][] = [
+  ['/tokens', 'every census child, filterable'],
+  ['/contracts', 'every classified contract'],
+  ['/lineage', 'the parent→child forests'],
+  ['/timeline', 'the block-exact chronology'],
+  ['/taxonomy', 'the live taxonomy panel'],
+  ['/claims', 'the machine-checkable claim registry'],
+  ['/irc', 'the complete dev-channel corpus'],
+  ['/export', 'every bundle + the docs tarball'],
+];
+
+const sections: [string, string][] = [
+  ['deep/', 'deep dives'],
+  ['mechanics/', 'mechanics'],
+  ['reference/', 'reference'],
+  ['taxonomy/', 'taxonomy'],
+  ['method/', 'method'],
+];
+const roots = docs.filter((d) => !d.id.includes('/'));
+---
+
+<Base title="knowledge" active="knowledge">
+  <h1>knowledge <span class="dim">— the public knowledge base</span></h1>
+  <p class="dim">
+    Written reference pages — normative [src]/[chain] only, statistics
+    generated from the data layer — plus
+    an&nbsp;<a href="/knowledge/overview">overview</a> for newcomers and three
+    reading paths below. Entity pages live under&nbsp;
+    <a href="/tokens">/tokens</a> and <a href="/contracts">/contracts</a>;
+    lineage under <a href="/lineage">/lineage</a>.
+  </p>
+
+  <div class="panel">
+    <h2>reading path — the design idea <span class="sub">for a newcomer, in order</span></h2>
+    <ol class="path">
+      {PATH1.map(([s, n, why]) => (
+        <li value={n}>
+          <span class="step"><a href={`/knowledge/${s}`}>{s.replace(/.*\//, '') || s}</a></span>
+          <span class="why">{why}</span>
+        </li>
+      ))}
+      <li value="7">
+        <span class="step"><a href="/tokens">browse the tokens</a></span>
+        <span class="why">3,129 census children, every one with its own entity page — pick any</span>
+      </li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <h2>reading path — mechanics &amp; infrastructure <span class="sub">for the deeper reader</span></h2>
+    <ol class="path dense">
+      {PATH2.map(([s, _n, why]) => (
+        <li>
+          <span class="step"><a href={`/knowledge/${s}`}>{s.replace(/.*\//, '')}</a></span>
+          <span class="why">{why}</span>
+        </li>
+      ))}
+    </ol>
+    <p class="dim more">
+      Then the remaining deep dives —&nbsp;
+      <a href="/knowledge/deep/fed">FED</a> ·&nbsp;
+      <a href="/knowledge/deep/tbill">TBILL</a> ·&nbsp;
+      <a href="/knowledge/deep/keys-of-ong">Keys Of Ong</a> ·&nbsp;
+      <a href="/knowledge/deep/teddybear">TeddyBear</a> ·&nbsp;
+      <a href="/knowledge/deep/atropa">Atropa</a> — and
+      the&nbsp;<a href="/knowledge/method/provenance">method pages</a> behind everything.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>reading path — by lookup <span class="sub">reference surfaces, not prose</span></h2>
+    <ul class="byrow">
+      {PATH3.map(([href, label]) => (
+        <li><a href={href}>{href}</a> <span class="why">{label}</span></li>
+      ))}
+    </ul>
+  </div>
+
+  {sections.map(([prefix, label]) => {
+    const items = docs.filter((d) => d.id.startsWith(prefix));
+    return items.length > 0 && (
+      <div class="panel">
+        <h2>{label}</h2>
+        <ul class="pagelist">
+          {items.map((d) => {
+            const s = slug(d.id);
+            return (
+              <li>
+                <a href={`/knowledge/${s}`}>{title(d.id)}</a>
+                {DESC[d.id] && <span class="why"> — {DESC[d.id]}</span>}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  })}
+  {roots.length > 0 && (
+    <div class="panel">
+      <h2>this tree</h2>
+      <ul class="pagelist">
+        {roots.map((d) => (
+          <li>
+            <a href={`/knowledge/${slug(d.id)}`}>{slug(d.id)}</a>
+            {DESC[d.id] && <span class="why"> — {DESC[d.id]}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+</Base>
+
+<style>
+  h2 .sub { color: var(--fg-faint); font-weight: 400; font-size: 0.8rem; margin-left: 0.5rem; }
+  ol.path { margin: 0.4rem 0 0.2rem; padding-left: 1.6rem; }
+  ol.path li { margin: 0.45rem 0; }
+  ol.path.dense li { margin: 0.22rem 0; }
+  ol.path li::marker { color: var(--accent); font-weight: 700; }
+  .step a { font-weight: 600; }
+  .why { color: var(--fg-dim); font-size: 0.86rem; margin-left: 0.45rem; }
+  p.more { margin: 0.5rem 0 0; font-size: 0.86rem; }
+  ul.byrow { list-style: none; margin: 0.4rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.3rem 1.2rem; }
+  ul.byrow li { margin: 0; }
+  ul.pagelist { margin: 0.4rem 0 0; }
+  ul.pagelist li { margin: 0.3rem 0; }
+</style>

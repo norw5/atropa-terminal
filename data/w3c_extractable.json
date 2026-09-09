@@ -1,0 +1,631 @@
+{
+ "_meta": {
+  "generated": "2026-09-05T13:43:53.405199+00:00",
+  "provenance": "[chain] LP balanceOf(DEAD)+balanceOf(ZERO) vs totalSupply per pair, joined with w3b_enriched reserves/registry categories",
+  "n_pairs": 34634,
+  "caveat": "counts LP sent to dead sinks only; burn()-removed LP (smaller totalSupply) not distinguished; locker-held LP counted live; WPLS valuation only exists for WPLS-leg pairs (1,939) - the burnt-LP pattern lives mostly in non-WPLS pairs, listed with raw reserves"
+ },
+ "pairs_ge50_burnt": 1753,
+ "pairs_any_burnt": 1919,
+ "wpls_leg_pairs_ge_1k": 1559,
+ "wpls_total_reserve_legs": 69895063928.51447,
+ "wpls_locked_behind_burnt_lp": 564424227.7370188,
+ "ge50_by_registry_category": {
+  "addresses_sol,maria2_create": 527,
+  "addresses_sol,forked_asset": 373,
+  "addresses_sol,maria2_create,tier2_standalone": 326,
+  "tier2_standalone": 121,
+  "maria2_create": 115,
+  "addresses_sol,maria2_create,reserve": 77,
+  "addresses_sol,affection,maria2_create": 33,
+  "census:V4": 32,
+  "census:V2": 31,
+  "forked_asset": 26,
+  "maria1_create": 22,
+  "addresses_sol": 13,
+  "census:V3": 12,
+  "maria1_create,reserve": 10,
+  "affection,maria2_create": 8,
+  "addresses_sol,forked_asset,maria2_create,tier2_standalone": 5,
+  "addresses_sol,forked_asset,maria2_create": 4,
+  "census:V3,census:V4": 3,
+  "addresses_sol,census:V4,maria2_create": 2,
+  "census:V1": 2,
+  "maria2_create,tier2_standalone": 1,
+  "addresses_sol,affection,maria1_create,maria2_create": 1,
+  "addresses_sol,census:V2,maria2_create,reserve": 1,
+  "maria1_create,tier2_standalone": 1,
+  "census:V3,maria1_create": 1,
+  "addresses_sol,forked_asset,maria1_create": 1,
+  "addresses_sol,census:V1,forked_asset": 1,
+  "addresses_sol,census:V4,maria2_create,tier2_standalone": 1,
+  "addresses_sol,census:V3,forked_asset": 1,
+  "census:V2,census:V4": 1,
+  "census:V1,census:V4": 1
+ },
+ "top_burnt_by_lp_supply": [
+  {
+   "pair": "0x790f7ec506fda2b64c6c5aaa795617bed4f1e883",
+   "syms": "\u7c6f/\uc720",
+   "share": 1.0,
+   "lp_supply": 7520343114180362980973388416,
+   "res0": 8.08901561920194e+27,
+   "res1": 7.053529385434287e+27,
+   "cats": [
+    "addresses_sol",
+    "maria2_create"
+   ]
+  },
+  {
+   "pair": "0xf30034233d8da99aa61758b8acde1eedee8fb1f1",
+   "syms": "DOGE/ATROPA",
+   "share": 0.8999,
+   "lp_supply": 4154033495270523483574778797,
+   "res0": 2.5101760469860383e+31,
+   "res1": 7.316794496428023e+23,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0xaf85568ff81370f33453885337befc13d3810368",
+   "syms": "BIFF/TEDDY BEAR \u327e",
+   "share": 1.0,
+   "lp_supply": 3155100568215815375379939022,
+   "res0": 1.3480170192554129e+28,
+   "res1": 8.362624863563691e+26,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x93afb72db8c15b4019e6c73ad4654e42d602dda3",
+   "syms": "SWRM/TEDDY BEAR \u327e",
+   "share": 0.7695,
+   "lp_supply": 2154823877820472801269492122,
+   "res0": 4.593177919242536e+24,
+   "res1": 1.128896497667443e+30,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x2b2e346dcae8d4011184edfcf331662329052e44",
+   "syms": "FUDEV/TEDDY BEAR \u327e",
+   "share": 1.0,
+   "lp_supply": 2012461179749810726768256301,
+   "res0": 5.118629152639854e+25,
+   "res1": 8.475205020779443e+28,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0xfdb7379ba307b92364074cf1b05a9da7f1c8d3c1",
+   "syms": "dOWN/AFK",
+   "share": 0.6806,
+   "lp_supply": 1712308855519527584771718959,
+   "res0": 5.037564011549868e+22,
+   "res1": 6.580410005965138e+31,
+   "cats": [
+    "addresses_sol",
+    "maria2_create"
+   ]
+  },
+  {
+   "pair": "0x51cc57700d97486cc0d0df3fa19356b466fd7d1a",
+   "syms": "SHIT/TEDDY BEAR \u327e",
+   "share": 0.9999,
+   "lp_supply": 1250763779861858782382197738,
+   "res0": 1.3105294897043458e+28,
+   "res1": 1.3172807770695588e+26,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x5ef7aac0de4f2012cb36730da140025b113fada4",
+   "syms": "DAI/ATROPA",
+   "share": 0.9376,
+   "lp_supply": 1173183158505462821396067730,
+   "res0": 5.318152811943222e+27,
+   "res1": 2.595285055585963e+26,
+   "cats": [
+    "addresses_sol",
+    "forked_asset",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x642fe7b70287dc1d1da369d85a182ce57435068c",
+   "syms": "TREASURY BILL \u327e/LUSD",
+   "share": 0.6771,
+   "lp_supply": 537350678002082974021251851,
+   "res0": 4.0725842845536983e+20,
+   "res1": 2.847656598657258e+33,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "reserve"
+   ]
+  },
+  {
+   "pair": "0xc8125679e68686b179982ea3f89c7c6064cfb016",
+   "syms": "DAI/BABY TEDDY",
+   "share": 1.0,
+   "lp_supply": 388433587472149863755957630,
+   "res0": 2.5980001350801137e+23,
+   "res1": 7.267045338033938e+29,
+   "cats": [
+    "addresses_sol",
+    "forked_asset"
+   ]
+  },
+  {
+   "pair": "0x5383c25d3d86070311946812d022dc0420eed4cb",
+   "syms": "DAI/\u3263",
+   "share": 0.9964,
+   "lp_supply": 354839813902357586042238051,
+   "res0": 4.159050751190993e+26,
+   "res1": 3.19173531614973e+26,
+   "cats": [
+    "addresses_sol",
+    "forked_asset",
+    "maria2_create"
+   ]
+  },
+  {
+   "pair": "0x120a3245601ad6f3eee8a0644511683baba45e25",
+   "syms": "DAI/PULSETRUMP",
+   "share": 0.6732,
+   "lp_supply": 346612124810400097763002994,
+   "res0": 4.06438676072728e+20,
+   "res1": 3.8355432497160414e+32,
+   "cats": [
+    "addresses_sol",
+    "forked_asset"
+   ]
+  },
+  {
+   "pair": "0xaa2dac4d407d0249120f4bdeecf2065b0ffa4f66",
+   "syms": "EPIPH/0xaae18c",
+   "share": 0.9993,
+   "lp_supply": 340960681985275226861161810,
+   "res0": 6.448395376319174e+20,
+   "res1": 3.0346180079223404e+32,
+   "cats": [
+    "census:V2"
+   ]
+  },
+  {
+   "pair": "0x79cc331b81e305da24380938f36bc56fbce6efb5",
+   "syms": "LPRS/TEDDY BEAR \u327e",
+   "share": 0.9651,
+   "lp_supply": 331968538601216420981068839,
+   "res0": 2.746618265243949e+26,
+   "res1": 5.016168267858843e+26,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0xe6344bce2db077deea328c7aea2a79e0d771daf2",
+   "syms": "LPRS/TEDDY BEAR \u327e",
+   "share": 0.9735,
+   "lp_supply": 328895409947897627559937755,
+   "res0": 2.608826788998991e+26,
+   "res1": 4.7135088881666814e+26,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x2cc81fe36da1bcd97927ce09d54d1e17b15a521c",
+   "syms": "POT/DAI",
+   "share": 1.0,
+   "lp_supply": 181693835644865407933350808,
+   "res0": 6.2029112728565615e+29,
+   "res1": 5.4594463982813075e+22,
+   "cats": [
+    "addresses_sol",
+    "forked_asset"
+   ]
+  },
+  {
+   "pair": "0xd36e1cb86421ab9ea94052137485ffad9dc28f18",
+   "syms": "MDALA/0xaae18c",
+   "share": 0.7135,
+   "lp_supply": 149281317068623964639196102,
+   "res0": 3.0086341228499816e+19,
+   "res1": 1.1889988720041063e+33,
+   "cats": [
+    "census:V2"
+   ]
+  },
+  {
+   "pair": "0xe1d2bdba58d34109c547883dc9c2f9e01cebb003",
+   "syms": "dOWN/ATROPA",
+   "share": 0.9643,
+   "lp_supply": 143222486153086678083771309,
+   "res0": 5.292141767913798e+26,
+   "res1": 3.922338027683938e+25,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x965f6c148d826bd539d443b056101fce80295ad8",
+   "syms": "TEDDY BEAR \u327e/GME",
+   "share": 1.0,
+   "lp_supply": 112708721786896990442886944,
+   "res0": 1.7478988323452036e+28,
+   "res1": 1.0356914072403428e+24,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x2f52e03b16f77549de525533c598d7006aec61fc",
+   "syms": "TCY/TEDDY BEAR \u327e",
+   "share": 1.0,
+   "lp_supply": 110679718105893276619961274,
+   "res0": 3.8396243653549457e+25,
+   "res1": 3.248330134233504e+26,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x741922f6e9920de0968a52fa773872b15be15d92",
+   "syms": "TEDDY BEAR \u327e/SPX",
+   "share": 1.0,
+   "lp_supply": 78221193130617428104338748,
+   "res0": 2.1292743811048066e+28,
+   "res1": 3.566116221922352e+23,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0xafce922c308f3ada255805cd4a2f586e77b4475f",
+   "syms": "SONS/TEDDY BEAR \u327e",
+   "share": 1.0,
+   "lp_supply": 42035699113967404074943904,
+   "res0": 8.260971731907812e+22,
+   "res1": 2.352149455454804e+28,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0xa1c315b35c1b96c23f0fe7685ed360cb40b851a4",
+   "syms": "SadKeanu/\u1a13\u1a06",
+   "share": 0.9906,
+   "lp_supply": 30934505644184130650225895,
+   "res0": 1.2052102173381354e+29,
+   "res1": 8.621851897152169e+21,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "reserve"
+   ]
+  },
+  {
+   "pair": "0x503df4eb3a24bdfcc9d7fe3a7cd65dc67cc575ab",
+   "syms": "ANAL/DAI",
+   "share": 1.0,
+   "lp_supply": 25956835692664857209375303,
+   "res0": 1.2248616962162185e+29,
+   "res1": 6.239057129584797e+21,
+   "cats": [
+    "addresses_sol",
+    "forked_asset"
+   ]
+  },
+  {
+   "pair": "0xa07322a4524233d7632c7ee9e69d0f80383593f7",
+   "syms": "MIRROR/ICE",
+   "share": 1.0,
+   "lp_supply": 24635788017794959812611260,
+   "res0": 1.216604628382046e+27,
+   "res1": 5.1305812344216436e+23,
+   "cats": [
+    "maria1_create"
+   ]
+  },
+  {
+   "pair": "0x8f61d8fd20aef7f15019986ba277aeaf75b5062e",
+   "syms": "WETH/ATROPA",
+   "share": 0.8768,
+   "lp_supply": 23511641151119887844405498,
+   "res0": 1.5591882878755424e+27,
+   "res1": 3.8160682975861414e+23,
+   "cats": [
+    "addresses_sol",
+    "forked_asset",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0xeb53b91ec3d68797b790039ea4aa40d5997b2b0f",
+   "syms": "MDALA/TEDDY BEAR \u327e",
+   "share": 0.9027,
+   "lp_supply": 22615629926684113543987960,
+   "res0": 3.451923470373602e+23,
+   "res1": 1.62497840754979e+27,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x00546c94c8d068ed7e1d111fef9c0aa0faadd5d5",
+   "syms": "TEDDY BEAR \u327e/PLSN",
+   "share": 1.0,
+   "lp_supply": 22151985251358469349203062,
+   "res0": 1.6312834894484668e+27,
+   "res1": 3.2736217267995514e+23,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x85f6c49c5c0507204120ed894872f31f9197026f",
+   "syms": "DAI/DUMB",
+   "share": 1.0,
+   "lp_supply": 21590527601555443876228840,
+   "res0": 9.650311936146639e+23,
+   "res1": 5.1873648140637344e+26,
+   "cats": [
+    "addresses_sol",
+    "forked_asset"
+   ]
+  },
+  {
+   "pair": "0xf1e9e4ddfe6465fd8f41c6a2cc7b50253c34f411",
+   "syms": "Volkswagen\u327e/TEDDY BEAR \u327e",
+   "share": 1.0,
+   "lp_supply": 20000000000000000000000000,
+   "res0": 3.3295599664549685e+24,
+   "res1": 1.2064949395447935e+26,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0xd0aec3884d1d080f6b34f8ee267bccc3b9537be1",
+   "syms": "CiA \u327e/TEDDY BEAR \u327e",
+   "share": 0.9903,
+   "lp_supply": 19025138544464356412643341,
+   "res0": 3.7396629963787595e+21,
+   "res1": 1.2918623987280312e+29,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x9622e3298a323267023b33b910eaa1ea68d605a6",
+   "syms": "MDALA/BULLION \u2464",
+   "share": 1.0,
+   "lp_supply": 15418794917628887327448989,
+   "res0": 7.802784339147674e+22,
+   "res1": 3.200863182295931e+27,
+   "cats": [
+    "addresses_sol",
+    "maria2_create"
+   ]
+  },
+  {
+   "pair": "0x6d4664818023e650404ec377c7e96fca40b59315",
+   "syms": "\u1a13\u1a06/pegmeHEX",
+   "share": 0.66,
+   "lp_supply": 14906374475371266480438468,
+   "res0": 5.550890847101531e+21,
+   "res1": 4.244407335600366e+28,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "reserve"
+   ]
+  },
+  {
+   "pair": "0x02f7eed5950c81d7b7c23aa03004828f26b5e651",
+   "syms": "LEGAL/dOWN",
+   "share": 0.992,
+   "lp_supply": 14162609677330853754990154,
+   "res0": 8.355176062886401e+23,
+   "res1": 2.4154746629569947e+26,
+   "cats": [
+    "addresses_sol",
+    "maria2_create"
+   ]
+  },
+  {
+   "pair": "0x04357e73877974398081254f2d2d25c6664feca3",
+   "syms": "\u03a0\u039f\u039b\u03a5/TEDDY BEAR \u327e",
+   "share": 0.9878,
+   "lp_supply": 13559894895865873260071239,
+   "res0": 9.662817525786863e+25,
+   "res1": 1.9431630287445034e+24,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x886731d61f3423de00094d24b3951cee3fbc0cdc",
+   "syms": "F\u327eD/\ud83d\udd25",
+   "share": 1.0,
+   "lp_supply": 12247448713915890490986420,
+   "res0": 1.5173627722241042e+25,
+   "res1": 1.0101335876607154e+25,
+   "cats": [
+    "maria1_create",
+    "reserve"
+   ]
+  },
+  {
+   "pair": "0x851640493862a631cde9af80d72642a5ef047049",
+   "syms": "DAI/HMDC",
+   "share": 0.9947,
+   "lp_supply": 12063418148218549967456420,
+   "res0": 1.1743329859978684e+21,
+   "res1": 1.2735280683448661e+29,
+   "cats": [
+    "addresses_sol",
+    "forked_asset"
+   ]
+  },
+  {
+   "pair": "0x3651e00e8053dba998f227225f19e842f5528447",
+   "syms": "DAI/PD\u042f",
+   "share": 0.9976,
+   "lp_supply": 8732568014324091216929778,
+   "res0": 3.2970256272134174e+21,
+   "res1": 1.210619017326687e+26,
+   "cats": [
+    "addresses_sol",
+    "forked_asset"
+   ]
+  },
+  {
+   "pair": "0x498ca08f1e5022eb02d92b76f913858ed821821e",
+   "syms": "ATROPA/DUMB",
+   "share": 1.0,
+   "lp_supply": 8477228706283906671719721,
+   "res0": 8.344167961980152e+22,
+   "res1": 9.229819464656388e+26,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  },
+  {
+   "pair": "0x0268da8d4338dcbe3e323babd46811a52ded99c0",
+   "syms": "TCEND/TEDDY BEAR \u327e",
+   "share": 0.9987,
+   "lp_supply": 7727609357072143776245891,
+   "res0": 9.452101615009264e+23,
+   "res1": 6.751809921750765e+25,
+   "cats": [
+    "addresses_sol",
+    "maria2_create",
+    "tier2_standalone"
+   ]
+  }
+ ],
+ "top_wpls_locked": [
+  {
+   "pair": "0xcbbad671ca3a46a565551335c10144e75554b367",
+   "syms": "WPLS/ATROPA",
+   "share": 0.2626,
+   "wpls_reserve": 2132659156.5,
+   "wpls_locked": 559985545.5
+  },
+  {
+   "pair": "0xec2eb0b932cf32f19081fcc60a03690172d4fb23",
+   "syms": "0x553d74/WPLS",
+   "share": 0.3474,
+   "wpls_reserve": 5642867.1,
+   "wpls_locked": 1960454.7
+  },
+  {
+   "pair": "0x7e0def98476347a827de4d2a546f500263db69ae",
+   "syms": "0x4becd9/WPLS",
+   "share": 0.0321,
+   "wpls_reserve": 29273191.7,
+   "wpls_locked": 939713.0
+  },
+  {
+   "pair": "0xcbfede32634cba83b7f2d5f540949fc799053b7e",
+   "syms": "0x37affc/WPLS",
+   "share": 0.3633,
+   "wpls_reserve": 431815.0,
+   "wpls_locked": 156864.7
+  },
+  {
+   "pair": "0xdf61b783a889c93eec31a4ad3a9e27196c9f6179",
+   "syms": "WPLS/0xd9f3f5",
+   "share": 0.004,
+   "wpls_reserve": 53487.9,
+   "wpls_locked": 215.1
+  },
+  {
+   "pair": "0x054bb811d88db25cac53893bc83fae756e109bb9",
+   "syms": "WPLS/\u30af\u30c3\u30a3\u30c6\u30c9\u30a4\u30b5",
+   "share": 1.0,
+   "wpls_reserve": 0.0,
+   "wpls_locked": 0.0
+  },
+  {
+   "pair": "0x09cc64a24dd6b125d8cdefb2fd82fadeed05e680",
+   "syms": "WPLS/0xddae47",
+   "share": 1.0,
+   "wpls_reserve": 0.0,
+   "wpls_locked": 0.0
+  },
+  {
+   "pair": "0x3e1eefe3e3e6294d698c4a5ca017eee9f247ddb0",
+   "syms": "0x638490/WPLS",
+   "share": 1.0,
+   "wpls_reserve": 0.0,
+   "wpls_locked": 0.0
+  },
+  {
+   "pair": "0x9fee7fe2dba4739b6f66bc06c390c420d0ff9ef2",
+   "syms": "0x35c282/WPLS",
+   "share": 1.0,
+   "wpls_reserve": 0.0,
+   "wpls_locked": 0.0
+  },
+  {
+   "pair": "0xc0a6bf08ff038316a04490bdfff893b318e1a09b",
+   "syms": "WPLS/0xb85b08",
+   "share": 1.0,
+   "wpls_reserve": 0.0,
+   "wpls_locked": 0.0
+  },
+  {
+   "pair": "0x9c3d754cf59301f8cc8033840600c88624ca5fe5",
+   "syms": "0x51e8ea/WPLS",
+   "share": 1.0,
+   "wpls_reserve": 0.0,
+   "wpls_locked": 0.0
+  }
+ ]
+}

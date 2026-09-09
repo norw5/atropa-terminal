@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+import Addr from '../../components/Addr.astro';
+import { fmtInt } from '../../lib/fmt';
+import { loadTokensFull, loadRegistry, loadEntityLabels, buildChildrenMap, lineageRoots } from '../../lib/data';
+
+const tokens = loadTokensFull();
+const registry = loadRegistry();
+const labels = loadEntityLabels();
+const childrenMap = buildChildrenMap(tokens);
+const roots = lineageRoots(tokens, childrenMap);
+const censusSet = new Set(tokens.map((t: any) => t.address.toLowerCase()));
+const registrySet = new Set(registry.map((r: any) => r.address.toLowerCase()));
+const v1roots = tokens.filter((t: any) => !t.parent && t.minter_version === 'V1');
+
+function rootLabel(r: any): { label: string; href: string | null; addr: string } {
+  const nm = labels[r.root] ? { n: labels[r.root] } : null;
+  if (censusSet.has(r.root)) {
+    const t = tokens.find((x: any) => x.address.toLowerCase() === r.root)!;
+    return { label: t.name_clean || t.name || t.symbol_clean || r.root.slice(0, 12), href: `/tokens/${r.root}`, addr: r.root };
+  }
+  if (registrySet.has(r.root)) {
+    const reg = registry.find((x: any) => x.address.toLowerCase() === r.root)!;
+    return { label: reg.label || r.root.slice(0, 12), href: `/contracts/${r.root}`, addr: r.root };
+  }
+  return { label: nm ? `${nm.n} (${nm.s})` : r.root, href: null, addr: r.root };
+}
+const totalDescendants = roots.reduce((s: number, r: any) => s + r.size, 0);
+---
+
+<Base title="lineage" active="lineage">
+  <h1><span style="color:var(--fg-faint)">tree</span> /lineage — parent→child forests</h1>
+  <p style="color:var(--fg-dim);max-width:60rem">
+    The census parent graph rendered as collapsible trees — one page per
+    spine root ({roots.length.toLocaleString()} roots, {totalDescendants.toLocaleString()} descendant edges),
+    plus the {v1roots.length} V1 children that have no parent getter at all
+    (flat TBILL-parity era — each is its own root unless it later became a
+    parent hub). Trees use native <code>&lt;details&gt;</code> elements —
+    they collapse and expand without JavaScript. Class badges link into the
+    entity pages. This is the reference view; the interactive&nbsp;
+    <a href="/walker">/walker</a> tool walks (and mints along) any of these
+    trees with your own wallet.
+  </p>
+
+  <div class="statgrid">
+    <div class="stat"><div class="v">{roots.length.toLocaleString()}</div><div class="k">SPINE ROOTS</div><div class="sub">distinct root addresses with ≥1 descendant</div></div>
+    <div class="stat"><div class="v">{roots[0]?.size.toLocaleString()}</div><div class="k">LARGEST TREE</div><div class="sub">{rootLabel(roots[0]).label} — depth {roots[0]?.depth}</div></div>
+    <div class="stat"><div class="v">{v1roots.filter((t: any) => (childrenMap.get(t.address.toLowerCase()) ?? []).length === 0).length}</div><div class="k">V1 SINGLETON ROOTS</div><div class="sub">no parent getter, never parented anything</div></div>
+    <div class="stat"><div class="v">{Math.max(...roots.map((r: any) => r.depth))}</div><div class="k">MAX DEPTH</div><div class="sub">deepest parent chain</div></div>
+  </div>
+
+  <div class="panel">
+    <h2>roots by subtree size <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(all {roots.length.toLocaleString()} — completeness by construction)</span></h2>
+    <div style="overflow-x:auto; max-height: 70vh; overflow-y:auto;">
+      <table class="x-table sortable">
+        <thead><tr><th>#</th><th>root</th><th>is</th><th class="num">subtree</th><th class="num">depth</th><th>tree</th></tr></thead>
+        <tbody>
+          {roots.map((r: any, i: number) => {
+            const L = rootLabel(r);
+            return (
+              <tr>
+                <td class="num">{i + 1}</td>
+                <td class="wrapok">
+                  {L.href ? <a href={L.href}>{L.label}</a> : <span>{L.label}</span>}
+                  {' '}<span class="mono xs dim" title={L.addr}>{L.addr.slice(0, 10)}…</span>
+                </td>
+                <td>{censusSet.has(r.root) ? 'census TT' : registrySet.has(r.root) ? 'registry' : 'external'}</td>
+                <td class="num">{fmtInt(r.size)}</td>
+                <td class="num">{r.depth}</td>
+                <td><a href={`/lineage/${r.root}`}>view</a></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>V1 no-parent children ({v1roots.length})</h2>
+    <p class="dim">
+      V1-era children expose no <code>Parent()</code> getter — collateral is
+      TBILL by construction [src]. Those that later became parents anchor their
+      own trees above (e.g. Agents of Assumption, 593 descendants). The rest:
+    </p>
+    <p class="mono xs">
+      {v1roots.filter((t: any) => (childrenMap.get(t.address.toLowerCase()) ?? []).length === 0).slice(0, 60).map((t: any, i: number) => (
+        <span>{i > 0 && ' · '}<a href={`/tokens/${t.address.toLowerCase()}`}>{t.name_clean || t.name || t.symbol_clean || t.symbol || t.address.slice(0, 8)}</a></span>
+      ))}
+      {v1roots.filter((t: any) => (childrenMap.get(t.address.toLowerCase()) ?? []).length === 0).length > 60 && ' · …'}
+    </p>
+  </div>
+</Base>

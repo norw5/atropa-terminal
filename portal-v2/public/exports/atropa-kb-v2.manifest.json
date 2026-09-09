@@ -1,0 +1,16 @@
+{
+ "generated": "2026-09-09T18:02:37.558699+00:00",
+ "contents": [
+  {
+   "path": "kb-v2/",
+   "files": 28,
+   "what": "public KB content tree (normative mechanics/method/taxonomy)"
+  },
+  {
+   "path": "solidity/",
+   "files": 21,
+   "what": "recovered + blockscout-verified sources [src]; dysnomia/wallet trees excluded (out of scope)"
+  }
+ ],
+ "tarball_sha256": "7e3db9b74f0a441091206d2472d332e8b357d50fffb33e5fe5ad31ae03939b21"
+}

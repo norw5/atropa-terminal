@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="404" active="">
+  <h1>404 <span class="dim">— address case mismatch?</span></h1>
+  <p class="dim">
+    Entity URLs are generated lowercase. If you pasted a checksummed
+    address, the redirect below should fix it. Otherwise:&nbsp;
+    <a href="/tokens">/tokens</a> · <a href="/contracts">/contracts</a> ·&nbsp;
+    <a href="/lineage">/lineage</a> · <a href="/knowledge">/knowledge</a>.
+  </p>
+  <script>
+    const loc = window.location.pathname;
+    const m = loc.match(/^\/(tokens|contracts|lineage)\/(0x[0-9a-fA-F]{40})\/?$/);
+    if (m) {
+      window.location.replace(`/${m[1]}/${m[2].toLowerCase()}`);
+    }
+  </script>
+</Base>

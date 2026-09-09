@@ -1,0 +1,578 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="graph" active="graph">
+  <h1><span style="color:var(--fg-faint)">viz</span> /graph — liquidity-web graph</h1>
+  <p style="color:var(--fg-dim);max-width:64rem">
+    The 1,981-node Atropa-anchored subgraph (15,285 pool links, weight =
+    WPLS-anchored liquidity) — <b>never the full DEX graph</b>. <b>3D is the
+    primary view</b> (WebGL force-graph; clusters and class colors are the
+    point); <b>2D canvas</b> stays as the no-WebGL fallback. <b>Every link
+    shapes the layout</b> — including the dust, which is what makes the
+    sub-clusters legible; the weight control is render-only (it hides&nbsp;
+    <i>edges</i> below the threshold — nodes always stay, they are the
+    layout). Filters: class, min degree; search focuses a node;&nbsp;
+    <b>click a node for its detail panel</b> (facts + pool aggregates +
+    entity-page link, below the graph). True fullscreen via the button.
+    After every settled layout the cloud is re-centered on the
+    world origin and the view re-framed — viewport center and rotation
+    pivot both sit on the cluster's center of mass.
+  </p>
+
+  <div class="panel">
+    <div class="x-controls">
+      <button id="g-3d" class="pgbtn mode active">3D webgl</button>
+      <button id="g-2d" class="pgbtn mode">2D canvas (fallback)</button>
+      <button id="g-fs" class="pgbtn">fullscreen</button>
+      <input type="text" id="g-q" placeholder="search node (name/address)…" style="min-width:220px" />
+      <select id="g-cat"><option value="">class: all</option></select>
+      <label class="mono xs dim">min deg</label>
+      <select id="g-deg">
+        <option value="0">0</option><option value="1">1</option>
+        <option value="2" selected>2</option><option value="5">5</option>
+        <option value="10">10</option><option value="25">25</option>
+      </select>
+      <label class="mono xs dim">hide edges &lt; weight</label>
+      <select id="g-w">
+        <option value="0">show all</option>
+        <option value="1000" selected>1k</option>
+        <option value="10000">10k</option><option value="100000">100k</option>
+      </select>
+      <span class="x-count" id="g-count"></span>
+    </div>
+    <p class="mono xs dim" id="g-hint" style="margin:0.3rem 0;min-height:1.1em"></p>
+    <div id="g-container"></div>
+    <div id="g-legend" class="glegend"></div>
+    <p class="mono xs dim" id="g-info" style="min-height:1.2em"></p>
+  </div>
+
+  <div class="panel" id="g-detail" style="display:none">
+    <h2 id="gd-title"></h2>
+    <div class="kv" id="gd-facts"></div>
+    <div id="gd-pools"></div>
+  </div>
+
+  <p class="provfoot">
+    data: <a href="/data/graph_atropa_subgraph.json">/data/graph_atropa_subgraph.json</a>
+    + <a href="/data/pools.compact.json">/data/pools.compact.json</a>&nbsp;
+    (full factory crawl, WPLS-anchored; pool aggregates — a full per-token pool list
+    is a future item) · this view ships zero third-party <i>contract</i>&nbsp;
+    interactions; the 3D mode uses the open-source 3d-force-graph rendering
+    library client-side.
+  </p>
+</Base>
+
+<style>
+  #g-container { width: 100%; height: 74vh; border: 1px solid var(--border); background: var(--bg2); position: relative; overflow: hidden; }
+  #g-container:fullscreen { height: 100vh; border: none; }
+  button.mode.active { color: var(--accent); border-color: var(--accent); }
+</style>
+<style is:global>
+  #g-fs-exit { position: absolute; top: 10px; right: 10px; z-index: 5; display: none; }
+  #g-container:fullscreen #g-fs-exit { display: inline-block; }
+</style>
+
+<script>
+  type GNode = { id: string; label: string; cat: string; deg: number; w: number };
+  type GLink = { source: string; target: string; w: number; pairs: number };
+  let nodes: GNode[] = [];
+  let links: GLink[] = [];
+
+  const CAT_COLORS: Record<string, string> = {
+    'census:V1': '#6cb2ff', 'census:V2': '#59f0a2', 'census:V3': '#ffc85c',
+    'census:V4': '#d18cff', 'census:BureauMinter#1': '#7ee0e0',
+    reserve: '#ff7a5c', infra: '#ff9d5c', affection: '#ff7ea8',
+    maria1_create: '#9db8d9', maria2_create: '#b3a7e0',
+    tier2_standalone: '#e0c98f', addresses_sol: '#d9a26a',
+    counterparty: '#6b819e', known_pair: '#8ba0b9', forked_asset: '#7d94ad',
+    other: '#5c6d84',
+  };
+  const catColor = (c: string) => CAT_COLORS[c] ?? CAT_COLORS.other;
+
+  const $ = (id: string) => document.getElementById(id) as HTMLElement;
+  const info = $('g-info');
+  const hint = $('g-hint');
+  const HINTS: Record<string, string> = {
+    '3d': 'navigate: drag = rotate · scroll = zoom · right-drag = pan · click node = detail + focus · search + Enter = detail + focus',
+    '2d': 'navigate: drag = pan · scroll = zoom · click node = detail + focus · search + Enter = detail + focus',
+  };
+  let mode: '2d' | '3d' = '3d';
+
+  // ---------- node detail panel ----------
+  let poolsData: Record<string, any> | null = null;
+  async function ensurePools() {
+    if (poolsData) return;
+    try {
+      const d = await (await fetch('/data/pools.compact.json')).json();
+      poolsData = d.tokens;
+    } catch {
+      poolsData = {};
+    }
+  }
+  function entityHref(n: GNode): string | null {
+    const id = n.id.toLowerCase();
+    if (n.cat.startsWith('census:')) return `/tokens/${id}`;
+    if (n.cat !== 'counterparty' && n.cat !== 'known_pair') return `/contracts/${id}`;
+    return null;
+  }
+  function showDetail(id: string | null) {
+    const panel = $('g-detail');
+    if (!id) {
+      panel.style.display = 'none';
+      return;
+    }
+    const n = nodes.find((x) => x.id === id);
+    if (!n) return;
+    const href = entityHref(n);
+    $('gd-title').innerHTML = `${n.label} <span class="tag" style="border-color:${catColor(n.cat)}">${n.cat}</span>`;
+    $('gd-facts').innerHTML =
+      `<dt>address</dt><dd class="mono xs">${n.id.toLowerCase()} · <a href="https://ipfs.scan.pulsechain.com/token/${n.id.toLowerCase()}" target="_blank" rel="noopener">blockscout</a>${href ? ` · <a href="${href}">entity page</a>` : ''}</dd>` +
+      `<dt>graph</dt><dd>degree ${n.deg} · ${n.w != null ? n.w.toFixed(0) + ' WPLS anchored across its pools' : 'no anchored liquidity'}</dd>`;
+    const poolsEl = $('gd-pools');
+    poolsEl.innerHTML = '<span class="dim">loading pool aggregates…</span>';
+    ensurePools().then(() => {
+      const p = poolsData![id.toLowerCase()];
+      if (!p) {
+        poolsEl.innerHTML = '<p class="mono xs dim" style="margin:0.4rem 0 0">no pools in the liquidity census — spine-only-paper or external address.</p>';
+        return;
+      }
+      const cs = (p.c || []).map((c: any) => `<span class="tag">${c[0]} ×${c[2]}</span>`).join(' ');
+      poolsEl.innerHTML =
+        `<h3 style="margin:0.6rem 0 0.3rem">liquidity pools (factory crawl)</h3>` +
+        `<div class="kv">` +
+        `<dt>pairs</dt><dd>${p.p} live / ${p.pt} total · factories ${(p.f || []).join(' + ') || '—'}</dd>` +
+        `<dt>anchored</dt><dd>${Number(p.w).toLocaleString()} WPLS · ~$${Number(p.u).toLocaleString()} pseudo-USD (pDAI rate, ranking only)</dd>` +
+        (p.bp ? `<dt>anchor pair</dt><dd class="mono xs"><a href="https://ipfs.scan.pulsechain.com/address/${p.bp.a}" target="_blank" rel="noopener">${p.bp.a}</a> (${p.bp.f}, with ${p.bp.l}, ${Number(p.bp.lw).toLocaleString()} WPLS)</dd>` : '') +
+        `</div>` +
+        `<p class="mono xs" style="margin:0.4rem 0 0">top counterparties: ${cs || '—'}</p>`;
+    });
+    panel.style.display = '';
+  }
+
+  // ---------- shared filtering ----------
+  // min deg / class define graph MEMBERSHIP; min link weight is a RENDER-only
+  // filter (linkVisibility / draw skip) — the layout keeps every link so the
+  // cloud keeps its sub-cluster shape, and weight changes never re-heat.
+  let curMinW = 1000;
+  function filtered(): { nodes: GNode[]; links: GLink[] } {
+    const minDeg = Number(($('g-deg') as HTMLSelectElement).value);
+    const cat = ($('g-cat') as HTMLSelectElement).value;
+    curMinW = Number(($('g-w') as HTMLSelectElement).value);
+    const keep = new Set(
+      nodes.filter((n) => n.deg >= minDeg && (!cat || n.cat === cat)).map((n) => n.id),
+    );
+    const ls = links.filter((l) => keep.has(l.source) && keep.has(l.target));
+    const ns = nodes.filter((n) => keep.has(n.id));
+    const vis = ls.filter((l) => l.w >= curMinW).length;
+    $('g-count').textContent = `${ns.length.toLocaleString()} nodes · ${vis.toLocaleString()} / ${ls.length.toLocaleString()} links rendered (weight ≥ ${curMinW.toLocaleString()})`;
+    return { nodes: ns, links: ls };
+  }
+
+  function neighborSet(id: string, ls: GLink[]): Set<string> {
+    const out = new Set<string>([id]);
+    for (const l of ls) {
+      if (l.source === id) out.add(l.target);
+      if (l.target === id) out.add(l.source);
+    }
+    return out;
+  }
+
+  // ---------- 2D canvas force (no-WebGL fallback) ----------
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d')!;
+  let sim: { nodes: any[]; links: any[] } | null = null;
+  let alpha = 1;
+  let fitTimers: ReturnType<typeof setTimeout>[] = [];
+  let view = { x: 0, y: 0, k: 1 };
+  let hover: string | null = null;
+  let focus: string | null = null;
+
+  function start2d() {
+    const cont = $('g-container');
+    cont.innerHTML = '';
+    cont.appendChild(canvas);
+    mountFsExit();
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = cont.clientWidth * dpr;
+    canvas.height = cont.clientHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const f = filtered();
+    sim = {
+      nodes: f.nodes.map((n, i) => {
+        const a = i * 2.399963229728653;
+        const r = 18 * Math.sqrt(i + 1);
+        return {
+          id: n.id,
+          x: Math.cos(a) * r + (Math.random() - 0.5) * 4,
+          y: Math.sin(a) * r + (Math.random() - 0.5) * 4,
+          vx: 0, vy: 0, deg: n.deg, label: n.label, cat: n.cat,
+        };
+      }),
+      links: f.links.map((l) => ({ s: l.source, t: l.target, w: l.w })),
+    };
+    alpha = 1;
+    view = { x: canvas.clientWidth / 2, y: canvas.clientHeight / 2, k: 1 };
+    for (const t of fitTimers) clearTimeout(t);
+    fitTimers = [2000, 4500].map((ms) => setTimeout(() => fit2d(), ms));
+    tick();
+  }
+
+  function fit2d() {
+    if (!sim || !sim.nodes.length) return;
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (const n of sim.nodes) {
+      if (n.x < minX) minX = n.x;
+      if (n.x > maxX) maxX = n.x;
+      if (n.y < minY) minY = n.y;
+      if (n.y > maxY) maxY = n.y;
+    }
+    const W = canvas.clientWidth || 1;
+    const H = canvas.clientHeight || 1;
+    const k = Math.min(8, Math.max(0.1, 0.88 * Math.min(W / Math.max(maxX - minX, 1), H / Math.max(maxY - minY, 1))));
+    view.k = k;
+    view.x = W / 2 - ((minX + maxX) / 2) * k;
+    view.y = H / 2 - ((minY + maxY) / 2) * k;
+  }
+
+  function tick() {
+    if (!sim || mode !== '2d') return;
+    const N = sim.nodes;
+    const byId = new Map(N.map((n) => [n.id, n]));
+    // forces: repulsion + springs, scaled by a cooling schedule
+    if (alpha > 0.01) {
+      alpha *= 0.995;
+      for (let i = 0; i < N.length; i++) {
+        const a = N[i];
+        for (let j = i + 1; j < N.length; j++) {
+          const b = N[j];
+          let dx = b.x - a.x;
+          let dy = b.y - a.y;
+          let d2 = dx * dx + dy * dy;
+          if (d2 < 1) { d2 = 1; dx = Math.random(); dy = Math.random(); }
+          const f = (2200 / d2) * alpha;
+          const d = Math.sqrt(d2);
+          const fx = (dx / d) * f;
+          const fy = (dy / d) * f;
+          a.vx -= fx; a.vy -= fy;
+          b.vx += fx; b.vy += fy;
+        }
+      }
+      const ideal = 60;
+      for (const l of sim.links) {
+        const a = byId.get(l.s);
+        const b = byId.get(l.t);
+        if (!a || !b) continue;
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const d = Math.sqrt(dx * dx + dy * dy) || 1;
+        const strength = 0.02 + Math.min(0.08, Math.log10(1 + l.w) / 100);
+        const f = (d - ideal) * strength * alpha;
+        const fx = (dx / d) * f;
+        const fy = (dy / d) * f;
+        a.vx += fx; a.vy += fy;
+        b.vx -= fx; b.vy -= fy;
+      }
+      const VMAX = 14;
+      for (const n of N) {
+        n.vx += (0 - n.x) * 0.0006 * alpha;
+        n.vy += (0 - n.y) * 0.0006 * alpha;
+        n.vx *= 0.85; n.vy *= 0.85;
+        const v2 = n.vx * n.vx + n.vy * n.vy;
+        if (v2 > VMAX * VMAX) {
+          const s = VMAX / Math.sqrt(v2);
+          n.vx *= s; n.vy *= s;
+        }
+        n.x += n.vx; n.y += n.vy;
+      }
+      if (alpha <= 0.01) fit2d();
+    }
+    draw2d();
+    requestAnimationFrame(tick);
+  }
+
+  function draw2d() {
+    if (!sim) return;
+    const W = canvas.clientWidth;
+    const H = canvas.clientHeight;
+    ctx.clearRect(0, 0, W, H);
+    ctx.save();
+    ctx.translate(view.x, view.y);
+    ctx.scale(view.k, view.k);
+    const nb = focus ? neighborSet(focus, sim.links) : null;
+    const byId = new Map(sim.nodes.map((n) => [n.id, n]));
+    // links
+    ctx.lineWidth = 0.6 / view.k;
+    for (const l of sim.links) {
+      if (l.w < curMinW) continue;
+      const a = byId.get(l.s);
+      const b = byId.get(l.t);
+      if (!a || !b) continue;
+      const dim = nb ? !(nb.has(l.s) && nb.has(l.t)) : false;
+      ctx.strokeStyle = dim ? 'rgba(60,72,92,0.25)' : 'rgba(90,110,140,0.5)';
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+    // nodes
+    for (const n of sim.nodes) {
+      const r = 2 + Math.min(9, Math.sqrt(n.deg) * 0.9);
+      const dim = nb ? !nb.has(n.id) : false;
+      ctx.globalAlpha = dim ? 0.15 : 1;
+      ctx.fillStyle = (n.id === focus || n.id === hover) ? '#ffffff' : catColor(n.cat);
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fill();
+      if (!dim && (view.k > 2.2 || n.deg >= 40 || n.id === hover || n.id === focus)) {
+        ctx.globalAlpha = 0.9;
+        ctx.fillStyle = '#c9d4e3';
+        ctx.font = `${10 / Math.max(view.k * 0.6, 1)}px ui-monospace, monospace`;
+        ctx.fillText(n.label.slice(0, 18), n.x + r + 2, n.y + 3);
+      }
+      ctx.globalAlpha = 1;
+    }
+    ctx.restore();
+  }
+
+  // pan/zoom + hover + click
+  let dragging = false;
+  let lastPt = { x: 0, y: 0 };
+  canvas.addEventListener('mousedown', (e) => { dragging = true; lastPt = { x: e.offsetX, y: e.offsetY }; });
+  canvas.addEventListener('mouseup', () => (dragging = false));
+  canvas.addEventListener('mousemove', (e) => {
+    if (dragging) {
+      view.x += e.offsetX - lastPt.x;
+      view.y += e.offsetY - lastPt.y;
+      lastPt = { x: e.offsetX, y: e.offsetY };
+    }
+    if (sim) {
+      const wx = (e.offsetX - view.x) / view.k;
+      const wy = (e.offsetY - view.y) / view.k;
+      let best: string | null = null;
+      let bd = 400 / view.k;
+      for (const n of sim.nodes) {
+        const d = (n.x - wx) ** 2 + (n.y - wy) ** 2;
+        if (d < bd) { bd = d; best = n.id; }
+      }
+      hover = best;
+      if (best) {
+        const orig = nodes.find((n) => n.id === best);
+        info.textContent = `${orig?.label ?? ''} · ${orig?.cat} · deg ${orig?.deg} · ${orig?.w != null ? orig.w.toFixed(0) + ' WPLS' : ''} · ${best}`;
+      }
+    }
+  });
+  canvas.addEventListener('click', () => {
+    focus = hover === focus ? null : hover;
+    info.textContent = focus ? `focus: ${focus} (click empty space to clear)` : '';
+    showDetail(focus);
+  });
+  canvas.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const k2 = Math.max(0.4, Math.min(8, view.k * (e.deltaY < 0 ? 1.15 : 0.87)));
+    const cx = e.offsetX;
+    const cy = e.offsetY;
+    view.x = cx - ((cx - view.x) / view.k) * k2;
+    view.y = cy - ((cy - view.y) / view.k) * k2;
+    view.k = k2;
+  }, { passive: false });
+
+  // ---------- 3D (primary) ----------
+  let g3d: any = null;
+  function stop3d() {
+    if (g3d) {
+      try { g3d.pauseAnimation(); } catch { /* instance already gone */ }
+      g3d = null;
+    }
+  }
+  // 3d-force-graph's canvas defaults to WINDOW size (README "Container
+  // layout": width/height default <window width/height>) — it never measures
+  // its mount element. Inside our smaller overflow:hidden container that put
+  // the canvas center (and the correctly-aimed camera) below-right of the
+  // visible area. Set the size from the container and keep it synced.
+  let sizeObs: ResizeObserver | null = null;
+  function sync3dSize() {
+    const cont = $('g-container');
+    if (g3d && cont.clientWidth > 0 && cont.clientHeight > 0) {
+      g3d.width(cont.clientWidth).height(cont.clientHeight);
+    }
+  }
+  function watchSize() {
+    if (sizeObs) return;
+    const cont = $('g-container');
+    sizeObs = new ResizeObserver(() => {
+      if (mode === '3d') sync3dSize();
+      else if (sim) {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = cont.clientWidth * dpr;
+        canvas.height = cont.clientHeight * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+    });
+    sizeObs.observe(cont);
+  }
+  // The d3-3d layout has no centering force, so the cloud's center of mass
+  // random-walks away from the world origin — and three-render-objects'
+  // fitToBbox hardcodes its fit center/look-at at the origin. Rigidly
+  // translate all node positions by -COM on EVERY engine tick: relative
+  // geometry (all the forces) is unchanged, the render objects sync from
+  // these positions in the same frame, and the settled layout is exactly
+  // centered when zoomToFit frames it — viewport center and rotation
+  // pivot both land on the cloud's COM.
+  function recenterTick() {
+    const g = g3d;
+    if (!g) return;
+    const nds = g.graphData().nodes;
+    if (!nds || !nds.length) return;
+    let cx = 0, cy = 0, cz = 0;
+    for (const n of nds) { cx += n.x; cy += n.y; cz += n.z; }
+    cx /= nds.length; cy /= nds.length; cz /= nds.length;
+    if (!Number.isFinite(cx) || !Number.isFinite(cy) || !Number.isFinite(cz)) return;
+    if (cx === 0 && cy === 0 && cz === 0) return;
+    for (const n of nds) { n.x -= cx; n.y -= cy; n.z -= cz; }
+  }
+  async function start3d() {
+    const cont = $('g-container');
+    stop3d();
+    cont.innerHTML = '';
+    const div = cont.appendChild(document.createElement('div'));
+    div.style.width = '100%';
+    div.style.height = '100%';
+    mountFsExit();
+    try {
+      const ForceGraph3D = (await import('3d-force-graph')).default;
+      if (mode !== '3d') return;
+      const f = filtered();
+      g3d = ForceGraph3D({ rendererConfig: { antialias: false } })(div)
+        .width(cont.clientWidth)
+        .height(cont.clientHeight)
+        .graphData({ nodes: f.nodes.map((n) => ({ id: n.id, name: n.label, cat: n.cat, deg: n.deg, color: catColor(n.cat), val: 1 + Math.min(9, Math.sqrt(n.deg)) })), links: f.links.map((l) => ({ source: l.source, target: l.target, w: l.w, color: 'rgba(90,110,140,0.35)' })) })
+        .nodeLabel((n: any) => `${n.name} · ${n.cat} · deg ${n.deg}`)
+        .nodeColor((n: any) => n.id === focus ? '#ffffff' : n.color)
+        .nodeVal((n: any) => n.val)
+        .linkVisibility((l: any) => l.w >= curMinW)
+        .linkOpacity(0.35)
+        .backgroundColor('#10141b')
+        .onEngineTick(recenterTick)
+        .onEngineStop(() => { try { g3d?.zoomToFit(800); } catch { /* mid-swap */ } })
+        .onNodeClick((n: any) => {
+          focus = focus === n.id ? null : n.id;
+          info.textContent = focus ? `focus: ${n.id}` : '';
+          g3d.nodeColor((m: any) => (m.id === focus ? '#ffffff' : m.color));
+          showDetail(focus);
+        });
+      (window as any).__g3d = g3d;
+      watchSize();
+      sync3dSize();
+    } catch (err) {
+      info.textContent = 'WebGL unavailable — fell back to 2D canvas (' + String(err).slice(0, 160) + ')';
+      setMode('2d');
+    }
+  }
+
+  // ---------- fullscreen ----------
+  const fsExit = document.createElement('button');
+  fsExit.id = 'g-fs-exit';
+  fsExit.className = 'pgbtn';
+  fsExit.textContent = 'exit fullscreen (esc)';
+  fsExit.addEventListener('click', () => document.exitFullscreen());
+  function mountFsExit() {
+    const cont = $('g-container');
+    if (!cont.querySelector('#g-fs-exit')) cont.appendChild(fsExit);
+  }
+  $('g-fs').addEventListener('click', () => {
+    const cont = $('g-container');
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else if (cont.requestFullscreen) {
+      cont.requestFullscreen().catch(() => {
+        info.textContent = 'fullscreen unavailable in this browser';
+      });
+    }
+  });
+  document.addEventListener('fullscreenchange', () => {
+    ($('g-fs') as HTMLButtonElement).textContent = document.fullscreenElement ? 'exit fullscreen' : 'fullscreen';
+  });
+
+  // ---------- mode + controls ----------
+  function setMode(m: '2d' | '3d') {
+    mode = m;
+    ($('g-2d') as HTMLButtonElement).classList.toggle('active', m === '2d');
+    ($('g-3d') as HTMLButtonElement).classList.toggle('active', m === '3d');
+    hint.textContent = HINTS[m];
+    if (m === '2d') { stop3d(); start2d(); }
+    else start3d();
+  }
+  $('g-2d').addEventListener('click', () => setMode('2d'));
+  $('g-3d').addEventListener('click', () => setMode('3d'));
+  mountFsExit();
+  for (const id of ['g-deg', 'g-cat']) {
+    $(id).addEventListener('change', () => (mode === '2d' ? start2d() : start3d()));
+  }
+  $('g-w').addEventListener('change', () => {
+    // render-only: no rebuild, no re-heat — just re-derive visibility + count
+    const minW = Number(($('g-w') as HTMLSelectElement).value);
+    curMinW = minW;
+    if (mode === '3d' && g3d) g3d.linkVisibility((l: any) => l.w >= minW);
+    const nds: any[] = mode === '2d' ? (sim?.nodes ?? []) : (g3d?.graphData()?.nodes ?? []);
+    const keep = new Set(nds.map((n: any) => n.id));
+    const all = links.filter((l) => keep.has(l.source) && keep.has(l.target));
+    const vis = all.filter((l) => l.w >= minW).length;
+    $('g-count').textContent = `${nds.length.toLocaleString()} nodes · ${vis.toLocaleString()} / ${all.length.toLocaleString()} links rendered (weight ≥ ${minW.toLocaleString()})`;
+  });
+  $('g-q').addEventListener('keydown', (e) => {
+    if ((e as KeyboardEvent).key !== 'Enter') return;
+    const q = ($('g-q') as HTMLInputElement).value.trim().toLowerCase();
+    if (!q) return;
+    const hit = nodes.find((n) => n.id.toLowerCase().includes(q) || (n.label || '').toLowerCase().includes(q));
+    if (hit) {
+      focus = hit.id;
+      info.textContent = `focus: ${hit.label} · ${hit.cat} · deg ${hit.deg} · ${hit.id}`;
+      showDetail(hit.id);
+      if (mode === '2d') {
+        const n = sim?.nodes.find((x) => x.id === hit.id);
+        if (n) {
+          view.k = 2;
+          view.x = canvas.clientWidth / 2 - n.x * view.k;
+          view.y = canvas.clientHeight / 2 - n.y * view.k;
+        }
+      } else if (g3d) {
+        const n3 = (g3d.graphData().nodes as any[]).find((x: any) => x.id === hit.id);
+        if (n3) g3d.cameraPosition({ x: n3.x * 1.5, y: n3.y * 1.5, z: n3.z * 1.5 }, n3, 900);
+        g3d.nodeColor((m: any) => (m.id === focus ? '#ffffff' : m.color));
+      }
+    } else {
+      info.textContent = 'no match';
+    }
+  });
+
+  fetch('/data/graph_atropa_subgraph.json')
+    .then((r) => r.json())
+    .then((d) => {
+      nodes = d.nodes;
+      links = d.links;
+      const cats: Record<string, number> = {};
+      for (const n of nodes) cats[n.cat] = (cats[n.cat] ?? 0) + 1;
+      const sel = $('g-cat') as HTMLSelectElement;
+      for (const [c, n] of Object.entries(cats).sort((a: any, b: any) => b[1] - a[1])) {
+        const o = document.createElement('option');
+        o.value = c;
+        o.textContent = `${c} (${n})`;
+        sel.appendChild(o);
+      }
+      const legend = $('g-legend');
+      const legendCats = Object.entries(cats).sort((a: any, b: any) => b[1] - a[1]).map(([c]) => c);
+      for (const c of legendCats) {
+        const s = document.createElement('span');
+        s.innerHTML = `<span class="swatch" style="background:${catColor(c)}"></span>${c}`;
+        legend.appendChild(s);
+      }
+      setMode('3d');
+    })
+    .catch((e) => {
+      $('g-count').textContent = 'failed to load graph bundle: ' + e;
+    });
+</script>

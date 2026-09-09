@@ -1,0 +1,18 @@
+---
+interface Props {
+  claimIds: string[];
+  emptyNote?: string;
+}
+const { claimIds, emptyNote = 'no registered claim-class singles out this entity.' } = Astro.props;
+---
+
+<div class="panel">
+  <h2>claims touching this entity</h2>
+  {claimIds.length > 0 ? (
+    <p class="mono xs">
+      {claimIds.map((id, i) => (
+        <span>{i > 0 && ' '}<a href={`/claims#${id}`}>{id}</a></span>
+      ))}
+    </p>
+  ) : <p class="dim" set:html={emptyNote} />}
+</div>

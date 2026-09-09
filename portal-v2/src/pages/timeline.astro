@@ -1,0 +1,275 @@
+---
+import Base from '../layouts/Base.astro';
+import { fmtInt } from '../lib/fmt';
+import { ERA_COLORS } from '../lib/eras';
+
+const eraColors = ERA_COLORS;
+const eraColorCss = ':root{' + Object.entries(eraColors).map(([k, c]) => `--c-${k}:${c};`).join('') + '}'
+  + Object.entries(eraColors).map(([k]) => `tr.trow[data-era="${k}"],tr.eragroup[data-era="${k}"],.erachip[data-era="${k}"],.tband[data-era="${k}"]{--era:var(--c-${k})}`).join('');
+---
+
+<Base title="timeline" active="timeline">
+  <h1><span style="color:var(--fg-faint)">history</span> /timeline — master chronology</h1>
+  <p style="color:var(--fg-dim);max-width:64rem">
+    One enumeration-driven chronology: every known-actor deployment, the TBILL
+    ledger, the crisis sequence, supply cliffs and era boundaries — all rows
+    generated from pinned research artifacts (no new collection; sources named
+    per row). Facts-only per the neutrality rules: addresses appear as
+    mechanical records, no narrative. Rows are grouped under their era band;
+    era chips toggle eras on/off, rows with an interpolated timestamp are
+    marked&nbsp;<span class="mono xs">~</span>.
+  </p>
+
+  <div class="panel">
+    <div class="x-controls" id="t-erafilters">
+      <span class="mono xs dim">eras:</span>
+      <button id="t-order" class="pgbtn">order: oldest first ⇅</button>
+    </div>
+    <div class="x-controls">
+      <select id="t-kind">
+        <option value="">kind: all</option>
+        <option value="era">era boundary</option>
+        <option value="deploy">deployments</option>
+        <option value="tbill-mint">TBILL mint</option>
+        <option value="tbill-burn">TBILL burn</option>
+        <option value="tbill-owner">TBILL ownership</option>
+        <option value="crisis">crisis sequence</option>
+        <option value="cliff">supply cliff</option>
+        <option value="bridge">bridge arrival</option>
+        <option value="note">anchor note</option>
+      </select>
+      <select id="t-who">
+        <option value="">actor: all</option>
+        <option value="maria1">Maria #1</option>
+        <option value="maria2">Maria #2</option>
+        <option value="trebizond">trebizond</option>
+        <option value="helper-dev">helper developer</option>
+        <option value="bureau4-dev">bureau#4 deployer</option>
+      </select>
+      <input type="text" id="t-q" placeholder="grep label / address / tx…" />
+      <span class="x-count" id="t-count"></span>
+    </div>
+    <p class="mono xs dim" style="margin:0.2rem 0 0">era share of all events — click a band to show only that era, click it again to show all (chips below toggle eras off):</p>
+    <div id="t-bands" title="era legend — segment width = share of events"></div>
+    <div style="overflow-x:auto;max-height:72vh;overflow-y:auto">
+      <table class="x-table" id="t-table">
+        <thead>
+          <tr><th class="num">block</th><th>date</th><th>era</th><th>kind</th><th>actor</th><th>event</th><th>refs</th></tr>
+        </thead>
+        <tbody id="t-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="provfoot">
+    bundle: <a href="/data/timeline.compact.json">/data/timeline.compact.json</a>&nbsp;
+    (generated from pinned research artifacts — every row names its source)&nbsp;
+    · era thresholds mirror the taxonomy rules ·
+    crisis rows reference the <a href="/claims">claim registry</a>.
+  </p>
+</Base>
+
+<style is:inline set:html={eraColorCss} />
+<style is:global>
+  tr.trow { border-left: 3px solid var(--era, var(--border)); }
+  tr.eragroup td {
+    position: sticky; top: 0; z-index: 2;
+    background: var(--bg3);
+    border-left: 3px solid var(--era, var(--border-bright));
+    border-bottom: 1px solid var(--border-bright);
+    color: var(--fg-bright);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    padding: 0.3rem 0.6rem;
+    white-space: nowrap;
+  }
+  tr.eragroup .eg-mark { color: var(--era, var(--fg-dim)); }
+  .erachip { border: 1px solid var(--era, var(--border-bright)); color: var(--era, var(--fg-dim)); }
+  .tband {
+    display: inline-block; padding: 0.1rem 0.55rem; margin-right: 0.35rem; font-size: 0.74rem;
+    border: 1px solid var(--border-bright); color: var(--fg-dim); cursor: pointer;
+    user-select: none; background: var(--bg2);
+  }
+  .tband.on {
+    background: var(--bg3); color: var(--fg-bright); border-color: var(--era, var(--fg-dim));
+    box-shadow: inset 0 -2px 0 var(--era, var(--fg-dim));
+  }
+  .tband:not(.on) { opacity: 0.5; text-decoration: line-through; text-decoration-thickness: 1px; }
+  #t-bands { display: flex; flex-wrap: wrap; gap: 0; margin: 0.3rem 0 0.6rem; }
+  .bandseg { position: relative; min-width: 14px; text-align: center; font-size: 0.66rem; color: var(--bg); padding: 2px 6px; cursor: pointer; overflow: hidden; user-select: none; }
+  .bandseg:hover { filter: brightness(1.2); }
+</style>
+
+<script>
+  import { fmtInt } from '../lib/fmt';
+
+  type Event = {
+    k: string; blk: number | null; ts: number | null; ts_est?: boolean;
+    who: string | null; label: string; addr: string | null; tx: string | null;
+    src: string | null; claim: string | null; era: string;
+  };
+  let events: Event[] = [];
+  let eras: { key: string; label: string; blk: number | null; ts?: number; note: string }[] = [];
+  let eraLabels: Record<string, string> = {};
+  let newestFirst = false;
+
+  const $ = (id: string) => document.getElementById(id) as HTMLElement;
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+  const day = (t: number | null) => (t ? new Date(t * 1000).toISOString().slice(0, 10) : '—');
+  const whoLabel = (w: string | null) =>
+    w === 'maria1' ? 'Maria #1' : w === 'maria2' ? 'Maria #2' : w === 'trebizond' ? 'trebizond'
+    : w === 'helper-dev' ? 'helper dev' : w === 'bureau4-dev' ? 'bureau#4 dev'
+    : w && w.startsWith('0x') ? `<span class="mono xs">${esc(w)}</span>` : '—';
+
+  function rows(): Event[] {
+    const kind = ($('t-kind') as HTMLSelectElement).value;
+    const who = ($('t-who') as HTMLSelectElement).value;
+    const q = ($('t-q') as HTMLInputElement).value.trim().toLowerCase();
+    const eraSet = new Set<string>(
+      Array.from(document.querySelectorAll<HTMLSpanElement>('.tband.on')).map((b) => b.dataset.era || ''),
+    );
+    return events.filter((e) => {
+      if (kind && e.k !== kind) return false;
+      if (who && (e.who || '') !== who) return false;
+      if (eraSet.size && !eraSet.has(e.era)) return false;
+      if (q) {
+        const hay = `${e.label} ${e.addr || ''} ${e.tx || ''}`.toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    });
+  }
+
+  function syncEraControls(solo: string | null) {
+    const on = new Set<string>(
+      Array.from(document.querySelectorAll<HTMLSpanElement>('.tband.on')).map((b) => b.dataset.era || ''),
+    );
+    for (const chip of Array.from(document.querySelectorAll<HTMLSpanElement>('.tband'))) {
+      chip.classList.toggle('on', on.has(chip.dataset.era || ''));
+    }
+    for (const seg of Array.from(document.querySelectorAll<HTMLSpanElement>('.bandseg'))) {
+      const k = seg.dataset.era || '';
+      seg.style.opacity = on.has(k) ? '0.85' : '0.3';
+      const isSolo = solo != null && k === solo;
+      seg.style.outline = isSolo ? '2px solid var(--fg-bright)' : 'none';
+      seg.style.outlineOffset = isSolo ? '-2px' : '';
+    }
+  }
+
+  function render() {
+    const view = rows();
+    if (newestFirst) view.reverse();
+    const body = $('t-body');
+    const frag = document.createDocumentFragment();
+    let curEra = '';
+    let eraCount = 0;
+    let eraFirst = '';
+    const flushGroup = () => {
+      if (!curEra) return;
+      const tr = document.createElement('tr');
+      tr.className = 'eragroup';
+      tr.dataset.era = curEra;
+      const label = eraLabels[curEra] ?? curEra;
+      tr.innerHTML = `<td colspan="7"><span class="eg-mark">▸</span> ${label} <span class="dim">— ${eraCount.toLocaleString()} event${eraCount === 1 ? '' : 's'}${eraFirst ? ' · from ' + eraFirst : ''}</span></td>`;
+      frag.appendChild(tr);
+    };
+    for (const e of view) {
+      if (e.era !== curEra) {
+        flushGroup();
+        curEra = e.era;
+        eraCount = 0;
+        eraFirst = '';
+      }
+      eraCount += 1;
+      if (!eraFirst && e.ts) eraFirst = day(e.ts);
+      const tr = document.createElement('tr');
+      tr.className = 'trow';
+      tr.dataset.era = e.era;
+      tr.dataset.value = String(e.blk ?? 0);
+      const refs: string[] = [];
+      if (e.addr) {
+        const short = e.addr.slice(0, 10) + '…';
+        refs.push(e.addr.length === 42
+          ? `<a href="/tokens/${e.addr}" title="${e.addr}">${short}</a>/<a href="/contracts/${e.addr}">c</a>`
+          : `<span class="mono xs" title="${e.addr}">${short}</span>`);
+      }
+      if (e.tx) refs.push(`<a class="mono xs" href="https://ipfs.scan.pulsechain.com/tx/${e.tx}" title="${e.tx}">tx</a>`);
+      if (e.claim) refs.push(`<a href="/claims#${e.claim}">${e.claim}</a>`);
+      tr.innerHTML =
+        `<td class="num">${e.blk != null ? fmtInt(e.blk) : '—'}</td>` +
+        `<td class="nowrap">${day(e.ts)}${e.ts_est ? ' <span title="interpolated">~</span>' : ''}</td>` +
+        `<td class="nowrap"><span class="erachip" data-era="${e.era}">${e.era}</span></td>` +
+        `<td class="nowrap">${e.k}</td>` +
+        `<td class="nowrap">${whoLabel(e.who)}</td>` +
+        `<td class="wrapok">${esc(e.label)}</td>` +
+        `<td class="nowrap">${refs.join(' ')}</td>`;
+      frag.appendChild(tr);
+    }
+    flushGroup();
+    body.innerHTML = '';
+    body.appendChild(frag);
+    $('t-count').textContent = `${view.length.toLocaleString()} events (all rendered)`;
+  }
+
+  function soloEra(k: string | null) {
+    for (const chip of Array.from(document.querySelectorAll<HTMLSpanElement>('.tband'))) {
+      chip.classList.toggle('on', k == null || chip.dataset.era === k);
+    }
+    render();
+    syncEraControls(k);
+  }
+
+  fetch('/data/timeline.compact.json')
+    .then((r) => r.json())
+    .then((d) => {
+      events = d.events;
+      eras = d.eras;
+      eraLabels = Object.fromEntries(eras.map((e) => [e.key, e.label]));
+      const counts: Record<string, number> = {};
+      for (const e of events) counts[e.era] = (counts[e.era] ?? 0) + 1;
+      const bar = $('t-bands');
+      const total = events.length;
+      const color = (k: string) => getComputedStyle(document.documentElement).getPropertyValue(`--c-${k}`) || 'var(--fg-faint)';
+      for (const era of eras) {
+        const n = counts[era.key] ?? 0;
+        const seg = document.createElement('div');
+        seg.className = 'bandseg';
+        seg.dataset.era = era.key;
+        const pct = (100 * n) / total;
+        seg.style.cssText = `flex:${Math.max(pct, 4)};background:${color(era.key)};opacity:0.85`;
+        seg.textContent = era.label;
+        seg.title = `${era.label}: ${era.note} — ${n} events · click to show only this era`;
+        seg.addEventListener('click', () => {
+          const on = new Set<string>(
+            Array.from(document.querySelectorAll<HTMLSpanElement>('.tband.on')).map((b) => b.dataset.era || ''),
+          );
+          if (on.size === 1 && on.has(era.key)) soloEra(null);
+          else soloEra(era.key);
+        });
+        bar.appendChild(seg);
+      }
+      const ef = $('t-erafilters');
+      for (const era of eras) {
+        const b = document.createElement('span');
+        b.className = 'tband on';
+        b.dataset.era = era.key;
+        b.textContent = `${era.label} ${counts[era.key] ?? 0}`;
+        b.title = `${era.note} — click to toggle`;
+        b.addEventListener('click', () => { b.classList.toggle('on'); render(); syncEraControls(null); });
+        ef.appendChild(b);
+      }
+      render();
+    })
+    .catch((e) => {
+      $('t-count').textContent = 'failed to load /data/timeline.compact.json: ' + e;
+    });
+
+  for (const id of ['t-kind', 't-who', 't-q']) {
+    $(id).addEventListener('input', () => render());
+  }
+  $('t-order').addEventListener('click', () => {
+    newestFirst = !newestFirst;
+    ($('t-order') as HTMLButtonElement).textContent = newestFirst ? 'order: newest first ⇅' : 'order: oldest first ⇅';
+    render();
+  });
+</script>

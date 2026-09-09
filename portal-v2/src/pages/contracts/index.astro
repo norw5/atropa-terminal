@@ -1,0 +1,114 @@
+---
+import Base from '../../layouts/Base.astro';
+import { loadRegistry } from '../../lib/data';
+import { fmtInt } from '../../lib/fmt';
+
+const registry = loadRegistry();
+const byClass: Record<string, any[]> = {};
+for (const r of registry) (byClass[r.tax_class] ||= []).push(r);
+const classes = Object.entries(byClass).sort((a: any, b: any) => b[1].length - a[1].length);
+---
+
+<Base title="contracts" active="contracts">
+  <h1><span style="color:var(--fg-faint)">ls</span> /contracts — the classified registry</h1>
+  <p style="color:var(--fg-dim);max-width:60rem">
+    All {registry.length} registry contracts: minters, reserves, shared
+    infrastructure, helpers, fork-carried systems, bridge assets, and the two
+    Maria deployment corpora (Maria #1: 40 direct deployments; Maria #2: the
+    2023–24 old-Atropa era). Every row links to an entity page — completeness
+    by construction; old-era pages are deliberately thin. Explorer filters
+    client-side below; the static table lists everything.
+  </p>
+
+  <div class="panel">
+    <h2>explorer <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(client-side filter over the table)</span></h2>
+    <div class="x-controls">
+      <input type="text" id="c-q" placeholder="grep label / address…" />
+      <select id="c-cls">
+        <option value="">class: all</option>
+        {classes.map(([c]: any) => <option value={c}>{c} ({c === 'old-era-ownable' ? '237' : c === 'old-era-other' ? '39' : byClass[c].length})</option>)}
+      </select>
+      <select id="c-org">
+        <option value="">origin: all</option>
+        <option value="core">core</option>
+        <option value="community">community</option>
+        <option value="external">external</option>
+      </select>
+      <span class="x-count" id="c-count"></span>
+    </div>
+    <div style="overflow-x:auto; max-height: 72vh; overflow-y:auto;">
+      <table class="x-table sortable" id="c-table">
+        <thead>
+          <tr><th>label</th><th>class</th><th>era</th><th>admin</th><th>origin</th><th class="num">block</th><th>deployer</th><th>verified</th><th>address</th></tr>
+        </thead>
+        <tbody>
+          {registry.map((r: any) => (
+            <tr data-cls={r.tax_class} data-org={r.tax_origin} data-label={(r.label || '') + ' ' + r.address}>
+              <td class="wrapok"><a href={`/contracts/${r.address.toLowerCase()}`}>{r.label || '(unnamed)'}</a></td>
+              <td><span class="tag">{r.tax_class}</span></td>
+              <td>{r.tax_era}</td>
+              <td>{r.tax_admin}</td>
+              <td>{r.tax_origin}</td>
+              <td class="num">{r.block ? fmtInt(r.block) : '—'}</td>
+              <td>{r.deployer === '0xbf182955401af3f2f7e244cb31184e93e74a2501' ? <span title={r.deployer}>Maria #1</span> : r.deployer === '0x7a20189b297343cf26d8548764b04891f37f3414' ? <span title={r.deployer}>Maria #2</span> : r.deployer === '0x903030f7e2d6489f38b0f4f96f9b371ec7960f78' ? <span title={r.deployer}>trebizond</span> : r.deployer === '0x771a6f6ebe92fe647e657b8cefc58faaf1778a65' ? <span title={r.deployer}>community builder</span> : r.deployer ? <span class="mono xs" title={r.deployer}>{r.deployer.slice(0, 8)}…</span> : '—'}</td>
+              <td>{r.verified === true ? 'yes' + (r.verified_name ? ` (${r.verified_name})` : '') : r.verified === false ? 'no' : '—'}</td>
+              <td class="mono xs">{r.address}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>families (class → count → page)</h2>
+    <table class="sortable">
+      <thead><tr><th>class</th><th class="num">contracts</th><th>what it means</th></tr></thead>
+      <tbody>
+        {classes.map(([c, rows]: any) => (
+          <tr>
+            <td>{c}</td>
+            <td class="num">{rows.length}</td>
+            <td class="dim">{{
+              'minter-infrastructure': 'the 8 factory contracts (V1–V4 + 4 bureau)',
+              'old-era-ownable': 'Maria #2 2023–24 corpus — Ownable ERC20s',
+              'old-era-other': 'Maria #2 2023–24 corpus — other shapes',
+              'standalone-pre-v1': 'Maria #1 pre-V1 buildup (Keys Of Ong, ㈞, V1-era set, bzr cohort)',
+              'standalone-post-v4': 'Maria #1 post-V4 standalones (Basilica, IYC, …)',
+              'shared-infrastructure': 'MATH/RNG/math family — first-class, see /shared-infra',
+              'affection-family': 'AFFECTION — entity page here, mechanics canonical in the affection portal',
+              'community-helper': 'third-party helpers — unaudited, never integrated',
+              'reserve-asset': 'TBILL, FED',
+              'payment-asset': 'MV — the universal mint payment',
+              'forked-asset': 'Ethereum genesis state copies (pDAI, pUSDC, …)',
+              'bridge-asset': 'official-bridge wrapped e-tokens',
+              'external-system': 'fork-carried MakerDAO core (Vat, DaiJoin, ESM)',
+            }[c] ?? ''}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Base>
+
+<script>
+  const q = document.getElementById('c-q') as HTMLInputElement;
+  const cls = document.getElementById('c-cls') as HTMLSelectElement;
+  const org = document.getElementById('c-org') as HTMLSelectElement;
+  const count = document.getElementById('c-count') as HTMLElement;
+  const rows = Array.from(document.querySelectorAll<HTMLTableRowElement>('#c-table tbody tr'));
+  function apply() {
+    const qt = q.value.trim().toLowerCase();
+    let n = 0;
+    for (const tr of rows) {
+      const ok = (!qt || (tr.dataset.label || '').toLowerCase().includes(qt))
+        && (!cls.value || tr.dataset.cls === cls.value)
+        && (!org.value || tr.dataset.org === org.value);
+      tr.style.display = ok ? '' : 'none';
+      if (ok) n += 1;
+    }
+    count.textContent = `${n.toLocaleString()} / ${rows.length.toLocaleString()} rows`;
+  }
+  for (const el of [q, cls, org]) el.addEventListener('input', apply);
+  apply();
+</script>

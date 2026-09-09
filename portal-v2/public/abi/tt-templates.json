@@ -1,0 +1,669 @@
+{
+ "provenance": "[src] recovered sources (docs/solidity/) \u2014 embedded child templates per era",
+ "v2": [
+  {
+   "type": "function",
+   "name": "mint",
+   "inputs": [
+    {
+     "name": "amount",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "Claim",
+   "inputs": [
+    {
+     "name": "Contract",
+     "type": "address"
+    },
+    {
+     "name": "Amount",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "publish",
+   "inputs": [],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "withdraw",
+   "inputs": [
+    {
+     "name": "token",
+     "type": "address"
+    },
+    {
+     "name": "value",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "Debenture",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "bool"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "Parent",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "V2Minter",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "event",
+   "name": "Published",
+   "inputs": [
+    {
+     "name": "",
+     "type": "address"
+    }
+   ]
+  },
+  {
+   "type": "event",
+   "name": "Recovery",
+   "inputs": [
+    {
+     "name": "Client",
+     "type": "address"
+    },
+    {
+     "name": "Contract",
+     "type": "address"
+    },
+    {
+     "name": "Amount",
+     "type": "uint256"
+    }
+   ]
+  },
+  {
+   "type": "event",
+   "name": "TTDATA",
+   "inputs": [
+    {
+     "indexed": false,
+     "name": "data",
+     "type": "bytes"
+    }
+   ]
+  },
+  {
+   "type": "function",
+   "name": "ha",
+   "inputs": [],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "hu",
+   "inputs": [
+    {
+     "name": "h",
+     "type": "address"
+    },
+    {
+     "name": "allow",
+     "type": "uint8"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "ho",
+   "inputs": [
+    {
+     "name": "cx",
+     "type": "address"
+    },
+    {
+     "name": "value",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [
+    {
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "_hu",
+   "inputs": [
+    {
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "outputs": [
+    {
+     "type": "uint8"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "_mintingKey",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "uint64"
+    }
+   ],
+   "stateMutability": "view"
+  }
+ ],
+ "v3": [
+  {
+   "type": "function",
+   "name": "mint",
+   "inputs": [
+    {
+     "name": "amount",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "Multiplier",
+   "inputs": [
+    {
+     "name": "addition",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [
+    {
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "Claim",
+   "inputs": [
+    {
+     "name": "Contract",
+     "type": "address"
+    },
+    {
+     "name": "Amount",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "withdraw",
+   "inputs": [
+    {
+     "name": "token",
+     "type": "address"
+    },
+    {
+     "name": "value",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "Parent",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "Creator",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "Debenture",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "bool"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "IndexMinter",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "event",
+   "name": "Recovery",
+   "inputs": [
+    {
+     "name": "Client",
+     "type": "address"
+    },
+    {
+     "name": "Contract",
+     "type": "address"
+    },
+    {
+     "name": "Amount",
+     "type": "uint256"
+    }
+   ]
+  },
+  {
+   "type": "event",
+   "name": "TTDATA",
+   "inputs": [
+    {
+     "indexed": false,
+     "name": "data",
+     "type": "bytes"
+    }
+   ]
+  },
+  {
+   "type": "function",
+   "name": "ha",
+   "inputs": [],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "hu",
+   "inputs": [
+    {
+     "name": "h",
+     "type": "address"
+    },
+    {
+     "name": "allow",
+     "type": "uint8"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "ho",
+   "inputs": [
+    {
+     "name": "cx",
+     "type": "address"
+    },
+    {
+     "name": "value",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [
+    {
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "_hu",
+   "inputs": [
+    {
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "outputs": [
+    {
+     "type": "uint8"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "_mintingKey",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "uint64"
+    }
+   ],
+   "stateMutability": "view"
+  }
+ ],
+ "v4": [
+  {
+   "type": "function",
+   "name": "mint",
+   "inputs": [
+    {
+     "name": "amount",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "Multiplier",
+   "inputs": [
+    {
+     "name": "addition",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [
+    {
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "Claim",
+   "inputs": [
+    {
+     "name": "Amount",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "withdraw",
+   "inputs": [
+    {
+     "name": "token",
+     "type": "address"
+    },
+    {
+     "name": "value",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "Parent",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "Creator",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "Mint",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "PersonalMinter",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "event",
+   "name": "Recovery",
+   "inputs": [
+    {
+     "name": "Client",
+     "type": "address"
+    },
+    {
+     "name": "Contract",
+     "type": "address"
+    },
+    {
+     "name": "Amount",
+     "type": "uint256"
+    }
+   ]
+  },
+  {
+   "type": "event",
+   "name": "TTDATA",
+   "inputs": [
+    {
+     "indexed": false,
+     "name": "data",
+     "type": "bytes"
+    }
+   ]
+  },
+  {
+   "type": "function",
+   "name": "ha",
+   "inputs": [],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "hu",
+   "inputs": [
+    {
+     "name": "h",
+     "type": "address"
+    },
+    {
+     "name": "allow",
+     "type": "uint8"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "ho",
+   "inputs": [
+    {
+     "name": "cx",
+     "type": "address"
+    },
+    {
+     "name": "value",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [
+    {
+     "type": "uint256"
+    }
+   ],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "_hu",
+   "inputs": [
+    {
+     "name": "",
+     "type": "address"
+    }
+   ],
+   "outputs": [
+    {
+     "type": "uint8"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "_mintingKey",
+   "inputs": [],
+   "outputs": [
+    {
+     "type": "uint64"
+    }
+   ],
+   "stateMutability": "view"
+  }
+ ],
+ "v1": [
+  {
+   "type": "function",
+   "name": "mint",
+   "inputs": [
+    {
+     "name": "amount",
+     "type": "uint256"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "function",
+   "name": "has",
+   "inputs": [
+    {
+     "name": "who",
+     "type": "address"
+    },
+    {
+     "name": "what",
+     "type": "string"
+    }
+   ],
+   "outputs": [
+    {
+     "type": "bool"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "hu",
+   "inputs": [
+    {
+     "name": "h",
+     "type": "address"
+    },
+    {
+     "name": "class",
+     "type": "string"
+    },
+    {
+     "name": "allow",
+     "type": "bool"
+    }
+   ],
+   "outputs": [],
+   "stateMutability": "nonpayable"
+  },
+  {
+   "type": "event",
+   "name": "TTDATA",
+   "inputs": [
+    {
+     "indexed": false,
+     "name": "data",
+     "type": "bytes"
+    }
+   ]
+  }
+ ]
+}
