@@ -15,9 +15,10 @@ const { node, childrenMap, depth, sizes, linkable, isRoot = false } = Astro.prop
 const a = typeof node === 'string' ? node : node.address.toLowerCase();
 const kids = childrenMap.get(a) ?? [];
 const size = sizes.get(a) ?? kids.length;
-const label = typeof node === 'string'
+const rawLabel = typeof node === 'string'
   ? node
-  : (node.name_clean || node.name || node.symbol_clean || node.symbol || node.address.slice(0, 10));
+  : String(node.name_clean || node.name || node.symbol_clean || node.symbol || node.address.slice(0, 10) || '');
+const label = rawLabel.length > 44 ? rawLabel.slice(0, 44) + '…' : rawLabel;
 const ver = typeof node === 'string' ? null : node.minter_version;
 const verClass = ver ? (String(ver).toLowerCase().startsWith('b') ? 'br' : String(ver).toLowerCase()) : '';
 const open = depth < 1 || (isRoot && depth < 2);

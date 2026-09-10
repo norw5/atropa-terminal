@@ -3,11 +3,13 @@ import Base from '../../layouts/Base.astro';
 import TreeNode from '../../components/TreeNode.astro';
 import Addr from '../../components/Addr.astro';
 import { fmtInt } from '../../lib/fmt';
-import { loadTokensFull, loadRegistry, loadEntityLabels, buildChildrenMap, subtreeSize } from '../../lib/data';
+import { loadTokensFull, loadRegistry, loadEntityLabels, loadNames, loadLineageRootNames, buildChildrenMap, subtreeSize } from '../../lib/data';
 
 const tokens = loadTokensFull();
 const registry = loadRegistry();
 const labels = loadEntityLabels();
+const namesMap = loadNames();
+const rootNames = loadLineageRootNames();
 const childrenMap = buildChildrenMap(tokens);
 const censusSet = new Set(tokens.map((t: any) => t.address.toLowerCase()));
 const registrySet = new Set(registry.map((r: any) => r.address.toLowerCase()));
@@ -50,9 +52,10 @@ const sizes = computeSizes(root);
 const size = sizes.get(root) ?? 0;
 const rootToken = tokens.find((t: any) => t.address.toLowerCase() === root) ?? null;
 const rootReg = registry.find((r: any) => r.address.toLowerCase() === root) ?? null;
+const extNm = namesMap[root]?.n || rootNames[root]?.name || null;
 const rootName = rootToken ? (rootToken.name_clean || rootToken.name || rootToken.address.slice(0, 10))
   : rootReg ? rootReg.label
-  : labels[root] ?? null;
+  : extNm ?? labels[root] ?? null;
 const rootNode = rootToken ?? (rootReg ? { address: rootReg.address, name_clean: rootReg.label, minter_version: null } : root);
 const { depth } = subtreeSize(root, childrenMap);
 const title = `lineage: ${rootName ?? root.slice(0, 12)}`;

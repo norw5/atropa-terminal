@@ -72,6 +72,15 @@ const MINT_ROUTING: Record<string, string> = {
   '0x4ec5f865f6996ac424a1740ef97b8d1c862e0988': 'cdc_mint',
   '0x5f16f6c242e038437a7ba3c903dfedb747db4a5c': 'zheng_mint',
 };
+const ZERO = '0x0000000000000000000000000000000000000000';
+const OWNER_LABELS: Record<string, string> = {
+  '0x7a20189b297343cf26d8548764b04891f37f3414': 'Maria #2',
+  '0x8b090509eae0feb4a0b934de1b4345161fa9a62d': 'INDEPENDENCE contract',
+  '0xcc78a0acdf847a2c1714d2a925bb4477df5d48a6': 'the Atropa token contract',
+  '0x771a6f6ebe92fe647e657b8cefc58faaf1778a65': 'community tooling builder',
+};
+const ownerLive = r.tax_owner && r.tax_owner !== ZERO ? r.tax_owner : null;
+const ownerLabel = ownerLive ? (OWNER_LABELS[ownerLive.toLowerCase()] ?? null) : null;
 const mintRoutingKey = MINT_ROUTING[r.address.toLowerCase()] ?? null;
 const mintRouting = mintRoutingKey ? (loadAdminSurface().splits_5c?.[mintRoutingKey] ?? null) : null;
 const cdcDistinct: string[] = [];
@@ -97,7 +106,8 @@ for (const rc of mintRouting?.recipients ?? []) if (!cdcDistinct.includes(rc)) c
     <div class="note">
       AFFECTION™ mechanics (mint routes, burn behavior, Ⓐ supply, Dysnomia
       game family) are documented canonically in the separate AFFECTION
-      portal. This page carries the entity half only: taxonomy, identity,
+      portal: <a href="https://affection-terminal.vercel.app/">affection-terminal.vercel.app</a>.
+      This page carries the entity half only: taxonomy, identity,
       liquidity profile, ownership state. Shared infrastructure (MATH/RNG/the
       math family — the backbone both ecosystems run on) is authoritative
       here: <a href="/shared-infra">/shared-infra</a>. Both portals consume
@@ -171,13 +181,17 @@ for (const rc of mintRouting?.recipients ?? []) if (!cdcDistinct.includes(rc)) c
     { v: r.block ? fmtInt(r.block) : '—', k: 'DEPLOY BLOCK', sub: r.ts ? fmtDate(r.ts) : r.tax_creation === 'fork-carried' ? 'Ethereum fork-carried (fork block)' : r.tax_creation === 'bridge-wrapped' ? 'bridge-wrapped' : '' },
     { v: kids.length > 0 ? fmtInt(kids.length) : '—', k: 'DIRECT CENSUS CHILDREN', sub: kids.length > 0 ? 'factory children onchain' : isMinter ? 'no children ever minted' : 'not a minter parent' },
     { v: r.liquidity ? fmtNum(r.liquidity.w, 1) : '·', k: 'WPLS LIQUIDITY', sub: r.liquidity ? `${r.liquidity.p_live ?? '—'} live pairs` : r.tax_liquidity },
-    { v: r.tax_admin, k: 'ADMIN SURFACE', sub: r.tax_admin === 'none-factory' || r.tax_admin === 'none' ? 'no privilege keys' : r.tax_admin === 'renounced' ? 'owner == 0x0' : r.tax_admin === 'live-owner-maria2' ? `owner: Maria #2${r.tax_admin_caps && r.tax_admin_caps !== 'unknown' ? ` — key ${r.tax_admin_caps === 'inert' ? 'functionally inert' : 'caps: ' + r.tax_admin_caps}` : ''}` : r.tax_admin === 'live-owner-other' ? `owner: ${r.tax_owner ? r.tax_owner.slice(0, 12) + '…' : 'third party'}${r.tax_admin_caps && r.tax_admin_caps !== 'unknown' ? ' — caps: ' + r.tax_admin_caps : ''}` : '' },
+    { v: r.tax_admin, k: 'ADMIN SURFACE', sub: r.tax_admin === 'none-factory' || r.tax_admin === 'none' ? 'no privilege keys' : r.tax_admin === 'renounced' ? 'owner == 0x0' : r.tax_admin === 'live-owner-maria2' ? `owner: Maria #2${r.tax_admin_caps && r.tax_admin_caps !== 'unknown' ? ` — key ${r.tax_admin_caps === 'inert' ? 'functionally inert' : 'caps: ' + r.tax_admin_caps}` : ''} · full address below` : r.tax_admin === 'live-owner-other' ? `owner: ${r.tax_owner ? r.tax_owner.slice(0, 12) + '…' : 'third party'}${r.tax_admin_caps && r.tax_admin_caps !== 'unknown' ? ' — caps: ' + r.tax_admin_caps : ''} · full address below` : '' },
   ]} />
 
   <div class="panel">
     <h2>identity</h2>
     <dl class="kv">
-      <dt>address</dt><dd class="addr">{r.address} · <a href={`https://ipfs.scan.pulsechain.com/address/${r.address}`}>blockscout</a></dd>
+      <dt>address</dt><dd class="addr">{r.address} · <a href={`https://ipfs.scan.pulsechain.com/address/${r.address}`}>blockscout</a> · <button class="pgbtn cpy" data-copy={r.address}>copy</button></dd>
+      {ownerLive && (
+        <><dt>owner <span style="color:var(--fg-faint)">[chain]</span></dt>
+        <dd class="addr">{ownerLabel && <span class="tag">{ownerLabel}</span>} {ownerLive} · <a href={`https://ipfs.scan.pulsechain.com/address/${ownerLive}`}>blockscout</a> · <button class="pgbtn cpy" data-copy={ownerLive}>copy</button>{r.tax_admin_caps && r.tax_admin_caps !== 'unknown' && r.tax_admin_caps !== 'inert' ? <span class="badge">caps: {r.tax_admin_caps}</span> : r.tax_admin_caps === 'inert' ? <span class="badge">key functionally inert</span> : ''}</dd></>
+      )}
       <dt>family</dt><dd>{r.tax_class}{isMathFamily && <> — see <a href="/shared-infra">/shared-infra</a> for the family state probe</>}</dd>
       <dt>creation</dt>
       <dd>
@@ -303,3 +317,24 @@ for (const rc of mintRouting?.recipients ?? []) if (!cdcDistinct.includes(rc)) c
     <a href="/claims">claim registry</a>.
   </p>
 </Base>
+
+<script>
+  for (const b of Array.from(document.querySelectorAll<HTMLButtonElement>('button.cpy'))) {
+    b.addEventListener('click', async () => {
+      const t = b.dataset.copy ?? '';
+      let ok = false;
+      try { await navigator.clipboard.writeText(t); ok = true; } catch { ok = false; }
+      if (!ok) {
+        const ta = document.createElement('textarea');
+        ta.value = t;
+        document.body.appendChild(ta);
+        ta.select();
+        try { ok = document.execCommand('copy'); } catch { ok = false; }
+        ta.remove();
+      }
+      const old = b.textContent ?? 'copy';
+      b.textContent = ok ? 'copied ✓' : 'copy failed';
+      setTimeout(() => { b.textContent = old; }, 1400);
+    });
+  }
+</script>

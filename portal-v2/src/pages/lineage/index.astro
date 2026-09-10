@@ -2,11 +2,12 @@
 import Base from '../../layouts/Base.astro';
 import Addr from '../../components/Addr.astro';
 import { fmtInt } from '../../lib/fmt';
-import { loadTokensFull, loadRegistry, loadEntityLabels, buildChildrenMap, lineageRoots } from '../../lib/data';
+import { loadTokensFull, loadRegistry, loadNames, loadLineageRootNames, buildChildrenMap, lineageRoots } from '../../lib/data';
 
 const tokens = loadTokensFull();
 const registry = loadRegistry();
-const labels = loadEntityLabels();
+const namesMap = loadNames();
+const rootNames = loadLineageRootNames();
 const childrenMap = buildChildrenMap(tokens);
 const roots = lineageRoots(tokens, childrenMap);
 const censusSet = new Set(tokens.map((t: any) => t.address.toLowerCase()));
@@ -14,7 +15,6 @@ const registrySet = new Set(registry.map((r: any) => r.address.toLowerCase()));
 const v1roots = tokens.filter((t: any) => !t.parent && t.minter_version === 'V1');
 
 function rootLabel(r: any): { label: string; href: string | null; addr: string } {
-  const nm = labels[r.root] ? { n: labels[r.root] } : null;
   if (censusSet.has(r.root)) {
     const t = tokens.find((x: any) => x.address.toLowerCase() === r.root)!;
     return { label: t.name_clean || t.name || t.symbol_clean || r.root.slice(0, 12), href: `/tokens/${r.root}`, addr: r.root };
@@ -23,7 +23,12 @@ function rootLabel(r: any): { label: string; href: string | null; addr: string }
     const reg = registry.find((x: any) => x.address.toLowerCase() === r.root)!;
     return { label: reg.label || r.root.slice(0, 12), href: `/contracts/${r.root}`, addr: r.root };
   }
-  return { label: nm ? `${nm.n} (${nm.s})` : r.root, href: null, addr: r.root };
+  const nm = namesMap[r.root];
+  const rn = rootNames[r.root];
+  const n = nm?.n || rn?.name || null;
+  const s = nm?.s || rn?.symbol || null;
+  const label = n ? (s && s !== n ? `${n} (${s})` : n) : r.root;
+  return { label: label.length > 48 ? label.slice(0, 48) + '…' : label, href: null, addr: r.root };
 }
 const totalDescendants = roots.reduce((s: number, r: any) => s + r.size, 0);
 ---
@@ -62,7 +67,9 @@ const totalDescendants = roots.reduce((s: number, r: any) => s + r.size, 0);
                 <td class="num">{i + 1}</td>
                 <td class="wrapok">
                   {L.href ? <a href={L.href}>{L.label}</a> : <span>{L.label}</span>}
-                  {' '}<span class="mono xs dim" title={L.addr}>{L.addr.slice(0, 10)}…</span>
+                  {' '}{L.href
+                    ? <span class="mono xs dim" title={L.addr}>{L.addr.slice(0, 10)}…</span>
+                    : <a class="mono xs dim" href={`https://ipfs.scan.pulsechain.com/address/${L.addr}`} title={`${L.addr} — blockscout`}>{L.addr.slice(0, 10)}…</a>}
                 </td>
                 <td>{censusSet.has(r.root) ? 'census TT' : registrySet.has(r.root) ? 'registry' : 'external'}</td>
                 <td class="num">{fmtInt(r.size)}</td>
@@ -84,9 +91,10 @@ const totalDescendants = roots.reduce((s: number, r: any) => s + r.size, 0);
       own trees above (e.g. Agents of Assumption, 593 descendants). The rest:
     </p>
     <p class="mono xs">
-      {v1roots.filter((t: any) => (childrenMap.get(t.address.toLowerCase()) ?? []).length === 0).slice(0, 60).map((t: any, i: number) => (
-        <span>{i > 0 && ' · '}<a href={`/tokens/${t.address.toLowerCase()}`}>{t.name_clean || t.name || t.symbol_clean || t.symbol || t.address.slice(0, 8)}</a></span>
-      ))}
+      {v1roots.filter((t: any) => (childrenMap.get(t.address.toLowerCase()) ?? []).length === 0).slice(0, 60).map((t: any, i: number) => {
+        const l = String(t.name_clean || t.name || t.symbol_clean || t.symbol || t.address.slice(0, 8));
+        return <span>{i > 0 && ' · '}<a href={`/tokens/${t.address.toLowerCase()}`}>{l.length > 40 ? l.slice(0, 40) + '…' : l}</a></span>;
+      })}
       {v1roots.filter((t: any) => (childrenMap.get(t.address.toLowerCase()) ?? []).length === 0).length > 60 && ' · …'}
     </p>
   </div>

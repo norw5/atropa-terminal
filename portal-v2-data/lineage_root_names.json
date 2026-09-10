@@ -1,0 +1,132 @@
+{
+ "_meta": {
+  "block": 27512004,
+  "named": 26,
+  "note": "external lineage roots absent from names.compact.json \u2014 probed onchain (name()/symbol())",
+  "probed": "2026-09-10",
+  "provenance": "[chain]",
+  "roots_probed": 30
+ },
+ "roots": {
+  "0x05d858d82eae53a623fffdb71f9593dda14d0a50": {
+   "name": null,
+   "symbol": null
+  },
+  "0x05ec2c40977928277d81ebed3ed70cf2d9709f83": {
+   "name": "PulseX LP",
+   "symbol": "PLP"
+  },
+  "0x0d2ddcd2dbd168571ba1a14d0778194b19fdfaa0": {
+   "name": "SL12A",
+   "symbol": "SL12A"
+  },
+  "0x1a3bef4c9379ae7f4b3e7bb31b21b55646ef302e": {
+   "name": "Matrice 2",
+   "symbol": "MTC2"
+  },
+  "0x1ce0c2827e2ef14d5c4f29a091d735a204794041": {
+   "name": null,
+   "symbol": null
+  },
+  "0x1d859113a17372123b13418cf240627c08a6709e": {
+   "name": "PulseX LP",
+   "symbol": "PLP"
+  },
+  "0x2607d15abb9ced92ea775421eb0d247583ce2d55": {
+   "name": null,
+   "symbol": null
+  },
+  "0x2dbcb94a06d64bd07e8982b235df62e20117a837": {
+   "name": "PulseX LP",
+   "symbol": "PLP"
+  },
+  "0x394373604a16b0cc65031a2432cc2b12e725d351": {
+   "name": "Matrice 1",
+   "symbol": "MTC1"
+  },
+  "0x3a9cad115fc84f3ec63ae927a2db01ef932e4d21": {
+   "name": "SL19A",
+   "symbol": "SL19A"
+  },
+  "0x3ec78ca186338355bfc4c6346a049be30a64ca6d": {
+   "name": null,
+   "symbol": null
+  },
+  "0x4211cc21a8846814ed890fba77c7aea607de5868": {
+   "name": "RotaFi",
+   "symbol": "ROTA"
+  },
+  "0x565fdc67975ae2c66a6aae42e00c2fc22df3e785": {
+   "name": "SL14A",
+   "symbol": "SL14A"
+  },
+  "0x5aabdd553af6251d453f87373327491cc724e2cb": {
+   "name": "SL31A",
+   "symbol": "SL31A"
+  },
+  "0x5f15d6f7ef5989be4e9bac576f5772d4c6ecb315": {
+   "name": "SL37A",
+   "symbol": "SL37A"
+  },
+  "0x6735d51a25586f30221ef0039ab60d30d42237a9": {
+   "name": "theKEYcoin\u26bf",
+   "symbol": "KEY\u26bf"
+  },
+  "0x70e11800533332a1d9ecf5f32d05fd345e2895f1": {
+   "name": "SL5A",
+   "symbol": "SL5A"
+  },
+  "0x82f627ab6d3ef96c53ff7adf033c74bcb95a1f5f": {
+   "name": "SL22A",
+   "symbol": "SL22A"
+  },
+  "0x88623237a705289e2e79b26005234563d84abecc": {
+   "name": "not supported",
+   "symbol": "TEST"
+  },
+  "0x8d5648f83ff58e73a705ce2aa424e0c52c52fec4": {
+   "name": "8Bit Estate",
+   "symbol": "ESTATE"
+  },
+  "0xbaedc90ccde3b6b8cded23d7a12b05ebee4296b7": {
+   "name": "SL21A",
+   "symbol": "SL21A"
+  },
+  "0xbe3c283a60474d71cf5e6e0c1c6a7ca7667da91f": {
+   "name": "Node1",
+   "symbol": "Node1"
+  },
+  "0xc90b2dd77d14e34d2a1282a9f0de65731b05d7c4": {
+   "name": "Node2",
+   "symbol": "Node2"
+  },
+  "0xcabb0e562e01267e5ccb033258fdf0eaa028d8c7": {
+   "name": "SL3A",
+   "symbol": "SL3A"
+  },
+  "0xce03a60167482d083440b46f7cd1c170dcde7e72": {
+   "name": "SL30A",
+   "symbol": "SL30A"
+  },
+  "0xd14b5e0bb7fb4dec327976b509f3ec603b399644": {
+   "name": "SL27A",
+   "symbol": "SL27A"
+  },
+  "0xdb0af014d14cd36cc3770312b4897ceaf80299b2": {
+   "name": "Node3",
+   "symbol": "Node3"
+  },
+  "0xf095c62deaa1b80e8d2c3bb82a6fef32dd7b50ae": {
+   "name": "SL17A",
+   "symbol": "SL17A"
+  },
+  "0xf1b0969444700cee6ca90e84adfa19553e3f2a0d": {
+   "name": "SL9A",
+   "symbol": "SL9A"
+  },
+  "0xf3758cccb7991f92deaa898d606f7b4e86d1d4da": {
+   "name": "PulseX LP",
+   "symbol": "PLP"
+  }
+ }
+}

@@ -76,11 +76,9 @@ export function loadLiquidity(): Record<string, any> {
 }
 
 export function loadNames(): Record<string, any> {
-  const doc = readJson('portal-data/names.compact.json');
+  const doc = readJson('portal-data/names.compact.json').names ?? {};
   const out: Record<string, any> = {};
-  for (const [k, v] of Object.entries<any>(doc)) {
-    if (k !== '_meta') out[k.toLowerCase()] = v;
-  }
+  for (const [k, v] of Object.entries<any>(doc)) out[k.toLowerCase()] = v;
   return out;
 }
 
@@ -99,10 +97,17 @@ export function loadSpineMemberships(): Record<string, { slug: string; name: str
   return out;
 }
 
+export function loadLineageRootNames(): Record<string, { name: string | null; symbol: string | null }> {
+  const doc = readJson('portal-v2-data/lineage_root_names.json');
+  const out: Record<string, { name: string | null; symbol: string | null }> = {};
+  for (const [k, v] of Object.entries<any>(doc.roots ?? {})) out[k.toLowerCase()] = v;
+  return out;
+}
+
 export function loadEntityLabels(): Record<string, string> {
   const out: Record<string, string> = {};
-  for (const [k, v] of Object.entries<any>(readJson('portal-data/names.compact.json'))) {
-    if (k !== '_meta' && v?.n) out[k.toLowerCase()] = v.n;
+  for (const [k, v] of Object.entries<any>(readJson('portal-data/names.compact.json').names ?? {})) {
+    if (v?.n) out[k.toLowerCase()] = v.n;
   }
   for (const r of loadRegistry()) {
     if (r.label && !r.label.startsWith('0x')) out[r.address.toLowerCase()] = r.label;

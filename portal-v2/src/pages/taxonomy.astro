@@ -97,12 +97,12 @@ for (const r of registry) (registryByClass[r.tax_class] ||= []).push(r);
       <tbody>
         {registry.slice(0, 400).map((r) => (
           <tr>
-            <td class="wrapok">{r.label}</td>
+            <td class="wrapok"><a href={`/contracts/${r.address.toLowerCase()}`}>{r.label || '(unnamed)'}</a></td>
             <td>{r.tax_class}</td>
             <td>{r.tax_admin}</td>
             <td>{r.tax_era}</td>
             <td>{r.tax_origin}</td>
-            <td class="mono xs">{r.address}</td>
+            <td class="mono xs"><a href={`/contracts/${r.address.toLowerCase()}`}>{r.address}</a></td>
           </tr>
         ))}
       </tbody>

@@ -163,7 +163,7 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
     let debounce: ReturnType<typeof setTimeout> | null = null;
     function rebuild() {
       const q = input.value.trim().toLowerCase();
-      const pool = tokens.filter((t) => (filter ? filter(t) : true)).map((t) => ({ label: `${t.n || '(unnamed)'} (${t.s || '·'})`, sub: `${t.v} · ${t.cls}`, a: t.a }));
+      const pool = tokens.filter((t) => (filter ? filter(t) : true)).map((t) => ({ label: `${(t.n || '(unnamed)').slice(0, 40)}${(t.n || '').length > 40 ? '…' : ''} (${(t.s || '·').slice(0, 16)}${(t.s || '').length > 16 ? '…' : ''})`, sub: `${t.v} · ${t.cls}`, a: t.a }));
       const items = q
         ? pool.filter((p) => p.label.toLowerCase().includes(q) || p.a.includes(q)).slice(0, 40)
         : [];
@@ -351,11 +351,11 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
         verdict =
           `<span class="${eligible ? 'ok' : 'bad'}">${eligible ? 'eligible' : 'not a key'}</span> — V3-registry: ${c1 ? '✓' : '✗'} · same Creator: ${c2 ? '✓' : '✗'} · same Parent: ${c3 ? '✓' : '✗'} (all three required [src])`;
       }
-      ks = { k: r, addr, dec: km.decimals, sym: km.symbol || shortAddr(addr), eligible, verdict };
+      ks = { k: r, addr, dec: km.decimals, sym: (km.symbol || '').slice(0, 16) || shortAddr(addr), eligible, verdict };
       kf.innerHTML =
-        `<dt>key</dt><dd>${km.name || shortAddr(addr)} (${km.symbol || '·'}) <span class="mono xs">${addr}</span></dd>` +
+        `<dt>key</dt><dd>${(km.name || shortAddr(addr)).slice(0, 40)} (${(km.symbol || '·').slice(0, 16)}) <span class="mono xs">${addr}</span></dd>` +
         `<dt>eligibility</dt><dd>${verdict}</dd>` +
-        (balRaw !== null ? `<dt>your key balance</dt><dd>${formatUnits(balRaw, km.decimals)} ${km.symbol || ''}</dd>` : '');
+        (balRaw !== null ? `<dt>your key balance</dt><dd>${formatUnits(balRaw, km.decimals)} ${(km.symbol || '').slice(0, 16)}</dd>` : '');
       previewClaim();
     } catch (e: any) {
       kf.innerHTML = `<dd class="bad">${e.message ?? e}</dd>`;

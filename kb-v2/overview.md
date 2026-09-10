@@ -1,4 +1,4 @@
-# Overview — the Atropa Treasury System
+# Overview — the Atropa ecosystem
 
 > The orientation page: what this ecosystem is, who built it, how the pieces
 > fit together, and where to read next. Statements carry the same provenance
@@ -8,15 +8,21 @@
 
 ## What it is
 
-The Atropa Treasury System is an experimental monetary system on
-**PulseChain** (chain ID 369), developed across 2023–2025 by two long-lived
-deployer keys and left to run unattended. Its core is a family of **factory
-contracts ("minters")** that let **anyone** create a child ERC-20 — a
-**treasury token (TT)** — by paying a creation fee in **MV** and locking a
-**parent token** as collateral. What happens to that collateral, and who can
-ever get it back, is decided entirely by which factory generation created the
-child: that single design axis (V1 → V2 → V3 → V4, plus four same-day bureau
-variants) is the spine of the whole system, and of this knowledge base.
+The **Atropa ecosystem** is the full corpus this portal documents: everything
+the two long-lived "Maria" deployer keys built on **PulseChain** (chain ID
+369) from 2023 into 2026 — the **treasury system** at its center, the older
+2023–24 corpus around it (TeddyBear, Atropa, the shared math family,
+AFFECTION), and the community layer that grew on top.
+
+The **treasury system** — the deepest layer of this knowledge base — is an
+experimental monetary machinery developed across 2023–2025 and left to run
+unattended. Its core is a family of **factory contracts ("minters")** that
+let **anyone** create a child ERC-20 — a **treasury token (TT)** — by paying
+a creation fee in **MV** and locking a **parent token** as collateral. What
+happens to that collateral, and who can ever get it back, is decided
+entirely by which factory generation created the child: that single design
+axis (V1 → V2 → V3 → V4, plus four same-day bureau variants) is the spine
+of the whole system, and of this knowledge base.
 
 Two structural facts frame everything else:
 
@@ -102,12 +108,12 @@ policy, and analysis that does not meet it never ships here.
 6. **An older corpus surrounds the treasury era.** Maria #2's 2023–24
    deployments hold the deepest ecosystem-owned books (TeddyBear, Atropa),
    the RNG backbone, and the AFFECTION family — the latter documented
-   canonically in the separate AFFECTION portal, with shared infrastructure
-   canonical here. **Dysnomia**, an adjacent onchain game layer sharing the
-   math library and parts of the bureau ancestry, is out of scope for this
-   reference beyond those mechanical touchpoints. Fork-carried and
-   bridge-wrapped assets are classified, never adopted: they are context,
-   not components.
+   canonically in the [separate AFFECTION portal](https://affection-terminal.vercel.app/),
+   with shared infrastructure canonical here. **Dysnomia**, an adjacent
+   onchain game layer sharing the math library and parts of the bureau
+   ancestry, is out of scope for this reference beyond those mechanical
+   touchpoints. Fork-carried and bridge-wrapped assets are classified, never
+   adopted: they are context, not components.
 7. **A community layer grew on top — unowned.** Claim-loop farms (some
    still running), four third-party helper contracts (studied as design
    references, never integrated into this portal's tools), and the complete
@@ -160,6 +166,7 @@ one-line descriptions of every page.
 
 | Term | Meaning |
 |---|---|
+| **ecosystem / treasury system** | ecosystem = the whole Atropa corpus (old era, AFFECTION, community layer included); treasury system = the minter/reserve/treasury-token core at its center |
 | **TT / treasury token** | an ERC-20 created by a minter factory; "TreasuryToken" in the sources |
 | **minter / factory** | one of the eight contracts whose `New(...)` deploys TTs |
 | **parent** | the collateral token a TT locks; fixed per TT at creation |

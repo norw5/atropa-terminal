@@ -4,8 +4,10 @@
 > shared infrastructure. State pinned onchain `[chain]`;
 > mechanics `[src]` from verified
 > sources. Machine bundle: the one
-> data-layer artifact this portal and the AFFECTION portal both consume
-> (`/data/shared_infra.compact.json`).
+> data-layer artifact this portal and the
+> [AFFECTION portal](https://affection-terminal.vercel.app/) both consume
+> (`/data/shared_infra.compact.json`). Generated state view (family table +
+> usage curve): [/shared-infra](/shared-infra).
 
 ## The stack
 

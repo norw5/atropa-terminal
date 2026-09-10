@@ -41,7 +41,8 @@ supersession; this tree always reflects current-state.
 - Taxonomy fields are derived per-token from the census + registry data.
 - The claims registry is generated from the same data layer as the pages.
 - Shared infra state (MATH family) is generated as the one bundle both
-  this portal and the AFFECTION portal consume.
+  this portal and the [AFFECTION portal](https://affection-terminal.vercel.app/)
+  consume.
 
 ## Editorial rules
 

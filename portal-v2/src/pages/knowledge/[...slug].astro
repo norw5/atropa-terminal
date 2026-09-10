@@ -77,7 +77,7 @@ if (isDeep) {
   if (path === 'deep/fed' || path === 'deep/tbill') {
     const parent = path === 'deep/fed' ? '0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff' : '0x463413c579d29c26d59a65312657dfce30d545a1';
     const kids = childrenMap.get(parent) ?? [];
-    deepKidsOf = { addr: parent, n: kids.length, top: kids.slice(-5).reverse().map((k: any) => k.name_clean || k.name || k.symbol || k.address.slice(0, 8)) };
+    deepKidsOf = { addr: parent, n: kids.length, top: kids.slice(-5).reverse().map((k: any) => String(k.name_clean || k.name || k.symbol || k.address.slice(0, 8)).slice(0, 40)) };
   }
   if (path === 'deep/tbill') deepSink = loadV1Sink();
   if (path === 'deep/mv') deepMv = loadActivity().mv_accrual ?? null;

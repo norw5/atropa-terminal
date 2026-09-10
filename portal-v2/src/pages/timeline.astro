@@ -98,6 +98,8 @@ const eraColorCss = ':root{' + Object.entries(eraColors).map(([k, c]) => `--c-${
   #t-bands { display: flex; flex-wrap: wrap; gap: 0; margin: 0.3rem 0 0.6rem; }
   .bandseg { position: relative; min-width: 14px; text-align: center; font-size: 0.66rem; color: var(--bg); padding: 2px 6px; cursor: pointer; overflow: hidden; user-select: none; }
   .bandseg:hover { filter: brightness(1.2); }
+  td.refs { max-width: 24ch; }
+  td.refs a { overflow-wrap: anywhere; }
 </style>
 
 <script>
@@ -202,7 +204,7 @@ const eraColorCss = ':root{' + Object.entries(eraColors).map(([k, c]) => `--c-${
         `<td class="nowrap">${e.k}</td>` +
         `<td class="nowrap">${whoLabel(e.who)}</td>` +
         `<td class="wrapok">${esc(e.label)}</td>` +
-        `<td class="nowrap">${refs.join(' ')}</td>`;
+        `<td class="wrapok refs">${refs.join(' ')}</td>`;
       frag.appendChild(tr);
     }
     flushGroup();

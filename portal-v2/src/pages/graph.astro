@@ -125,7 +125,7 @@ import Base from '../layouts/Base.astro';
     const n = nodes.find((x) => x.id === id);
     if (!n) return;
     const href = entityHref(n);
-    $('gd-title').innerHTML = `${n.label} <span class="tag" style="border-color:${catColor(n.cat)}">${n.cat}</span>`;
+    $('gd-title').innerHTML = `${n.label.length > 40 ? n.label.slice(0, 40) + '…' : n.label} <span class="tag" style="border-color:${catColor(n.cat)}">${n.cat}</span>`;
     $('gd-facts').innerHTML =
       `<dt>address</dt><dd class="mono xs">${n.id.toLowerCase()} · <a href="https://ipfs.scan.pulsechain.com/token/${n.id.toLowerCase()}" target="_blank" rel="noopener">blockscout</a>${href ? ` · <a href="${href}">entity page</a>` : ''}</dd>` +
       `<dt>graph</dt><dd>degree ${n.deg} · ${n.w != null ? n.w.toFixed(0) + ' WPLS anchored across its pools' : 'no anchored liquidity'}</dd>`;

@@ -7,20 +7,61 @@ const registry = loadRegistry();
 const byClass: Record<string, any[]> = {};
 for (const r of registry) (byClass[r.tax_class] ||= []).push(r);
 const classes = Object.entries(byClass).sort((a: any, b: any) => b[1].length - a[1].length);
+
+const CLASS_DESC: Record<string, string> = {
+  'minter-infrastructure': 'the 8 factory contracts (V1–V4 + 4 bureau)',
+  'old-era-ownable': 'Maria #2 2023–24 corpus — Ownable ERC20s',
+  'old-era-other': 'Maria #2 2023–24 corpus — other shapes',
+  'standalone-pre-v1': 'Maria #1 pre-V1 buildup (Keys Of Ong, ㈞, V1-era set, bzr cohort)',
+  'standalone-post-v4': 'Maria #1 post-V4 standalones (Basilica, IYC, …)',
+  'shared-infrastructure': 'MATH/RNG/math family — first-class, see /shared-infra',
+  'affection-family': 'AFFECTION — entity page here, mechanics canonical in the affection portal',
+  'community-helper': 'third-party helpers — unaudited, never integrated',
+  'reserve-asset': 'TBILL, FED',
+  'payment-asset': 'MV — the universal mint payment',
+  'forked-asset': 'Ethereum genesis state copies (pDAI, pUSDC, …)',
+  'bridge-asset': 'official-bridge wrapped e-tokens',
+  'external-system': 'fork-carried MakerDAO core (Vat, DaiJoin, ESM)',
+};
+const ERA_TIP: Record<string, string> = {
+  'pre-fork': 'Ethereum-era entity, fork-carried at genesis',
+  'old-atropa': 'the 2023–24 Maria #2 corpus window',
+  'pre-v1': 'pre-V1 buildup (TBILL live → V1 minter)',
+  v1: 'V1 TbillMinter era (2024-12-28 →)',
+  v2: 'V2 FederalMinter era (2025-01-04 →)',
+  'v3-bureau': 'V3 IndexMinter + the four bureau minters (2025-01-31 →)',
+  v4: 'V4 PersonalMinter era (2025-02-20 →)',
+  'post-crisis': 'pDAI/Maker crisis window (external event); TBILL renounced days before',
+  'long-tail': '2025-07-01 → present: factories live, era ≠ minter version',
+};
+const ADMIN_TIP: Record<string, string> = {
+  renounced: 'owner == 0x0 — no live key',
+  'live-owner-maria2': 'owner key held by Maria #2 — capability enumerated on the entity page',
+  'live-owner-other': 'owner key held by a third party — full address on the entity page',
+  none: 'no owner function in the bytecode',
+  'none-factory': 'bytecode-proven zero admin surface',
+};
+const ORIGIN_TIP: Record<string, string> = {
+  core: 'Maria-authored deployment',
+  community: 'third-party / community deployment',
+  external: 'fork-carried or bridge-wrapped — external origin',
+};
 ---
 
 <Base title="contracts" active="contracts">
-  <h1><span style="color:var(--fg-faint)">ls</span> /contracts — the classified registry</h1>
-  <p style="color:var(--fg-dim);max-width:60rem">
-    All {registry.length} registry contracts: minters, reserves, shared
-    infrastructure, helpers, fork-carried systems, bridge assets, and the two
-    Maria deployment corpora (Maria #1: 40 direct deployments; Maria #2: the
-    2023–24 old-Atropa era). Every row links to an entity page — completeness
-    by construction; old-era pages are deliberately thin. Explorer filters
-    client-side below; the static table lists everything.
-  </p>
+  <div class="col">
+    <h1><span style="color:var(--fg-faint)">ls</span> /contracts — the classified registry</h1>
+    <p style="color:var(--fg-dim);max-width:60rem">
+      All {registry.length} registry contracts: minters, reserves, shared
+      infrastructure, helpers, fork-carried systems, bridge assets, and the two
+      Maria deployment corpora (Maria #1: 40 direct deployments; Maria #2: the
+      2023–24 old-Atropa era). Every row links to an entity page — completeness
+      by construction; old-era pages are deliberately thin. Explorer filters
+      client-side below; the static table lists everything.
+    </p>
+  </div>
 
-  <div class="panel">
+  <div class="panel wide">
     <h2>explorer <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(client-side filter over the table)</span></h2>
     <div class="x-controls">
       <input type="text" id="c-q" placeholder="grep label / address…" />
@@ -39,20 +80,30 @@ const classes = Object.entries(byClass).sort((a: any, b: any) => b[1].length - a
     <div style="overflow-x:auto; max-height: 72vh; overflow-y:auto;">
       <table class="x-table sortable" id="c-table">
         <thead>
-          <tr><th>label</th><th>class</th><th>era</th><th>admin</th><th>origin</th><th class="num">block</th><th>deployer</th><th>verified</th><th>address</th></tr>
+          <tr>
+            <th title="registry label — recovered identity (verified source name, curated label); (unnamed) = no label recovered">label</th>
+            <th title="taxonomy family, derived from mechanics/shape — definitions on /knowledge/taxonomy/classes">class</th>
+            <th title="timestamp-keyed era band (never a factory identity)">era</th>
+            <th title="owner-key state from the onchain owner() census — live-owner-* rows carry the full owner address on the entity page">admin</th>
+            <th title="core = Maria-authored · community = third-party helper/community · external = fork-carried or bridge">origin</th>
+            <th class="num" title="deployment block (fork block 17,232,969 = the Ethereum state fork)">block</th>
+            <th title="deploying EOA — functional labels for the known actors, full address on hover">deployer</th>
+            <th title="blockscout source verification (verified source + ABI published there; artifacts downloadable from the entity page)">verified</th>
+            <th title="contract address (lowercase; the entity page URL)">address</th>
+          </tr>
         </thead>
         <tbody>
           {registry.map((r: any) => (
             <tr data-cls={r.tax_class} data-org={r.tax_origin} data-label={(r.label || '') + ' ' + r.address}>
-              <td class="wrapok"><a href={`/contracts/${r.address.toLowerCase()}`}>{r.label || '(unnamed)'}</a></td>
-              <td><span class="tag">{r.tax_class}</span></td>
-              <td>{r.tax_era}</td>
-              <td>{r.tax_admin}</td>
-              <td>{r.tax_origin}</td>
-              <td class="num">{r.block ? fmtInt(r.block) : '—'}</td>
+              <td class="wrapok lbl"><a href={`/contracts/${r.address.toLowerCase()}`}>{r.label || '(unnamed)'}</a></td>
+              <td title={`${CLASS_DESC[r.tax_class] ?? r.tax_class} — derived from mechanics/shape, not community names`}><span class="tag">{r.tax_class}</span></td>
+              <td title={ERA_TIP[r.tax_era] ?? r.tax_era}>{r.tax_era}</td>
+              <td title={ADMIN_TIP[r.tax_admin] ?? r.tax_admin}>{r.tax_admin}</td>
+              <td title={ORIGIN_TIP[r.tax_origin] ?? r.tax_origin}>{r.tax_origin}</td>
+              <td class="num" title="deployment block (fork block 17,232,969 = the Ethereum state fork)">{r.block ? fmtInt(r.block) : '—'}</td>
               <td>{r.deployer === '0xbf182955401af3f2f7e244cb31184e93e74a2501' ? <span title={r.deployer}>Maria #1</span> : r.deployer === '0x7a20189b297343cf26d8548764b04891f37f3414' ? <span title={r.deployer}>Maria #2</span> : r.deployer === '0x903030f7e2d6489f38b0f4f96f9b371ec7960f78' ? <span title={r.deployer}>trebizond</span> : r.deployer === '0x771a6f6ebe92fe647e657b8cefc58faaf1778a65' ? <span title={r.deployer}>community builder</span> : r.deployer ? <span class="mono xs" title={r.deployer}>{r.deployer.slice(0, 8)}…</span> : '—'}</td>
-              <td>{r.verified === true ? 'yes' + (r.verified_name ? ` (${r.verified_name})` : '') : r.verified === false ? 'no' : '—'}</td>
-              <td class="mono xs">{r.address}</td>
+              <td title={r.verified === true ? 'blockscout-verified source + ABI published' : r.verified === false ? 'not verified on blockscout (source may still be recovered offchain)' : 'verification not probed'}>{r.verified === true ? 'yes' + (r.verified_name ? ` (${r.verified_name})` : '') : r.verified === false ? 'no' : '—'}</td>
+              <td class="mono xs" title="contract address — lowercase entity-page URL">{r.address}</td>
             </tr>
           ))}
         </tbody>
@@ -60,8 +111,9 @@ const classes = Object.entries(byClass).sort((a: any, b: any) => b[1].length - a
     </div>
   </div>
 
-  <div class="panel">
-    <h2>families (class → count → page)</h2>
+  <div class="col">
+    <div class="panel">
+      <h2>families (class → count → page)</h2>
     <table class="sortable">
       <thead><tr><th>class</th><th class="num">contracts</th><th>what it means</th></tr></thead>
       <tbody>
@@ -69,27 +121,29 @@ const classes = Object.entries(byClass).sort((a: any, b: any) => b[1].length - a
           <tr>
             <td>{c}</td>
             <td class="num">{rows.length}</td>
-            <td class="dim">{{
-              'minter-infrastructure': 'the 8 factory contracts (V1–V4 + 4 bureau)',
-              'old-era-ownable': 'Maria #2 2023–24 corpus — Ownable ERC20s',
-              'old-era-other': 'Maria #2 2023–24 corpus — other shapes',
-              'standalone-pre-v1': 'Maria #1 pre-V1 buildup (Keys Of Ong, ㈞, V1-era set, bzr cohort)',
-              'standalone-post-v4': 'Maria #1 post-V4 standalones (Basilica, IYC, …)',
-              'shared-infrastructure': 'MATH/RNG/math family — first-class, see /shared-infra',
-              'affection-family': 'AFFECTION — entity page here, mechanics canonical in the affection portal',
-              'community-helper': 'third-party helpers — unaudited, never integrated',
-              'reserve-asset': 'TBILL, FED',
-              'payment-asset': 'MV — the universal mint payment',
-              'forked-asset': 'Ethereum genesis state copies (pDAI, pUSDC, …)',
-              'bridge-asset': 'official-bridge wrapped e-tokens',
-              'external-system': 'fork-carried MakerDAO core (Vat, DaiJoin, ESM)',
-            }[c] ?? ''}</td>
+            <td class="dim">{c === 'affection-family'
+              ? <>AFFECTION — entity page here, mechanics canonical in the <a href="https://affection-terminal.vercel.app/">affection portal</a></>
+              : (CLASS_DESC[c] ?? '')}</td>
           </tr>
         ))}
       </tbody>
     </table>
+    </div>
   </div>
 </Base>
+
+<style is:global>
+  main { max-width: none; }
+  main > .col { max-width: calc(1200px - 2.8rem); margin-left: auto; margin-right: auto; }
+  main > .panel.wide {
+    width: fit-content;
+    min-width: min(calc(1200px - 2.8rem), 100%);
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #c-table td.lbl { max-width: 36ch; }
+</style>
 
 <script>
   const q = document.getElementById('c-q') as HTMLInputElement;

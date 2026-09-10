@@ -42,9 +42,10 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
           ))}
         </optgroup>
         <optgroup label={`root trees (${treeSpines.length})`}>
-          {treeSpines.map((s: any) => (
-            <option value={s.root.address.toLowerCase()}>{s.name} — root {s.root.n ?? s.root.s ?? ''}</option>
-          ))}
+          {treeSpines.map((s: any) => {
+            const rn = String(s.root.n ?? s.root.s ?? '');
+            return <option value={s.root.address.toLowerCase()}>{s.name} — root {rn.length > 40 ? rn.slice(0, 40) + '…' : rn}</option>;
+          })}
         </optgroup>
       </select>
       <a href="/lineage" style="font-size:0.85rem">all 442 trees</a>
@@ -160,7 +161,7 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
     list.innerHTML = '';
     for (const t of hits) {
       const d = document.createElement('div');
-      d.innerHTML = `${t.n || '(unnamed)'} (${t.s || '·'}) <span style="color:var(--fg-faint)">${t.v} · ${t.cls} · subtree ${computeSubtree(t.a)}</span>`;
+      d.innerHTML = `${(t.n || '(unnamed)').slice(0, 40)}${(t.n || '').length > 40 ? '…' : ''} (${(t.s || '·').slice(0, 16)}${(t.s || '').length > 16 ? '…' : ''}) <span style="color:var(--fg-faint)">${t.v} · ${t.cls} · subtree ${computeSubtree(t.a)}</span>`;
       d.addEventListener('mousedown', (ev) => {
         ev.preventDefault();
         list.style.display = 'none';

@@ -89,7 +89,8 @@ const navGroups: [string, [string, string, string][]][] = [
         for (const th of Array.from(head.cells)) {
           if (th.hasAttribute('data-nosort')) continue;
           th.classList.add('sort-th');
-          th.setAttribute('title', 'click to sort: asc → desc → default');
+          const existing = th.getAttribute('title');
+          th.setAttribute('title', (existing ? existing + ' — ' : '') + 'click to sort: asc → desc → default');
           th.addEventListener('click', () => {
             const i = th.cellIndex;
             if (cur === i && dir === 1) {
@@ -125,6 +126,27 @@ const navGroups: [string, [string, string, string][]][] = [
           });
         }
       }
+    </script>
+    <script>
+      const markExternal = (root: ParentNode) => {
+        for (const a of Array.from(root.querySelectorAll<HTMLAnchorElement>('a[href^="http"]'))) {
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+        }
+      };
+      markExternal(document);
+      new MutationObserver((muts) => {
+        for (const m of muts) {
+          for (const n of Array.from(m.addedNodes)) {
+            if (n instanceof HTMLAnchorElement && (n.getAttribute('href') || '').startsWith('http')) {
+              n.target = '_blank';
+              n.rel = 'noopener noreferrer';
+            } else if (n instanceof Element) {
+              markExternal(n);
+            }
+          }
+        }
+      }).observe(document.body, { childList: true, subtree: true });
     </script>
   </body>
 </html>

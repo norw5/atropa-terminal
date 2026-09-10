@@ -292,6 +292,10 @@ p.provfoot { color: var(--fg-faint); font-size: 0.78rem; }
 table.x-table { font-size: 0.82rem; }
 table.x-table td, table.x-table th { white-space: nowrap; }
 table.x-table td.wrapok { white-space: normal; }
+td.clamped { overflow: hidden; text-overflow: ellipsis; }
+td.clamped.name { max-width: 42ch; }
+td.clamped.sym { max-width: 23ch; }
+.longval { max-height: 7.5rem; overflow-y: auto; overflow-wrap: anywhere; white-space: pre-wrap; }
 tr.dead td { color: var(--fg-faint); }
 button.pgbtn {
   background: var(--bg3);

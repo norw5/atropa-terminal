@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { fmtInt } from '../lib/fmt';
 import { loadSharedInfra } from '../lib/data';
 
 const infra = loadSharedInfra();
@@ -7,17 +8,22 @@ const fam = Object.values(infra.family) as any[];
 const recon = infra.reconciliation_rng_mints_per_generate;
 const ledger = recon.math_rng_ledger;
 const curve = infra.usage_curve;
-const MATHseries = curve.MATH.buckets;
-const maxN = Math.max(...MATHseries.map((b: any) => b[1]));
-const barW = 6;
+const MATHseries = curve.MATH.buckets as [number, number, string][];
+const maxN = Math.max(...MATHseries.map((b) => b[1]));
+const fmtK = (v: number): string =>
+  v >= 1e6 ? (v / 1e6).toFixed(1) + 'M' : v >= 1e3 ? (v / 1e3).toFixed(0) + 'k' : String(v);
+const X_EVERY = 6;
 ---
 
 <Base title="shared infrastructure" active="infra">
   <h1>shared infrastructure <span class="dim">— MATH · RNG · math family</span></h1>
   <p class="dim">
-    First-class layer (authoritative here; single data source shared with the
-    AFFECTION portal — <code>shared_infra.compact.json</code>). State pinned
-    [chain] @ block {infra._meta.state_block}.
+    First-class layer (authoritative here; single data source shared with&nbsp;
+    the <a href="https://affection-terminal.vercel.app/">AFFECTION portal</a> —
+    <code>shared_infra.compact.json</code>). State pinned
+    [chain] @ block {infra._meta.state_block}. This is the generated state
+    view; the written mechanics reference lives at&nbsp;
+    <a href="/knowledge/reference/shared-infra/">/knowledge/reference/shared-infra</a>.
   </p>
 
   <div class="panel">
@@ -27,8 +33,8 @@ const barW = 6;
       <tbody>
         {fam.map((c) => (
           <tr>
-            <td>{Object.entries(infra.family).find(([, v]: any) => v.address === c.address)?.[0]}</td>
-            <td class="mono xs">{c.address}</td>
+            <td><a href={`/contracts/${c.address.toLowerCase()}`}>{c.label}</a></td>
+            <td class="mono xs"><a href={`/contracts/${c.address.toLowerCase()}`}>{c.address}</a></td>
             <td>
               {c.owner_is_maria2 ? <span class="tag">maria2</span> : c.owner_is_zero ? <span class="badge">renounced</span> : <span class="mono xs">{c.owner}</span>}
             </td>
@@ -63,16 +69,53 @@ const barW = 6;
   </div>
 
   <div class="panel">
-    <h2>Random() usage curve <span class="dim">— from-zero self-mints per 200k-block bucket</span></h2>
-    <svg class="spark" viewBox={`0 0 ${MATHseries.length * (barW + 1)} 60`} style="width:100%;height:96px">
-      {MATHseries.map((b: any, i: number) => (
-        <rect x={i * (barW + 1)} y={60 - (b[1] / maxN) * 56} width={barW} height={(b[1] / maxN) * 56} fill="var(--accent-dim)" />
-      ))}
-    </svg>
+    <h2>Random() usage curve <span class="dim">— from-zero self-mints per 200k-block bucket (≈ 23 days each)</span></h2>
+    <div class="usagechart" role="img" aria-label={`Random() usage per 200k-block bucket, ${MATHseries[0][2]} to ${MATHseries[MATHseries.length - 1][2]}; peak ${fmtInt(maxN)} mints per bucket`}>
+      <div class="uc-y">
+        <span>{fmtK(maxN)}</span>
+        <span>{fmtK(Math.round(maxN / 2))}</span>
+        <span>0</span>
+      </div>
+      <div class="uc-main">
+        <div class="uc-plot">
+          {MATHseries.map((b) => (
+            <div class="uc-barcol" title={`block ${fmtInt(b[0])} · ${b[2]} — ${fmtInt(b[1])} mints [chain]`}>
+              <div class="uc-bar" style={`height:${maxN ? ((100 * b[1]) / maxN).toFixed(2) : 0}%`}></div>
+            </div>
+          ))}
+        </div>
+        <div class="uc-x">
+          {MATHseries.map((b, i) => (
+            <span>{i % X_EVERY === 0 ? b[2] : ''}</span>
+          ))}
+        </div>
+      </div>
+    </div>
     <p class="dim xs">
-      {curve.MATH.mints_total.toLocaleString()} MATH · {curve.RNG.mints_total.toLocaleString()} RNG
-      from-zero mints all-time; affection-era peak 2024-07; second era 2025-11→ (third-party grinders;
+      y: mints per bucket · x: bucket month (first block of each labeled bucket;
+      hover any bar for block + count). {curve.MATH.mints_total.toLocaleString()} MATH ·
+      {curve.RNG.mints_total.toLocaleString()} RNG from-zero mints all-time;
+      affection-era peak 2024-07; second era 2025-11→ (third-party grinders;
       MATH is a de-facto public onchain RNG oracle).
     </p>
   </div>
 </Base>
+
+<style is:global>
+  .usagechart { display: flex; gap: 0.5rem; margin: 0.6rem 0; }
+  .uc-y {
+    display: flex; flex-direction: column; justify-content: space-between;
+    align-items: flex-end; font-size: 0.68rem; color: var(--fg-faint);
+    padding: 0 0 1.15rem 0; min-width: 3.2ch; text-align: right;
+  }
+  .uc-main { flex: 1; min-width: 0; }
+  .uc-plot {
+    display: flex; align-items: flex-end; gap: 1px;
+    height: 96px; border-bottom: 1px solid var(--border-bright);
+  }
+  .uc-barcol { flex: 1 1 0; height: 100%; display: flex; align-items: flex-end; }
+  .uc-bar { width: 100%; background: var(--accent-dim); min-height: 0; }
+  .uc-barcol:hover .uc-bar { background: var(--accent); }
+  .uc-x { display: flex; gap: 1px; font-size: 0.66rem; color: var(--fg-faint); }
+  .uc-x span { flex: 1 1 0; overflow: visible; white-space: nowrap; }
+</style>

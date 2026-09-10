@@ -6,14 +6,13 @@ import StatGrid from '../../components/StatGrid.astro';
 import ClaimsFooter from '../../components/ClaimsFooter.astro';
 import { fmtNum, fmtInt, fmtDate } from '../../lib/fmt';
 import {
-  loadTokensFull, loadTokensMeta, loadActivityPerToken, loadLiquidity, loadNames,
+  loadTokensFull, loadTokensMeta, loadActivityPerToken, loadLiquidity,
   loadEntityLabels, loadSpineMemberships, loadClaimsByEntity, buildChildrenMap, ancestorChain,
   loadArtifactsIndex,
 } from '../../lib/data';
 
 const tokens = loadTokensFull();
 const meta = loadTokensMeta();
-const names = loadNames();
 const labels = loadEntityLabels();
 const actPerToken = loadActivityPerToken();
 const liqMap = loadLiquidity();
@@ -62,8 +61,11 @@ const imDisplay = imHuman != null ? (imHuman >= 0.01 ? fmtNum(imHuman, 0) : `${f
 const custody = t.custody_parent != null ? t.custody_parent / 10 ** dec : null;
 const versionClass = String(t.minter_version).toLowerCase().startsWith('b') ? 'br' : String(t.minter_version).toLowerCase();
 const hasPage = (a: string | null | undefined) => !!a && censusSet.has(a.toLowerCase());
-const displayName = t.name_clean || t.name || '(unnamed)';
-const title = `${displayName} (${t.symbol_clean || t.symbol || '·'})`;
+const rawName = (t.name_clean || t.name || '').toString();
+const rawSym = (t.symbol_clean || t.symbol || '').toString();
+const clipTxt = (s: string, n: number) => (s.length > n ? s.slice(0, n) + '…' : s);
+const displayName = rawName || '(unnamed)';
+const title = `${clipTxt(displayName, 48)} (${clipTxt(rawSym, 20) || '·'})`;
 
 const monthly = act ? Object.entries<any>(act.monthly ?? {}) : [];
 const artifactsBc = loadArtifactsIndex().bytecode ?? {};
@@ -85,8 +87,8 @@ const monthlyBars = monthly
 <Base title={title} active="tokens">
   <p style="margin:0"><a href="/tokens">← /tokens</a>{t.parent && hasPage(t.parent) && <span> · <a href={`/lineage/${t.spine_root ? t.spine_root.toLowerCase() : t.parent.toLowerCase()}`}>lineage</a></span>}</p>
   <h1>
-    {displayName}
-    <span style="color:var(--fg-dim);font-weight:400"> {t.symbol_clean || t.symbol || ''}</span>
+    {clipTxt(displayName, 64)}
+    <span style="color:var(--fg-dim);font-weight:400"> {clipTxt(rawSym, 24)}</span>
     <span class={`badge ${versionClass}`}>{t.minter_version === 'BureauMinter#1' ? 'BUREAU#1' : t.minter_version}</span>
     {t.tax_alias_tshare_canon && <span class="badge canon">t-share canon</span>}
     {t.flags?.includes?.('genesis_constructor') && <span class="badge">genesis</span>}
@@ -125,6 +127,8 @@ const monthlyBars = monthly
   <div class="panel">
     <h2>identity</h2>
     <dl class="kv">
+      <dt>name</dt><dd class="longval">{rawName || '—'}</dd>
+      <dt>symbol</dt><dd class="longval">{rawSym || '—'}</dd>
       <dt>address</dt><dd class="addr">{t.address} · <a href={`https://ipfs.scan.pulsechain.com/address/${t.address}`}>blockscout</a></dd>
       <dt>created via</dt><dd>minter <Addr address={t.minter} internal={false} /> · <a href={`/contracts/${t.minter.toLowerCase()}`}>contract page</a></dd>
       <dt>creation</dt><dd>block {fmtInt(t.block)} · {fmtDate(t.timestamp)} · tx <a class="addr" href={`https://ipfs.scan.pulsechain.com/tx/${t.creation_tx}`}>{t.creation_tx}</a></dd>

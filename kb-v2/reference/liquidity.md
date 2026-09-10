@@ -48,7 +48,7 @@ interchangeable:
 |---|---|---|
 | **fork-carried p-assets** | pDAI `0x6B175474E89094C44Da98b954EedEAC495271d0f`, pUSDC, pUSDT, pWETH, pWBTC `0x2260fac5e5542a773aa44fbcfedf7c193bc2c599` | Ethereum genesis state copies at identical addresses; de-pegged but liquid; carried Ethereum-era admin state at fork |
 | **bridge-wrapped e-assets** | eDAI `0xefD766cCb38EaF1dfd701853BFCe31359239F305`, eUSDC `0x15D38573d2feeb82e7ad5187aB8c1D52810B1f07`, eUSDT `0x0Cb6F5a34ad42ec934882A05265A7d5F59b51A2f`, eWETH `0x02DcdD04e3F455D838cd1249292C58f3B79e3C3C` | official-bridge wrapped tokens (328-byte "… from Ethereum" contracts); distinct CAs, actually pegged by the bridge |
-| **native reserves** | FED, TBILL, MV, TeddyBear, Atropa | Pulse-native Maria deployments; the treasury system's own numeraires |
+| **native reserves** | FED, TBILL, MV, TeddyBear, Atropa | Pulse-native Maria deployments, and the Atropa ecosystem's own units of account — the criterion for this row: born on PulseChain by an Atropa deployer key (neither fork-carried at genesis nor bridge-wrapped) **and** mechanically load-bearing inside the system's own economics — FED/TBILL as the reserve-collateral parents (V1's parity lock, V3/V4's claim guard), MV as the universal `New()` creation payment, TeddyBear/Atropa as the old-era flagship native books the liquidity webs anchor against |
 
 The e/p prefix convention is informal — bare tickers collide (pDAI is *not*
 eDAI's parent; they are different contracts on different origins). Any

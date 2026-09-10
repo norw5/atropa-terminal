@@ -185,7 +185,7 @@ const MINTERS: Record<string, { label: string; ver: string; note: string; parent
       const q = input.value.trim().toLowerCase();
       const pool = [
         ...extra.map((e) => ({ label: e.name, sub: 'fixed', a: e.a.toLowerCase() })),
-        ...tokens.map((t) => ({ label: `${t.n || '(unnamed)'} (${t.s || '·'})`, sub: `${t.v} · ${t.cls}`, a: t.a })),
+        ...tokens.map((t) => ({ label: `${(t.n || '(unnamed)').slice(0, 40)}${(t.n || '').length > 40 ? '…' : ''} (${(t.s || '·').slice(0, 16)}${(t.s || '').length > 16 ? '…' : ''})`, sub: `${t.v} · ${t.cls}`, a: t.a })),
       ];
       items = q
         ? pool.filter((p) => p.label.toLowerCase().includes(q) || p.a.includes(q)).slice(0, 40)

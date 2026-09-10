@@ -12,16 +12,18 @@ for (const t of tokens) {
 ---
 
 <Base title="tokens" active="tokens">
-  <h1><span style="color:var(--fg-faint)">ls</span> /tokens — every census child, entity-paged</h1>
-  <p style="color:var(--fg-dim);max-width:60rem">
-    All {tokens.length.toLocaleString()} minter children (V1–V4 + Bureau#1) —
-    completeness by construction: coverage is the mechanically-defined census,
-    no editorial selection. Every row links to a generated entity page
-    (taxonomy, lineage, mint economics, custody, liquidity, activity, claims).
-    Era mix: {Object.entries(counts).map(([k, v]) => `${k} ${v.toLocaleString()}`).join(' · ')}.
-  </p>
+  <div class="col">
+    <h1><span style="color:var(--fg-faint)">ls</span> /tokens — every census child, entity-paged</h1>
+    <p style="color:var(--fg-dim);max-width:60rem">
+      All {tokens.length.toLocaleString()} minter children (V1–V4 + Bureau#1) —
+      completeness by construction: coverage is the mechanically-defined census,
+      no editorial selection. Every row links to a generated entity page
+      (taxonomy, lineage, mint economics, custody, liquidity, activity, claims).
+      Era mix: {Object.entries(counts).map(([k, v]) => `${k} ${v.toLocaleString()}`).join(' · ')}.
+    </p>
+  </div>
 
-  <div class="panel">
+  <div class="panel wide">
     <h2>explorer <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(client island — fetches /data/tokens_v2.compact.json; 200 rows/page)</span></h2>
     <div class="x-controls">
       <input type="text" id="x-q" placeholder="grep name / symbol / address…" />
@@ -91,8 +93,9 @@ for (const t of tokens) {
     </div>
   </div>
 
-  <div class="panel">
-    <h2>field &amp; class legend <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(the explorer table, explained)</span></h2>
+  <div class="col">
+    <div class="panel">
+      <h2>field &amp; class legend <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(the explorer table, explained — also on the column headers)</span></h2>
     <dl class="kv">
       <dt>name / sym</dt><dd>onchain ERC-20 <span class="mono xs">name()</span> / <span class="mono xs">symbol()</span>, re-probed with the offset-aware decoder — links to the token's entity page</dd>
       <dt>ver</dt><dd>factory generation (V1–V4, BR = Bureau#1) — the minter that created the child</dd>
@@ -118,8 +121,22 @@ for (const t of tokens) {
       on <a href="/export">/export</a>. Default order = creation date,
       oldest first; click any column header to sort (asc → desc → default).
     </p>
+    </div>
   </div>
 </Base>
+
+<style is:global>
+  main { max-width: none; }
+  main > .col { max-width: calc(1200px - 2.8rem); margin-left: auto; margin-right: auto; }
+  main > .panel.wide {
+    width: fit-content;
+    min-width: min(calc(1200px - 2.8rem), 100%);
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #x-table td.clamped.name { overflow-wrap: anywhere; min-width: 20ch; }
+</style>
 
 <script>
   type Row = {
@@ -149,10 +166,60 @@ for (const t of tokens) {
   function esc(s: string): string {
     return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
   }
+  const clip = (s: string | null | undefined, n: number): string => {
+    const v = (s || '').trim();
+    return v.length > n ? v.slice(0, n) + '…' : v;
+  };
+  const tip = (s: string | null | undefined): string => {
+    const v = (s || '').trim();
+    return v.length > 200 ? `${v.length.toLocaleString()} characters — full text on the token page` : v;
+  };
 
   const body = document.getElementById('x-body') as HTMLTableSectionElement;
   const countEl = document.getElementById('x-count') as HTMLElement;
   const pageEl = document.getElementById('x-page') as HTMLElement;
+
+  const VER_TIP: Record<string, string> = {
+    V1: 'created by the V1 TbillMinter factory',
+    V2: 'created by the V2 FederalMinter factory',
+    V3: 'created by the V3 IndexMinter factory',
+    V4: 'created by the V4 PersonalMinter factory',
+    'BureauMinter#1': 'created by the BureauMinter#1 factory (V3 rules, fixed BUREAU parent)',
+  };
+  const CLS_TIP: Record<string, string> = {
+    'v1-parity-lock-tt': 'V1 child — TBILL-parity lock, no exit',
+    'v2-debenture-tt': 'V2 child — Debenture/claim-key model',
+    'v3-step-tt': 'V3 child — step multiplier',
+    'v4-self-scaled-tt': 'V4 child — self-scaled minting',
+    'bureau-tt': 'BureauMinter#1 child',
+  };
+  const ERA_TIP: Record<string, string> = {
+    v1: 'created in the V1 TbillMinter era',
+    v2: 'created in the V2 FederalMinter era',
+    'v3-bureau': 'created in the V3 IndexMinter + bureau era',
+    v4: 'created in the V4 PersonalMinter era',
+    'post-crisis': 'created after the 2025-04 pDAI/Maker crisis window',
+    'long-tail': 'created 2025-07-01 → present (era ≠ minter version)',
+    'old-atropa': 'the 2023–24 Maria #2 corpus window',
+    'pre-v1': 'pre-V1 buildup (TBILL live → V1 minter)',
+    'pre-fork': 'Ethereum-era entity, fork-carried at genesis',
+  };
+  const LIQ_TIP: Record<string, string> = {
+    'pooled-live': 'at least one pool with live reserves',
+    'pooled-dead-all': 'pools exist, none live',
+    'spine-only-paper': 'never had a pool',
+  };
+  const ORG_TIP: Record<string, string> = {
+    core: 'Maria-authored standalone',
+    'core-factory': 'factory child (core by construction)',
+  };
+  const FLAG_TIP: Record<string, string> = {
+    CANON: 'on the dev-published t-share list (alias only)',
+    'burnt-locked-50': '≥50% of one pool\u2019s LP at dead sinks',
+    'lp-parent': 'the parent token is itself a PulseX LP token',
+  };
+  const tipOf = (m: Record<string, string>, v: string): string =>
+    ` title="${esc(m[v] ?? v)}"`;
 
   function render() {
     const start = page * PAGE;
@@ -163,17 +230,17 @@ for (const t of tokens) {
       const vcls = t.v === 'V1' ? 'v1' : t.v === 'V2' ? 'v2' : t.v === 'V3' ? 'v3' : t.v === 'V4' ? 'v4' : 'br';
       const vlab = t.v === 'BureauMinter#1' ? 'BR' : t.v;
       const flags: string[] = [];
-      if (t.canon) flags.push('<span class="badge canon">CANON</span>');
-      for (const f of t.lf || []) flags.push(`<span class="badge">${esc(f)}</span>`);
+      if (t.canon) flags.push(`<span class="badge canon"${tipOf(FLAG_TIP, 'CANON')}>CANON</span>`);
+      for (const f of t.lf || []) flags.push(`<span class="badge"${tipOf(FLAG_TIP, f)}>${esc(f)}</span>`);
       tr.innerHTML =
-        `<td class="wrapok"><a href="/tokens/${t.a}">${t.n ? esc(t.n) : '—'}</a></td>` +
-        `<td class="wrapok">${t.s ? esc(t.s) : '—'}</td>` +
-        `<td><span class="badge ${vcls}">${vlab}</span></td>` +
-        `<td class="wrapok"><span class="tag">${t.cls}</span> <span class="dim">${t.era}</span></td>` +
+        `<td class="clamped name wrapok" title="${esc(tip(t.n))}"><a href="/tokens/${t.a}">${esc(clip(t.n, 72) || '—')}</a></td>` +
+        `<td class="clamped sym" title="${esc(tip(t.s))}">${esc(clip(t.s, 20) || '—')}</td>` +
+        `<td${tipOf(VER_TIP, t.v)}><span class="badge ${vcls}">${vlab}</span></td>` +
+        `<td class="wrapok"><span class="tag"${tipOf(CLS_TIP, t.cls)}>${t.cls}</span> <span class="dim"${tipOf(ERA_TIP, t.era)}>${t.era}</span></td>` +
         `<td class="num">${fmt(t.sup, 0)}</td>` +
         `<td class="num">${t.mult != null ? t.mult + '×' : '—'}</td>` +
-        `<td>${t.liq}</td>` +
-        `<td>${t.org}</td>` +
+        `<td${tipOf(LIQ_TIP, t.liq)}>${t.liq}</td>` +
+        `<td${tipOf(ORG_TIP, t.org)}>${t.org}</td>` +
         `<td>${bdate(t.ts)}</td>` +
         `<td>${flags.join('')}</td>`;
       frag.appendChild(tr);
@@ -227,6 +294,18 @@ for (const t of tokens) {
   }
 
   const xTable = document.getElementById('x-table') as HTMLTableElement;
+  const COLTIP: Record<string, string> = {
+    n: 'name — onchain ERC-20 name(), re-probed with the offset-aware decoder; links to the token entity page',
+    s: 'sym — onchain ERC-20 symbol()',
+    v: 'ver — factory generation (V1–V4, BR = Bureau#1): the minter that created the child',
+    cls: 'class/era — taxonomy class (derived from mechanics, not community names) + era band; definitions on /knowledge/taxonomy/classes',
+    sup: 'supply — totalSupply at the custody snapshot block (human units); not comparable across tokens as a ranking',
+    mult: 'mult — live Multiplier() cost factor for mint() at the snapshot',
+    liq: 'liquidity — pooled-live: ≥1 pool with live reserves · pooled-dead-all: all pools dead/empty · spine-only-paper: no pool ever; burnt-locked-50 flag = ≥50% of LP burnt',
+    org: 'origin — core: Maria-authored standalone · core-factory: factory child (core by construction)',
+    ts: 'created — creation-block timestamp (UTC date)',
+    flags: 'flags — CANON = on the dev-published t-share list (alias only) + liquidity flags',
+  };
   function paintSortHeaders() {
     for (const th of Array.from(xTable.tHead?.rows[0]?.cells ?? [])) {
       th.classList.remove('sort-asc', 'sort-desc');
@@ -234,7 +313,8 @@ for (const t of tokens) {
     }
   }
   for (const th of Array.from(xTable.tHead?.rows[0]?.cells ?? [])) {
-      th.setAttribute('title', 'click to sort: asc → desc → default (creation date ascending)');
+      const col = th.dataset.col || '';
+      th.setAttribute('title', `${COLTIP[col] ?? ''} — click to sort: asc → desc → default (creation date ascending)`.trim());
     th.addEventListener('click', () => {
       const col = th.dataset.col || '';
       if (sortCol === col) {
