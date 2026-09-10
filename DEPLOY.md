@@ -44,6 +44,8 @@ only — no server, no keys, no third-party contracts in the path.
 All chain-derived data is pinned to snapshot blocks (the method pages state
 them). Refreshing the data layer happens in the research environment; after
 any refresh, regenerate this snapshot rather than editing files here.
+Regenerating preserves the git repository in this directory — commit the
+refreshed files as usual.
 
 ## Notes
 
