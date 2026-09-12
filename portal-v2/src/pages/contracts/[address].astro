@@ -38,7 +38,6 @@ const abiArt = ['0xc7bdac3e6bb5ec37041a11328723e9927ccf430b', '0xc15c5f699daf5e1
 const claimIds = claimsBy[aLower] ?? [];
 const kids = childrenMap.get(aLower) ?? [];
 const isMinter = r.tax_class === 'minter-infrastructure';
-const isHelper = r.tax_class === 'community-helper';
 const isAffection = r.tax_class === 'affection-family';
 const isMathFamily = r.tax_class === 'shared-infrastructure';
 const deployerMaria1 = r.deployer === '0xbf182955401af3f2f7e244cb31184e93e74a2501';
@@ -95,13 +94,6 @@ for (const rc of mintRouting?.recipients ?? []) if (!cdcDistinct.includes(rc)) c
     {isMathFamily && <span class="badge">first-class shared infra</span>}
   </h1>
 
-  {isHelper && (
-    <div class="note">
-      ⚠ third-party community helper — unaudited by this project, ownable by
-      its deployer, and never integrated into any tool we build. Facts-only
-      registry row. <a href="/knowledge/method/provenance/">policy</a>
-    </div>
-  )}
   {isAffection && (
     <div class="note">
       AFFECTION™ mechanics (mint routes, burn behavior, Ⓐ supply, Dysnomia
@@ -302,9 +294,9 @@ for (const rc of mintRouting?.recipients ?? []) if (!cdcDistinct.includes(rc)) c
     <div class="panel">
       <h2>interact</h2>
       <p>
-        <a href={`/mint?minter=${r.address.toLowerCase()}`}>open in the mint tool</a>&nbsp;
-        (pure client-side, injected wallet, factory called directly — no third-party
-        contract in the path) · ABI artifact:&nbsp;
+        <a class="toolcta" href={`/mint?minter=${r.address.toLowerCase()}`}>create with this factory →</a>
+        &nbsp;(pure client-side, injected wallet, factory called directly — no third-party
+        contract in the path; the tool preselects this minter's card) · ABI artifact:&nbsp;
         <a href={`/abi/${r.address.toLowerCase()}.json`}>/abi/{r.address.toLowerCase()}.json</a>
       </p>
     </div>
@@ -317,6 +309,14 @@ for (const rc of mintRouting?.recipients ?? []) if (!cdcDistinct.includes(rc)) c
     <a href="/claims">claim registry</a>.
   </p>
 </Base>
+
+<style>
+  a.toolcta {
+    display: inline-block; border: 1px solid var(--border-bright); padding: 0.2rem 0.6rem;
+    color: var(--accent); font-size: 0.85rem; text-decoration: none;
+  }
+  a.toolcta:hover { border-color: var(--accent); background: var(--bg2); }
+</style>
 
 <script>
   for (const b of Array.from(document.querySelectorAll<HTMLButtonElement>('button.cpy'))) {

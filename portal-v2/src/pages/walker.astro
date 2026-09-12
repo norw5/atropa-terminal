@@ -17,22 +17,25 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
   <p style="color:var(--fg-dim);max-width:64rem">
     Interactive spine explorer: walk a lineage parent↔child, inspect each
     token, and mint along the way with your own wallet calling each child
-    token <b>directly</b>. This is the MultiHop/Sweeper idea reimplemented&nbsp;
+    token <b>directly</b>. This is the third-party sweep-spine idea reimplemented&nbsp;
     <b>without custody and without approvals to any third party</b>: every
     approval you sign goes from your wallet straight to the child token you
-    are about to mint — there is no helper contract in the path,
-    so nothing can ever route or hold your tokens but you.
+    are about to mint — there is no intermediary contract in the path,
+    so nothing can ever route or hold your tokens but you. V1 nodes mint too
+    (TBILL parity, 1:1). Deep links: <span class="mono xs">/walker?root=0x…</span>&nbsp;
+    opens any census node (the lineage trees link here).
   </p>
+
+  <div class="panel" id="walletbar"></div>
 
   <div class="panel">
     <div class="x-controls">
       <label class="flabel">start at</label>
-      <input type="text" id="w-q" placeholder="search census tokens by name / symbol / address…" style="min-width:380px" />
+      <input type="text" id="w-q" placeholder="search census tokens by name / symbol — or paste any 0x… address" style="min-width:380px" autocomplete="off" />
       <div id="w-list" class="picklist"></div>
       <span id="w-status" class="mono xs" style="color:var(--fg-faint)"></span>
     </div>
     <div class="x-controls">
-      <button id="w-connect" class="pgbtn">connect wallet</button>
       <label class="flabel">curated spine</label>
       <select id="w-spine">
         <option value="">— pick a curated spine —</option>
@@ -61,27 +64,37 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
     <h2 id="w-title"></h2>
     <div id="w-facts" class="kv"></div>
     <h3>mint this token</h3>
-    <div class="x-controls">
+    <div class="x-controls" id="w-mint-row">
       <input type="text" id="w-amount" placeholder="amount" style="min-width:120px" />
       <span id="w-preview" class="mono xs"></span>
-      <button id="w-mint" class="pgbtn">approve parent &amp; mint</button>
+      <button id="w-mint" class="pgbtn">review &amp; mint</button>
     </div>
-    <p class="mono xs" style="color:var(--fg-faint)">paid in parent (live Multiplier read); every signature is wallet→token directly.</p>
+    <div id="w-flow"></div>
+    <p class="mono xs" style="color:var(--fg-faint)">paid in parent (live Multiplier read; V1 nodes pay TBILL 1:1); every signature is wallet→token directly.</p>
   </div>
 
   <div id="w-kids" class="panel" style="display:none">
     <h2>children <span id="w-kids-n" style="color:var(--fg-faint);font-weight:400;font-size:0.8rem"></span></h2>
+    <div class="x-controls" id="w-hop-row">
+      <label class="flabel">hop amount</label>
+      <input type="text" id="w-hop" placeholder="1" style="min-width:120px" />
+      <span id="w-hop-note" class="mono xs"></span>
+    </div>
+    <p class="mono xs" style="color:var(--fg-faint);margin:0.2rem 0 0.5rem">
+      per-hop cost = hop amount × the child's live <span class="mono xs">Multiplier(amount)</span>, paid in
+      <b>this node's token</b> (the children's parent). Each hop is mint() on the child — wallet → child directly.
+    </p>
     <div id="w-kids-list"></div>
   </div>
 
   <pre id="wlog" class="mono xs panel" style="min-height:3rem;white-space:pre-wrap;display:none">—</pre>
 
   <p class="provfoot">
-    tool: lineage walker · the sweep-spine helpers it replaces are
-    third-party, ownable, unaudited and&nbsp;
-    <a href="/contracts">never integrated</a> — this tool performs the same
-    walk with zero intermediaries · curated spines are the community-canonical
-    set (dev-published t-share list + registry trees) · data: the census + live RPC reads.
+    tool: lineage walker · the third-party sweep-spine contracts it
+    re-implements (without custody) are not carried by this portal —
+    this tool performs the walk with zero intermediaries · curated spines are
+    the community-canonical set (dev-published t-share list + registry trees)
+    · data: the census + live RPC reads.
   </p>
 </Base>
 
@@ -98,13 +111,18 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
   .picklist div:hover { background: var(--bg2); color: var(--accent); }
   .kidrow { display: flex; gap: 0.8rem; align-items: baseline; padding: 0.15rem 0; border-bottom: 1px dotted var(--border); flex-wrap: wrap; }
   .kidrow a.kname { min-width: 16rem; }
+  .kidrow a.hopgo { color: var(--accent); }
+  .kidrow a.hopgo:hover { text-decoration: underline; }
 </style>
 
 <script>
   import {
-    SEL, ethCall, decUint, decAddr, encCall, parseUnits, formatUnits,
-    connectWallet, ensureChain, sendTx, waitTx, shortAddr, tokenMeta,
+    SEL, ethCall, decUint, encCall, formatUnits, shortAddr, tokenMeta,
   } from '../lib/web3';
+  import { mountWalletBar } from '../lib/wallet';
+  import { attachResolver } from '../lib/resolver';
+  import { createFlow } from '../lib/flow';
+  import { loadMintTarget, multiplierAt, parseAmount, runMint, readMultiplier } from '../lib/mintflow';
 
   type Row = { a: string; n: string; s: string; v: string; cls: string; era: string; d: number; mult: number | null; liq: string; p: string | null; sup: number | null; blk: number | null };
   let tokens: Row[] = [];
@@ -123,7 +141,9 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
     line.textContent = s;
     logEl.appendChild(line);
   }
-  const link = (text: string, href: string) => `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
+
+  const bar = mountWalletBar($('walletbar'));
+  bar.onChange(() => { if (cur || extRoot) void refreshHopCosts(); });
 
   function computeSubtree(addr: string, seen = new Set<string>()): number {
     const a = addr.toLowerCase();
@@ -136,42 +156,13 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
     return n;
   }
 
-  let wallet: { provider: any; address: string } | null = null;
-  async function connect() {
-    try {
-      const w = await connectWallet();
-      await ensureChain(w.provider);
-      wallet = w;
-      log(`wallet connected: ${w.address}`, 'ok');
-      if (cur) loadNode(cur.a);
-    } catch (e: any) {
-      log(`wallet: ${e.message ?? e}`, 'err');
-    }
-  }
-  $('w-connect').addEventListener('click', connect);
-
-  // picker
-  const q = $('w-q') as HTMLInputElement;
-  const list = $('w-list');
-  q.addEventListener('input', () => {
-    const s = q.value.trim().toLowerCase();
-    if (!s) { list.style.display = 'none'; return; }
-    const hits = tokens.filter((t) => (t.n || '').toLowerCase().includes(s) || (t.s || '').toLowerCase().includes(s) || t.a.includes(s)).slice(0, 40);
-    if (!hits.length) { list.style.display = 'none'; return; }
-    list.innerHTML = '';
-    for (const t of hits) {
-      const d = document.createElement('div');
-      d.innerHTML = `${(t.n || '(unnamed)').slice(0, 40)}${(t.n || '').length > 40 ? '…' : ''} (${(t.s || '·').slice(0, 16)}${(t.s || '').length > 16 ? '…' : ''}) <span style="color:var(--fg-faint)">${t.v} · ${t.cls} · subtree ${computeSubtree(t.a)}</span>`;
-      d.addEventListener('mousedown', (ev) => {
-        ev.preventDefault();
-        list.style.display = 'none';
-        open(t.a);
-      });
-      list.appendChild(d);
-    }
-    list.style.display = 'block';
+  const startResolver = attachResolver({
+    input: $('w-q') as HTMLInputElement,
+    list: $('w-list'),
+    rows: () => tokens,
+    byAddr: () => byAddr,
+    onResolve: (r) => { if (r?.row) open(r.row.a); },
   });
-  q.addEventListener('blur', () => setTimeout(() => (list.style.display = 'none'), 150));
 
   $('w-spine').addEventListener('change', () => {
     const v = ($('w-spine') as HTMLSelectElement).value;
@@ -183,8 +174,17 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
   // walk state
   let path: Row[] = [];
   let cur: Row | null = null;
+  let extRoot: { a: string; n: string; s: string; d: number } | null = null;
+  let curTarget: Awaited<ReturnType<typeof loadMintTarget>> | null = null;
+  const walkFlow = createFlow($('w-flow'), 'mint flow — review · approve · sign · receipt');
 
-  function open(addr: string) {
+  function nodeCtx(): { a: string; d: number; s: string; n: string } | null {
+    if (cur) return { a: cur.a, d: cur.d ?? 18, s: cur.s, n: cur.n };
+    if (extRoot) return extRoot;
+    return null;
+  }
+
+  function open(addr: string, prefillAmount?: string) {
     const a = addr.toLowerCase();
     const r = byAddr.get(a);
     path = [];
@@ -193,19 +193,52 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
       path.unshift(node);
       node = node.p ? byAddr.get(node.p) ?? null : null;
     }
-    if (!r && path.length) {
-      loadNode(path[path.length - 1].a);
-    } else if (r) {
-      loadNode(a);
+    if (r) {
+      loadNode(a, { prefillAmount });
+    } else if ((children.get(a) ?? []).length) {
+      loadExternalRoot(a);
     } else {
       log('not found in census', 'err');
     }
   }
 
-  async function loadNode(addr: string) {
+  async function loadExternalRoot(addr: string) {
+    const a = addr.toLowerCase();
+    cur = null;
+    curTarget = null;
+    extRoot = { a, n: '', s: '', d: 18 };
+    walkFlow.reset();
+    $('w-path').style.display = '';
+    $('w-pathline').innerHTML = `<b>external root ${shortAddr(a)}</b> — walk down into the tree:`;
+    const facts = $('w-facts');
+    facts.innerHTML = '<span class="dim">reading chain…</span>';
+    const meta = await tokenMeta(a).catch(() => ({ name: '', symbol: '', decimals: 18 }));
+    extRoot = { a, n: meta.name, s: meta.symbol, d: meta.decimals };
+    const kids = children.get(a) ?? [];
+    facts.innerHTML =
+      `<dt>root</dt><dd><b>${meta.name || '(unnamed)'}</b> (${meta.symbol || '·'}) — not a treasury-token child (registry/external root); hop costs below are paid in <b>${meta.symbol || shortAddr(a)}</b>&nbsp;<span class="mono xs">${a}</span></dd>` +
+      `<dt>children</dt><dd>${kids.length} direct census children · <a href="https://ipfs.scan.pulsechain.com/token/${a}" target="_blank" rel="noopener noreferrer">explorer↗</a></dd>`;
+    $('w-title').innerHTML = `${meta.name || shortAddr(a)} <span class="dim" style="font-weight:400;font-size:0.85rem">— external lineage root</span>`;
+    $('w-node').style.display = '';
+    ($('w-node').querySelector('h3') as HTMLElement).style.display = 'none';
+    $('w-mint-row').style.display = 'none';
+    ($('w-amount') as HTMLInputElement).value = '';
+    $('w-preview').textContent = '';
+    renderKids(a, kids);
+    log(`root ${a} is not a census token — showing its children (each hop pays ${meta.symbol || shortAddr(a)})`);
+  }
+
+  async function loadNode(addr: string, opts: { resetFlow?: boolean; prefillAmount?: string } = {}) {
     const a = addr.toLowerCase();
     cur = byAddr.get(a) ?? null;
     if (!cur) return;
+    extRoot = null;
+    if (opts.resetFlow !== false) walkFlow.reset();
+    curTarget = null;
+    if (opts.prefillAmount !== undefined) ($('w-amount') as HTMLInputElement).value = opts.prefillAmount;
+    if (opts.prefillAmount !== undefined) {
+      $('w-node').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     const walked = path.findIndex((p) => p.a === a);
     $('w-path').style.display = '';
     $('w-pathline').innerHTML = path
@@ -227,28 +260,37 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
     }
 
     $('w-node').style.display = '';
+    ($('w-node').querySelector('h3') as HTMLElement).style.display = '';
+    $('w-mint-row').style.display = '';
     const facts = $('w-facts');
-    let liveMult = '';
-    try {
-      const m = decUint(await ethCall(a, encCall(SEL.Multiplier, [0n])));
-      liveMult = ` · live multiplier ${m}×`;
-    } catch {}
+    facts.innerHTML = '<span class="dim">reading chain…</span>';
+    const t = await loadMintTarget(a, cur);
+    curTarget = t;
+    void refreshPreview();
     const kids = children.get(a) ?? [];
     facts.innerHTML =
       `<dt>token</dt><dd><b>${cur.n || '(unnamed)'}</b> (${cur.s || '·'}) <span class="tag">${cur.cls}</span> ${cur.v} · <a href="/tokens/${a}">entity page</a></dd>` +
-      `<dt>parent</dt><dd>${cur.p ? (byAddr.has(cur.p) ? `<a href="#" class="jnode" data-a="${cur.p}">${byAddr.get(cur.p)!.n || shortAddr(cur.p)}</a> <span class="mono xs">${cur.p}</span>` : `<span class="mono xs">${cur.p}</span>`) : '— (V1 era)'}</dd>` +
-      `<dt>census supply</dt><dd>${cur.sup != null ? cur.sup.toLocaleString(undefined, { maximumFractionDigits: 0 }) : '—'}${cur.mult != null ? ` · multiplier ${cur.mult}× (snapshot)` : ''}${liveMult}</dd>` +
+      `<dt>parent</dt><dd>${cur.p ? (byAddr.has(cur.p) ? `<a href="#" class="jnode" data-a="${cur.p}">${byAddr.get(cur.p)!.n || shortAddr(cur.p)}</a> <span class="mono xs">${cur.p}</span>` : `<span class="mono xs">${cur.p}</span>`) : '— (V1 era: pays TBILL 1:1)'}</dd>` +
+      `<dt>census supply</dt><dd>${cur.sup != null ? cur.sup.toLocaleString(undefined, { maximumFractionDigits: 0 }) : '—'}${cur.mult != null ? ` · multiplier ${cur.mult}× (snapshot)` : ''}${t.m0 !== null ? ` · live multiplier ${t.m0.toString()}×` : ''}</dd>` +
       `<dt>liquidity</dt><dd>${cur.liq}</dd>` +
       `<dt>children</dt><dd>${kids.length} direct · subtree ${computeSubtree(a)}</dd>`;
-    ($('w-amount') as HTMLInputElement).value = '';
-    $('w-preview').textContent = '';
+    for (const el of Array.from(document.querySelectorAll<HTMLAnchorElement>('#w-facts a.jnode'))) {
+      el.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        loadNode((el as HTMLElement).dataset.a!);
+      });
+    }
+    renderKids(a, kids);
+  }
 
+  function renderKids(a: string, kids: Row[]) {
     $('w-kids').style.display = '';
     $('w-kids-n').textContent = `(${kids.length} direct, subtree ${computeSubtree(a)})`;
     const kl = $('w-kids-list');
     kl.innerHTML = '';
     const sorted = [...kids].sort((x, y) => computeSubtree(y.a) - computeSubtree(x.a));
-    for (const k of sorted.slice(0, 60)) {
+    const shown = sorted.slice(0, 60);
+    for (const k of shown) {
       const row = document.createElement('div');
       row.className = 'kidrow';
       row.innerHTML =
@@ -256,10 +298,16 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
         `<span class="tag">${k.cls}</span>` +
         `<span class="mono xs dim">${k.v}</span>` +
         `<span class="mono xs" style="color:var(--fg-faint)">subtree ${computeSubtree(k.a)}</span>` +
+        `<span class="mono xs" data-hopcost="${k.a}" style="color:var(--fg-faint)"></span>` +
+        `<a class="mono xs hopgo" href="#" data-a="${k.a}" title="open this child with the hop amount pre-filled">hop→</a>` +
         `<a class="mono xs" href="/tokens/${k.a}">page</a>`;
       (row.querySelector('a.kname') as HTMLAnchorElement).addEventListener('click', (ev) => {
         ev.preventDefault();
         open(k.a);
+      });
+      (row.querySelector('a.hopgo') as HTMLAnchorElement).addEventListener('click', (ev) => {
+        ev.preventDefault();
+        open(k.a, ($('w-hop') as HTMLInputElement).value.trim() || '1');
       });
       kl.appendChild(row);
     }
@@ -269,79 +317,76 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
       more.textContent = `…${sorted.length - 60} more children (use the search above)`;
       kl.appendChild(more);
     }
+    if (shown.length) void refreshHopCosts();
+    else $('w-hop-note').textContent = '';
   }
 
-  // mint-at-node (same direct-call flow as /mint)
-  function refreshPreview() {
+  // mint-at-node (same direct-call flow as /mint, incl. the V1 parity path)
+  async function refreshPreview() {
     const pv = $('w-preview');
-    if (!cur) return;
-    (async () => {
-      const amountEl = $('w-amount') as HTMLInputElement;
-      let amount: bigint;
-      try {
-        amount = parseUnits(amountEl.value || '0', cur!.d ?? 18);
-      } catch {
-        pv.innerHTML = '<span style="color:var(--red)">bad amount</span>';
-        return;
-      }
-      if (amount <= 0n) { pv.textContent = ''; return; }
-      try {
-        const parentHex = await ethCall(cur!.a, SEL.Parent);
-        const parent = decAddr(parentHex);
-        if (!parent) { pv.textContent = 'V1 token — mints 1:1 vs TBILL (use a wallet directly; no Parent getter)'; return; }
-        const pm = await tokenMeta(parent);
-        let mult = 1n;
-        try {
-          mult = decUint(await ethCall(cur!.a, encCall(SEL.Multiplier, [amount])));
-        } catch {}
-        const cost = amount * mult;
-        pv.innerHTML = `cost: <b>${formatUnits(cost, pm.decimals)} ${pm.symbol || shortAddr(parent)}</b> (${formatUnits(amount, cur!.d ?? 18)} × ${mult}×)`;
-      } catch (e: any) {
-        pv.textContent = e.message ?? String(e);
-      }
-    })();
+    if (!cur || !curTarget) return;
+    const amt = parseAmount(($('w-amount') as HTMLInputElement).value || '', curTarget.decimals);
+    if (!amt) { pv.textContent = ''; return; }
+    const t = curTarget;
+    const mult = await multiplierAt(t, amt);
+    const cost = amt * mult;
+    const paidLabel = t.parent ? t.parentSym : 'TBILL';
+    const paidDec = t.parent ? t.parentDec : 18;
+    pv.innerHTML = `cost: <b>${formatUnits(cost, paidDec)} ${paidLabel}</b> (${formatUnits(amt, t.decimals)} × ${mult.toString()}×)`;
   }
-  $('w-amount').addEventListener('input', refreshPreview);
+  $('w-amount').addEventListener('input', () => void refreshPreview());
+
+  // per-hop cost preview: hop amount × each child's live Multiplier, paid in THIS node
+  const MAX_HOP_ROWS = 24;
+  async function refreshHopCosts() {
+    const node = nodeCtx();
+    if (!node) return;
+    const raw = ($('w-hop') as HTMLInputElement).value.trim();
+    const note = $('w-hop-note');
+    const amt = parseAmount(raw || '1', node.d ?? 18);
+    if (!amt) {
+      note.innerHTML = '<span style="color:var(--red)">bad hop amount</span>';
+      return;
+    }
+    note.innerHTML = '<span class="dim">reading live multipliers…</span>';
+    const cells = Array.from(document.querySelectorAll<HTMLElement>('[data-hopcost]')).slice(0, MAX_HOP_ROWS);
+    let bal: bigint | null = null;
+    const st = bar.state();
+    if (st.status === 'ready' && st.address) {
+      bal = decUint(await ethCall(node.a, encCall(SEL.balanceOf, [st.address])).catch(() => '0x'));
+    }
+    let total = 0n;
+    let n = 0;
+    for (const cell of cells) {
+      const child = cell.dataset.hopcost!;
+      const m = await readMultiplier(child, amt);
+      const mult = m ?? 1n;
+      const cost = amt * mult;
+      total += cost;
+      n++;
+      const over = bal !== null && cost > bal;
+      cell.innerHTML = `· hop <b>${mult.toString()}×</b> → ${formatUnits(cost, node.d ?? 18)} ${node.s || shortAddr(node.a)}${m === null ? ' (flat)' : ''}${over ? ' — over your balance' : ''}`;
+      if (over) cell.setAttribute('style', 'color:var(--red)');
+      else cell.removeAttribute('style');
+    }
+    note.innerHTML =
+      (bal !== null ? `your ${node.s || 'node'} balance: <b>${formatUnits(bal, node.d ?? 18)}</b> · ` : '') +
+      (n ? `${n} hops shown would cost ${formatUnits(total, node.d ?? 18)} ${node.s || ''} total` : 'no children to hop to');
+  }
+  $('w-hop').addEventListener('input', () => void refreshHopCosts());
 
   $('w-mint').addEventListener('click', async () => {
-    if (!wallet) return log('connect a wallet first', 'err');
-    if (!cur) return log('pick a token first', 'err');
-    const amountEl = $('w-amount') as HTMLInputElement;
-    let amount: bigint;
+    if (!cur || !curTarget) return log('pick a token first', 'err');
+    const t = curTarget;
+    const amt = parseAmount(($('w-amount') as HTMLInputElement).value || '', t.decimals);
+    if (!amt) return log('amount must be a positive number', 'err');
+    walkFlow.reset();
     try {
-      amount = parseUnits(amountEl.value || '0', cur.d ?? 18);
-    } catch (e: any) {
-      return log(`amount: ${e.message}`, 'err');
-    }
-    if (amount <= 0n) return log('amount must be positive', 'err');
-    try {
-      const parent = decAddr(await ethCall(cur.a, SEL.Parent));
-      if (!parent) return log('V1 tokens have no Parent getter — mint charges TBILL 1:1; not routed here', 'err');
-      const pm = await tokenMeta(parent);
-      let mult = 1n;
-      try {
-        mult = decUint(await ethCall(cur.a, encCall(SEL.Multiplier, [amount])));
-      } catch {}
-      const cost = amount * mult;
-      const al = decUint(await ethCall(parent, encCall(SEL.allowance, [wallet.address, cur.a])));
-      if (al < cost) {
-        log(`approving ${formatUnits(cost, pm.decimals)} ${pm.symbol || ''} to ${shortAddr(cur.a)} (wallet → token, direct)…`);
-        const ah = await sendTx(wallet.provider, wallet.address, parent, encCall(SEL.approve, [cur.a, cost]));
-        log(`approve tx ${link(ah, `https://ipfs.scan.pulsechain.com/tx/${ah}`)} — waiting…`);
-        const ar = await waitTx(wallet.provider, ah);
-        if (ar.status !== '0x1') return log('approve reverted — aborting', 'err');
-      }
-      const th = await sendTx(wallet.provider, wallet.address, cur.a, encCall(SEL.mint, [amount]));
-      log(`mint tx ${link(th, `https://ipfs.scan.pulsechain.com/tx/${th}`)} — waiting…`);
-      const r = await waitTx(wallet.provider, th);
-      if (r.status === '0x1') {
-        log(`minted ${formatUnits(amount, cur.d ?? 18)} ${cur.s || ''} ✓ — walk on: mint this token's children to extend the spine`, 'ok');
-        loadNode(cur.a);
-      } else {
-        log('mint() reverted', 'err');
-      }
+      const r = await runMint({ bar, flow: walkFlow, log, target: t, amount: amt, onDone: () => void loadNode(t.addr, { resetFlow: false }) });
+      if (r.ok) log(`minted ${formatUnits(amt, t.decimals)} ${cur?.s || ''} ✓ — walk on: mint this token's children to extend the spine`, 'ok');
     } catch (e: any) {
       log(`mint failed: ${e.message ?? e}`, 'err');
+      walkFlow.note(`failed: ${e.message ?? e}`, 'err');
     }
   });
 
@@ -358,8 +403,8 @@ const treeSpines = spines.filter((s: any) => s.kind === 'tree');
       for (const [k, v] of children) v.sort((a, b) => (a.blk ?? 0) - (b.blk ?? 0) || a.a.localeCompare(b.a));
       $('w-status').textContent = `${tokens.length.toLocaleString()} census tokens loaded`;
       const params = new URLSearchParams(location.search);
-      const at = (params.get('at') || '').toLowerCase();
-      if (at && byAddr.has(at)) open(at);
+      const at = (params.get('at') || params.get('token') || params.get('root') || '').toLowerCase();
+      if (at) open(at);
     })
     .catch((e) => log('failed to load census bundle: ' + e, 'err'));
 </script>

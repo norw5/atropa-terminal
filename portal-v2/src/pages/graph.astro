@@ -125,9 +125,13 @@ import Base from '../layouts/Base.astro';
     const n = nodes.find((x) => x.id === id);
     if (!n) return;
     const href = entityHref(n);
+    const idL = n.id.toLowerCase();
+    const acts = n.cat.startsWith('census:')
+      ? ` · <a href="/mint?token=${idL}">mint</a> · <a href="/claim?token=${idL}">claim</a>`
+      : '';
     $('gd-title').innerHTML = `${n.label.length > 40 ? n.label.slice(0, 40) + '…' : n.label} <span class="tag" style="border-color:${catColor(n.cat)}">${n.cat}</span>`;
     $('gd-facts').innerHTML =
-      `<dt>address</dt><dd class="mono xs">${n.id.toLowerCase()} · <a href="https://ipfs.scan.pulsechain.com/token/${n.id.toLowerCase()}" target="_blank" rel="noopener">blockscout</a>${href ? ` · <a href="${href}">entity page</a>` : ''}</dd>` +
+      `<dt>address</dt><dd class="mono xs">${n.id.toLowerCase()} · <a href="https://ipfs.scan.pulsechain.com/token/${n.id.toLowerCase()}" target="_blank" rel="noopener">blockscout</a>${href ? ` · <a href="${href}">entity page</a>` : ''}${acts}</dd>` +
       `<dt>graph</dt><dd>degree ${n.deg} · ${n.w != null ? n.w.toFixed(0) + ' WPLS anchored across its pools' : 'no anchored liquidity'}</dd>`;
     const poolsEl = $('gd-pools');
     poolsEl.innerHTML = '<span class="dim">loading pool aggregates…</span>';
@@ -142,7 +146,7 @@ import Base from '../layouts/Base.astro';
         `<h3 style="margin:0.6rem 0 0.3rem">liquidity pools (factory crawl)</h3>` +
         `<div class="kv">` +
         `<dt>pairs</dt><dd>${p.p} live / ${p.pt} total · factories ${(p.f || []).join(' + ') || '—'}</dd>` +
-        `<dt>anchored</dt><dd>${Number(p.w).toLocaleString()} WPLS · ~$${Number(p.u).toLocaleString()} pseudo-USD (pDAI rate, ranking only)</dd>` +
+        `<dt>anchored</dt><dd>${Number(p.w).toLocaleString()} WPLS (site-wide cross-token comparable)</dd>` +
         (p.bp ? `<dt>anchor pair</dt><dd class="mono xs"><a href="https://ipfs.scan.pulsechain.com/address/${p.bp.a}" target="_blank" rel="noopener">${p.bp.a}</a> (${p.bp.f}, with ${p.bp.l}, ${Number(p.bp.lw).toLocaleString()} WPLS)</dd>` : '') +
         `</div>` +
         `<p class="mono xs" style="margin:0.4rem 0 0">top counterparties: ${cs || '—'}</p>`;

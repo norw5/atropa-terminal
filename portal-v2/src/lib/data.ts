@@ -86,6 +86,10 @@ export function loadSpinesBundle(): any {
   return readJson('portal-data/spines.compact.json');
 }
 
+export function loadTokensBundle(): { _meta: any; tokens: any[] } {
+  return readJson('portal-v2-data/tokens_unified.compact.json');
+}
+
 export function loadTimeline(): any {
   return readJson('portal-v2-data/timeline.compact.json');
 }

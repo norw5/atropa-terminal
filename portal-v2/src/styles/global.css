@@ -334,3 +334,22 @@ ul.tree details > summary:hover { color: var(--accent); }
   main > h1 + p { font-size: 1rem; }
   .kv { grid-template-columns: 1fr; }
 }
+
+/* shared tool components (WalletBar / resolver / flow — island-created DOM) */
+.wb-chip {
+  display: inline-block; padding: 0.1rem 0.55rem; font-size: 0.75rem;
+  border: 1px solid var(--border-bright); border-radius: 3px;
+}
+.wb-chip.ok { color: var(--accent); border-color: var(--accent-dim); }
+.wb-chip.bad { color: var(--red); border-color: var(--red); }
+button.wb-copy {
+  background: none; border: 1px dotted var(--border-bright); color: var(--fg-dim);
+  font-size: 0.7rem; padding: 0 0.35rem; cursor: pointer; border-radius: 2px;
+}
+button.wb-copy:hover { color: var(--accent); }
+.rstat { display: block; flex-basis: 100%; margin-top: -0.45rem; color: var(--fg-faint); min-height: 1em; }
+.flow { border: 1px dashed var(--border-bright); padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+.flow-title { color: var(--fg-faint); margin-bottom: 0.25rem; }
+.flow-step { padding: 0.12rem 0; }
+.flow-step b { color: var(--accent); font-weight: 600; }
+.nohits { color: var(--fg-faint); font-style: italic; }

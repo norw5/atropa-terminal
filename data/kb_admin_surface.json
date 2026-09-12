@@ -1,10 +1,10 @@
 {
  "_meta": {
   "block": 27501164,
-  "caps_vocabulary": "none | inert (owner gates only renounce/transfer) | owner-mint | owner-pool | owner-parameter | owner-withdraw | owner-pausable-withdraw | governance | inert-rescue-open | bridge-operator | unknown",
-  "generated": "2026-09-09T12:33:50+00:00",
+  "caps_vocabulary": "none | inert (owner gates only renounce/transfer) | owner-mint | owner-pool | owner-parameter | bridge-operator | unknown",
+  "generated": "2026-09-12T20:39:51+00:00",
   "owner_census": {
-   "live": 164,
+   "live": 160,
    "no_owner_fn": 85,
    "renounced": 107
   },
@@ -382,19 +382,6 @@
    ],
    "owner_kind": "maria2"
   },
-  "0x185d2f123d04f1a243bfbfd5b15f11fb4f314b23": {
-   "basis": "[src-decompiled] W5 (KB 05): stuck-token rescue is permissionless",
-   "block": 27501164,
-   "caps": "inert-rescue-open",
-   "caps_source": "curated",
-   "label": "Sweeper",
-   "owner": "0x771a6f6ebe92fe647e657b8cefc58faaf1778a65",
-   "owner_gated": [
-    "renounceOwnership",
-    "transferOwnership"
-   ],
-   "owner_kind": "community-builder"
-  },
   "0x1942ba1ea7c21a070d70c4efe64b21694283f23e": {
    "basis": "[src-decompiled] heimdall session 17",
    "block": 27501164,
@@ -452,7 +439,7 @@
    "block": 27501164,
    "caps": "none",
    "caps_source": "curated",
-   "label": "FED F327eD",
+   "label": "FED Reserve Teh \u327e",
    "owner": "",
    "owner_gated": [],
    "owner_kind": "none"
@@ -867,22 +854,6 @@
     "transferOwnership"
    ],
    "owner_kind": "independence-contract"
-  },
-  "0x307a3694dfc453c6692db3e9f3f07ff328167dce": {
-   "basis": "[src-decompiled] W5 (KB 05)",
-   "block": 27501164,
-   "caps": "owner-pausable-withdraw",
-   "caps_source": "curated",
-   "label": "MultiHop",
-   "owner": "0x771a6f6ebe92fe647e657b8cefc58faaf1778a65",
-   "owner_gated": [
-    "enableContract",
-    "disableContract",
-    "emergencyWithdraw(address,uint256,address)",
-    "renounceOwnership",
-    "transferOwnership"
-   ],
-   "owner_kind": "community-builder"
   },
   "0x30c4e7a7b6a19c704742d55b546872c7f01615d7": {
    "basis": "[src-decompiled] heimdall session 17",
@@ -2471,20 +2442,6 @@
    ],
    "owner_kind": "maria2"
   },
-  "0xa333561a5e08c002c083e3798dc8d504a262c9ef": {
-   "basis": "[src-decompiled] W5 (KB 05)",
-   "block": 27501164,
-   "caps": "governance",
-   "caps_source": "curated",
-   "label": "LogoVoting",
-   "owner": "0x771a6f6ebe92fe647e657b8cefc58faaf1778a65",
-   "owner_gated": [
-    "resetProposal",
-    "setWhitelistedProposer-style",
-    "topHoldersCount(uint256)"
-   ],
-   "owner_kind": "community-builder"
-  },
   "0xa35c9b5e576be2e0ba9cc7224b0941cc8acc4c9c": {
    "basis": "[src-decompiled] heimdall session 17",
    "block": 27501164,
@@ -3442,18 +3399,6 @@
    "label": "\u674e\u514b\u5f3a (\u514b\u5f3a)",
    "owner": "0x0000000000000000000000000000000000000000",
    "owner_kind": "renounced"
-  },
-  "0xe7313ef267e8a5646b5ea04b51f536956d79e62f": {
-   "basis": "[src-decompiled] W5 (KB 05)",
-   "block": 27501164,
-   "caps": "owner-withdraw",
-   "caps_source": "curated",
-   "label": "UserSweeper",
-   "owner": "0x771a6f6ebe92fe647e657b8cefc58faaf1778a65",
-   "owner_gated": [
-    "withdraw(address)"
-   ],
-   "owner_kind": "community-builder"
   },
   "0xe780bb76a24345734b1b94e2b4cc8d64f23ad822": {
    "basis": "[src-decompiled] heimdall session 17",

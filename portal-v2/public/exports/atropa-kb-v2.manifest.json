@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-10T19:16:25.770250+00:00",
+ "generated": "2026-09-12T20:39:58.371807+00:00",
  "contents": [
   {
    "path": "kb-v2/",
@@ -12,5 +12,5 @@
    "what": "recovered + blockscout-verified sources [src]; dysnomia/wallet trees excluded (out of scope)"
   }
  ],
- "tarball_sha256": "f85018e534cde1266cf6853aeb6f4af4adf6853b7ed37e87c91b11c1e1e21ddf"
+ "tarball_sha256": "369d473626e54e7ced1eacb8939d33dc9a4d999fe996e13794913d5dd46be83a"
 }

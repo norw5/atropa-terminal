@@ -1,6 +1,8 @@
 export const CHAIN_ID = 369;
 export const CHAIN_ID_HEX = '0x171';
-export const READ_RPCS = ['https://rpc.pulsechain.com', 'https://rpc.pulsechainstats.com', 'https://rpc-pulsechain.g4mm4.io'];
+const DEFAULT_RPCS = ['https://rpc.pulsechain.com', 'https://rpc.pulsechainstats.com', 'https://rpc-pulsechain.g4mm4.io'];
+const DEV_RPC = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('rpc') : null;
+export const READ_RPCS: string[] = DEV_RPC ? [DEV_RPC] : DEFAULT_RPCS;
 export const MV_ADDRESS = '0xa1bee1dae9af77dac73aa0459ed63b4d93fc6d29';
 
 export const SEL: Record<string, string> = {
@@ -195,6 +197,35 @@ export function getProvider(): Eip1193 | null {
   return eth;
 }
 
+export function providerName(p: Eip1193 | null): string {
+  const q = p as any;
+  if (!q) return 'injected wallet';
+  if (q.isRabby) return 'Rabby';
+  if (q.isCoinbaseWallet || q.isCoinbaseBrowserExtension) return 'Coinbase Wallet';
+  if (q.isBraveWallet) return 'Brave Wallet';
+  if (q.isTrust || q.isTrustWallet) return 'Trust Wallet';
+  if (q.isMetaMask) return 'MetaMask';
+  return 'injected wallet';
+}
+
+export const CHAIN_NAMES: Record<string, string> = {
+  '0x171': 'PulseChain',
+  '0x1': 'Ethereum',
+  '0x5': 'Goerli',
+  '0xaa36a7': 'Sepolia',
+  '0x38': 'BNB Chain',
+  '0x89': 'Polygon',
+  '0xa': 'Optimism',
+  '0xa4b1': 'Arbitrum',
+  '0xe708': 'Linea',
+  '0x2105': 'Base',
+};
+
+export function chainName(chainId: string | null): string {
+  if (!chainId) return 'unknown chain';
+  return CHAIN_NAMES[chainId.toLowerCase()] ?? `chain ${chainId}`;
+}
+
 export async function connectWallet(): Promise<{ provider: Eip1193; address: string; chainId: string }> {
   const provider = getProvider();
   if (!provider) throw new Error('no injected wallet found (install MetaMask or any EIP-1193 wallet)');
@@ -211,6 +242,7 @@ const PULSE_PARAMS = {
   rpcUrls: ['https://rpc.pulsechain.com'],
   blockExplorerUrls: ['https://ipfs.scan.pulsechain.com'],
 };
+export { PULSE_PARAMS };
 
 export async function ensureChain(provider: Eip1193): Promise<void> {
   const chainId: string = await provider.request({ method: 'eth_chainId' });

@@ -1,14 +1,63 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const MINTERS: Record<string, { label: string; ver: string; note: string; parent: boolean }> = {
-  '0xc15c5f699daf5e1135732139f05d2c05b3ef4354': { label: 'V2 FederalMinter', ver: 'V2', note: 'flat 1:1 mints; open sibling claims — an unpublished V2 child is a claim key', parent: true },
-  '0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc': { label: 'V3 IndexMinter', ver: 'V3', note: 'system-step multiplier (1.111B-unit ladder); gated sibling claims', parent: true },
-  '0x394c3d5990cefc7be36b82fdb07a7251ace61cc7': { label: 'V4 PersonalMinter', ver: 'V4', note: 'self-scaled multiplier (× own initial mint); self-redeem only', parent: true },
-  '0xc4f0ce2b0ffa0063b763e2b6c124a1d80e0641b5': { label: 'BureauMinter#1', ver: 'BR#1', note: 'parent fixed = BUREAU ㉾; V3 pricing', parent: false },
-  '0x9680d815e3ba4fd78c5c1e6ea229abb03734e141': { label: 'BureauMinter#2 (proxy)', ver: 'BR#2', note: 'MV-charging proxy to V3.New', parent: false },
-  '0xc9be525a582b6f84d928b7901bd18b4315f8502b': { label: 'BureauMinter#3 (proxy)', ver: 'BR#3', note: 'MV-charging proxy to V3.New', parent: false },
-  '0x5de29c8eac1482221de1945a566b6c65f54a3c3e': { label: 'BureauMinter#4', ver: 'BR#4', note: 'solc-0.8.28 rebuild, 0 children ever — surface proven by bytecode diff only', parent: false },
+const MINTERS: Record<string, { label: string; ver: string; parent: boolean; rules: [string, string, string] }> = {
+  '0xc15c5f699daf5e1135732139f05d2c05b3ef4354': {
+    label: 'V2 FederalMinter', ver: 'V2', parent: true,
+    rules: [
+      'parent — FED or any registered treasury token (unregistered parents revert FuckOff)',
+      'pricing — flat 1:1 vs parent, no multiplier',
+      'claims — open sibling claims: an unpublished child is a live claim key against its siblings; publish() exists (owner-side withdraw unlock — it never stops claims on the token)',
+    ],
+  },
+  '0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc': {
+    label: 'V3 IndexMinter', ver: 'V3', parent: true,
+    rules: [
+      'parent — any ERC-20',
+      'pricing — system-step multiplier: every 1.111B units of supply adds +1× to the next mint',
+      'claims — gated: V3 registry + same Creator + same Parent; no publish — Debenture clears on the registered owner\u2019s withdraw()',
+    ],
+  },
+  '0x394c3d5990cefc7be36b82fdb07a7251ace61cc7': {
+    label: 'V4 PersonalMinter', ver: 'V4', parent: true,
+    rules: [
+      'parent — any ERC-20',
+      'pricing — self-scaled multiplier: the ladder step is your own initial mint (IM 1 → doubles fast; IM 1.111B → V3-like)',
+      'claims — self-redeem only: burn your own units, parent pays 1:1; no Debenture, no publish',
+    ],
+  },
+  '0xc4f0ce2b0ffa0063b763e2b6c124a1d80e0641b5': {
+    label: 'BureauMinter#1', ver: 'BR#1', parent: false,
+    rules: [
+      'parent — fixed: BUREAU ㉾',
+      'pricing — V3 system-step multiplier',
+      'claims — V3 gates (registry + same Creator + same Parent)',
+    ],
+  },
+  '0x9680d815e3ba4fd78c5c1e6ea229abb03734e141': {
+    label: 'BureauMinter#2 (proxy)', ver: 'BR#2', parent: false,
+    rules: [
+      'parent — fixed: BUREAU ㉾',
+      'pricing — would be V3 (MV-charging proxy to V3.New)',
+      'creation structurally reverts: the proxy pulls your MV, then V3.New needs the PROXY\u2019s own MV allowance — never granted [chain; 0 children ever]. Fork-verified revert.',
+    ],
+  },
+  '0xc9be525a582b6f84d928b7901bd18b4315f8502b': {
+    label: 'BureauMinter#3 (proxy)', ver: 'BR#3', parent: false,
+    rules: [
+      'parent — fixed: BUREAU ㉾',
+      'pricing — would be V3 (MV-charging proxy to V3.New)',
+      'creation structurally reverts (same proxy flaw as BR#2) [chain; 0 children ever]. Fork-verified revert.',
+    ],
+  },
+  '0x5de29c8eac1482221de1945a566b6c65f54a3c3e': {
+    label: 'BureauMinter#4', ver: 'BR#4', parent: false,
+    rules: [
+      'parent — fixed: BUREAU ㉾',
+      'pricing — V3 system-step multiplier (solc-0.8.28 rebuild)',
+      'claims — V3 gates · 0 children ever — this factory is proven by bytecode diff only',
+    ],
+  },
 };
 ---
 
@@ -17,23 +66,19 @@ const MINTERS: Record<string, { label: string; ver: string; note: string; parent
   <p style="color:var(--fg-dim);max-width:64rem">
     Pure client-side tool: your injected wallet calls the minter factories and
     child tokens <b>directly</b> — no server, no keys, and no third-party
-    contract ever enters the path (helper contracts are&nbsp;
-    <a href="/contracts">studied but never integrated</a>). Cost previews come
+    contract ever enters the path. Cost previews come
     from live <span class="mono xs">Multiplier(uint256)</span> reads — the same
     math the contracts enforce. Creation is always paid in&nbsp;
     <b>MV</b> <span class="mono xs">0xA1BEe1daE9Af77dAC73aA0459eD63b4D93fC6d29</span>;
     mints are paid in the token's <b>parent</b>. New tokens are registered to&nbsp;
-    <span class="mono xs">tx.origin</span> — the EOA that signs.
+    <span class="mono xs">tx.origin</span> — the EOA that signs. Deep links work
+    everywhere: <span class="mono xs">/mint?token=0x…</span> opens mint-existing,
+    <span class="mono xs">/mint?minter=0x…</span> preselects a factory.
     Mechanics: <a href="/knowledge/mechanics/multipliers/">multipliers</a> ·&nbsp;
     <a href="/knowledge/mechanics/claim-and-publish/">claim &amp; publish</a>.
   </p>
 
-  <div class="panel">
-    <div class="x-controls">
-      <button id="w-connect" class="pgbtn">connect wallet</button>
-      <span id="w-status" class="mono xs" style="color:var(--fg-faint)">not connected</span>
-    </div>
-  </div>
+  <div class="panel" id="walletbar"></div>
 
   <script type="application/json" id="minter-map" set:html={JSON.stringify(MINTERS)}></script>
 
@@ -44,60 +89,48 @@ const MINTERS: Record<string, { label: string; ver: string; note: string; parent
     </div>
 
     <div id="pane-create" class="pane">
-      <div class="x-controls">
-        <label class="flabel">factory</label>
-        <select id="c-minter">
-          {Object.entries(MINTERS).map(([addr, m]) => (
-            <option value={addr}>{m.ver} — {m.label}</option>
-          ))}
-        </select>
-        <span id="c-minter-note" class="mono xs" style="color:var(--fg-faint)"></span>
+      <div id="c-cards" class="cards"></div>
+      <p class="mono xs" style="color:var(--fg-faint)">
+        every factory charges <b>InitialMint of MV</b> at creation (the parent is
+        never charged at birth) and mints InitialMint units to tx.origin — you.
+      </p>
+      <div class="x-controls" id="c-parent-row">
+        <label class="flabel">parent</label>
+        <input type="text" id="c-parent" placeholder="pick or paste — FED / MV / TBILL / any census token / 0x…" style="min-width:340px" autocomplete="off" />
+        <div id="c-parent-list" class="picklist"></div>
       </div>
       <div class="x-controls">
         <label class="flabel">name</label>
         <input type="text" id="c-name" placeholder="My Treasury Token" />
         <label class="flabel">symbol</label>
         <input type="text" id="c-symbol" placeholder="MTT" style="min-width:90px" />
-      </div>
-      <div class="x-controls">
         <label class="flabel">initial mint</label>
         <input type="text" id="c-im" placeholder="1000" style="min-width:140px" />
-        <span class="mono xs dim">MV units (18 dec) — this exact amount of MV is charged by New()</span>
-      </div>
-      <div class="x-controls" id="c-parent-row">
-        <label class="flabel">parent</label>
-        <input type="text" id="c-parent" placeholder="0x… or search census tokens / FED / MV / TBILL" style="min-width:340px" />
-        <div id="c-parent-list" class="picklist"></div>
-        <span class="mono xs dim">collateral/claim parent — any ERC-20 (V3/V4); V2: FED or a registered TT</span>
-      </div>
-      <div class="x-controls">
-        <button id="c-go" class="pgbtn">approve MV &amp; create</button>
         <span id="c-preview" class="mono xs"></span>
       </div>
-      <p class="mono xs" style="color:var(--fg-faint)">
-        the parent is not charged at creation — it matters for later mints
-        (paid in parent) and claim mechanics. Your child starts at multiplier
-        1× (V3/Bureau) or scales off this initial mint (V4).
-      </p>
+      <div class="x-controls">
+        <button id="c-go" class="pgbtn">review &amp; create</button>
+      </div>
+      <div id="c-flow"></div>
     </div>
 
     <div id="pane-mint" class="pane" style="display:none">
       <div class="x-controls">
         <label class="flabel">token</label>
-        <input type="text" id="m-token" placeholder="search 3,129 census tokens by name / symbol / address…" style="min-width:380px" />
+        <input type="text" id="m-token" placeholder="search 3,129 census tokens by name / symbol — or paste any 0x… address" style="min-width:380px" autocomplete="off" />
         <div id="m-token-list" class="picklist"></div>
       </div>
       <div id="m-facts" class="kv" style="margin:0.6rem 0"></div>
+      <div id="m-warn" class="note" style="display:none"></div>
       <div class="x-controls">
         <label class="flabel">amount</label>
         <input type="text" id="m-amount" placeholder="100" style="min-width:140px" />
         <span id="m-preview" class="mono xs"></span>
       </div>
       <div class="x-controls">
-        <button id="m-go" class="pgbtn">approve parent &amp; mint</button>
-        <span id="m-note" class="mono xs"></span>
+        <button id="m-go" class="pgbtn">review &amp; mint</button>
       </div>
-      <div id="m-warn" class="note" style="display:none"></div>
+      <div id="m-flow"></div>
     </div>
   </div>
 
@@ -111,7 +144,7 @@ const MINTERS: Record<string, { label: string; ver: string; note: string; parent
     <a href="/contracts">minter entity pages</a> (also&nbsp;
     <a href="/abi/tt-templates.json">/abi/tt-templates.json</a>) · pricing
     formulas [src] <a href="/knowledge/mechanics/multipliers/">multipliers</a> ·
-    this tool never touches MultiHop/Sweeper or any ownable helper — standing policy.
+    this tool never touches any third-party ownable contract — standing policy.
   </p>
 </Base>
 
@@ -123,25 +156,41 @@ const MINTERS: Record<string, { label: string; ver: string; note: string; parent
   }
   .pane { position: relative; }
   button.mode.active { color: var(--accent); border-color: var(--accent); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 0.6rem; margin: 0.6rem 0; }
 </style>
 <style is:global>
   .picklist div { padding: 0.2rem 0.5rem; cursor: pointer; font-size: 0.8rem; }
   .picklist div:hover { background: var(--bg2); color: var(--accent); }
+  .fcard { border: 1px solid var(--border); padding: 0.55rem 0.7rem; cursor: pointer; background: var(--bg2); }
+  .fcard:hover { border-color: var(--border-bright); }
+  .fcard.sel { border-color: var(--accent); background: var(--bg3); }
+  .fcard .fhead { display: flex; gap: 0.5rem; align-items: baseline; }
+  .fcard .fver { color: var(--accent); font-weight: 700; font-size: 0.8rem; }
+  .fcard .flabel { font-size: 0.85rem; }
+  .fcard ul { margin: 0.3rem 0 0; padding-left: 0.9rem; font-size: 0.74rem; color: var(--fg-dim); }
+  .fcard ul li { margin: 0.12rem 0; }
   .kv .ok { color: var(--accent); }
   .kv .bad { color: var(--red); }
+  .ladder { display: inline-flex; gap: 0.9rem; flex-wrap: wrap; }
+  .ladder span { white-space: nowrap; }
 </style>
 
 <script>
   import {
-    SEL, MV_ADDRESS, ethCall, decUint, decAddr, decString, encCall, parseUnits, formatUnits,
-    fmtBig, connectWallet, ensureChain, sendTx, waitTx, getProvider, shortAddr, tokenMeta,
-    abiEncodeNew3, abiEncodeNew4, decodeRevertData, replayRevert,
+    SEL, MV_ADDRESS, ethCall, decUint, encCall, formatUnits,
+    fmtBig, shortAddr, abiEncodeNew3, abiEncodeNew4, decodeRevertData, replayRevert,
+    sendTx, waitTx,
   } from '../lib/web3';
+  import { mountWalletBar } from '../lib/wallet';
+  import { attachResolver } from '../lib/resolver';
+  import { createFlow } from '../lib/flow';
+  import { TBILL, loadMintTarget, multiplierAt, parseAmount, runMint, EXPLORER } from '../lib/mintflow';
 
-  const MINTERS: Record<string, { label: string; ver: string; note: string; parent: boolean }> =
+  const MINTERS: Record<string, { label: string; ver: string; parent: boolean; rules: string[] }> =
     JSON.parse(document.getElementById('minter-map')!.textContent || '{}');
   const FED = '0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff';
-  const TBILL = '0x463413c579d29c26d59a65312657dfce30d545a1';
+  const MATH = '0xb680f0cc810317933f234f67eb6a9e923407f05d';
+  const RNG = '0xa96bcbed7f01de6ceed14fc86d90f21a36de2143';
 
   type Row = { a: string; n: string; s: string; v: string; cls: string; era: string; d: number; mult: number | null; liq: string; p: string | null; blk: number | null };
   let tokens: Row[] = [];
@@ -158,266 +207,276 @@ const MINTERS: Record<string, { label: string; ver: string; note: string; parent
     logEl.appendChild(line);
     logEl.scrollTop = logEl.scrollHeight;
   }
-  const link = (text: string, href: string) => `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
 
-  let wallet: { provider: any; address: string } | null = null;
+  const bar = mountWalletBar($('walletbar'));
+  bar.onChange(() => {
+    void previewCreate();
+    void refreshMintPreview();
+  });
 
-  async function connect() {
-    try {
-      const w = await connectWallet();
-      await ensureChain(w.provider);
-      wallet = w;
-      $('w-status').innerHTML = `<span style="color:var(--accent)">connected</span> ${shortAddr(w.address)} · PulseChain`;
-      log(`wallet connected: ${w.address}`, 'ok');
-      refreshPanes();
-    } catch (e: any) {
-      log(`wallet: ${e.message ?? e}`, 'err');
+  // ---------- create pane: factory cards ----------
+  let selMinter = Object.keys(MINTERS)[0];
+  const cardsEl = $('c-cards');
+  function renderCards() {
+    cardsEl.innerHTML = '';
+    for (const [addr, m] of Object.entries(MINTERS)) {
+      const c = document.createElement('div');
+      c.className = 'fcard' + (addr === selMinter ? ' sel' : '');
+      c.dataset.addr = addr;
+      c.innerHTML =
+        `<div class="fhead"><span class="fver">${m.ver}</span><span class="flabel">${m.label}</span></div>` +
+        `<ul>${m.rules.map((r) => `<li>${r}</li>`).join('')}</ul>`;
+      c.addEventListener('click', () => {
+        selMinter = addr;
+        renderCards();
+        $('c-parent-row').style.display = m.parent ? '' : 'none';
+        void previewCreate();
+      });
+      cardsEl.appendChild(c);
     }
+    $('c-parent-row').style.display = MINTERS[selMinter].parent ? '' : 'none';
   }
-  $('w-connect').addEventListener('click', connect);
+  renderCards();
 
-  // token picker (shared combobox)
-  function attachPicker(inputId: string, listId: string, onPick: (r: Row) => void, extra: { name: string; a: string }[] = []) {
-    const input = $(inputId) as HTMLInputElement;
-    const list = $(listId);
-    let items: { label: string; sub: string; a: string }[] = [];
-    function rebuild() {
-      const q = input.value.trim().toLowerCase();
-      const pool = [
-        ...extra.map((e) => ({ label: e.name, sub: 'fixed', a: e.a.toLowerCase() })),
-        ...tokens.map((t) => ({ label: `${(t.n || '(unnamed)').slice(0, 40)}${(t.n || '').length > 40 ? '…' : ''} (${(t.s || '·').slice(0, 16)}${(t.s || '').length > 16 ? '…' : ''})`, sub: `${t.v} · ${t.cls}`, a: t.a })),
-      ];
-      items = q
-        ? pool.filter((p) => p.label.toLowerCase().includes(q) || p.a.includes(q)).slice(0, 40)
-        : [];
-      if (!items.length) {
-        list.style.display = 'none';
-        return;
-      }
-      list.innerHTML = '';
-      for (const it of items) {
-        const d = document.createElement('div');
-        d.innerHTML = `${it.label} <span style="color:var(--fg-faint)">${it.sub} · ${it.a.slice(0, 10)}…</span>`;
-        d.addEventListener('mousedown', (ev) => {
-          ev.preventDefault();
-          input.value = it.a;
-          list.style.display = 'none';
-          const r = byAddr.get(it.a);
-          if (r) onPick(r);
-          else onPick({ a: it.a, n: it.label, s: '', v: '', cls: '', era: '', d: 18, mult: null, liq: '', p: null });
-        });
-        list.appendChild(d);
-      }
-      list.style.display = 'block';
-    }
-    input.addEventListener('input', rebuild);
-    input.addEventListener('focus', rebuild);
-    input.addEventListener('blur', () => setTimeout(() => (list.style.display = 'none'), 150));
-  }
-
-  // ---------- create pane ----------
-  const cMinter = $('c-minter') as HTMLSelectElement;
-  function minterInfo() {
-    return MINTERS[cMinter.value] ?? MINTERS[Object.keys(MINTERS)[0]];
-  }
-  function minterNote() {
-    const m = minterInfo();
-    $('c-minter-note').textContent = m.note;
-    $('c-parent-row').style.display = m.parent ? '' : 'none';
-  }
-  cMinter.addEventListener('change', () => { minterNote(); previewCreate(); });
-
-  attachPicker('c-parent', 'c-parent-list', () => previewCreate(), [
-    { name: 'FED', a: FED },
-    { name: 'MV', a: MV_ADDRESS },
-    { name: 'TBILL', a: TBILL },
-  ]);
-  for (const id of ['c-im', 'c-name', 'c-symbol']) $(id).addEventListener('input', previewCreate);
+  const parentResolver = attachResolver({
+    input: $('c-parent') as HTMLInputElement,
+    list: $('c-parent-list'),
+    rows: () => tokens,
+    byAddr: () => byAddr,
+    extras: [
+      { name: 'FED', a: FED, sub: 'reserve' },
+      { name: 'MV', a: MV_ADDRESS, sub: 'reserve' },
+      { name: 'TBILL', a: TBILL, sub: 'reserve' },
+    ],
+    onResolve: () => void previewCreate(),
+  });
 
   function imRaw(): bigint | null {
     try {
-      return parseUnits(($('c-im') as HTMLInputElement).value || '0', 18);
+      return parseAmount(($('c-im') as HTMLInputElement).value || '0', 18);
     } catch {
       return null;
     }
   }
+  for (const id of ['c-im', 'c-name', 'c-symbol']) $(id).addEventListener('input', () => void previewCreate());
 
   async function previewCreate() {
-    const m = minterInfo();
+    const m = MINTERS[selMinter];
     const raw = imRaw();
+    const pv = $('c-preview');
     if (raw === null) {
-      $('c-preview').innerHTML = '<span style="color:var(--red)">bad initial-mint number</span>';
+      if (($('c-im') as HTMLInputElement).value.trim() === '') { pv.textContent = ''; return; }
+      pv.innerHTML = '<span style="color:var(--red)">bad initial-mint number</span>';
       return;
     }
-    let s = `cost: ${formatUnits(raw, 18)} MV`;
-    if (wallet) {
+    if (!raw) { pv.textContent = ''; return; }
+    let s = `charge: ${formatUnits(raw, 18)} MV`;
+    const st = bar.state();
+    if (st.status === 'ready' && st.address) {
       try {
-        const al = decUint(await ethCall(MV_ADDRESS, encCall(SEL.allowance, [wallet.address, cMinter.value])));
-        s += al >= raw && raw > 0n ? ' · allowance ✓' : ' · allowance insufficient (approve will run first)';
-        const bal = decUint(await ethCall(MV_ADDRESS, encCall(SEL.balanceOf, [wallet.address])));
-        if (bal < raw) s += ` · <span style="color:var(--red)">MV balance ${formatUnits(bal, 18)} &lt; cost</span>`;
+        const [al, bal] = await Promise.all([
+          ethCall(MV_ADDRESS, encCall(SEL.allowance, [st.address, selMinter])).then(decUint),
+          ethCall(MV_ADDRESS, encCall(SEL.balanceOf, [st.address])).then(decUint),
+        ]);
+        s += al >= raw ? ' · allowance ✓' : ' · allowance insufficient (approve runs first)';
+        if (bal < raw) s += ` · <span style="color:var(--red)">MV balance ${formatUnits(bal, 18)} &lt; charge</span>`;
       } catch {}
     }
-    $('c-preview').innerHTML = s;
+    pv.innerHTML = s;
+  }
+
+  const createUiFlow = createFlow($('c-flow'), 'create flow — pick · review · approve MV · sign New() · receipt');
+
+  function recoverChild(receipt: any): string | null {
+    const topic = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+    for (const lg of receipt.logs ?? []) {
+      if (lg.topics?.[0] !== topic) continue;
+      if (lg.topics.length < 3 || lg.topics[1] !== '0x' + '0'.repeat(64)) continue;
+      const fromAddr = (lg.address ?? '').toLowerCase();
+      if (fromAddr === MATH || fromAddr === RNG) continue;
+      if (fromAddr === MV_ADDRESS || fromAddr === FED || fromAddr === TBILL) continue;
+      return fromAddr;
+    }
+    return null;
   }
 
   async function doCreate() {
-    if (!wallet) return log('connect a wallet first', 'err');
-    const m = minterInfo();
+    const m = MINTERS[selMinter];
     const name = ($('c-name') as HTMLInputElement).value.trim();
     const symbol = ($('c-symbol') as HTMLInputElement).value.trim();
     const raw = imRaw();
     if (!name || !symbol) return log('name and symbol are required', 'err');
-    if (raw === null || raw <= 0n) return log('initial mint must be a positive number', 'err');
-    let parent = ($('c-parent') as HTMLInputElement).value.trim().toLowerCase();
-    if (m.parent && !/^0x[0-9a-f]{40}$/.test(parent)) return log('enter a valid parent address (pick from the list or paste 0x…)', 'err');
+    if (!raw) return log('initial mint must be a positive number', 'err');
+    let parent = (parentResolver.current()?.addr ?? '').toLowerCase();
+    if (m.parent && !parent) return log('pick a parent (search, paste 0x…, or use the URL param)', 'err');
     if (!m.parent) parent = '';
+    createUiFlow.reset();
     try {
-      const al = decUint(await ethCall(MV_ADDRESS, encCall(SEL.allowance, [wallet.address, cMinter.value])));
-      if (al < raw) {
-        log(`approving ${formatUnits(raw, 18)} MV to ${m.label}…`);
-        const ah = await sendTx(wallet.provider, wallet.address, MV_ADDRESS, encCall(SEL.approve, [cMinter.value, raw]));
-        log(`approve tx ${link(ah, `https://ipfs.scan.pulsechain.com/tx/${ah}`)} — waiting…`);
-        const ar = await waitTx(wallet.provider, ah);
-        if (ar.status !== '0x1') return log('approve reverted — aborting', 'err');
-        log('approve confirmed', 'ok');
-      }
-      const data = m.parent
-        ? abiEncodeNew4(name, symbol, raw, parent)
-        : abiEncodeNew3(name, symbol, raw);
-      log(`sending ${m.label}.New("${name}", "${symbol}", ${formatUnits(raw, 18)}${m.parent ? ', parent ' + shortAddr(parent) : ''})…`);
-      const th = await sendTx(wallet.provider, wallet.address, cMinter.value, data);
-      log(`create tx ${link(th, `https://ipfs.scan.pulsechain.com/tx/${th}`)} — waiting…`);
-      const r = await waitTx(wallet.provider, th);
-      if (r.status === '0x1') {
-        log(`created ✓ block ${BigInt(r.blockNumber)} — your new token appears in /tokens after the next census catch-up; entity page link will resolve then`, 'ok');
+      const review = createUiFlow.step('review');
+      const parentNote = m.parent ? ` · parent ${shortAddr(parent)}` : ' · parent fixed BUREAU ㉾';
+      review.done(`New("${name}", "${symbol}", ${formatUnits(raw, 18)}${parentNote}) → ${m.label} — charge ${formatUnits(raw, 18)} MV, InitialMint units to you (tx.origin)`);
+
+      const res = await bar.readySend();
+      const al = decUint(await ethCall(MV_ADDRESS, encCall(SEL.allowance, [res.address, selMinter])));
+      const approve = createUiFlow.step('approve MV');
+      if (al >= raw) {
+        approve.skip(`allowance ${formatUnits(al, 18)} already covers the charge`);
       } else {
-        const why = await replayRevert(wallet.address, cMinter.value, data, r.blockNumber);
-        log(why ? `New() reverted onchain — decoded reason: ${why}` : 'New() reverted — common causes: MV allowance/balance, V2 parent not a registered TT (FuckOff)', 'err');
+        approve.active(`approving ${formatUnits(raw, 18)} MV to ${m.label} — confirm in your wallet`);
+        const ah = await sendTx(res.provider, res.address, MV_ADDRESS, encCall(SEL.approve, [selMinter, raw]));
+        log(`approve tx ${ah} — waiting…`);
+        const ar = await waitTx(res.provider, ah);
+        if (ar.status !== '0x1') {
+          approve.error('approve reverted');
+          throw new Error('approve reverted — aborting before create');
+        }
+        approve.done(`tx ${ah.slice(0, 10)}… confirmed — exact-amount approval (revoke any time by approving 0)`);
+      }
+
+      const data = m.parent ? abiEncodeNew4(name, symbol, raw, parent) : abiEncodeNew3(name, symbol, raw);
+      const sign = createUiFlow.step('sign New()');
+      sign.active('confirm in your wallet');
+      const th = await sendTx(res.provider, res.address, selMinter, data);
+      sign.active('tx sent — waiting for receipt');
+      const r = await waitTx(res.provider, th);
+      if (r.status === '0x1') {
+        sign.done(`tx ${th.slice(0, 10)}… confirmed — block ${BigInt(r.blockNumber)}`);
+        const rcpt = createUiFlow.step('receipt');
+        const child = recoverChild(r);
+        rcpt.done(
+          `created <b>${name} (${symbol})</b>` +
+          (child ? ` at <span class="mono xs">${child}</span> · <a href="${EXPLORER}/token/${child}" target="_blank" rel="noopener noreferrer">explorer↗</a> · entity page appears after the next census catch-up` : '') +
+          ` · <a href="${EXPLORER}/tx/${th}" target="_blank" rel="noopener noreferrer">tx ${th.slice(0, 12)}…↗</a>`,
+        );
+        log(`created ✓ child ${child ?? '(recover from receipt logs)'} — tx ${th}`, 'ok');
+      } else {
+        sign.error('New() reverted onchain');
+        const why = await replayRevert(res.address, selMinter, data, r.blockNumber);
+        const rcpt = createUiFlow.step('receipt');
+        rcpt.error(why ? `decoded reason: ${why}` : 'common causes: MV allowance/balance, V2 parent not a registered TT (FuckOff)');
+        log(`New() reverted — tx ${th}`, 'err');
       }
     } catch (e: any) {
       const dec = decodeRevertData(e);
       log(`create failed: ${dec ?? e.message ?? e}`, 'err');
+      createUiFlow.note(`failed: ${dec ?? e.message ?? e}`, 'err');
     }
   }
-  $('c-go').addEventListener('click', doCreate);
+  $('c-go').addEventListener('click', () => void doCreate());
 
   // ---------- mint pane ----------
-  let mintRow: Row | null = null;
-  let mintLive: { parent: string; parentDec: number; parentSym: string; mult: bigint | null; v: string } | null = null;
+  let target: Awaited<ReturnType<typeof loadMintTarget>> | null = null;
+  const mintFlow = createFlow($('m-flow'), 'mint flow — pick · review · approve parent · sign mint() · receipt');
 
-  attachPicker('m-token', 'm-token-list', (r) => { loadMintFacts(r); });
-  ($('m-amount') as HTMLInputElement).addEventListener('input', () => previewMint());
+  const tokenResolver = attachResolver({
+    input: $('m-token') as HTMLInputElement,
+    list: $('m-token-list'),
+    rows: () => tokens,
+    byAddr: () => byAddr,
+    onResolve: (r) => {
+      if (r) {
+        mintFlow.reset();
+        void loadMintFacts(r);
+      } else {
+        target = null;
+        mintFlow.reset();
+        $('m-facts').innerHTML = '';
+        $('m-warn').style.display = 'none';
+        $('m-preview').textContent = '';
+      }
+    },
+  });
 
-  async function loadMintFacts(r: Row) {
-    mintRow = r;
+  async function loadMintFacts(r: { addr: string; row: any; name: string; symbol: string; decimals: number; onchain: boolean }) {
     $('m-warn').style.display = 'none';
-    mintLive = null;
     const facts = $('m-facts');
+    if (!r.onchain) {
+      target = null;
+      facts.innerHTML = `<dd class="bad">no ERC-20 answers at ${r.addr} — not a token contract</dd>`;
+      return;
+    }
     facts.innerHTML = '<span class="dim">reading chain…</span>';
     try {
-      const parentHex = await ethCall(r.a, SEL.Parent);
-      const parent = decAddr(parentHex);
-      if (!parent) throw new Error('no Parent() — V1 children mint 1:1 vs TBILL directly');
-      const [pm, alw] = await Promise.all([
-        tokenMeta(parent),
-        ethCall(r.a, encCall(SEL.Multiplier, [0n])).then(decUint).catch(() => null),
-      ]);
-      mintLive = { parent, parentDec: pm.decimals, parentSym: pm.symbol || shortAddr(parent), mult: alw, v: r.v };
-      const cls = r.cls ? `<span class="tag">${r.cls}</span>` : '';
-      const liq = r.liq ? ` · liquidity: ${r.liq}` : '';
+      const t = await loadMintTarget(r.addr, r.row);
+      target = t;
+      const name = t.census ? t.name : r.name;
+      const sym = t.census ? t.symbol : r.symbol;
+      const cls = t.cls ? `<span class="tag">${t.cls}</span>` : '';
+      const liq = t.liq ? ` · liquidity: ${t.liq}` : '';
+      const gen = t.gen || (t.parent ? '' : 'V1*');
+      const pricing = !t.parent
+        ? 'flat 1:1 vs TBILL (V1 parity — no Parent getter, no multiplier, <span class="bad">no redemption path</span>)'
+        : t.hasMult
+          ? (t.mint0 !== null ? 'self-scaled multiplier (V4 — ladder step = own initial mint)' : 'system-step multiplier (V3 ladder — 1.111B-unit steps)')
+          : 'flat 1:1 vs parent (no multiplier)';
+      let ladder = '';
+      if (t.parent && t.hasMult && t.m0 !== null && t.step) {
+        const supply = decUint(await ethCall(t.addr, SEL.totalSupply));
+        const nextAt = t.m0 * t.step;
+        ladder = `<dt>multiplier ladder</dt><dd class="ladder"><span>now <b>${t.m0.toString()}×</b></span><span id="ladder-mint">this mint —</span><span>next +1× at supply ${fmtBig(nextAt, 0, 3)} (+${fmtBig(nextAt - supply, 0, 3)} more)</span></dd>`;
+      } else if (!t.parent) {
+        ladder = `<dt>multiplier ladder</dt><dd>none — parity pricing, always 1:1</dd>`;
+      } else if (t.parent) {
+        ladder = `<dt>multiplier ladder</dt><dd>none — flat era, always 1:1</dd>`;
+      }
       facts.innerHTML =
-        `<dt>token</dt><dd>${r.n || '(unnamed)'} (${r.s || '·'}) ${cls} ${r.v} ${liq} · <a href="/tokens/${r.a}">entity page</a></dd>` +
-        `<dt>parent</dt><dd>${mintLive.parentSym} <span class="mono xs">${parent}</span> (${pm.decimals} dec)</dd>` +
-        `<dt>current multiplier</dt><dd>${alw === null ? '1× (flat era / no getter)' : (alw.toString() + '×')}</dd>`;
+        `<dt>token</dt><dd><b>${name || '(unnamed)'}</b> (${sym || '·'}) ${cls} ${gen}${liq} · <a href="/tokens/${t.addr}">entity page</a></dd>` +
+        `<dt>pricing</dt><dd>${pricing}</dd>` +
+        (t.parent
+          ? `<dt>parent</dt><dd>${t.parentSym} <span class="mono xs">${t.parent}</span> (${t.parentDec} dec)</dd>`
+          : `<dt>parent</dt><dd><span class="bad">none readable</span> — V1 parity: mint charges TBILL <span class="mono xs">${TBILL}</span> 1:1${t.gen === 'V1' ? '' : ' (address not in census — assumed V1-parity template)'}</dd>`) +
+        ladder;
       const warn: string[] = [];
-      if (r.v === 'V2') warn.push('V2: if this token was never <a href="/knowledge/mechanics/claim-and-publish/">published</a>, it remains an eligible <b>claim key</b> against its siblings — acquiring/minting it has claim-side effects.');
-      if (parent === TBILL) warn.push('TBILL-parented: parent units you pay are locked with <b>no redemption path</b> (the permanent sink).');
-      if (r.liq === 'spine-only-paper') warn.push('liquidity reality: this token has never had a pool — value is spine-paper.');
+      if (!t.parent) warn.push('<b>permanent sink:</b> the TBILL paid at mint is locked forever — V1 children have no redemption path [src]. Nothing ever comes back out; claim tools will say the same.');
+      if (t.gen === 'V2') warn.push('V2: if this token was never <a href="/knowledge/mechanics/claim-and-publish/">published</a>, it remains an eligible <b>claim key</b> against its siblings — acquiring/minting it has claim-side effects.');
+      if (t.parent === TBILL && t.parent) warn.push('TBILL-parented: parent units you pay are locked with <b>no redemption path</b> (the permanent sink).');
+      if (t.liq === 'spine-only-paper') warn.push('liquidity reality: this token has never had a pool — value is spine-paper.');
       if (warn.length) {
         $('m-warn').innerHTML = warn.join('<br>');
         $('m-warn').style.display = '';
       }
-      previewMint();
+      void refreshMintPreview();
     } catch (e: any) {
       facts.innerHTML = `<dd class="bad">${e.message ?? e}</dd>`;
     }
   }
 
-  async function previewMint() {
+  async function refreshMintPreview() {
     const pv = $('m-preview');
-    if (!mintRow || !mintLive) {
-      pv.textContent = '';
-      return;
-    }
-    const amountEl = $('m-amount') as HTMLInputElement;
-    let amount: bigint;
-    try {
-      amount = parseUnits(amountEl.value || '0', mintRow.d ?? 18);
-    } catch {
-      pv.innerHTML = '<span style="color:var(--red)">bad amount</span>';
-      return;
-    }
-    if (amount <= 0n) {
-      pv.textContent = '';
-      return;
-    }
-    pv.textContent = 'reading chain…';
-    try {
-      let mult = 1n;
-      if (mintLive.mult !== null) {
-        try {
-          mult = decUint(await ethCall(mintRow.a, encCall(SEL.Multiplier, [amount])));
-        } catch {}
-      }
-      const cost = amount * mult;
-      pv.innerHTML = `cost: <b>${formatUnits(cost, mintLive.parentDec)} ${mintLive.parentSym}</b> (${formatUnits(amount, mintRow.d ?? 18)} × ${mult}×)`;
-    } catch (e: any) {
-      pv.innerHTML = `<span style="color:var(--red)">rpc: ${e.message ?? e}</span>`;
+    if (!target) { pv.textContent = ''; return; }
+    const amt = parseAmount(($('m-amount') as HTMLInputElement).value || '', target.decimals);
+    if (!amt) { pv.textContent = ''; return; }
+    const t = target;
+    const mult = await multiplierAt(t, amt);
+    const cost = amt * mult;
+    const paidLabel = t.parent ? t.parentSym : 'TBILL';
+    const paidDec = t.parent ? t.parentDec : 18;
+    pv.innerHTML = `cost: <b>${formatUnits(cost, paidDec)} ${paidLabel}</b> (${formatUnits(amt, t.decimals)} × ${mult.toString()}×)`;
+    const lm = document.getElementById('ladder-mint');
+    if (lm) {
+      const crossed = t.m0 !== null && mult > t.m0;
+      lm.innerHTML = crossed
+        ? `this mint <b style="color:var(--red)">${mult.toString()}× — crosses a step, the whole amount pays the new rate</b>`
+        : `this mint <b>${mult.toString()}×</b>`;
     }
   }
+  ($('m-amount') as HTMLInputElement).addEventListener('input', () => void refreshMintPreview());
 
   async function doMint() {
-    if (!wallet) return log('connect a wallet first', 'err');
-    if (!mintRow || !mintLive) return log('pick a census token first', 'err');
-    const amountEl = $('m-amount') as HTMLInputElement;
-    let amount: bigint;
+    if (!target) return log('pick a token first (search, paste 0x…, or use a /mint?token= link)', 'err');
+    const t = target;
+    const amt = parseAmount(($('m-amount') as HTMLInputElement).value || '', t.decimals);
+    if (!amt) return log('amount must be a positive number', 'err');
+    mintFlow.reset();
     try {
-      amount = parseUnits(amountEl.value || '0', mintRow.d ?? 18);
+      const r = await runMint({ bar, flow: mintFlow, log, target: t, amount: amt });
+      if (r.ok) void loadMintFacts({ addr: t.addr, row: byAddr.get(t.addr) ?? null, name: t.name, symbol: t.symbol, decimals: t.decimals, onchain: true });
     } catch (e: any) {
-      return log(`amount: ${e.message}`, 'err');
-    }
-    if (amount <= 0n) return log('amount must be positive', 'err');
-    const parent = mintLive.parent;
-    let mult = 1n;
-    if (mintLive.mult !== null) mult = decUint(await ethCall(mintRow.a, encCall(SEL.Multiplier, [amount])));
-    const cost = amount * mult;
-    try {
-      const al = decUint(await ethCall(parent, encCall(SEL.allowance, [wallet.address, mintRow.a])));
-      if (al < cost) {
-        log(`approving ${formatUnits(cost, mintLive.parentDec)} ${mintLive.parentSym} to ${shortAddr(mintRow.a)}…`);
-        const ah = await sendTx(wallet.provider, wallet.address, parent, encCall(SEL.approve, [mintRow.a, cost]));
-        log(`approve tx ${link(ah, `https://ipfs.scan.pulsechain.com/tx/${ah}`)} — waiting…`);
-        const ar = await waitTx(wallet.provider, ah);
-        if (ar.status !== '0x1') return log('approve reverted — aborting', 'err');
-        log('approve confirmed', 'ok');
-      }
-      log(`sending mint(${formatUnits(amount, mintRow.d ?? 18)}) → you receive that amount; parent cost ${formatUnits(cost, mintLive.parentDec)} ${mintLive.parentSym}…`);
-      const mintData = encCall(SEL.mint, [amount]);
-      const th = await sendTx(wallet.provider, wallet.address, mintRow.a, mintData);
-      log(`mint tx ${link(th, `https://ipfs.scan.pulsechain.com/tx/${th}`)} — waiting…`);
-      const r = await waitTx(wallet.provider, th);
-      if (r.status === '0x1') log('mint confirmed ✓', 'ok');
-      else {
-        const why = await replayRevert(wallet.address, mintRow.a, mintData, r.blockNumber);
-        log(why ? `mint() reverted onchain — decoded reason: ${why}` : 'mint() reverted — common causes: parent allowance/balance, multiplier moved (someone minted first)', 'err');
-      }
-    } catch (e: any) {
-      const dec = decodeRevertData(e);
-      log(`mint failed: ${dec ?? e.message ?? e}`, 'err');
+      log(`mint failed: ${e.message ?? e}`, 'err');
+      mintFlow.note(`failed: ${e.message ?? e}`, 'err');
     }
   }
-  $('m-go').addEventListener('click', doMint);
+  $('m-go').addEventListener('click', () => void doMint());
 
   // ---------- mode / deeplink / boot ----------
   function setMode(mode: 'create' | 'mint') {
@@ -429,10 +488,7 @@ const MINTERS: Record<string, { label: string; ver: string; note: string; parent
   $('mode-create').addEventListener('click', () => setMode('create'));
   $('mode-mint').addEventListener('click', () => setMode('mint'));
 
-  function refreshPanes() {
-    previewCreate();
-    if (mintRow) previewMint();
-  }
+  void previewCreate();
 
   fetch('/data/tokens_v2.compact.json')
     .then((r) => r.json())
@@ -442,23 +498,15 @@ const MINTERS: Record<string, { label: string; ver: string; note: string; parent
       const q = new URLSearchParams(location.search);
       const tok = q.get('token');
       const minter = q.get('minter');
-      if (tok && byAddr.has(tok.toLowerCase())) {
+      if (tok && /^0x[0-9a-fA-F]{40}$/.test(tok)) {
         setMode('mint');
-        ($('m-token') as HTMLInputElement).value = tok.toLowerCase();
-        loadMintFacts(byAddr.get(tok.toLowerCase())!);
+        void tokenResolver.resolve(tok, 'url');
       } else if (minter && MINTERS[minter.toLowerCase()]) {
         setMode('create');
-        (document.getElementById('c-minter') as HTMLSelectElement).value = minter.toLowerCase();
-        minterNote();
+        selMinter = minter.toLowerCase();
+        renderCards();
+        void previewCreate();
       }
     })
     .catch((e) => log('failed to load census bundle: ' + e, 'err'));
-
-  minterNote();
-  if (getProvider()) {
-    // silent reconnect attempt for returning users
-    getProvider()!.request({ method: 'eth_accounts' }).then((accs: string[]) => {
-      if (accs?.length) connect();
-    }).catch(() => {});
-  }
 </script>

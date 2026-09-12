@@ -1,32 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const V2_MINTER = '0xc15c5f699daf5e1135732139f05d2c05b3ef4354';
-const V3_MINTER = '0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc';
-const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
 ---
 
 <Base title="claim" active="claim">
-  <h1><span style="color:var(--fg-faint)">exec</span> /claim — claim locked collateral &amp; publish</h1>
+  <h1><span style="color:var(--fg-faint)">exec</span> /claim — claim locked collateral</h1>
   <p style="color:var(--fg-dim);max-width:64rem">
     Pure client-side tool: your injected wallet calls the treasury tokens&nbsp;
-    <b>directly</b> — no server, no keys, no third-party contract in the path
-    (helpers are <a href="/contracts">studied but never integrated</a>).
+    <b>directly</b> — no server, no keys, no third-party contract in the path.
     A <b>claim</b> surrenders a claim key and receives the payout token's
     locked <b>parent collateral 1:1</b>&nbsp;
     (<span class="mono xs">Recovery(Client, Contract, Amount)</span>) — the
-    exact inverse of <span class="mono xs">mint()</span>. <b>Publish</b>&nbsp;
-    exists only on V2 children. Every effect below is previewed&nbsp;
-    <b>before</b> the tx, from the corrected reference semantics
-    (<a href="/knowledge/mechanics/claim-and-publish/">claim &amp; publish</a>).
+    exact inverse of <span class="mono xs">mint()</span>. The eligibility
+    verdict below renders <b>before any wallet connect</b> — generation +
+    claim model are determined from the census and anonymous chain reads
+    (<a href="/knowledge/mechanics/claim-and-publish/">mechanics</a>).
+    <b>Publish</b> is a different action with a different audience — it has
+    its own tab.
   </p>
 
-  <div class="panel">
-    <div class="x-controls">
-      <button id="w-connect" class="pgbtn">connect wallet</button>
-      <span id="w-status" class="mono xs" style="color:var(--fg-faint)">not connected</span>
-    </div>
-  </div>
+  <div class="panel" id="walletbar"></div>
 
   <div class="panel">
     <div class="x-controls">
@@ -37,14 +29,24 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
     <div id="pane-claim" class="pane">
       <div class="x-controls">
         <label class="flabel">payout token</label>
-        <input type="text" id="cl-token" placeholder="search 3,129 census tokens by name / symbol / address… (the token whose locked parent pays out)" style="min-width:420px" />
+        <input type="text" id="cl-token" placeholder="search 3,129 census tokens — or paste any 0x… address (the token whose locked parent pays out)" style="min-width:420px" autocomplete="off" />
         <div id="cl-token-list" class="picklist"></div>
       </div>
+      <div id="cl-model" class="modelcard" style="display:none"></div>
       <div id="cl-facts" class="kv" style="margin:0.6rem 0"></div>
       <div id="cl-warn" class="note" style="display:none"></div>
+      <div id="cl-cands" class="panel inner" style="display:none">
+        <h3 style="margin:0 0 0.3rem">eligible key candidates <span id="cl-cands-n" style="color:var(--fg-faint);font-weight:400;font-size:0.8rem"></span></h3>
+        <div id="cl-cands-list"></div>
+        <p id="cl-cands-note" class="mono xs" style="color:var(--fg-faint);margin:0.4rem 0 0"></p>
+      </div>
+      <div id="cl-hold" class="panel inner" style="display:none">
+        <h3 style="margin:0 0 0.3rem">your position <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">(once connected)</span></h3>
+        <div id="cl-hold-body"></div>
+      </div>
       <div class="x-controls" id="cl-key-row">
         <label class="flabel">claim key</label>
-        <input type="text" id="cl-key" placeholder="the token you surrender — search census or paste 0x…" style="min-width:420px" />
+        <input type="text" id="cl-key" placeholder="the token you surrender — search census or paste 0x…" style="min-width:420px" autocomplete="off" />
         <div id="cl-key-list" class="picklist"></div>
       </div>
       <div id="cl-keyfacts" class="kv" style="margin:0.6rem 0"></div>
@@ -54,14 +56,15 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
         <span id="cl-preview" class="mono xs"></span>
       </div>
       <div class="x-controls">
-        <button id="cl-go" class="pgbtn">approve key &amp; claim</button>
+        <button id="cl-go" class="pgbtn">review &amp; claim</button>
       </div>
+      <div id="cl-flow"></div>
     </div>
 
     <div id="pane-publish" class="pane" style="display:none">
       <div class="x-controls">
         <label class="flabel">token</label>
-        <input type="text" id="p-token" placeholder="search the 1,560 V2 census children… (publish() exists on V2 templates only)" style="min-width:420px" />
+        <input type="text" id="p-token" placeholder="search the 1,560 V2 census children… (publish() exists on V2 templates only)" style="min-width:420px" autocomplete="off" />
         <div id="p-token-list" class="picklist"></div>
       </div>
       <div id="p-facts" class="kv" style="margin:0.6rem 0"></div>
@@ -71,8 +74,8 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
       </div>
       <div class="x-controls">
         <button id="p-go" class="pgbtn" disabled>publish()</button>
-        <span id="p-note" class="mono xs"></span>
       </div>
+      <div id="p-flow"></div>
       <p class="mono xs" style="color:var(--fg-faint)">
         V3/bureau templates have no publish() — their Debenture clears on the
         registered owner's first withdraw(); V4 has no Debenture at all
@@ -91,7 +94,7 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
     byte-verified vs web3.py · selectors re-derived from the recovered sources
     [src] · claim semantics verified onchain [chain] (FDIC published-at-birth
     with custody 0 — the publish-≠-protection + farm-spine terminal case) ·
-    this tool never routes through MultiHop/Sweeper or any ownable helper
+    this tool never routes through any third-party ownable contract
     — standing policy.
   </p>
 </Base>
@@ -104,28 +107,45 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
   }
   .pane { position: relative; }
   button.mode.active { color: var(--accent); border-color: var(--accent); }
+  .panel.inner { background: var(--bg2); border: 1px solid var(--border); padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
 </style>
 <style is:global>
   .picklist div { padding: 0.2rem 0.5rem; cursor: pointer; font-size: 0.8rem; }
   .picklist div:hover { background: var(--bg2); color: var(--accent); }
   .kv .ok { color: var(--accent); }
   .kv .bad { color: var(--red); }
+  .modelcard { border: 1px solid var(--border-bright); background: var(--bg2); padding: 0.6rem 0.8rem; margin: 0.6rem 0; }
+  .modelcard .mc-gen { color: var(--accent); font-weight: 700; }
+  .modelcard .mc-model { margin: 0.25rem 0 0; font-size: 0.88rem; }
+  .modelcard .mc-dead { color: var(--red); font-weight: 700; }
+  .candrow { display: flex; gap: 0.7rem; align-items: baseline; padding: 0.18rem 0; border-bottom: 1px dotted var(--border); flex-wrap: wrap; }
+  .candrow.use { cursor: pointer; }
+  .candrow.use:hover { background: var(--bg2); }
+  .candrow.use:hover a.cname { color: var(--accent); }
+  .candrow a.cname { min-width: 15rem; }
+  .candrow .why { font-size: 0.78rem; }
 </style>
 
 <script>
   import {
-    SEL, MV_ADDRESS, ethCall, decUint, decBool, decAddr, encCall, parseUnits, formatUnits,
-    fmtBig, connectWallet, ensureChain, sendTx, waitTx, getProvider, shortAddr, tokenMeta,
+    SEL, ethCall, decUint, decBool, decAddr, encCall, parseUnits, formatUnits,
+    shortAddr, tokenMeta, sendTx, waitTx, decodeRevertData, replayRevert,
   } from '../lib/web3';
+  import { mountWalletBar } from '../lib/wallet';
+  import { attachResolver } from '../lib/resolver';
+  import { createFlow } from '../lib/flow';
+  import { TBILL } from '../lib/mintflow';
 
   const V2M = '0xc15c5f699daf5e1135732139f05d2c05b3ef4354';
   const V3M = '0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc';
   const V1M = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
-  const TBILL = '0x463413c579d29c26d59a65312657dfce30d545a1';
+  const EXPLORER = 'https://ipfs.scan.pulsechain.com';
+  const MAX_CANDS = 24;
 
   type Row = { a: string; n: string; s: string; v: string; cls: string; era: string; d: number; mult: number | null; liq: string; p: string | null; blk: number | null };
   let tokens: Row[] = [];
   let byAddr: Map<string, Row> = new Map();
+  let children: Map<string, Row[]> = new Map();
 
   const $ = (id: string) => document.getElementById(id) as HTMLElement;
   const logEl = $('txlog');
@@ -138,79 +158,26 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
     logEl.appendChild(line);
     logEl.scrollTop = logEl.scrollHeight;
   }
-  const link = (text: string, href: string) => `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
 
-  let wallet: { provider: any; address: string } | null = null;
-
-  async function connect() {
-    try {
-      const w = await connectWallet();
-      await ensureChain(w.provider);
-      wallet = w;
-      $('w-status').innerHTML = `<span style="color:var(--accent)">connected</span> ${shortAddr(w.address)} · PulseChain`;
-      log(`wallet connected: ${w.address}`, 'ok');
-      refreshPanes();
-    } catch (e: any) {
-      log(`wallet: ${e.message ?? e}`, 'err');
+  const bar = mountWalletBar($('walletbar'));
+  bar.onChange(() => {
+    if (cl) {
+      void scanHoldings();
+      if (ks && keyAddr) void loadKeyFacts(ks.k, keyAddr);
+      if (ps) void loadPubFacts(ps.x);
     }
-  }
-  $('w-connect').addEventListener('click', connect);
-
-  function attachPicker(inputId: string, listId: string, onPick: (r: Row | null, addr: string) => void, filter?: (r: Row) => boolean) {
-    const input = $(inputId) as HTMLInputElement;
-    const list = $(listId);
-    let lastPicked = '';
-    let debounce: ReturnType<typeof setTimeout> | null = null;
-    function rebuild() {
-      const q = input.value.trim().toLowerCase();
-      const pool = tokens.filter((t) => (filter ? filter(t) : true)).map((t) => ({ label: `${(t.n || '(unnamed)').slice(0, 40)}${(t.n || '').length > 40 ? '…' : ''} (${(t.s || '·').slice(0, 16)}${(t.s || '').length > 16 ? '…' : ''})`, sub: `${t.v} · ${t.cls}`, a: t.a }));
-      const items = q
-        ? pool.filter((p) => p.label.toLowerCase().includes(q) || p.a.includes(q)).slice(0, 40)
-        : [];
-      if (!items.length) {
-        list.style.display = 'none';
-        return;
-      }
-      list.innerHTML = '';
-      for (const it of items) {
-        const d = document.createElement('div');
-        d.innerHTML = `${it.label} <span style="color:var(--fg-faint)">${it.sub} · ${it.a.slice(0, 10)}…</span>`;
-        d.addEventListener('mousedown', (ev) => {
-          ev.preventDefault();
-          input.value = it.a;
-          lastPicked = it.a;
-          list.style.display = 'none';
-          onPick(byAddr.get(it.a) ?? null, it.a);
-        });
-        list.appendChild(d);
-      }
-      list.style.display = 'block';
-    }
-    input.addEventListener('input', () => {
-      rebuild();
-      if (debounce) clearTimeout(debounce);
-      debounce = setTimeout(() => {
-        const v = input.value.trim().toLowerCase();
-        if (/^0x[0-9a-f]{40}$/.test(v) && v !== lastPicked) {
-          lastPicked = v;
-          onPick(byAddr.get(v) ?? null, v);
-        }
-      }, 400);
-    });
-    input.addEventListener('focus', rebuild);
-    input.addEventListener('blur', () => setTimeout(() => (list.style.display = 'none'), 150));
-  }
-
-  function rowOrAddr(v: string): Row {
-    const r = byAddr.get(v.trim().toLowerCase());
-    if (r) return r;
-    return { a: v.trim().toLowerCase(), n: v.trim().toLowerCase(), s: '', v: '', cls: '', era: '', d: 18, mult: null, liq: '', p: null };
-  }
+  });
 
   // ---------- claim pane ----------
+  type Kind = 'v1' | 'v2' | 'v3' | 'v4';
   type ClaimState = {
-    kind: 'v1' | 'v2' | 'v3' | 'v4';
-    x: Row;
+    kind: Kind;
+    genLabel: string;
+    census: boolean;
+    addr: string;
+    name: string;
+    symbol: string;
+    row: Row | null;
     parent: string | null;
     parentDec: number;
     parentSym: string;
@@ -231,58 +198,131 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
   } | null;
   let ks: KeyState = null;
 
-  attachPicker('cl-token', 'cl-token-list', (r) => { if (r) loadClaimFacts(r); });
+  type Cand = { row: Row; elig: boolean | null; why: string; bal: bigint | null };
+  let cands: Cand[] = [];
+
+  const claimFlow = createFlow($('cl-flow'), 'claim flow — pick · review key · approve · sign Claim() · receipt');
+
+  const tokenResolver = attachResolver({
+    input: $('cl-token') as HTMLInputElement,
+    list: $('cl-token-list'),
+    rows: () => tokens,
+    byAddr: () => byAddr,
+    onResolve: (r) => {
+      if (r) void loadClaimFacts(r);
+      else {
+        cl = null;
+        ks = null;
+        keyAddr = null;
+        cands = [];
+        $('cl-facts').innerHTML = '';
+        $('cl-model').style.display = 'none';
+        $('cl-warn').style.display = 'none';
+        $('cl-cands').style.display = 'none';
+        $('cl-hold').style.display = 'none';
+        $('cl-preview').textContent = '';
+      }
+    },
+  });
 
   function regOwner(minter: string, ctx: string): Promise<string | null> {
     return ethCall(minter, encCall(SEL.TreasuryTokens, [ctx])).then(decAddr).catch(() => null);
   }
 
-  async function loadClaimFacts(r: Row) {
+  async function inferKind(addr: string): Promise<Kind | null> {
+    let parent: string | null = null;
+    try {
+      parent = decAddr(await ethCall(addr, SEL.Parent));
+    } catch {}
+    if (!parent) return 'v1';
+    const mult = await ethCall(addr, encCall(SEL.Multiplier, [0n])).then(decUint).catch(() => null);
+    if (mult === null) return 'v2';
+    const mint0 = await ethCall(addr, SEL.Mint).then(decUint).catch(() => null);
+    return mint0 !== null ? 'v4' : 'v3';
+  }
+
+  const MODEL_TEXT: Record<Kind, string> = {
+    v1: '<span class="mc-dead">no claim path exists.</span> V1 children are parity locks: the TBILL paid at mint() is held forever — no Claim, no publish, no withdraw. The only onchain action is adding more TBILL via <a href="/mint?token={A}">/mint</a>.',
+    v2: '<b>open-sibling model.</b> Key = <b>any unpublished V2 child</b> (registry + Debenture&nbsp;=&nbsp;true) <b>or any V1-registry token</b> (fallback path — no Debenture check [src]). No same-parent requirement, no same-creator requirement — and <b>no TBILL-parent guard</b> (V3/V4 carry one; V2 does not [src]). Claims on this token continue whether or not it was ever published.',
+    v3: '<b>gated model.</b> Key must pass all three gates [src]: V3 registry ✓ same <span class="mono xs">Creator()</span> ✓ same <span class="mono xs">Parent()</span> ✓. The payout side must be unpublished (<span class="mono xs">Debenture</span> = true — the registered owner\u2019s withdraw() clears it) and must not be TBILL-parented (guard reverts).',
+    v4: '<b>self-redeem model.</b> No keys at all: burn your own units via <span class="mono xs">Claim(uint256)</span>, the parent pays 1:1 — capped by the custody locked inside. TBILL-parented V4s revert (guard). No publish (no Debenture).',
+  };
+
+  async function loadClaimFacts(r: { addr: string; row: Row | null; name: string; symbol: string; decimals: number; onchain: boolean }) {
     cl = null;
     ks = null;
     keyAddr = null;
+    cands = [];
     ($('cl-key') as HTMLInputElement).value = '';
+    keyResolverClear();
     $('cl-keyfacts').innerHTML = '';
     $('cl-warn').style.display = 'none';
     $('cl-preview').textContent = '';
+    $('cl-cands').style.display = 'none';
+    $('cl-hold').style.display = 'none';
     const facts = $('cl-facts');
+    const model = $('cl-model');
+    model.style.display = 'none';
+    if (!r.onchain) {
+      facts.innerHTML = `<dd class="bad">no ERC-20 answers at ${r.addr} — not a token contract</dd>`;
+      return;
+    }
     facts.innerHTML = '<span class="dim">reading chain…</span>';
-    const kind = r.v === 'V1' ? 'v1' : r.v === 'V2' ? 'v2' : r.v === 'V4' ? 'v4' : 'v3';
+    const row = r.row;
+    let kind: Kind;
+    if (row) {
+      kind = row.v === 'V1' ? 'v1' : row.v === 'V2' ? 'v2' : row.v === 'V4' ? 'v4' : 'v3';
+    } else {
+      const inf = await inferKind(r.addr);
+      if (!inf) {
+        facts.innerHTML = `<dd class="bad">${r.addr} answers no template probes (Parent/Multiplier) — not a treasury template</dd>`;
+        return;
+      }
+      kind = inf;
+    }
     try {
       if (kind === 'v1') {
-        const tb = decUint(await ethCall(TBILL, encCall(SEL.balanceOf, [r.a])).catch(() => '0x'));
-        cl = { kind, x: r, parent: TBILL, parentDec: 18, parentSym: 'TBILL', custody: tb, deb: null, creator: null };
-        const cls = r.cls ? `<span class="tag">${r.cls}</span>` : '';
+        const tb = decUint(await ethCall(TBILL, encCall(SEL.balanceOf, [r.addr])).catch(() => '0x'));
+        cl = { kind, genLabel: row ? 'V1' : 'V1 (inferred live)', census: !!row, addr: r.addr, name: r.name, symbol: r.symbol, row, parent: TBILL, parentDec: 18, parentSym: 'TBILL', custody: tb, deb: null, creator: null };
+        model.innerHTML = `<span class="mc-gen">${cl.genLabel}</span> · claim model: ${MODEL_TEXT.v1.replace('{A}', r.addr)}`;
+        model.style.display = '';
+        const cls = row?.cls ? `<span class="tag">${row.cls}</span>` : '';
         facts.innerHTML =
-          `<dt>payout token</dt><dd>${r.n || '(unnamed)'} (${r.s || '·'}) ${cls} V1 · <a href="/tokens/${r.a}">entity page</a></dd>` +
+          `<dt>payout token</dt><dd>${r.name || '(unnamed)'} (${r.symbol || '·'}) ${cls} ${cl.genLabel}${row ? '' : ' — not in the census, generation inferred from live probes'} · ${row ? `<a href="/tokens/${r.addr}">entity page</a>` : `<a href="${EXPLORER}/token/${r.addr}" target="_blank" rel="noopener noreferrer">explorer↗</a>`}</dd>` +
           `<dt>redemption</dt><dd><span class="bad">none — parity lock</span> (mint pays TBILL 1:1 in; no Claim/publish/withdraw exists)</dd>` +
           `<dt>TBILL locked inside</dt><dd>${formatUnits(tb, 18)} — permanently sunk</dd>`;
         $('cl-key-row').style.display = 'none';
-        $('cl-warn').innerHTML = 'V1 children are <b>parity-locked permanent sinks</b> [src]: the TBILL paid at mint is locked with no redemption path — use <a href="/mint?token=' + r.a + '">/mint</a> to add more, nothing ever comes back out.';
+        $('cl-warn').innerHTML = 'V1 children are <b>parity-locked permanent sinks</b> [src]: the TBILL paid at mint is locked with no redemption path — use <a href="/mint?token=' + r.addr + '">/mint</a> to add more, nothing ever comes back out.';
         $('cl-warn').style.display = '';
         return;
       }
       let parent: string | null = null;
       try {
-        parent = decAddr(await ethCall(r.a, SEL.Parent));
+        parent = decAddr(await ethCall(r.addr, SEL.Parent));
       } catch {}
-      if (!parent && r.p) parent = r.p;
+      if (!parent && row?.p) parent = row.p;
       if (!parent) throw new Error('no Parent() readable on this token');
       const [pm, custRaw, debRaw] = await Promise.all([
         tokenMeta(parent),
-        ethCall(parent, encCall(SEL.balanceOf, [r.a])).then(decUint).catch(() => null),
-        kind === 'v2' || kind === 'v3' ? ethCall(r.a, SEL.Debenture).then(decBool).catch(() => null) : Promise.resolve(null),
+        ethCall(parent, encCall(SEL.balanceOf, [r.addr])).then(decUint).catch(() => null),
+        kind === 'v2' || kind === 'v3' ? ethCall(r.addr, SEL.Debenture).then(decBool).catch(() => null) : Promise.resolve(null),
       ]);
-      const creator = kind === 'v3' ? decAddr(await ethCall(r.a, SEL.Creator).catch(() => '0x')) : null;
-      cl = { kind, x: r, parent, parentDec: pm.decimals, parentSym: pm.symbol || shortAddr(parent), custody: custRaw, deb: debRaw, creator };
-      const cls = r.cls ? `<span class="tag">${r.cls}</span>` : '';
-      const liq = r.liq ? ` · liquidity: ${r.liq}` : '';
+      const creator = kind === 'v3' || kind === 'v4' ? decAddr(await ethCall(r.addr, SEL.Creator).catch(() => '0x')) : null;
+      cl = { kind, genLabel: row ? (row.v === 'BureauMinter#1' ? 'BureauMinter#1' : row.v) : (kind === 'v2' ? 'V2 (inferred live)' : kind === 'v3' ? 'V3 (inferred live)' : 'V4 (inferred live)'), census: !!row, addr: r.addr, name: r.name, symbol: r.symbol, row, parent, parentDec: pm.decimals, parentSym: pm.symbol || shortAddr(parent), custody: custRaw, deb: debRaw, creator };
+      model.innerHTML =
+        `<span class="mc-gen">${cl.genLabel}</span> · claim model: ${MODEL_TEXT[kind]}` +
+        (cl.kind === 'v3' && row?.v === 'BureauMinter#1'
+          ? ' Bureau child note: the gates read the <b>real V3 registry</b> (the template\u2019s IndexMinter pointer) with Parent&nbsp;=&nbsp;BUREAU — bureau children themselves are registered only on the bureau minter, so they cannot serve as keys [src].'
+          : '');
+      model.style.display = '';
+      const cls = row?.cls ? `<span class="tag">${row.cls}</span>` : '';
+      const liq = row?.liq ? ` · liquidity: ${row.liq}` : '';
       facts.innerHTML =
-        `<dt>payout token</dt><dd>${r.n || '(unnamed)'} (${r.s || '·'}) ${cls} ${r.v} ${liq} · <a href="/tokens/${r.a}">entity page</a></dd>` +
+        `<dt>payout token</dt><dd>${r.name || '(unnamed)'} (${r.symbol || '·'}) ${cls} ${cl.genLabel}${liq}${row ? '' : ' — generation inferred from live probes'} · ${row ? `<a href="/tokens/${r.addr}">entity page</a>` : `<a href="${EXPLORER}/token/${r.addr}" target="_blank" rel="noopener noreferrer">explorer↗</a>`}</dd>` +
         `<dt>parent collateral</dt><dd>${cl.parentSym} <span class="mono xs">${parent}</span> (${pm.decimals} dec)</dd>` +
         `<dt>locked custody</dt><dd>${custRaw === null ? '—' : `${formatUnits(custRaw, pm.decimals)} ${cl.parentSym} held inside the token`}</dd>` +
         (kind === 'v2' || kind === 'v3' ? `<dt>Debenture</dt><dd>${debRaw === null ? '—' : debRaw ? 'true' : 'false'}</dd>` : '') +
-        (kind === 'v3' ? `<dt>Creator</dt><dd>${creator ?? '—'}</dd>` : '');
+        (creator ? `<dt>Creator</dt><dd>${creator}</dd>` : '');
       const warn: string[] = [];
       $('cl-key-row').style.display = kind === 'v4' ? 'none' : '';
       if (parent === TBILL && kind !== 'v2') warn.push(`parent is TBILL: Claim reverts on this token (TreasuryBillContract guard) — a permanent sink.`);
@@ -300,12 +340,161 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
         $('cl-warn').style.display = 'none';
       }
       previewClaim();
+      void loadCandidates();
+      void scanHoldings();
     } catch (e: any) {
       facts.innerHTML = `<dd class="bad">${e.message ?? e}</dd>`;
     }
   }
 
-  attachPicker('cl-key', 'cl-key-list', (r, addr) => { keyAddr = addr; loadKeyFacts(r, addr); });
+  // ---------- sibling key candidates (pre-connect eligibility) ----------
+  async function evalCand(c: Row, c2: NonNullable<ClaimState>): Promise<{ elig: boolean | null; why: string }> {
+    if (c2.kind === 'v2') {
+      if (c.v !== 'V2') return { elig: null, why: `${c.v} sibling — only V2/V1-registry tokens can be keys here` };
+      const deb = decBool(await ethCall(c.a, SEL.Debenture).catch(() => '0x'));
+      return deb
+        ? { elig: true, why: 'unpublished V2 sibling — live key' }
+        : { elig: false, why: 'published sibling — its key role was removed' };
+    }
+    if (c.v !== 'V3') return { elig: null, why: `${c.v === 'BureauMinter#1' ? 'bureau child (bureau registry, not V3)' : c.v} — not in the V3 registry` };
+    const kCreator = decAddr(await ethCall(c.a, SEL.Creator).catch(() => '0x'));
+    const same = !!kCreator && !!c2.creator && kCreator === c2.creator;
+    return same
+      ? { elig: true, why: 'V3 registry ✓ same Creator ✓ same Parent ✓ (all gates pass)' }
+      : { elig: false, why: `different Creator (${kCreator ? kCreator.slice(0, 10) + '…' : '—'} vs ${c2.creator ? c2.creator.slice(0, 10) + '…' : '—'}) — gate fails` };
+  }
+
+  async function loadCandidates() {
+    if (!cl || cl.kind === 'v1' || cl.kind === 'v4' || !cl.row?.p) {
+      $('cl-cands').style.display = 'none';
+      return;
+    }
+    const c2 = cl;
+    const sibs = (children.get(c2.row!.p!) ?? []).filter((s) => s.a !== c2.addr);
+    const box = $('cl-cands');
+    const listEl = $('cl-cands-list');
+    if (!sibs.length) {
+      $('cl-cands-n').textContent = '';
+      listEl.innerHTML = '<p class="dim" style="margin:0">no census siblings under this parent — resolve any key manually below.</p>';
+      $('cl-cands-note').textContent = c2.kind === 'v2'
+        ? 'the V2 model is open: ANY unpublished V2 child or V1-registry token qualifies — siblings are just the intuitive candidates.'
+        : 'the V3 model requires same Creator + same Parent — keys normally come from the same minter run.';
+      box.style.display = '';
+      return;
+    }
+    $('cl-cands-n').textContent = `(same-parent siblings, first ${Math.min(MAX_CANDS, sibs.length)} checked live — click a row to use it as the key)`;
+    listEl.innerHTML = '<span class="dim">checking sibling eligibility onchain…</span>';
+    box.style.display = '';
+    const out: Cand[] = [];
+    for (const s of sibs.slice(0, MAX_CANDS)) {
+      const v = await evalCand(s, c2);
+      out.push({ row: s, elig: v.elig, why: v.why, bal: null });
+    }
+    cands = out;
+    listEl.innerHTML = '';
+    const sorted = [...out].sort((a, b) => (b.elig === true ? 1 : 0) - (a.elig === true ? 1 : 0));
+    for (const c of sorted) {
+      const rowEl = document.createElement('div');
+      rowEl.className = 'candrow' + (c.elig === true ? ' use' : '');
+      const mark = c.elig === true ? '<span class="ok" style="color:var(--accent)">✓ key</span>' : c.elig === false ? '<span class="bad" style="color:var(--red)">✗</span>' : '<span class="dim">·</span>';
+      rowEl.innerHTML =
+        `${mark} <a class="cname" href="#" data-a="${c.row.a}">${c.row.n || '(unnamed)'} (${c.row.s || '·'})</a>` +
+        `<span class="tag">${c.row.cls}</span>` +
+        `<span class="mono xs dim">${c.row.v}</span>` +
+        `<span class="why">${c.why}</span>` +
+        `<span class="mono xs" style="color:var(--fg-faint)" data-bal="${c.row.a}"></span>`;
+      if (c.elig === true) {
+        (rowEl.querySelector('a.cname') as HTMLAnchorElement).addEventListener('click', (ev) => {
+          ev.preventDefault();
+          void keyResolver.resolve(c.row.a, 'pick');
+        });
+      } else {
+        (rowEl.querySelector('a.cname') as HTMLAnchorElement).addEventListener('click', (ev) => ev.preventDefault());
+      }
+      listEl.appendChild(rowEl);
+    }
+    $('cl-cands-note').textContent = c2.kind === 'v2'
+      ? 'any unpublished V2 child or V1-registry token is also a key (open model) — resolve it manually below; siblings are the intuitive candidates.'
+      : 'census V3 children are registry members by construction; the same-Parent gate holds by siblinghood.';
+    if (sibs.length > MAX_CANDS) {
+      $('cl-cands-note').textContent += ` ${sibs.length - MAX_CANDS} further siblings unchecked — resolve manually if needed.`;
+    }
+    void scanHoldings();
+  }
+
+  // ---------- your position (once connected) ----------
+  async function scanHoldings() {
+    const box = $('cl-hold');
+    const body = $('cl-hold-body');
+    const st = bar.state();
+    if (!cl || st.status !== 'ready' || !st.address) {
+      box.style.display = 'none';
+      return;
+    }
+    const c2 = cl;
+    const who = st.address;
+    box.style.display = '';
+    if (c2.kind === 'v4') {
+      const balRaw = await ethCall(c2.addr, encCall(SEL.balanceOf, [who])).then(decUint).catch(() => null);
+      const max = balRaw !== null && c2.custody !== null ? (balRaw < c2.custody ? balRaw : c2.custody) : null;
+      body.innerHTML =
+        `<dl class="kv">` +
+        `<dt>your ${c2.symbol || 'token'} balance</dt><dd>${balRaw === null ? '—' : formatUnits(balRaw, c2.row?.d ?? 18)}</dd>` +
+        `<dt>self-redeemable now</dt><dd>${max === null || max <= 0n ? '<span class="bad">0 — nothing to redeem</span>' : `${formatUnits(max, c2.row?.d ?? 18)} → receives ${formatUnits(max, c2.parentDec)} ${c2.parentSym} 1:1`}</dd>` +
+        `</dl>`;
+      return;
+    }
+    const elig = cands.filter((c) => c.elig === true).slice(0, MAX_CANDS);
+    if (!elig.length) {
+      body.innerHTML = '<p class="dim" style="margin:0">no eligible sibling candidates to scan — resolve a key manually below.</p>';
+      return;
+    }
+    const held: { c: Cand; bal: bigint }[] = [];
+    for (const c of elig) {
+      const b = decUint(await ethCall(c.row.a, encCall(SEL.balanceOf, [who])).catch(() => '0x'));
+      if (b > 0n) {
+        c.bal = b;
+        held.push({ c, bal: b });
+      }
+      const cell = document.querySelector(`[data-bal="${c.row.a}"]`);
+      if (cell && b > 0n) cell.innerHTML = `· you hold <b>${formatUnits(b, c.row.d ?? 18)}</b>`;
+    }
+    if (!held.length) {
+      body.innerHTML = '<p class="dim" style="margin:0">you hold none of the eligible sibling keys above — acquire one (or any unpublished V2 / V1-registry token, for V2 payouts) to claim.</p>';
+      return;
+    }
+    const rows = held.map(({ c, bal }) => {
+      const max = c2.custody !== null && bal > c2.custody ? c2.custody : bal;
+      return `<dt>${c.row.n || '(unnamed)'} (${c.row.s || '·'})</dt><dd>you hold ${formatUnits(bal, c.row.d ?? 18)} — max claim ${formatUnits(max, c.row.d ?? 18)} → receives ${formatUnits(max, c2.parentDec)} ${c2.parentSym}${c2.custody !== null && bal > c2.custody ? ' (custody-capped)' : ''} · <a href="#" class="usekey" data-a="${c.row.a}">use this key</a></dd>`;
+    });
+    body.innerHTML = `<dl class="kv">${rows.join('')}</dl>`;
+    for (const el of Array.from(document.querySelectorAll<HTMLAnchorElement>('a.usekey'))) {
+      el.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        void keyResolver.resolve(el.dataset.a!, 'pick');
+      });
+    }
+  }
+
+  // ---------- manual key resolver ----------
+  let keyResolverApi: { clear(): void } | null = null;
+  function keyResolverClear() {
+    keyResolverApi?.clear();
+  }
+
+  const keyResolver = attachResolver({
+    input: $('cl-key') as HTMLInputElement,
+    list: $('cl-key-list'),
+    rows: () => tokens,
+    byAddr: () => byAddr,
+    onResolve: (r) => {
+      keyAddr = r?.addr ?? null;
+      if (r) void loadKeyFacts(r.row, r.addr);
+      else $('cl-keyfacts').innerHTML = '';
+    },
+  });
+  keyResolverApi = keyResolver;
+
   ($('cl-amount') as HTMLInputElement).addEventListener('input', () => previewClaim());
 
   async function loadKeyFacts(r: Row | null, addr: string) {
@@ -317,7 +506,7 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
     try {
       const [km, balRaw] = await Promise.all([
         tokenMeta(addr),
-        wallet ? ethCall(addr, encCall(SEL.balanceOf, [wallet.address])).then(decUint).catch(() => null) : Promise.resolve(null),
+        bar.state().address ? ethCall(addr, encCall(SEL.balanceOf, [bar.state().address!])).then(decUint).catch(() => null) : Promise.resolve(null),
       ]);
       let verdict = '';
       let eligible: boolean | null = null;
@@ -365,7 +554,7 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
   function previewClaim() {
     const pv = $('cl-preview');
     if (!cl) { pv.textContent = ''; return; }
-    const dec = cl.kind === 'v4' ? (cl.x.d ?? 18) : (ks?.dec ?? 18);
+    const dec = cl.kind === 'v4' ? (cl.row?.d ?? 18) : (ks?.dec ?? 18);
     let amount: bigint;
     try {
       amount = parseUnits(($('cl-amount') as HTMLInputElement).value || '0', dec);
@@ -387,44 +576,68 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
   }
 
   async function doClaim() {
-    if (!wallet) return log('connect a wallet first', 'err');
     if (!cl || cl.kind === 'v1') return log('pick a claimable token first', 'err');
+    claimFlow.reset();
     try {
       if (cl.kind === 'v4') {
-        const amount = parseUnits(($('cl-amount') as HTMLInputElement).value || '0', cl.x.d ?? 18);
+        const amount = parseUnits(($('cl-amount') as HTMLInputElement).value || '0', cl.row?.d ?? 18);
         if (amount <= 0n) return log('amount must be positive', 'err');
-        await runClaim(cl.x.a, amount, cl.x.a, true);
+        await runClaim(cl.addr, amount, cl.addr, true);
       } else {
         if (!ks || !keyAddr) return log('pick a claim key first', 'err');
         if (ks.eligible === false) return log('this key is not eligible — see the eligibility panel', 'err');
         const amount = parseUnits(($('cl-amount') as HTMLInputElement).value || '0', ks.dec);
         if (amount <= 0n) return log('amount must be positive', 'err');
-        await runClaim(cl.x.a, amount, keyAddr, false);
+        await runClaim(cl.addr, amount, keyAddr, false);
       }
     } catch (e: any) {
       log(`claim failed: ${e.message ?? e}`, 'err');
+      claimFlow.note(`failed: ${e.message ?? e}`, 'err');
     }
   }
 
   async function runClaim(x: string, amount: bigint, key: string, self: boolean) {
-    const al = decUint(await ethCall(key, encCall(SEL.allowance, [wallet!.address, x])));
+    const review = claimFlow.step('review');
+    const parentSym = cl?.parentSym ?? '';
+    review.done(self
+      ? `self-redeem: burn ${formatUnits(amount, cl?.row?.d ?? 18)} of your tokens → receive ${formatUnits(amount, cl?.parentDec ?? 18)} ${parentSym} 1:1`
+      : `surrender ${formatUnits(amount, ks?.dec ?? 18)} ${(ks?.sym ?? '')} → receive ${formatUnits(amount, cl?.parentDec ?? 18)} ${parentSym} 1:1 (raw)`);
+    const res = await bar.readySend();
+    const al = decUint(await ethCall(key, encCall(SEL.allowance, [res.address, x])));
+    const approve = claimFlow.step(self ? 'approve self-redeem' : 'approve key');
     if (al < amount) {
-      log(`approving ${self ? 'the token to take your units (self-redeem transferFrom)' : 'key to the payout token'}…`);
-      const ah = await sendTx(wallet!.provider, wallet!.address, key, encCall(SEL.approve, [x, amount]));
-      log(`approve tx ${link(ah, `https://ipfs.scan.pulsechain.com/tx/${ah}`)} — waiting…`);
-      const ar = await waitTx(wallet!.provider, ah);
-      if (ar.status !== '0x1') return log('approve reverted — aborting', 'err');
-      log('approve confirmed', 'ok');
+      approve.active('confirm the approve in your wallet');
+      const ah = await sendTx(res.provider, res.address, key, encCall(SEL.approve, [x, amount]));
+      log(`approve tx ${ah} — waiting…`);
+      const ar = await waitTx(res.provider, ah);
+      if (ar.status !== '0x1') {
+        approve.error('approve reverted');
+        throw new Error('approve reverted — aborting before the claim');
+      }
+      approve.done(`tx ${ah.slice(0, 10)}… confirmed`);
+    } else {
+      approve.skip('allowance already covers the amount');
     }
     const data = self ? encCall(SEL.Claim1, [amount]) : encCall(SEL.Claim2, [key, amount]);
-    log(`sending Claim(${self ? formatUnits(amount, 18) : shortAddr(key) + ', ' + formatUnits(amount, ks?.dec ?? 18)}) → Recovery(you, key, amount), parent pays 1:1…`);
-    const th = await sendTx(wallet!.provider, wallet!.address, x, data);
-    log(`claim tx ${link(th, `https://ipfs.scan.pulsechain.com/tx/${th}`)} — waiting…`);
-    const r = await waitTx(wallet!.provider, th);
-    if (r.status === '0x1') log('claim confirmed ✓ — custody updated; reload the token facts to see the new ceiling', 'ok');
-    else log('Claim() reverted — common causes: key eligibility changed, key balance/allowance, custody drained below amount', 'err');
+    const sign = claimFlow.step(`sign Claim(${self ? 'amount' : 'key, amount'})`);
+    sign.active('confirm in your wallet');
+    const th = await sendTx(res.provider, res.address, x, data);
+    sign.active('tx sent — waiting for receipt');
+    const r = await waitTx(res.provider, th);
+    if (r.status === '0x1') {
+      sign.done(`tx ${th.slice(0, 10)}… confirmed`);
+      const rcpt = claimFlow.step('receipt');
+      rcpt.done(`parent collateral paid out 1:1 · custody ceiling lowered · <a href="${EXPLORER}/tx/${th}" target="_blank" rel="noopener noreferrer">tx ${th.slice(0, 12)}…↗</a>`);
+      log('claim confirmed ✓ — custody updated; reload the token facts to see the new ceiling', 'ok');
+    } else {
+      const why = await replayRevert(res.address, x, data, r.blockNumber);
+      sign.error('Claim() reverted onchain');
+      const rcpt = claimFlow.step('receipt');
+      rcpt.error(why ? `decoded reason: ${why}` : 'common causes: key eligibility changed, key balance/allowance, custody drained below amount');
+      log(`Claim() reverted — tx ${th}`, 'err');
+    }
   }
-  $('cl-go').addEventListener('click', doClaim);
+  $('cl-go').addEventListener('click', () => void doClaim());
 
   // ---------- publish pane ----------
   type PubState = {
@@ -439,14 +652,22 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
   } | null;
   let ps: PubState = null;
 
-  attachPicker('p-token', 'p-token-list', (r) => { if (r) loadPubFacts(r); }, (r) => r.v === 'V2');
+  const pubFlow = createFlow($('p-flow'), 'publish flow — review · acknowledge · sign publish() · receipt');
+
+  const pubResolver = attachResolver({
+    input: $('p-token') as HTMLInputElement,
+    list: $('p-token-list'),
+    rows: () => tokens,
+    byAddr: () => byAddr,
+    filter: (r) => r.v === 'V2',
+    onResolve: (r) => { if (r?.row) void loadPubFacts(r.row); },
+  });
   $('p-ack').addEventListener('change', () => ($('p-go') as HTMLButtonElement).disabled = !ps || !($('p-ack') as HTMLInputElement).checked || ps.deb !== true);
 
   async function loadPubFacts(r: Row) {
     ps = null;
     ($('p-ack') as HTMLInputElement).checked = false;
     ($('p-go') as HTMLButtonElement).disabled = true;
-    $('p-note').textContent = '';
     const facts = $('p-facts');
     facts.innerHTML = '<span class="dim">reading chain…</span>';
     $('p-effects').style.display = 'none';
@@ -456,7 +677,8 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
         ethCall(r.a, SEL.Debenture).then(decBool).catch(() => null),
         ethCall(r.a, SEL.Parent).then(decAddr).catch(() => null),
       ]);
-      const hu = wallet ? Number(decUint(await ethCall(r.a, encCall(SEL._hu, [wallet.address])).catch(() => '0x'))) : null;
+      const addr = bar.state().address;
+      const hu = addr ? Number(decUint(await ethCall(r.a, encCall(SEL._hu, [addr])).catch(() => '0x'))) : null;
       let custody: bigint | null = null;
       let pm = { decimals: 18, symbol: '' };
       if (parentRaw) {
@@ -466,7 +688,7 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
         ]);
       }
       ps = { x: r, owner, hu, deb: debRaw, parent: parentRaw, custody, parentSym: pm.symbol || (parentRaw ? shortAddr(parentRaw) : '—'), parentDec: pm.decimals };
-      const ownerIsYou = wallet && owner && owner.toLowerCase() === wallet.address.toLowerCase();
+      const ownerIsYou = addr && owner && owner.toLowerCase() === addr.toLowerCase();
       facts.innerHTML =
         `<dt>token</dt><dd>${r.n || '(unnamed)'} (${r.s || '·'}) <span class="tag">${r.cls}</span> V2 · <a href="/tokens/${r.a}">entity page</a></dd>` +
         `<dt>registered owner</dt><dd>${owner ?? '—'}${ownerIsYou ? ' <span class="ok">(you — withdraw() unlocks on publish)</span>' : ''}</dd>` +
@@ -491,54 +713,69 @@ const V1_MINTER = '0xc7bdac3e6bb5ec37041a11328723e9927ccf430b';
   }
 
   async function doPublish() {
-    if (!wallet) return log('connect a wallet first', 'err');
     if (!ps) return log('pick a V2 token first', 'err');
     if (!( $('p-ack') as HTMLInputElement).checked) return log('acknowledge the effect preview first', 'err');
+    pubFlow.reset();
     try {
-      log(`sending ${shortAddr(ps.x.a)}.publish() — Debenture → false, permanent…`);
-      const th = await sendTx(wallet.provider, wallet.address, ps.x.a, encCall(SEL.publish, []));
-      log(`publish tx ${link(th, `https://ipfs.scan.pulsechain.com/tx/${th}`)} — waiting…`);
-      const r = await waitTx(wallet.provider, th);
-      if (r.status === '0x1') log('publish confirmed ✓ — the token is no longer a claim key; custody remains claimable by others', 'ok');
-      else log('publish() reverted — gate: _hu[tx.origin] must be ≥ 100 (the creator EOA holds 255)', 'err');
+      const review = pubFlow.step('review');
+      review.done(`publish() on ${ps.x.n || ps.x.a} — Debenture → false, permanent; custody stays claimable by others`);
+      const res = await bar.readySend();
+      const sign = pubFlow.step('sign publish()');
+      sign.active('confirm in your wallet');
+      const data = encCall(SEL.publish, []);
+      const th = await sendTx(res.provider, res.address, ps.x.a, data);
+      sign.active('tx sent — waiting for receipt');
+      const r = await waitTx(res.provider, th);
+      if (r.status === '0x1') {
+        sign.done(`tx ${th.slice(0, 10)}… confirmed`);
+        const rcpt = pubFlow.step('receipt');
+        rcpt.done(`the token is no longer a claim key · custody remains claimable by others · <a href="${EXPLORER}/tx/${th}" target="_blank" rel="noopener noreferrer">tx ${th.slice(0, 12)}…↗</a>`);
+        log('publish confirmed ✓ — the token is no longer a claim key; custody remains claimable by others', 'ok');
+      } else {
+        const why = await replayRevert(res.address, ps.x.a, data, r.blockNumber);
+        sign.error('publish() reverted onchain');
+        const rcpt = pubFlow.step('receipt');
+        rcpt.error(why ? `decoded reason: ${why}` : 'gate: _hu[tx.origin] must be ≥ 100 (the creator EOA holds 255)');
+        log(`publish() reverted — tx ${th}`, 'err');
+      }
     } catch (e: any) {
       log(`publish failed: ${e.message ?? e}`, 'err');
+      pubFlow.note(`failed: ${e.message ?? e}`, 'err');
     }
   }
-  $('p-go').addEventListener('click', doPublish);
+  $('p-go').addEventListener('click', () => void doPublish());
 
   // ---------- mode / deeplink / boot ----------
-  function setMode(mode: 'claim' | 'publish') {
+  function setMode(mode: 'claim' | 'publish', updateUrl = true) {
     $('pane-claim').style.display = mode === 'claim' ? '' : 'none';
     $('pane-publish').style.display = mode === 'publish' ? '' : 'none';
     ($('mode-claim') as HTMLButtonElement).classList.toggle('active', mode === 'claim');
     ($('mode-publish') as HTMLButtonElement).classList.toggle('active', mode === 'publish');
+    if (updateUrl) {
+      const u = new URL(location.href);
+      u.searchParams.set('mode', mode);
+      history.replaceState(null, '', u);
+    }
   }
   $('mode-claim').addEventListener('click', () => setMode('claim'));
   $('mode-publish').addEventListener('click', () => setMode('publish'));
-
-  function refreshPanes() {
-    if (cl) loadClaimFacts(cl.x);
-    if (ps) loadPubFacts(ps.x);
-  }
 
   fetch('/data/tokens_v2.compact.json')
     .then((r) => r.json())
     .then((d) => {
       tokens = d.tokens;
       byAddr = new Map(tokens.map((t: Row) => [t.a, t]));
+      for (const t of tokens) {
+        if (!t.p) continue;
+        if (!children.has(t.p)) children.set(t.p, []);
+        children.get(t.p)!.push(t);
+      }
       const q = new URLSearchParams(location.search);
+      if (q.get('mode') === 'publish') setMode('publish', false);
       const tok = q.get('token');
-      if (tok && byAddr.has(tok.toLowerCase())) {
-        ($('cl-token') as HTMLInputElement).value = tok.toLowerCase();
-        loadClaimFacts(byAddr.get(tok.toLowerCase())!);
+      if (tok && (/^0x[0-9a-fA-F]{40}$/.test(tok) || byAddr.has(tok.toLowerCase()))) {
+        void tokenResolver.resolve(tok, 'url');
       }
     })
     .catch((e) => log('failed to load census bundle: ' + e, 'err'));
-
-  if (getProvider()) {
-    getProvider()!.request({ method: 'eth_accounts' }).then((accs: string[]) => {
-      if (accs?.length) connect();
-    }).catch(() => {});
-  }
 </script>

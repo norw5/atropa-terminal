@@ -13,11 +13,14 @@ const nBc = artIdx ? Object.keys(artIdx.bytecode ?? {}).length : 0;
 const nSrc = artIdx ? Object.keys(artIdx.sources ?? {}).length : 0;
 const nVer = artIdx ? Object.keys(artIdx.verified_by_address ?? {}).length : 0;
 const nDec = artIdx ? Object.keys(artIdx.decompiled_by_address ?? {}).length : 0;
+const nReg = readJson('portal-v2-data/registry.compact.json').registry.length;
+const nClaims = readJson('portal-v2-data/claims.compact.json').claims.length;
 
 const bundles = [
-  ['/data/tokens_v2.compact.json', 'census explorer bundle', 'all 3,129 minter children: identity, taxonomy class/era/origin, lineage parent, liquidity reality, supply, multiplier'],
-  ['/data/registry.compact.json', 'contract registry bundle', '356 classified contracts with deploy facts, admin surface, verification state, liquidity'],
-  ['/data/claims.compact.json', 'claim registry', '105 machine-checkable claim-classes + by-entity index'],
+  ['/data/tokens_unified.compact.json', 'unified explorer bundle', 'every classified ERC-20 (3,129 minter children + the registry tokens, kind-labeled): identity, taxonomy class/era/origin, lineage parent, liquidity reality, supply, multiplier'],
+  ['/data/tokens_v2.compact.json', 'census explorer bundle', 'the 3,129 minter children alone (the tool islands’ census view: identity, taxonomy, lineage parent, liquidity, supply, multiplier)'],
+  ['/data/registry.compact.json', 'contract registry bundle', `${nReg} classified contracts with deploy facts, admin surface, verification state, liquidity`],
+  ['/data/claims.compact.json', 'claim registry', `${nClaims} machine-checkable claim-classes + by-entity index`],
   ['/data/taxonomy.compact.json', 'taxonomy fields', 'per-token tax_* fields over the census'],
   ['/data/timeline.compact.json', 'master chronology', 'era boundaries, known-actor deployments, TBILL ledger, crisis sequence, supply cliffs'],
   ['/data/irc.compact.json', 'IRC corpus (parsed)', '103,550 parsed lines with line numbers, timestamps, users (raw log below)'],
@@ -25,6 +28,7 @@ const bundles = [
   ['/data/graph_atropa_subgraph.json', 'liquidity subgraph', '1,981 nodes / 15,285 links, WPLS-anchored — never the full DEX graph'],
   ['/data/pools.compact.json', 'per-token pool aggregates', '1,830 tokens: live/total pairs, WPLS anchored, factories, top counterparties, anchor pair'],
   ['/data/shared_infra.compact.json', 'shared infra state', 'math family owner/supply probe (cross-portal bundle)'],
+  ['/data/tokens_all.csv', 'unified token CSV', 'the /tokens explorer table as CSV — census + registry ERC-20s with the kind column (the no-JS data path)'],
   ['/data/tokens.csv', 'census CSV', 'full-field census export (census + extensions + taxonomy)'],
   ['/abi/tt-templates.json', 'TT template ABIs', 'embedded child-template ABIs per era [src]'],
   ['/artifacts/index.json', 'artifact index', 'address → bytecode/source/verified/decompiled map for the per-entity downloads below'],
@@ -33,7 +37,7 @@ const artifactsRows = [
   ['/artifacts/bytecode/', 'per-contract bytecode', `${nBc} runtime-bytecode JSONs (hex + sha256; creation input for the 8 factories) — the bytecode-archaeology set plus every registry contract outside it [chain]`],
   ['/artifacts/src/', 'source files', `${nSrc} recovered + blockscout-verified sources incl. the V1 decompilation [src] — same exclusion set as the tarball (no dysnomia/wallet)`],
   ['/artifacts/verified/', 'verified source + ABI', `${nVer} blockscout-verified contracts as published (source files + ABI + compiler facts) [ext-api]`],
-  ['/artifacts/decompiled/', 'curated decompilations', `${nDec} heimdall-rs decompilations of notable UNVERIFIED contracts (math family, cDc, helpers) — non-normative research aids [src-decompiled]`],
+  ['/artifacts/decompiled/', 'curated decompilations', `${nDec} heimdall-rs decompilations of notable UNVERIFIED contracts (math family, cDc) — non-normative research aids [src-decompiled]`],
   ['/abi/', 'interaction ABIs', 'per-minter head + child-template + ERC-20 ABI artifacts [src]'],
 ];
 ---

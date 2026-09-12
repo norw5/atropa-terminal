@@ -1320,12 +1320,6 @@
    "runtime_bytes": 13252,
    "creation_input": false
   },
-  "0x185d2f123d04f1a243bfbfd5b15f11fb4f314b23": {
-   "role": "registry contract (outside the W1 set)",
-   "block": 27501697,
-   "runtime_bytes": 3637,
-   "creation_input": false
-  },
   "0x1942ba1ea7c21a070d70c4efe64b21694283f23e": {
    "role": "registry contract (outside the W1 set)",
    "block": 27501697,
@@ -1582,12 +1576,6 @@
    "role": "registry contract (outside the W1 set)",
    "block": 27501697,
    "runtime_bytes": 9083,
-   "creation_input": false
-  },
-  "0x307a3694dfc453c6692db3e9f3f07ff328167dce": {
-   "role": "registry contract (outside the W1 set)",
-   "block": 27501697,
-   "runtime_bytes": 18877,
    "creation_input": false
   },
   "0x30c4e7a7b6a19c704742d55b546872c7f01615d7": {
@@ -2448,12 +2436,6 @@
    "runtime_bytes": 7815,
    "creation_input": false
   },
-  "0xa333561a5e08c002c083e3798dc8d504a262c9ef": {
-   "role": "registry contract (outside the W1 set)",
-   "block": 27501697,
-   "runtime_bytes": 14828,
-   "creation_input": false
-  },
   "0xa35c9b5e576be2e0ba9cc7224b0941cc8acc4c9c": {
    "role": "registry contract (outside the W1 set)",
    "block": 27501697,
@@ -2938,12 +2920,6 @@
    "role": "registry contract (outside the W1 set)",
    "block": 27501697,
    "runtime_bytes": 6781,
-   "creation_input": false
-  },
-  "0xe7313ef267e8a5646b5ea04b51f536956d79e62f": {
-   "role": "registry contract (outside the W1 set)",
-   "block": 27501697,
-   "runtime_bytes": 2693,
    "creation_input": false
   },
   "0xe780bb76a24345734b1b94e2b4cc8d64f23ad822": {
@@ -4312,26 +4288,6 @@
   "0x73a19fafb359faf519c9707b781dfdb88407d10d": {
    "file": "/artifacts/decompiled/0x73a19fafb359faf519c9707b781dfdb88407d10d.sol",
    "what": "Faung \u2014 math family",
-   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
-  },
-  "0x307a3694dfc453c6692db3e9f3f07ff328167dce": {
-   "file": "/artifacts/decompiled/0x307a3694dfc453c6692db3e9f3f07ff328167dce.sol",
-   "what": "MultiHop \u2014 community helper",
-   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
-  },
-  "0x185d2f123d04f1a243bfbfd5b15f11fb4f314b23": {
-   "file": "/artifacts/decompiled/0x185d2f123d04f1a243bfbfd5b15f11fb4f314b23.sol",
-   "what": "Sweeper \u2014 community helper",
-   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
-  },
-  "0xe7313ef267e8a5646b5ea04b51f536956d79e62f": {
-   "file": "/artifacts/decompiled/0xe7313ef267e8a5646b5ea04b51f536956d79e62f.sol",
-   "what": "UserSweeper \u2014 community helper",
-   "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
-  },
-  "0xa333561a5e08c002c083e3798dc8d504a262c9ef": {
-   "file": "/artifacts/decompiled/0xa333561a5e08c002c083e3798dc8d504a262c9ef.sol",
-   "what": "LogoVoting \u2014 community helper",
    "provenance": "heimdall-rs decompilation \u2014 NON-NORMATIVE research aid (decompiles have known misreads; every reading used in the KB is cross-checked onchain)"
   }
  }

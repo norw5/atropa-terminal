@@ -28,10 +28,6 @@
 | `owner-mint` | owner-gated `mint(address, uint256)` exists — the key can mint arbitrary amounts to arbitrary recipients |
 | `owner-pool` | owner-gated pool management (set/remove paired pools) |
 | `owner-parameter` | owner-gated parameter/content setters (fee-like knobs, buy price, writes) |
-| `owner-withdraw` | owner-gated withdrawal of held assets |
-| `owner-pausable-withdraw` | owner can pause the contract and trigger an emergency withdrawal |
-| `governance` | owner-tunable governance parameters |
-| `inert-rescue-open` | standard Ownable, but the asset-rescue path is permissionless |
 | `bridge-operator` | official-bridge operator key (external system) |
 | `unknown` | capability not yet pinned |
 
@@ -48,7 +44,4 @@
   that are **inert**: verified source and decompiles show the owner gates
   only the standard ownership transfer — the RNG orbit, caps, and purchase
   routes are permissionless.
-- Community helpers are third-party Ownable contracts with real owner
-  powers (pause + emergency withdrawal on the hop tool; withdrawal on the
-  per-user sweeper stub; tunable governance on the logo voting). They are
-  documented facts-only and were never integrated into this portal's tools.
+

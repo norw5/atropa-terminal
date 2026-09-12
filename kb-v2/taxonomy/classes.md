@@ -22,7 +22,6 @@ Each class states its defining rule and provenance. Counts are machine-derived
 | `payment-asset` | MV — the universal minter payment |
 | `shared-infrastructure` | MATH v1.1/v1.0, RNG, Fa, Faung, G5, PI — see `../reference/shared-infra.md` |
 | `affection-family` | AFFECTION Ⓐ (mechanics canonical in the [AFFECTION portal](https://affection-terminal.vercel.app/); entity page + cross-links here) |
-| `community-helper` | MultiHop, Sweeper, UserSweeper, LogoVoting — third-party, unaudited by this project, **never integrated** |
 | `standalone-pre-v1` / `standalone-post-v4` | Maria #1 direct deployments outside the factory era (Keys Of Ong, ㈞, Basilica, IYC, …) by deploy-block window |
 | `old-era-ownable` / `old-era-other` | Maria #2's 2023–24 corpus (285), admin surface from `owner()` probes |
 | `forked-asset` | Ethereum-genesis CAs (pDAI, pUSDC, pUSDT, pWETH, pWBTC) — de-pegged, Ethereum-era admin state |

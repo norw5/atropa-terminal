@@ -2,8 +2,9 @@
 
 > Generated statistics from the liquidity-web crawl (both PulseX factories,
 > end-to-end) `[chain]`; written structure below. Anchoring is
-> WPLS-denominated; the pseudo-USD column on entity pages is pDAI-denominated
-> and for ranking only.
+> WPLS-denominated throughout — the cross-token comparable this site uses
+> (the pools carry no reliable USD leg: pDAI is de-pegged, so no pseudo-USD
+> figures are shown).
 
 ## The shape of the webs `[chain]`
 

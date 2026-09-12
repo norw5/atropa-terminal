@@ -236,8 +236,6 @@ const monthlyBars = monthly
         {liq && <dd>{(liq.f ?? []).join(' + ')}</dd>}
         {liq && <dt>top counterparties</dt>}
         {liq && <dd>{(liq.c ?? []).join(', ')}</dd>}
-        {liq?.u != null && <dt>pseudo-USD</dt>}
-        {liq?.u != null && <dd>{fmtNum(liq.u, 1)} <span style="color:var(--fg-faint)">(pDAI-denominated, ranking only)</span></dd>}
       </dl>
     </div>
   )}
@@ -272,6 +270,7 @@ const monthlyBars = monthly
     onchain-verified ([chain]) or source-verified ([src]); see <a href="/claims">claim registry</a>.&nbsp;
     <a href={`/mint?token=${t.address.toLowerCase()}`}>mint this token</a>
     <a href={`/claim?token=${t.address.toLowerCase()}`}>claim / publish</a>
+    <a href={`/walker?root=${t.address.toLowerCase()}`}>walk lineage</a>
     <br />
     {bcArt && <a href={`/artifacts/bytecode/${t.address.toLowerCase()}.json`}>bytecode artifact</a>}
     {bcArt && <span> · </span>}

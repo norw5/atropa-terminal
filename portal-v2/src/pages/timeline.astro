@@ -43,7 +43,6 @@ const eraColorCss = ':root{' + Object.entries(eraColors).map(([k, c]) => `--c-${
         <option value="maria1">Maria #1</option>
         <option value="maria2">Maria #2</option>
         <option value="trebizond">trebizond</option>
-        <option value="helper-dev">helper developer</option>
         <option value="bureau4-dev">bureau#4 deployer</option>
       </select>
       <input type="text" id="t-q" placeholder="grep label / address / tx…" />
@@ -120,7 +119,7 @@ const eraColorCss = ':root{' + Object.entries(eraColors).map(([k, c]) => `--c-${
   const day = (t: number | null) => (t ? new Date(t * 1000).toISOString().slice(0, 10) : '—');
   const whoLabel = (w: string | null) =>
     w === 'maria1' ? 'Maria #1' : w === 'maria2' ? 'Maria #2' : w === 'trebizond' ? 'trebizond'
-    : w === 'helper-dev' ? 'helper dev' : w === 'bureau4-dev' ? 'bureau#4 dev'
+    : w === 'bureau4-dev' ? 'bureau#4 dev'
     : w && w.startsWith('0x') ? `<span class="mono xs">${esc(w)}</span>` : '—';
 
   function rows(): Event[] {

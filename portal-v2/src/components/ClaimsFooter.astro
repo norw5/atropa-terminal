@@ -1,18 +1,39 @@
 ---
+import { loadClaims } from '../lib/data';
+
 interface Props {
   claimIds: string[];
   emptyNote?: string;
 }
 const { claimIds, emptyNote = 'no registered claim-class singles out this entity.' } = Astro.props;
+const byId = new Map(loadClaims().map((c: any) => [c.id, c]));
+const rows = claimIds.map((id) => byId.get(id)).filter(Boolean);
 ---
 
 <div class="panel">
-  <h2>claims touching this entity</h2>
-  {claimIds.length > 0 ? (
-    <p class="mono xs">
-      {claimIds.map((id, i) => (
-        <span>{i > 0 && ' '}<a href={`/claims#${id}`}>{id}</a></span>
-      ))}
-    </p>
+  <h2>claims touching this entity <span style="color:var(--fg-faint);font-weight:400;font-size:0.8rem">({rows.length})</span></h2>
+  {rows.length > 0 ? (
+    <>
+      <ul class="claimlist">
+        {rows.map((c: any) => (
+          <li>
+            <span class="mono xs"><a href={`/claims#${c.id}`}>{c.id}</a></span>
+            {' '}<span class="badge">{c.provenance}</span>
+            {' '}<span class="tag">{c.category}</span>
+            <div class="stmt">{c.statement}</div>
+          </li>
+        ))}
+      </ul>
+      <p class="dim" style="font-size:0.78rem;margin-bottom:0">
+        statements inline for convenience — the full registry with proof refs + artifacts lives on&nbsp;
+        <a href="/claims">/claims</a>
+      </p>
+    </>
   ) : <p class="dim" set:html={emptyNote} />}
 </div>
+
+<style is:global>
+  ul.claimlist { list-style: none; margin: 0.4rem 0; padding: 0; }
+  ul.claimlist li { margin: 0 0 0.7rem 0; padding: 0.35rem 0.6rem; border-left: 3px solid var(--accent-dim); background: var(--bg2); }
+  ul.claimlist .stmt { font-size: 0.85rem; margin-top: 0.15rem; overflow-wrap: anywhere; }
+</style>

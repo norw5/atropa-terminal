@@ -10,12 +10,14 @@ const copies = [
   ['../portal-v2-data/registry.compact.json', 'registry.compact.json'],
   ['../portal-v2-data/claims.compact.json', 'claims.compact.json'],
   ['../portal-v2-data/tokens_v2.compact.json', 'tokens_v2.compact.json'],
+  ['../portal-v2-data/tokens_unified.compact.json', 'tokens_unified.compact.json'],
   ['../portal-v2-data/irc.compact.json', 'irc.compact.json'],
   ['../portal-v2-data/timeline.compact.json', 'timeline.compact.json'],
   ['../portal-v2-data/pools.compact.json', 'pools.compact.json'],
   ['../portal-data/shared_infra.compact.json', 'shared_infra.compact.json'],
   ['../portal-data/graph_atropa_subgraph.json', 'graph_atropa_subgraph.json'],
   ['../data/tokens.csv', 'tokens.csv'],
+  ['../portal-v2-data/tokens_all.csv', 'tokens_all.csv'],
 ];
 
 for (const [src, name] of copies) {

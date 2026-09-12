@@ -67,6 +67,12 @@ const title = `lineage: ${rootName ?? root.slice(0, 12)}`;
     {rootName ?? <span class="addr mono xs">{root}</span>}
     <span class="dim"> — lineage tree</span>
   </h1>
+  {size > 0 && (
+    <p style="margin:0.3rem 0 0">
+      <a class="walkcta" href={`/walker?root=${root}`}>walk this spine →</a>
+      <span class="dim" style="font-size:0.8rem">&nbsp;— hop the children with live per-hop cost previews in the /walker tool (external roots open on their first census children)</span>
+    </p>
+  )}
 
   <div class="statgrid">
     <div class="stat"><div class="v">{fmtInt(size)}</div><div class="k">SUBTREE NODES</div><div class="sub">descendants of the root</div></div>
@@ -92,3 +98,11 @@ const title = `lineage: ${rootName ?? root.slice(0, 12)}`;
     tree order = creation block ascending.
   </p>
 </Base>
+
+<style>
+  a.walkcta {
+    display: inline-block; border: 1px solid var(--border-bright); padding: 0.25rem 0.7rem;
+    color: var(--accent); font-size: 0.85rem; text-decoration: none;
+  }
+  a.walkcta:hover { border-color: var(--accent); background: var(--bg2); }
+</style>
