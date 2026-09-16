@@ -16,7 +16,7 @@ census data layer.
 | [V2 FederalMinter](/knowledge/mechanics/v2-federalminter/) | `0xc15c5F699Daf5e1135732139f05D2c05b3EF4354` | 2025-01-04 · block 22362690 | 1,560 |
 | [V3 IndexMinter](/knowledge/mechanics/v3-indexminter/) | `0x0c4F73328dFCECfbecf235C9F78A4494a7EC5ddC` | 2025-01-31 · block 22590323 | 506 |
 | [V4 PersonalMinter](/knowledge/mechanics/v4-personalminter/) | `0x394c3D5990cEfC7Be36B82FDB07a7251ACe61cc7` | 2025-02-20 · block 22755643 | 891 |
-| [Bureau minters](/knowledge/mechanics/bureau-minters/) | four contracts, 2025-02-01 | V3-adjacent | 5 (all via #1) |
+| [Bureau minters](/knowledge/mechanics/bureau-minters/) | four contracts, 2025-02-01 | fixed-parent V3 storefront | 5 (all via #1) |
 
 Cross-cutting topics:
 

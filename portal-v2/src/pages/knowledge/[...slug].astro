@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import ClaimsFooter from '../../components/ClaimsFooter.astro';
 import { getCollection, render } from 'astro:content';
 import { fmtNum, fmtInt, fmtDate } from '../../lib/fmt';
 import {
@@ -113,8 +114,19 @@ if (minter || isBureau) {
   mvRevenue = am.mv_accrual?.per_minter?.[key] ?? null;
   if (minter?.ver === 'V2') publishRow = am.publish_adoption ?? null;
   const claimsBy = loadClaimsByEntity();
-  const addr = minter?.addr ?? '0xc4f0ce2b0ffa0063b763e2b6c124a1d80e0641b5';
-  claimIds = claimsBy[addr] ?? [];
+  if (minter) {
+    claimIds = claimsBy[minter.addr] ?? [];
+  } else {
+    const BUREAU_MINTERS = [
+      '0xc4f0ce2b0ffa0063b763e2b6c124a1d80e0641b5', '0x9680d815e3ba4fd78c5c1e6ea229abb03734e141',
+      '0xc9be525a582b6f84d928b7901bd18b4315f8502b', '0x5de29c8eac1482221de1945a566b6c65f54a3c3e',
+    ];
+    const seen = new Set<string>();
+    for (const a of BUREAU_MINTERS) for (const id of claimsBy[a] ?? []) {
+      if (!seen.has(id)) { seen.add(id); claimIds.push(id); }
+    }
+    claimIds.sort();
+  }
 }
 let sink: any = null;
 let sinkClaimId: string | null = null;
@@ -277,10 +289,33 @@ if (isAdmin) {
         {mvRevenue && <dd>{fmtNum(mvRevenue.accrued_total_approx, 2)} MV over {fmtInt(mvRevenue.payments)} payments (blocks {fmtInt(mvRevenue.first_block)}–{fmtInt(mvRevenue.last_block)})</dd>}
         {publishRow && <dt>publish adoption</dt>}
         {publishRow && <dd>{fmtInt(publishRow.distinct_published_addresses)} of {fmtInt(publishRow.census_v2_total)} census-era V2 children ever published ({(100 * publishRow.distinct_published_addresses / publishRow.census_v2_total).toFixed(1)}%); first publish block {fmtInt(publishRow.first_publish?.block)}</dd>}
-        <dt>claims</dt>
-        <dd>{claimIds.length} registered claim-classes touch this factory: {claimIds.map((id) => <a href={`/claims#${id}`}>{id} </a>)}</dd>
       </dl>
+      {isBureau && kids.length > 0 && (
+        <table class="sortable" style="margin-top:1rem">
+          <thead><tr><th>child</th><th>creator</th><th class="num">block</th><th class="num">supply (snap)</th><th>links</th></tr></thead>
+          <tbody>
+            {kids.map((k: any) => (
+              <tr>
+                <td class="wrapok"><a href={`/tokens/${k.address.toLowerCase()}`}>{String(k.name_clean || k.name || k.symbol_clean || k.symbol || k.address.slice(0, 10)).slice(0, 60)}</a></td>
+                <td class="mono xs">{k.creator ? <a href={`https://ipfs.scan.pulsechain.com/address/${k.creator}`}>{k.creator.slice(0, 10)}…</a> : '—'}</td>
+                <td class="num">{fmtInt(k.block)}</td>
+                <td class="num">{k.totalSupply_snap != null ? fmtNum(Number(k.totalSupply_snap) / 10 ** (k.decimals ?? 18), 2) : '—'}</td>
+                <td class="mono xs"><a href={`/mint?token=${k.address.toLowerCase()}`}>mint</a> · <a href={`/claim?token=${k.address.toLowerCase()}`}>claim</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
+  )}
+
+  {(minter || isBureau) && claimIds.length >= 0 && (
+    <ClaimsFooter
+      claimIds={claimIds}
+      emptyNote={isBureau
+        ? 'no registered claim-class touches the bureau minters.'
+        : `no registered claim-class singles out this factory; class-level claims may still apply via its children.`}
+    />
   )}
 
   {minter?.ver === 'V1' && sink && (
