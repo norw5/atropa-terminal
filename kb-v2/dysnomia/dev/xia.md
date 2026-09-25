@@ -42,7 +42,7 @@ the spine walk. Called by XIE.Power.
 
 <!-- fntable: XIA @ domain/soeng/03_xia.sol -->
 <!-- fntable-begin: XIA @ domain/soeng/03_xia.sol -->
-Function table extracted mechanically from `domain/soeng/03_xia.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/soeng/03_xia.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -63,5 +63,5 @@ degenerate (0 modulus ⇒ precompile returns 0 ⇒ Charge 0).
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/soeng/03_xia.sol`.
+- [src] `domain/soeng/03_xia.sol`.
 - [chain] perimeter (creation tx `0x5ef3f2cd95bbb24438d5eec625a051fcf3a1ae82d9dc2ebc004a4974a82f7b15`).

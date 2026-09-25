@@ -22,8 +22,7 @@ de-facto public RNG oracle all run on one mechanism
 - As a public oracle it is heavily used: third-party contracts grind
   24–56M `Random()` calls per month into 2026 `[chain]`; the Keys Of Ong
   prediction game (`Dong(uint64)` award-mints) is the flagship consumer —
-  two specialists account for 96.6% of 7,730 recorded wins `[chain:
-  session-10 census]`, which is exactly what a predictable orbit permits.
+  two specialists account for 96.6% of 7,730 recorded wins `[chain]`, which is exactly what a predictable orbit permits.
 - Random-derived economic flows exist: cDc's permissionless `Mint()` pays
   `(Random()%4000)×10^15`-style amounts into fixed wallet slots `[src]`.
 
@@ -42,7 +41,7 @@ The live gameplay randomness is *stateful*, not pure
 - **Preview-grindability is quantified**: stepping the head with cheap
   transactions and previewing for free yields a favorable draw in a
   measurable fraction of steps (~29% ≥ 1e11 `Yeo` at the test venue)
-  `[chain: session-32 grind experiment]`.
+  `[chain: measured grind experiment]`.
 
 The two engines are coupled only through usage patterns, not state: MATH
 sits behind both (Dysnomia's caps and keys draw from the same orbit

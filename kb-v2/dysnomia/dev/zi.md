@@ -26,7 +26,7 @@
 Power, then two modExps against `CHOA.Yuan(CHO)` (purchasing power of CHO
 itself as the modulus — "spin against purchasing power"), plus
 `Eta = CHO.balanceOf(user) ÷ user.Entropy`. Its `Tethys` reference IS the CHO
-contract (the owner-list's "Tethys" label for the CHO channel).
+contract (the dev-published list's "Tethys" label for the CHO channel).
 
 ## 3. Dependencies
 
@@ -42,7 +42,7 @@ Xia().Mai().Qi().Zuo().Cho()` at construction). Called by PANG.Push, RING
 
 <!-- fntable: ZI @ domain/soeng/05_zi.sol -->
 <!-- fntable-begin: ZI @ domain/soeng/05_zi.sol -->
-Function table extracted mechanically from `domain/soeng/05_zi.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/soeng/05_zi.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -62,5 +62,5 @@ meter tick. Requires the caller to have a CHO session (GetUser).
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/soeng/05_zi.sol`.
+- [src] `domain/soeng/05_zi.sol`.
 - [chain] perimeter.

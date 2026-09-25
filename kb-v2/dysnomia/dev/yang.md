@@ -44,7 +44,7 @@ index), QI (Eris = the channel registered under Lai's soul).
 
 <!-- fntable: YANG @ 08_yang.sol -->
 <!-- fntable-begin: YANG @ 08_yang.sol -->
-Function table extracted mechanically from `08_yang.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `08_yang.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -63,5 +63,5 @@ constructor (the triple build) and the auto-getters `Mu()`, `Rho()`, `Pole(uint2
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/08_yang.sol`.
+- [src] `08_yang.sol`.
 - [chain] perimeter; last activity 2026-02-10.

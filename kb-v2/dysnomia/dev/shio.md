@@ -56,7 +56,7 @@ applies). The LogEvent stream is the channel's message history.
 
 <!-- fntable: SHIO @ 03_shio.sol -->
 <!-- fntable-begin: SHIO @ 03_shio.sol -->
-Function table extracted mechanically from `03_shio.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `03_shio.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -103,6 +103,6 @@ respectively. `Log` is a bare owners-gated emit.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/03_shio.sol`.
-- [chain] `data/dysnomia/perimeter.json`, `factory_children.json`,
+- [src] `03_shio.sol`.
+- [chain], `factory_children.json`,
   `activity.json` (LogEvent scan 21.2M→tip).

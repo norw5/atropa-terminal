@@ -52,7 +52,7 @@ ever: "mariarahel" four blocks after the factory itself `[chain]`.
 
 <!-- fntable: LAU @ 11_lau.sol -->
 <!-- fntable-begin: LAU @ 11_lau.sol -->
-Function table extracted mechanically from `11_lau.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `11_lau.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -81,7 +81,7 @@ VOID.Chat; `Alias` overloads for address/Bao keys.
 - LAU-formation caveat (owner review round): LAUs created through
   non-standard routes may not be recognized by frontends — the census counts
   factory children; a "fully-formed/registered" subset metric is queued
-  (REGISTER-UNKNOWN, owner-review notes).
+  (an open question).
 - A LAU's `Saat(1)` is the Soul; `On()` returns the full Bao (public getter) —
   the cheapest identity probe for indexers.
 - SelfSnipe (`etc/DysnomiaSelfSnipe.sol`) is a community helper (not a system
@@ -90,5 +90,5 @@ VOID.Chat; `Alias` overloads for address/Bao keys.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/11_lau.sol`; `etc/DysnomiaSelfSnipe.sol`.
+- [src] `11_lau.sol`; `etc/DysnomiaSelfSnipe.sol`.
 - [chain] `factory_children.json` (18,660); perimeter (mariarahel LAU).

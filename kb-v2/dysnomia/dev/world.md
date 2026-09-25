@@ -2,7 +2,7 @@
 
 > **NOT DEPLOYED** — complete in source; the wave-5 create at block
 > 23,730,303 (tx `0x853C1be1D2bBEC817b9043608fEbb20a223CdCEf`) produced NO
-> code (failed creation) and no retry exists `[chain]`. REGISTER-UNKNOWN #2.
+> code (failed creation) and no retry exists `[chain]`; why, is unknown.
 
 ## 1. Identity
 
@@ -27,8 +27,7 @@ deploys its own VITUS and seeds it.
 
 Constructed with (CHEON, META, MAP); calls `Cheon().Sei().Chan().addOwner(
 address(this))` — onlyOwners, so only the spine/deployer could ever boot it
-(on a fork, impersonation satisfies this — the owner-floated fork-deploy
-experiment, REGISTER-UNKNOWN owner-review). Deploys VITUS.
+(on a fork, impersonation satisfies this). Deploys VITUS.
 
 ## 4. State
 
@@ -39,7 +38,7 @@ experiment, REGISTER-UNKNOWN owner-review). Deploys VITUS.
 
 <!-- fntable: WORLD @ domain/world.sol -->
 <!-- fntable-begin: WORLD @ domain/world.sol -->
-Function table extracted mechanically from `domain/world.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/world.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -79,5 +78,5 @@ and creators gate who may distribute through their holdings via `Whitelist`.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/world.sol`.
+- [src] `domain/world.sol`.
 - [chain] failed-create tx (above); absence probes.

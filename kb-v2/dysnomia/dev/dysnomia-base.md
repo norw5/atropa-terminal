@@ -74,7 +74,7 @@ moved into LibStrings).
 
 <!-- fntable: DYSNOMIA @ 01_dysnomia.sol -->
 <!-- fntable-begin: DYSNOMIA @ 01_dysnomia.sol -->
-Function table extracted mechanically from `01_dysnomia.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `01_dysnomia.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -117,7 +117,7 @@ Errors declared: `MarketRateNotFound(address asset)` · `DysnomiaInsufficientBal
 
 <!-- fntable: DYSNOMIA @ 01_dysnomia_v2.sol -->
 <!-- fntable-begin: DYSNOMIA @ 01_dysnomia_v2.sol -->
-Function table extracted mechanically from `01_dysnomia_v2.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `01_dysnomia_v2.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -155,7 +155,7 @@ Errors declared: `MarketRateNotFound(address asset)` · `DysnomiaInsufficientBal
 
 <!-- fntable: MultiOwnable @ lib/multiownable.sol -->
 <!-- fntable-begin: MultiOwnable @ lib/multiownable.sol -->
-Function table extracted mechanically from `lib/multiownable.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `lib/multiownable.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -197,8 +197,7 @@ Effects worth naming:
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/01_dysnomia.sol`, `01_dysnomia_v2.sol`,
+- [src] `01_dysnomia.sol`, `01_dysnomia_v2.sol`,
   `lib/multiownable.sol`.
-- [chain] `Xiao()` probes on every deployed system contract
-  (`data/dysnomia/perimeter.json`); cap/supply snapshot block 27,584,967
+- [chain] `Xiao()` probes on every deployed system contract; cap/supply snapshot block 27,584,967
   (2026-09-19).

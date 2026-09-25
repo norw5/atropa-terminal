@@ -52,7 +52,7 @@ own — a literal cross-system dependency graph in one file.
 
 <!-- fntable: PKMinter @ domain/dan/pkminter.sol -->
 <!-- fntable-begin: PKMinter @ domain/dan/pkminter.sol -->
-Function table extracted mechanically from `domain/dan/pkminter.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/dan/pkminter.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -67,8 +67,7 @@ Effects: `New(Name, Symbol, Complexity, Signers, Nonce, Signatures)` —
 deploys a TT; the TT constructor checks CHO admission, requires
 `Signers.length == Complexity`, ecrecover-verifies every signature against
 the nonce (single-use), and only then mints the first unit to the creator;
-`TreasuryTokens[new] = tx.origin`. **The Sybil answer (owner-review
-clarification): the signer set is creator-supplied — you can generate N fresh
+`TreasuryTokens[new] = tx.origin`. **The Sybil answer:** the signer set is creator-supplied — you can generate N fresh
 keys and self-sign. The mechanism is PKI plumbing, not proof-of-other-people;
 a token's meaning lives in whether its REGISTERED keys are meaningful outside
 the contract.** `GetStandardTokenParent` walks the LAU-Parent chain while
@@ -88,6 +87,6 @@ re-registration.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/dan/pkminter.sol`.
+- [src] `domain/dan/pkminter.sol`.
 - [chain] perimeter; `verify_selectors.json` (TreasuryMinter…Cho selectors
   all present onchain).

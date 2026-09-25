@@ -37,7 +37,7 @@ token.
 
 <!-- fntable: CABSMarketMachine @ domain/sky/CABSMarketMachine.sol -->
 <!-- fntable-begin: CABSMarketMachine @ domain/sky/CABSMarketMachine.sol -->
-Function table extracted mechanically from `domain/sky/CABSMarketMachine.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/sky/CABSMarketMachine.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -61,9 +61,9 @@ string `require`s.
 
 - Reference-only. The Folklore CPU and Z-machine contracts are not in the
   tree — the machine presupposes the excluded off-chain project's onchain
-  artifacts (REGISTER-UNKNOWN #6 adjacent).
+  artifacts (an adjacent open question).
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/sky/CABSMarketMachine.sol`.
+- [src] `domain/sky/CABSMarketMachine.sol`.
 - [chain] absence probes.

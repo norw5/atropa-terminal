@@ -42,7 +42,7 @@ LAU. Called by anyone — this is the system's public entry point. Active
 
 <!-- fntable: LAUFactory @ 11c_laufactory.sol -->
 <!-- fntable-begin: LAUFactory @ 11c_laufactory.sol -->
-Function table extracted mechanically from `11c_laufactory.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `11c_laufactory.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -57,10 +57,9 @@ Effects: `New` = deploy LAU(name, symbol, Void) → `addOwner(msg.sender)` +
 
 - The one-call onboarding path: `LAUFactory.New("handle", "SYM")` from an EOA
   (bring gas); the LAU's own token self-mints through its meter as you use it.
-- Census method: internal-creates index (type == create) — see
-  `data/dysnomia/factory_children.json`.
+- Census method: internal-creates index (type == create) — see.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/11c_laufactory.sol`.
+- [src] `11c_laufactory.sol`.
 - [chain] perimeter; `factory_children.json`; liveness 2026-09-17.

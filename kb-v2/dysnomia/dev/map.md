@@ -22,7 +22,7 @@
 | Deployer | `0x0474606332105A1dA6FC8EF7De2470551D389Cb9` |
 | Name / symbol | Dysnomia Map / MAP `[chain]` |
 | Supply / cap | 9,136 / 93,659 — liquid `[chain]` |
-| Children | 988 creates → **917 live QINGs** (delta = failed/reverted creates; REGISTER-UNKNOWN #5) `[chain]` |
+| Children | 988 creates → **917 live QINGs** (delta = failed/reverted creates) `[chain]` |
 
 ## 2. Role
 
@@ -50,7 +50,7 @@ forbid list.
 
 <!-- fntable: MAP @ domain/map.sol -->
 <!-- fntable-begin: MAP @ domain/map.sol -->
-Function table extracted mechanically from `domain/map.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/map.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -106,13 +106,12 @@ function (cover charge, staff, guest list, divisor). See the gate map in
 - One-QING-per-asset is global and permanent; a reverted `New` (e.g. tile
   collision in `addToMap`) rolls back MAP but NOT CHO's side: the `De` drawn
   by `Cho.Luo()` stays claimed in CHO's `Qu` map forever (cross-contract
-  state — a slow leak that complements the 988-creates-vs-917-live delta,
-  REGISTER-UNKNOWN #5).
+  state — a slow leak that complements the 988-creates-vs-917-live delta).
 - Tile collisions assert — with HECKE's anisotropy, dense regions make some
   `New` calls revert after paying the lottery gas.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/map.sol`.
+- [src] `domain/map.sol`.
 - [chain] NewQing log scan (917, 22,813,947 → 27,565,448);
   `qing_callers_sample.json`; perimeter.

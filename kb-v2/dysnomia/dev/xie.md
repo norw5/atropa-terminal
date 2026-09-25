@@ -44,7 +44,7 @@ YUE.React (per-QING bars), ZI.Spin, PANG.Push.
 
 <!-- fntable: XIE @ domain/soeng/04_xie.sol -->
 <!-- fntable-begin: XIE @ domain/soeng/04_xie.sol -->
-Function table extracted mechanically from `domain/soeng/04_xie.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/soeng/04_xie.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -63,5 +63,5 @@ Effects: `Power` — one call composes the whole ladder beneath it (XIA.Charge
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/soeng/04_xie.sol`.
+- [src] `domain/soeng/04_xie.sol`.
 - [chain] perimeter; failed-create note (deployer forensics).

@@ -1,12 +1,10 @@
 # Dysnomia — per-contract dev reference
 
-> Session-28 deliverable. One doc per contract (~36 named scopes; identical
+> One doc per contract (~36 named scopes; identical
 > instances share type docs), schema per doc: **Identity · Role ·
 > Dependencies · State · Function table · Integration notes · Provenance**.
-> Function tables are EXTRACTED MECHANICALLY from the recovered sources by
-> `tools/dys_fntable.py` (artifact `data/dysnomia/fn_tables.json`; re-run
-> `--docs` after editing a marker). Signatures are never hand-transcribed;
-> narrative is hand-written on top.
+> Function tables are EXTRACTED MECHANICALLY from the recovered sources.
+> Signatures are never hand-transcribed; narrative is hand-written on top.
 
 Standing rules: positive framing (a fully on-chain social OS — chat-world
 shell — with a partially-staged, MUD-inspired world layer; Second Life-style
@@ -14,7 +12,7 @@ social virtual world over "game"); Q-3 identity discipline; full addresses;
 `[src]/[chain]/[ext]/[irc]` provenance. Onchain snapshot: block 27,584,967
 (2026-09-19) unless noted.
 
-**Session 30 (prose pass)**: every deployed-contract doc carries an **"In
+**Prose pass**: every deployed-contract doc carries an **"In
 player terms"** block near the top — plain-language rows for what a user
 actually does with / experiences from the contract, our own words from our
 own `[src]/[chain]` understanding (the undeployed set keeps its designed-loop
@@ -245,7 +243,7 @@ market-rate wiring):
 
 | doc | address | one-liner |
 |---|---|---|
-| [do.md](/dysnomia/dev/do) | `0x3012e0F5eD16C24f61A62100cCEa50cb1E288d08` + `0x98dBd5E4F78e53884C77573407727C3779ca3bad` | the 搞 pair — source not in tree (REGISTER #3) |
+| [do.md](/dysnomia/dev/do) | `0x3012e0F5eD16C24f61A62100cCEa50cb1E288d08` + `0x98dBd5E4F78e53884C77573407727C3779ca3bad` | the 搞 pair — source not in tree |
 | [pkminter.md](/dysnomia/dev/pkminter) | `0x9f4E1471e614747A9a56A33eb0338671ebA1dE2B` | the treasury-bridge PKI experiment |
 | [pk-tt.md](/dysnomia/dev/pk-tt) | (type; 1 demo live) | the PKI-endorsed treasury-dialect token |
 
@@ -264,7 +262,7 @@ market-rate wiring):
 | doc | role |
 |---|---|
 | [encrypt.md](/dysnomia/dev/encrypt) | the React-orbit stream cipher (10-day ephemerality) |
-| [nym.md](/dysnomia/dev/nym) | the acronym game "Champion" — incompatible with the deployed CHO (interface drift, session-28 probe) |
+| [nym.md](/dysnomia/dev/nym) | the acronym game "Champion" — incompatible with the deployed CHO (interface drift, probed onchain) |
 | [cabs-market-machine.md](/dysnomia/dev/cabs-market-machine) | Z-Machine-settled escrow + Folklore CPU |
 | [db-manager.md](/dysnomia/dev/db-manager) | the Mirage-Concepts relational engine + alchemy game |
 
@@ -273,16 +271,12 @@ Further fringe WITHOUT per-contract docs (see
 device), GasContract.yul (minimal-Yul ERC-20 study), RandomGenerator
 (precomputed orbit + diyat gas tax), SolidityCreate2Factory (standard
 CREATE2), ABILookupToken ("CL9" lookup, `execute_dc`/`run_command` hints —
-REGISTER #6), std/ ALGOL 61 museum, strategies/ toy-language programs,
+an undeployed museum piece), std/ ALGOL 61 museum, strategies/ toy-language programs,
 `domain/data/` 411 voxel-asset JSONs, `etc/DysnomiaSelfSnipe.sol`
 (community snippet), lib/BesselSolver + lib/registry + lib/yai.sol.old.
 
-## Regenerating the function tables
+## The function tables
 
-```
-.venv/bin/python tools/dys_fntable.py --docs
-```
-
-re-fills every `<!-- fntable: Contract [@ file] -->` marker in this folder
-from the recovered sources. The JSON layer is `data/dysnomia/fn_tables.json`
-(67 contracts / 456 functions over 54 files at session 28).
+Every `<!-- fntable -->` table is generated mechanically from the recovered
+sources — signatures are never hand-transcribed. The generation tooling
+does not ship with this portal.

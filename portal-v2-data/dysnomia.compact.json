@@ -1,7 +1,7 @@
 {
  "_meta": {
-  "generated": "2026-09-24T23:26:41+00:00",
-  "provenance": "[chain]/[src] \u2014 perimeter @ block 27584967, liveness + signup censuses @ ~27.6M, Beat census session 32; curated wave/funding tables from the research tree",
+  "generated": "2026-09-25T14:08:00+00:00",
+  "provenance": "[chain]/[src] \u2014 perimeter @ block 27584967, liveness + signup censuses @ ~27.6M; curated wave/funding tables from the research tree",
   "perimeter_block": 27584967,
   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
   "funding": [
@@ -973,7 +973,7 @@
      273
     ]
    ],
-   "note": "LAUFactory children [chain]; named = readable Username attribute (session-34 sweep)"
+   "note": "LAUFactory children [chain]; named = readable Username attribute (build-time sweep)"
   },
   "shio": {
    "count": 12460,
@@ -987,7 +987,7 @@
    "events365": 15221,
    "creates": 988,
    "liveness_head": 27614039,
-   "note": "MAP creates vs live venues + 365d Transfer-scan liveness [chain] (session 34)"
+   "note": "MAP creates vs live venues + 365d Transfer-scan liveness [chain]"
   },
   "yue": {
    "count": 93,
@@ -999,7 +999,7 @@
    "first_block": 23761898,
    "last_block": 27591623,
    "gas_median": 1916016,
-   "note": "META.Beat census [chain] (session 32, erratum round)"
+   "note": "META.Beat census [chain]"
   },
   "qing_top": [
    {

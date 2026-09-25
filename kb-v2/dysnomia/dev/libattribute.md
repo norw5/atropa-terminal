@@ -46,7 +46,7 @@ tx.origin delegation carries the EOA.
 
 <!-- fntable: ATTRIBUTE @ lib/attribute.sol -->
 <!-- fntable-begin: ATTRIBUTE @ lib/attribute.sol -->
-Function table extracted mechanically from `lib/attribute.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `lib/attribute.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -80,5 +80,5 @@ chars, the readers revert `AliasNotFound`.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/lib/attribute.sol` (contract `ATTRIBUTE`).
+- [src] `lib/attribute.sol` (contract `ATTRIBUTE`).
 - [chain] perimeter.

@@ -21,7 +21,7 @@ expire in 10 days and are pruned. Party-gated both directions (`NotParty`
 unless the caller's SHIO ownership checks pass). `Saat(bytes)` folds any
 bytes into three uint64 "chromosomes" (the ≥18-byte input check).
 
-**Security posture** (02-kernel §8, owner-review): NOT confidentiality in
+**Security posture**: NOT confidentiality in
 the cryptographic sense — the keystream is a public orbit over world-readable
 state (SHA.View exposes Secret; MotzkinPrime ≈ 2^49.8). What it provides:
 permissioning (only the two parties' SHIO owners), co-evolution commitment
@@ -43,7 +43,7 @@ parties' SHAs.
 
 <!-- fntable: ENCRYPT @ lib/encrypt.sol -->
 <!-- fntable-begin: ENCRYPT @ lib/encrypt.sol -->
-Function table extracted mechanically from `lib/encrypt.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `lib/encrypt.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -78,5 +78,5 @@ bytes forms.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/lib/encrypt.sol`.
+- [src] `lib/encrypt.sol`.
 - [chain] absence probes; [irc] corroboration (index in 07-semantics §8).

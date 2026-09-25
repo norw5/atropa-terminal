@@ -44,7 +44,7 @@ the five-alchemon field data + the gold/diyat/registry addresses.
 
 <!-- fntable: OnChainDatabaseManager @ OnChainDatabaseManager.sol -->
 <!-- fntable-begin: OnChainDatabaseManager @ OnChainDatabaseManager.sol -->
-Function table extracted mechanically from `OnChainDatabaseManager.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `OnChainDatabaseManager.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -105,5 +105,5 @@ the generated table above; the docstring-level semantics of the alchemy trio
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/OnChainDatabaseManager.sol`.
+- [src] `OnChainDatabaseManager.sol`.
 - [chain] absence probes; [irc] corroboration (07-semantics §8).

@@ -45,7 +45,7 @@ Pole via Nu). SIU's own entropy contributions feed every user's Saat[2].
 
 <!-- fntable: SIU @ 09_siu.sol -->
 <!-- fntable-begin: SIU @ 09_siu.sol -->
-Function table extracted mechanically from `09_siu.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `09_siu.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -70,5 +70,5 @@ never owns the user's Cone (a deliberate privacy/authority boundary).
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/09_siu.sol`.
+- [src] `09_siu.sol`.
 - [chain] perimeter; LAU census 18,660 (`factory_children.json`).

@@ -10,7 +10,7 @@
 |---|---|
 | Source | `00b_vmreq.sol` (contract `VMREQ`, name "VMREQ"/"VMRNG") |
 | Onchain | absent — probed at deploy `deploy.ts` case 0 would have placed it; no deployment exists `[chain]` |
-| Decision | REGISTER-UNKNOWN #4 (local VM vs shared MATH — network-effect question) |
+| Decision | local VM vs shared MATH — deployment settled it on shared MATH |
 
 ## 2. Role
 
@@ -33,7 +33,7 @@ Cone.Secret 706190044965693, … — the full seed table is in the source).
 
 <!-- fntable: VMREQ @ 00b_vmreq.sol -->
 <!-- fntable-begin: VMREQ @ 00b_vmreq.sol -->
-Function table extracted mechanically from `00b_vmreq.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `00b_vmreq.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -64,5 +64,5 @@ authorship fingerprint to the affection-family `hashWith`.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/00b_vmreq.sol`, `deploy.ts` (case 0).
-- [chain] absence probes (perimeter pass, session 27).
+- [src] `00b_vmreq.sol`, `deploy.ts` (case 0).
+- [chain] absence probes (perimeter pass).

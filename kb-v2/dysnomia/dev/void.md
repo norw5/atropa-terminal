@@ -53,7 +53,7 @@ wave-1 ownership web (until CHO takes over in wave 2).
 
 <!-- fntable: VOID @ 10_void.sol -->
 <!-- fntable-begin: VOID @ 10_void.sol -->
-Function table extracted mechanically from `10_void.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `10_void.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -101,5 +101,5 @@ with the caller's Soul; `GetAttribute` is the only unmetered one (view).
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/10_void.sol`.
+- [src] `10_void.sol`.
 - [chain] perimeter; last Chat 2026-09-11 (`last_activity.json`).

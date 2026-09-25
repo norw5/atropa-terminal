@@ -33,7 +33,7 @@ custody via the WORLD chain; HECKE constants for the caps.
 
 <!-- fntable: VITUS @ domain/assets/vitus.sol -->
 <!-- fntable-begin: VITUS @ domain/assets/vitus.sol -->
-Function table extracted mechanically from `domain/assets/vitus.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/assets/vitus.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -55,5 +55,5 @@ holdings. `Mint(to, amount)` — owners-gated (WORLD) + overflow rule.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/assets/vitus.sol`.
+- [src] `domain/assets/vitus.sol`.
 - [chain] absence probes; MV supply from the KB (mv_supply_curve).

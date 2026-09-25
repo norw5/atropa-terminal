@@ -41,7 +41,7 @@ CHEON.Su. Walks the CHO spine for users/venues.
 
 <!-- fntable: MAI @ domain/soeng/02_mai.sol -->
 <!-- fntable-begin: MAI @ domain/soeng/02_mai.sol -->
-Function table extracted mechanically from `domain/soeng/02_mai.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/soeng/02_mai.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -64,5 +64,5 @@ balance). No MAI is ever transferred to a player by the bounty path.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/soeng/02_mai.sol`.
+- [src] `domain/soeng/02_mai.sol`.
 - [chain] perimeter.

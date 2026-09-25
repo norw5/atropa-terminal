@@ -43,7 +43,7 @@ None beyond code — stateless factory.
 
 <!-- fntable: SHAFactory @ 02c_shafactory.sol -->
 <!-- fntable-begin: SHAFactory @ 02c_shafactory.sol -->
-Function table extracted mechanically from `02c_shafactory.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `02c_shafactory.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -65,6 +65,5 @@ returns the SHA. Every deployed SHA therefore belongs to its requester.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/02c_shafactory.sol`.
-- [chain] perimeter (`creation_block`, code hash); liveness
-  `data/dysnomia/last_activity.json` (2026-02-02T21:45:55Z).
+- [src] `02c_shafactory.sol`.
+- [chain] perimeter (`creation_block`, code hash); liveness (2026-02-02T21:45:55Z).

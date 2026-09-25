@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **The "close out the night" button** | `Su(venue)` settles you at a room in one call: advance your account's venue bars, pay you a small bounty from the house's own MAI (while it lasts, max 1), drip one unit of your account token home, and hand you the refreshed vital signs. **It is the ecosystem's most-called function** — 24,069 direct calls by 64 wallets `[chain]` (session-34 call-origin census, `data/dysnomia/s34/call_origin.json`). |
+| **The "close out the night" button** | `Su(venue)` settles you at a room in one call: advance your account's venue bars, pay you a small bounty from the house's own MAI (while it lasts, max 1), drip one unit of your account token home, and hand you the refreshed vital signs. **It is the ecosystem's most-called function** — 24,069 direct calls by 64 wallets `[chain]` (call-origin census). |
 | **The designed heartbeat of the world layer** | The undeployed WORLD's tile actions would have called Su as their settle step — the machinery shipped, its biggest customer didn't. Live usage is direct calls and CHOA-era flows. |
 | **Needs an account** | No YUE, no settle (`NotStarted` from SEI.Chi). |
 
@@ -42,7 +42,7 @@ directly; live usage flows through CHOA-era actions and direct calls.
 
 <!-- fntable: CHEON @ domain/tang/02_cheon.sol -->
 <!-- fntable-begin: CHEON @ domain/tang/02_cheon.sol -->
-Function table extracted mechanically from `domain/tang/02_cheon.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/tang/02_cheon.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -62,5 +62,5 @@ MAI balance lasts.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/tang/02_cheon.sol`.
+- [src] `domain/tang/02_cheon.sol`.
 - [chain] perimeter.

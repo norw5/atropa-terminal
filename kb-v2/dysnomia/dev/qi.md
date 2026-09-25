@@ -39,7 +39,7 @@ ladder's physics constants.
 - Called by MAI (`ReactWaat` inside XIA), and heavily by third-party
   contract-internal readers (the 24–56M Random()/month grinder traffic
   documented for MATH touches this family — call-origin attribution is the
-  open question, REGISTER-UNKNOWN #10).
+  open question).
 
 ## 4. State
 
@@ -49,7 +49,7 @@ ladder's physics constants.
 
 <!-- fntable: QI @ domain/soeng/01_qi.sol -->
 <!-- fntable-begin: QI @ domain/soeng/01_qi.sol -->
-Function table extracted mechanically from `domain/soeng/01_qi.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/soeng/01_qi.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -73,5 +73,5 @@ observed as a practical issue since entropy advances on first use.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/soeng/01_qi.sol`.
+- [src] `domain/soeng/01_qi.sol`.
 - [chain] perimeter (98,253 = cap).

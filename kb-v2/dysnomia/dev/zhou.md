@@ -48,7 +48,7 @@ chat target), `Monopole`.
 
 <!-- fntable: ZHOU @ 06_zhou.sol -->
 <!-- fntable-begin: ZHOU @ 06_zhou.sol -->
-Function table extracted mechanically from `06_zhou.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `06_zhou.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -67,9 +67,9 @@ advances it through YI.React — public, un-gated, metered.
 - The chat history of the main room = LogEvents on
   `0x7aE73C498A308247BE73688c09c96B3fd06dDB84` (no indexed args).
 - ZHOU.React is public — anyone advances ZHOU's orbit; entropy semantics
-  treat this as public weather (02-kernel §8).
+  treat this as public weather.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/06_zhou.sol`.
+- [src] `06_zhou.sol`.
 - [chain] perimeter; activity scan (8,082 Fomalhaute LogEvents).

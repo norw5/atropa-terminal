@@ -2,7 +2,7 @@
 
 > Type doc: 93 live instances `[chain]`, children of [SEI](/dysnomia/dev/sei). A YUE is
 > the player's account and vault — with a built-in exchange desk — NOT a
-> "game currency" (owner-review reframing).
+> "game currency" (a deliberate reframing).
 
 ## In player terms
 
@@ -48,7 +48,7 @@ per-QING bars (Hypobar/Epibar += XIE's Omega/Omicron) — holders only
 
 <!-- fntable: YUE @ domain/yue.sol -->
 <!-- fntable-begin: YUE @ domain/yue.sol -->
-Function table extracted mechanically from `domain/yue.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/yue.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -98,5 +98,5 @@ owners-gated + `ZeroHoldings` if tx.origin holds none of the YUE. The
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/yue.sol`.
+- [src] `domain/yue.sol`.
 - [chain] `yue_addresses.json` (93).

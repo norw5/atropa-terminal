@@ -40,7 +40,7 @@ None (not even storage — everything landed in CHO).
 
 <!-- fntable: setaddresses @ domain/dan/02c_systemaddresses.sol -->
 <!-- fntable-begin: setaddresses @ domain/dan/02c_systemaddresses.sol -->
-Function table extracted mechanically from `domain/dan/02c_systemaddresses.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/dan/02c_systemaddresses.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -68,5 +68,5 @@ LAU). Full list: `02c_systemaddresses.sol`.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/dan/02c_systemaddresses.sol`.
+- [src] `domain/dan/02c_systemaddresses.sol`.
 - [chain] creation tx (above); 62-byte runtime (perimeter note).

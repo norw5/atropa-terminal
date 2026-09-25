@@ -43,7 +43,7 @@ None — stateless factory.
 
 <!-- fntable: SHIOFactory @ 03c_shiofactory.sol -->
 <!-- fntable-begin: SHIOFactory @ 03c_shiofactory.sol -->
-Function table extracted mechanically from `03c_shiofactory.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `03c_shiofactory.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -65,6 +65,6 @@ and `SHA(Cone).addOwner(shio)`.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/03c_shiofactory.sol`.
-- [chain] perimeter; `data/dysnomia/factory_children.json` (12,460);
+- [src] `03c_shiofactory.sol`.
+- [chain] perimeter; (12,460);
   liveness 2026-02-02T21:47:05Z.

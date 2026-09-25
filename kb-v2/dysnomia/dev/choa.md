@@ -44,7 +44,7 @@ Chat). Reads QING.Chat (admission + LogEvent) and the MAI ladder.
 
 <!-- fntable: CHOA @ domain/sky/02_choa.sol -->
 <!-- fntable-begin: CHOA @ domain/sky/02_choa.sol -->
-Function table extracted mechanically from `domain/sky/02_choa.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/sky/02_choa.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -80,5 +80,5 @@ the player. "Chat pays MAI" is therefore loose shorthand: chat pays
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/sky/02_choa.sol`.
+- [src] `domain/sky/02_choa.sol`.
 - [chain] perimeter; liveness (active 2026-09).

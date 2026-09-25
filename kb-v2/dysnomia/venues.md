@@ -39,7 +39,7 @@ MotzkinPrime` — the map's geometry and the crypto's modulus are the same
 numbers `[src: lib/heckemeridians.sol]`). The implemented topology is a
 stack of folded strips: narrow near the pole, constant-width near the
 equator, with a mirrored second hemisphere; venues fill it uniformly
-`[chain: session-32 atlas replication]`.
+`[chain: full-atlas replication]`.
 
 Entering a QING means passing its **bouncer** — any one of: being on the
 staff list, holding ≥25 CROWS `0x203e366A1821570b2f84Ff5ae8B3BdeB48Dc4fa1`
@@ -66,7 +66,7 @@ with a long tail of new arrivals into 2026 `[chain]`. Activity is heavily
 concentrated: the first venue — **Phobos**, the Zürich QING
 `0xb0ba7d36b7f0505879179ece7401f24eb653c6e1` — alone carries about a third
 of all venue events, and a few dozen venues carry almost all the rest
-`[chain: session-34 liveness scan]`. The hub's generated tables carry the
+`[chain: 365-day liveness scan]`. The hub's generated tables carry the
 counts and the current leaders.
 
 ## DO — venue-claim deeds
@@ -75,8 +75,7 @@ Wave 6 deployed two small "DO" (搞) tokens. The live one, DO-2
 `0x98dBd5E4F78e53884C77573407727C3779ca3bad`, is a **deed layer**:
 `Take(qing)` adds the caller as an owner of the venue's QING contract
 through CHO's privilege injector, flips a per-venue taken-once flag, and
-mints one DO to the caller's user token `[chain: 54 takes decoded,
-session 32]`. Its source is not in the recovered tree (decompiled); DO-1
+mints one DO to the caller's user token `[chain: 54 takes decoded]`. Its source is not in the recovered tree (decompiled); DO-1
 `0x3012e0F5eD16C24f61A62100cCEa50cb1E288d08` is a supply-zero draft
 `[chain]`.
 

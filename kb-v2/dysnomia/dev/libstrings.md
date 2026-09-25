@@ -42,7 +42,7 @@ None beyond the DYSNOMIA base (all functions pure except `RandomAcronym`).
 
 <!-- fntable: STRINGLIB @ lib/stringlib.sol -->
 <!-- fntable-begin: STRINGLIB @ lib/stringlib.sol -->
-Function table extracted mechanically from `lib/stringlib.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `lib/stringlib.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -80,5 +80,5 @@ base v1 helpers as pure functions.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/lib/stringlib.sol` (contract `STRINGLIB`).
-- [chain] perimeter; CHO `CYUN()` revert probe (session 28).
+- [src] `lib/stringlib.sol` (contract `STRINGLIB`).
+- [chain] perimeter; CHO `CYUN()` revert probe.

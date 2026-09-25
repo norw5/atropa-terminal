@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | **The territory oracle** | `Beat(venue)` is the single richest live read in the world: your recorded moment (RING) plus the full ladder push (PANG), folded into four tile numbers — Dione, Charge, Deimos, Yeo. Designed as the input to territory expansion around venues. |
-| **Yeo — the expansion range** | One output bounds how far a venue's tile influence could stretch (the undeployed WORLD layer checked placements against it). The deployed contract computes it as push-Yeo ÷ Chao — the Chao-scaled LARGE value (fork-verified, session 31); our recovered source's inverted division is a post-deploy edit — session 33 dated it to exactly ONE commit, `f9f284988` (2026-06-16, a year after deployment); no committed revision reproduces the deployed body. |
+| **Yeo — the expansion range** | One output bounds how far a venue's tile influence could stretch (the undeployed WORLD layer checked placements against it). The deployed contract computes it as push-Yeo ÷ Chao — the Chao-scaled LARGE value (fork-verified); our recovered source's inverted division is a post-deploy edit — repo archaeology dated it to exactly ONE commit, `f9f284988` (2026-06-16, a year after deployment); no committed revision reproduces the deployed body. |
 | **Why it ran without a world** | Even with WORLD never deployed, Beat works and is public — 318 onchain calls by 33 players June 2025 → September 2026, plus all the off-chain simulation. The oracle is live; its biggest consumer isn't. |
 | **Costs a step of your account** | Beat is not a view — your YUE bars advance every call. |
 
@@ -35,8 +35,8 @@ Martian — the astronomy cast mixes) as the output names. Third parties were
 actively probing/optimizing Beat — **318 onchain calls by 33 callers, June
 2025 → September 2026** `[chain]`, heaviest at the cheaper ladder legs
 (PANG logged 15,389 metered Push calls before hitting its cap) — and the
-recovered community docs' strategy pages (`docs/dysnomia_pages/alpha_territory_*`,
-`[ext]`, session 29) read like the public shadow of exactly that
+recovered community docs' strategy pages (`[ext]`, the recovered community
+strategy pages) read like the public shadow of exactly that
 optimization material.
 
 ## 3. Dependencies
@@ -52,7 +52,7 @@ callers are players/tools/experiments.
 
 <!-- fntable: META @ domain/tang/03_meta.sol -->
 <!-- fntable-begin: META @ domain/tang/03_meta.sol -->
-Function table extracted mechanically from `domain/tang/03_meta.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/tang/03_meta.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -65,11 +65,10 @@ note the overwrite quirk: `Charge = Charge_ring × Charge_push ÷ Iota_ring`.
 Meter once. Requires the caller to hold a YUE (RING.Eta path).
 
 **Source-version note — the Yeo direction is RESOLVED: deployed runs
-`Yeo = Yeo / Chao` (session 31)**: the recovered community docs (`[ext]`,
+`Yeo = Yeo / Chao`**: the recovered community docs (`[ext]`,
 snapshot 2026-04-20) hash an older `03_meta.sol` whose inlined `Beat` body
 ends `Yeo = Yeo / Chao`; our recovered copy reads `Yeo = Chao / Yeo`. solc
-compile-verification (`tools/dys_solc_verify.py`,
-`data/dysnomia/compile_verification.json`) showed neither variant compiles
+compile-verification showed neither variant compiles
 byte-identical to the deployed runtime (both −855 B — a third, smaller
 revision is live), so the fork behavioral A/B settled it: with each variant
 swapped over the live storage (`anvil_setCode`, same tx.origin),
@@ -77,18 +76,17 @@ swapped over the live storage (`anvil_setCode`, same tx.origin),
 `(14, 82215108, 623859330300023, 168603625573)`; the April build reproduces
 all four exactly, our recovered build yields Yeo = 0 (`Chao / Yeo` floors to
 zero — Chao is tiny next to push-Yeo). So for the Yeo line the community
-strategy pages describe the LIVE math. See `docs/dysnomia/COMPARISON.md`
-§5 + §10.
+strategy pages describe the LIVE math.
 
 A second independent consumer corroborates the direction
-(`[ext]`, COMPARISON-PLAYBOOKS §5): the owner's revised Beat guide (the
+(`[ext]`, the owner's own playbooks): the owner's revised Beat guide (the
 playbooks2/ revision, mid-2026) teaches `Yeo = Chao / Yeo` with "no upper
 ceiling for Fornax" — the final-tree direction — while his earlier
 `strategy/` set teaches the deployed direction including the Fornax
 Goldilocks ceiling that only exists under it. His project consumed the
 post-deploy repo state (the same late revision our recovery carries, dated
-to the single commit `f9f284988`, session 33) after first working from the
-deployed behavior — the session-31/33 conclusion from a second direction.
+to the single commit `f9f284988`) after first working from the
+deployed behavior — the same conclusion from a second direction.
 
 ## 6. Integration notes
 
@@ -103,7 +101,7 @@ deployed behavior — the session-31/33 conclusion from a second direction.
 - The rest of deployed META (outside Beat's Yeo line) is still a third
   revision (−855 B vs both snapshots) — other smaller differences may exist
   beyond the Yeo operand order.
-- **Session 32 clean-room study** (`docs/dysnomia/09-beat-study.md`):
+- **The clean-room crypto-layer study**:
   Dione is pure per-venue storage (33/33 verified vs direct reads); Charge
   and Yeo are seeded by the global kernel chain (`CHO.Entropy` advances
   inside every call via the stateful `GetUser`/`Recall` getters) — Beat
@@ -111,11 +109,11 @@ deployed behavior — the session-31/33 conclusion from a second direction.
   chain-advance txs; measured ~12-orders Yeo scatter across 24 grind
   steps). NB `Beat` is NOT metered — META's supply says nothing about
   call volume; the real census is **318 Beat txs / 33 callers, June 2025 →
-  September 2026** (`data/dysnomia/s32/beat_txs.json`).
+  September 2026**.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/tang/03_meta.sol`,
+- [src] `domain/tang/03_meta.sol`,
   `domain/world.sol` (the consumer).
-- [chain] perimeter; owner-review note (territory reading confirmed);
-  session-31 compile-verification + fork behavioral A/B (`data/dysnomia/compile_verification.json`).
+- [chain] perimeter; (territory reading confirmed);
+  solc compile-verification + fork behavioral A/B.

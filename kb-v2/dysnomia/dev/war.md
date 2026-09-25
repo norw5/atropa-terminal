@@ -33,7 +33,7 @@ Sei().Chan().addOwner(address(this))` — needs the spine). Deploys its own
 
 <!-- fntable: WAR @ domain/dan/04_war.sol -->
 <!-- fntable-begin: WAR @ domain/dan/04_war.sol -->
-Function table extracted mechanically from `domain/dan/04_war.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/dan/04_war.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -59,5 +59,5 @@ beating your own best.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/dan/04_war.sol`.
+- [src] `domain/dan/04_war.sol`.
 - [chain] absence probes.

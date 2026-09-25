@@ -47,7 +47,7 @@ YUE), making it the custodian of record for the vault layer.
 
 <!-- fntable: CHAN @ domain/sky/01_chan.sol -->
 <!-- fntable-begin: CHAN @ domain/sky/01_chan.sol -->
-Function table extracted mechanically from `domain/sky/01_chan.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/sky/01_chan.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -85,5 +85,5 @@ player-opt-in-gated (`PlayerMustOptIn`); `YueMintToOrigin` — owners-gated
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/sky/01_chan.sol`.
+- [src] `domain/sky/01_chan.sol`.
 - [chain] perimeter; liveness (active 2026-09).

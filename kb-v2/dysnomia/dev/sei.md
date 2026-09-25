@@ -43,7 +43,7 @@ royalties) keys off SEI's directory via CHAN.
 
 <!-- fntable: SEI @ domain/tang/01_sei.sol -->
 <!-- fntable-begin: SEI @ domain/tang/01_sei.sol -->
-Function table extracted mechanically from `domain/tang/01_sei.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/tang/01_sei.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -69,5 +69,5 @@ ownership + `Chan.AddYue`; else rename. Returns the pair. Meters.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/tang/01_sei.sol`.
+- [src] `domain/tang/01_sei.sol`.
 - [chain] `yue_addresses.json` + `sei_tx_zero_mints.json` (93, erratum v2).

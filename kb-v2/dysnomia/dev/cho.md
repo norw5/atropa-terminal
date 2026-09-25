@@ -1,7 +1,7 @@
 # CHO — "Dysnomia Cho" — the hub
 
 > Wave 2 · 2025-02-26 22:51 UTC · deployed `[chain]` · at cap · in daily use
-> two years on (last tx the day of the session-27 census `[chain]`)
+> two years on (last tx landed the day of our census `[chain]`)
 
 ## In player terms
 
@@ -22,8 +22,8 @@
 | Deployer | `0x0474606332105A1dA6FC8EF7De2470551D389Cb9` |
 | Name / symbol | Dysnomia Cho / CHO `[chain]` |
 | Supply / cap | 26,995 / 26,995 — **at cap** `[chain]` |
-| Own SHIO | `0x2060040d1084b1770362004355153594e4461f8` (its user channel; "Tethys" in the owner's constellation list) `[chain, On() decode]` |
-| Cross-link | treasury-side Basilica `0xae488a2b6fe8fe922019c1442c60f9dec0282894` whitelists CHO as its only minter target (2025-06-24) — REGISTER-UNKNOWN #1 |
+| Own SHIO | `0x2060040d1084b1770362004355153594e4461f8` (its user channel; "Tethys" in the dev-published constellation list) `[chain, On() decode]` |
+| Cross-link | treasury-side Basilica `0xae488a2b6fe8fe922019c1442c60f9dec0282894` whitelists CHO as its only minter target (2025-06-24) — the motive an open question |
 
 ## 2. Role
 
@@ -39,7 +39,7 @@ and `addOwner(tx.origin)` — the hub absorbs the kernel. Five jobs:
    and each user's personal state one step along the shared
    ReactionsLib orbit. Every venue entry, chat, and ladder read mixes a bit
    more motion into the numbers the statistics later divide by.
-   Session-32 precision (`09-beat-study.md`): the chain head is CHO's own
+   Beat-study precision: the chain head is CHO's own
    `Entropy` storage, advanced by `Recall` — which the **stateful
    `GetUser()` getter calls on every metered path** (several times per
    Beat) — so the global head ratchets on *anyone's* ordinary reads, and
@@ -79,7 +79,7 @@ and `addOwner(tx.origin)` — the hub absorbs the kernel. Five jobs:
 
 <!-- fntable: CHO @ domain/dan/01_cho.sol -->
 <!-- fntable-begin: CHO @ domain/dan/01_cho.sol -->
-Function table extracted mechanically from `domain/dan/01_cho.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/dan/01_cho.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -113,7 +113,7 @@ fresh entropy (`Recall`). `GetUser`/`GetUserBySoul` re-Recall (they mutate
 entropy — non-view!). `ReactUser(soul, eps)` advances a specific user's orbit
 through their cone. `has(contract, sig)` — raw staticcall duck-typing probe.
 
-Interface drift `[chain, session 28]`: the CHOINTERFACE used by MAP/QING/WORLD
+Interface drift `[chain]`: the CHOINTERFACE used by MAP/QING/WORLD
 matches deployed CHO, but the newer interface copy (used by old-era NYM)
 declares `CYUN()`, `Log(uint64,uint64,string)` and `OperatorSendMSG(string)` —
 all three **revert** on the live CHO. Live getters verified: `Gua()`, `Void()`,
@@ -133,7 +133,7 @@ all three **revert** on the live CHO. Live getters verified: `Gua()`, `Void()`,
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/dan/01_cho.sol`,
+- [src] `domain/dan/01_cho.sol`,
   `domain/dan/interfaces/01b_chointerface.sol`.
 - [chain] perimeter; `Gua()`/`On()`/`CYUN()` probes (sessions 27–28);
   last_activity (tx the census day).

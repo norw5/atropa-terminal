@@ -31,7 +31,7 @@ MotzkinPrime` the public key (`Tune`), `React` a Diffie-Hellman-style exchange
 with a peer-supplied modulus. The Greek-letter vocabulary matches the
 AFFECTION ecosystem's VM exactly (same authorship signature).
 
-**Security posture** (owner-review clarification, 02-kernel §8): the "keys" are
+**Security posture**: the "keys" are
 not secret — `View()` returns the whole `Fa` including `Secret`, and the field
 is tiny (MotzkinPrime ≈ 2^49.8; discrete logs are laptop-scale). What the
 mechanism provides is permissioning (owners-only transitions), co-evolution
@@ -58,7 +58,7 @@ the owner-gated transitions below. `Dynamo` is the side-channel value
 
 <!-- fntable: SHA @ 02_sha.sol -->
 <!-- fntable-begin: SHA @ 02_sha.sol -->
-Function table extracted mechanically from `02_sha.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `02_sha.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -104,6 +104,6 @@ Effects: `Fuse` overwrites the triple (Base, Secret, Signal); `Avail(Xi)` sets
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/02_sha.sol`, `include/fa.sol`.
-- [chain] SHIO census 12,460 (`data/dysnomia/factory_children.json`);
+- [src] `02_sha.sol`, `include/fa.sol`.
+- [chain] SHIO census 12,460;
   kernel SHAs created inside wave-1 constructors (perimeter).

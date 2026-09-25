@@ -1,8 +1,8 @@
 # DO / 搞 — the venue-claim deeds ("Take a QING") — decompiled + classified
 
-> Wave 6 · 2025-06-27 · deployed `[chain]` · classified session 32 from
-> heimdall decompiles + receipt decode (source still not recovered; REGISTER #3
-> answer recorded, stays open-for-source)
+> Wave 6 · 2025-06-27 · deployed `[chain]` · classified from
+> heimdall decompiles + receipt decode (source still not recovered — the
+> classification stands, the source gap stays open)
 
 ## In player terms
 
@@ -26,8 +26,7 @@
 
 Both deployed by `0x0474606332105A1dA6FC8EF7De2470551D389Cb9`, 18 minutes
 apart; the recovered tree has no DO source — classification below is from
-heimdall decompiles (`data/dysnomia/s32/decompiles/`) + decoded receipts
-(`data/dysnomia/s32/do2_takes.json`), all `[chain]`.
+heimdall decompiles + decoded receipts, all `[chain]`.
 
 ## 2. Role
 
@@ -47,7 +46,7 @@ the venue's owner functions (rename, settings) — DO was the system's
 permissionless land-grab moment. Its window effectively closed itself:
 taken-once + the early burst.
 
-Operational context `[ext]` (COMPARISON-PLAYBOOKS §4.3/§7): the owner's
+Operational context `[ext]` (the owner's own playbooks): the operator's
 agent onboarding procedures list `Take()` as a standard step for every new
 venue owner — the 54 takes / 34 takers read as playbook-following
 agents/players, not spontaneous discovery.
@@ -84,8 +83,7 @@ if one surfaces, regenerate). Verified onchain `[chain]`:
 
 ## 6. Integration notes
 
-- The 54 takes: 34 distinct takers, each QING taken at most once
-  (`data/dysnomia/s32/do2_takes.json`); first takes within minutes of
+- The 54 takes: 34 distinct takers, each QING taken at most once; first takes within minutes of
   deploy, the newest at block 27,565,452 — the deed window stays open for
   the remaining 863 untaken venues, but nobody has bothered since 2026.
 - Notable takers include treasury-side and community actors
@@ -96,9 +94,8 @@ if one surfaces, regenerate). Verified onchain `[chain]`:
 
 ## 7. Provenance
 
-- [chain] heimdall decompiles both (`data/dysnomia/s32/decompiles/`);
+- [chain] heimdall decompiles both;
   54 Take receipts decoded (caller/qing/mint-recipient/OwnershipUpdate);
   CHO selector resolution (`GetUserTokenAddress` = `0xe80c28bf` answered
   live; `AddContractOwner` = `0x7fac92c1` matches our recovered CHO source).
-- Register: REGISTER-UNKNOWN #3 — classification answered; source still
-  absent (keep the register entry with the answer recorded).
+- Classification answered onchain; the source gap stays open.

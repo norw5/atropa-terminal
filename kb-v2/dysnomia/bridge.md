@@ -18,7 +18,7 @@ they are hardcodes, shared tokens, and ordinary ERC-20 flows.
   `[src: 03_qing.sol:98]`.
 - **AFFECTION is seeded 1:1 everywhere** in the Dysnomia token family, and
   wallets buy ladder and composite tokens with Ⓐ through the inherited
-  `Purchase` `[chain: session-34]`.
+  `Purchase` `[chain]`.
 
 ## Hardcoded references, both directions
 
@@ -43,8 +43,7 @@ they are hardcodes, shared tokens, and ordinary ERC-20 flows.
   "Metis", "Gai" `[src: 02c_systemaddresses.sol]`.
 - **Treasury actors play in the venues** — QING creation callers include
   the V2-era top token creator, the cDc fixed payment slot, the community
-  helpers builder and the bureau-#4 deployer `[chain: session-27 creation
-  sample]`; wrapped assets include FED and pWBTC `[chain]`.
+  helpers builder and the bureau-#4 deployer `[chain: creation sample]`; wrapped assets include FED and pWBTC `[chain]`.
 - A treasury-side token even carries the name: "Dysnomia Genesis Rewards
   Token" (dGENESIS) `0xd2a048ef4e018348eebc245a4402db7b46c8e22f`, deployed
   by Maria #2 in 2024-11 `[chain]`.

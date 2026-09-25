@@ -46,7 +46,7 @@ or the interface was written against a planned surface that never shipped.
 
 <!-- fntable: Nym @ domain/old/nym.sol -->
 <!-- fntable-begin: Nym @ domain/old/nym.sol -->
-Function table extracted mechanically from `domain/old/nym.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/old/nym.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -97,6 +97,6 @@ lib/reactions_core.sol ReactToTalk + nym.sol Chat]`.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/old/nym.sol`,
+- [src] `domain/old/nym.sol`,
   `lib/reactions_core.sol`, `lib/stringlib.sol`.
-- [chain] CHO selector probes (session 28).
+- [chain] CHO selector probes.

@@ -53,7 +53,7 @@ BRIGHTNESS, HUE, WHITE).
 
 <!-- fntable: COREREACTIONSLIB @ lib/reactions_core.sol -->
 <!-- fntable-begin: COREREACTIONSLIB @ lib/reactions_core.sol -->
-Function table extracted mechanically from `lib/reactions_core.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `lib/reactions_core.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -91,6 +91,6 @@ are the two bread-and-butter single-sided steps everything reduces to.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/lib/reactions_core.sol` (contract
+- [src] `lib/reactions_core.sol` (contract
   `COREREACTIONSLIB`).
 - [chain] perimeter; `CHO.Reactor()` probe resolves this address.

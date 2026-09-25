@@ -35,9 +35,8 @@ band 33 into constant steps of
 shrinking toward the pole; `Meridians[0] = 476733977057179` doubles as the
 QING GWAT withdrawability divisor, and `MotzkinPrime = 2×476733977057179 + 5`
 — the coordinate origin and the crypto modulus are factors of the same design
-(verified `[chain]`). Session 32's full-917 atlas: every live venue lands in
-bands 34–88 with ~uniform latitude over ±pole (`docs/dysnomia/03-venues-and-game.md`
-§3a, `data/dysnomia/s32/atlas.json`).
+(verified `[chain]`). The full-917 atlas replication: every live venue lands in
+bands 34–88 with ~uniform latitude over ±pole (atlas replication over all 917).
 
 ## 3. Dependencies
 
@@ -55,7 +54,7 @@ and verified onchain `[chain]`; first 476733977057179, last
 
 <!-- fntable: Hecke @ lib/heckemeridians.sol -->
 <!-- fntable-begin: Hecke @ lib/heckemeridians.sol -->
-Function table extracted mechanically from `lib/heckemeridians.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `lib/heckemeridians.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -76,7 +75,7 @@ domain. `GetWaat` inverts the latitude mapping (± 333 scale).
 - Pure view functions — anonymous-safe, no meter (supply is at cap anyway,
   and pre-paid).
 - Cartography gotcha: the projection is **anisotropic** (community mapping
-  attempts and the owner's notes agree — REGISTER-UNKNOWN owner-review);
+  attempts and the dev's own notes agree);
   naive lat/lon scatter plots of the 917 QINGs will look clumped, not
   uniform. The meridian widths shrink hyperbolically — tile "area" is wildly
   non-uniform in Waat-space.
@@ -84,5 +83,5 @@ domain. `GetWaat` inverts the latitude mapping (± 333 scale).
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/lib/heckemeridians.sol`.
-- [chain] `Meridians(0)`/`Meridians(89)` probes (session 27); perimeter.
+- [src] `lib/heckemeridians.sol`.
+- [chain] `Meridians(0)`/`Meridians(89)` probes; perimeter.

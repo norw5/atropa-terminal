@@ -48,7 +48,7 @@ non-view (it meters!) — reading the registry through it costs gas and mints.
 
 <!-- fntable: ZHENG @ 05_zheng.sol -->
 <!-- fntable-begin: ZHENG @ 05_zheng.sol -->
-Function table extracted mechanically from `05_zheng.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `05_zheng.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -82,5 +82,5 @@ Isolate on a SHIO.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/05_zheng.sol`, `include/bao.sol`.
+- [src] `05_zheng.sol`, `include/bao.sol`.
 - [chain] perimeter; last activity 2026-09-03.

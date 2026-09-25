@@ -33,7 +33,7 @@ HECKE via `War.World().Map().Map()`.
 
 <!-- fntable: H2O @ domain/assets/h2o.sol -->
 <!-- fntable-begin: H2O @ domain/assets/h2o.sol -->
-Function table extracted mechanically from `domain/assets/h2o.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/assets/h2o.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -52,5 +52,5 @@ burn).
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/assets/h2o.sol`.
+- [src] `domain/assets/h2o.sol`.
 - [chain] absence probes.

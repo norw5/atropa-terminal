@@ -43,7 +43,7 @@ Holds `Zi` (full chain beneath). Called by RING.Eta, META.Beat (via
 
 <!-- fntable: PANG @ domain/soeng/06_pang.sol -->
 <!-- fntable-begin: PANG @ domain/soeng/06_pang.sol -->
-Function table extracted mechanically from `domain/soeng/06_pang.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/soeng/06_pang.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -64,5 +64,5 @@ recompute the whole ladder); meters once. Requires a CHO session.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/soeng/06_pang.sol`.
+- [src] `domain/soeng/06_pang.sol`.
 - [chain] perimeter.

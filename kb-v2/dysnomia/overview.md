@@ -34,7 +34,7 @@ packages"* `[irc: atropa_logged line 21114]`.
    `[src]`. When the budget is exhausted the contract keeps working but
    stops paying its own meter: the infrastructure is a set of pre-paid
    machines, and most of the heavy machinery has already run dry
-   (see the hub's cap column `[chain]`).
+   (see [the hub](/dysnomia)'s cap column `[chain]`).
 2. **Cryptography as physics.** The system runs on the same backbone as the
    treasury and AFFECTION ecosystems — MATH
    `0xB680F0cc810317933F234f67EB6A9E923407f05D` as the shared `Xiao`

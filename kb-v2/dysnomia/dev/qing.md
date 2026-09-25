@@ -19,8 +19,8 @@
 |---|---|
 | Type | `Type() == "QING"` (base) · `SubType() == "RosenfeldQing"` (subclass) |
 | Factory | [MAP](/dysnomia/dev/map) `0xD3a7A95012Edd46Ea115c693B74c5e524b3DdA75` — one QING per asset, ever |
-| Census | 917 live (22,813,947 → 27,565,448), incl. venues around FED `0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff` and pWBTC `0x2260fac5e5542a773aa44fbcfedf7c193bc2c599` `[chain]`. **Liveness (session 34, trailing-year Transfer-block scan): 816 of 917 venues show nothing beyond creation-era blocks; ~101 had real usage; 17–23 alive in the last 30 days — Phobos alone carries ~35% of all venue activity** (`data/dysnomia/s34/qing_liveness.json`) |
-| First instance | "Zürich QING" (`qZů`) `0xb0ba7d36b7f0505879179ece7401f24eb653c6e1` — block 22,819,500, supply 542 / cap 58,364, owners include Maria #2 + deployer `[chain]`; "Phobos" in the owner's constellation list; RING's `Phobos` hard-reference |
+| Census | 917 live (22,813,947 → 27,565,448), incl. venues around FED `0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff` and pWBTC `0x2260fac5e5542a773aa44fbcfedf7c193bc2c599` `[chain]`. **Liveness (trailing-year Transfer-block scan): 816 of 917 venues show nothing beyond creation-era blocks; ~101 had real usage; 17–23 alive in the last 30 days — Phobos alone carries ~35% of all venue activity** |
+| First instance | "Zürich QING" (`qZů`) `0xb0ba7d36b7f0505879179ece7401f24eb653c6e1` — block 22,819,500, supply 542 / cap 58,364, owners include Maria #2 + deployer `[chain]`; "Phobos" in the dev-published constellation list; RING's `Phobos` hard-reference |
 | Sources | `domain/dan/03_qing.sol`, `domain/dan/03c_rosenfeld_qing.sol` |
 
 ## 2. Role
@@ -57,7 +57,7 @@ immutable flag). The community's visible venue map (FED venue, pWBTC venue,
 
 <!-- fntable: QING @ domain/dan/03_qing.sol -->
 <!-- fntable-begin: QING @ domain/dan/03_qing.sol -->
-Function table extracted mechanically from `domain/dan/03_qing.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/dan/03_qing.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -86,7 +86,7 @@ Errors declared: `MarketRateCanOnlyBeIncreased(address Contract, uint256 Current
 
 <!-- fntable: RosenfeldQing @ domain/dan/03c_rosenfeld_qing.sol -->
 <!-- fntable-begin: RosenfeldQing @ domain/dan/03c_rosenfeld_qing.sol -->
-Function table extracted mechanically from `domain/dan/03c_rosenfeld_qing.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/dan/03c_rosenfeld_qing.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -143,6 +143,6 @@ totalSupply ÷ 777. Rosenfeld additions are pure-view tensor farce over
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/dan/03_qing.sol`,
+- [src] `domain/dan/03_qing.sol`,
   `03c_rosenfeld_qing.sol`.
 - [chain] NewQing scan (917); Zürich instance probes (perimeter).

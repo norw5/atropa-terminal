@@ -25,7 +25,7 @@
   (any factory child — mechanically derived from core, whoever the creator) ·
   **external** (fork-carried, bridge-wrapped, outside systems). The
   core/external boundary is Maria authorship of the *machinery*, not of each
-  token. (Session 24: the `community` origin value was retired with the
+  token. (The `community` origin value was retired with the
   helper rows — no third-party deployments remain in the registry.)
 - `tax_alias_tshare_canon`: TRUE iff the address is on the dev-published
   37-entry audit list (`docs/tshare_tokens_audit_1.txt`). Alias only.

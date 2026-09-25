@@ -50,7 +50,7 @@ as they boot.
 
 <!-- fntable: YI @ 04_yi.sol -->
 <!-- fntable-begin: YI @ 04_yi.sol -->
-Function table extracted mechanically from `04_yi.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `04_yi.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -81,6 +81,5 @@ persist). Private `Ionize` = Psi.Isomerize + Isolate.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/04_yi.sol`.
-- [chain] perimeter; last activity 2026-08-29 `[chain]`
-  (`data/dysnomia/last_activity.json`).
+- [src] `04_yi.sol`.
+- [chain] perimeter; last activity 2026-08-29 `[chain]`.

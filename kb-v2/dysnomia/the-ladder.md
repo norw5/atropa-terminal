@@ -36,7 +36,7 @@ The ladder feeds two consumers:
   is the **tile-parameter oracle**: combine RING + PANG, then
   `Deimos = modExp(Dione, Phoebe, Yuan(qing))` and `Yeo = Yeo / Chao`
   (the deployed division; `Yeo` comes out Chao-scaled large) `[src:
-  06_meta.sol, session-31 fork A/B]`. Per the source, these are
+  06_meta.sol; fork-verified]`. Per the source, these are
   **territory-expansion inputs**: `Yeo` bounds the tile radius each QING's
   placement is checked against in the undeployed WORLD layer; `Charge` and
   `Deimos` feed tile value and creator credits.
@@ -45,13 +45,13 @@ Every rung is metered like all system contracts — one self-mint per call
 against a lottery budget. At the research census the whole ladder sat
 **at cap**: the call counters froze exactly at their constructor-lottery
 budgets (QI ≈ 91.8k calls, CHOA ≈ 42.1k, MAI ≈ 26.4k, XIE ≈ 20.8k, PANG
-≈ 15.4k, ZI ≈ 13.2k, XIA ≈ 5.6k `[chain: session-32 meter census]`) —
+≈ 15.4k, ZI ≈ 13.2k, XIA ≈ 5.6k `[chain: meter census]`) —
 usage was heavy, and when the budgets ran out the reads kept working and
 the meters stopped. The hub's generated table carries the live numbers.
 
 ## The rolling-state engine
 
-Session-32's core finding, worth knowing before you touch the ladder: the
+The core finding of the crypto-layer study, worth knowing before you touch the ladder: the
 system's randomness is a **shared deterministic chain**, and the ladder
 reads it *statefully*. CHO's global `Entropy` head advances inside the
 ordinary `GetUser()` path several times per action — so anyone's committed
@@ -64,7 +64,7 @@ call moves everyone's next outputs, while `eth_call` previews are pure
 - **Previews are grindable** — a patient caller can step the global head
   with cheap transactions and preview for free until a favorable
   (Charge, Yeo) draw appears; measured at one venue, ~29% of grind steps
-  produced a Yeo ≥ 1e11 `[chain: session-32 grind experiment]`.
+  produced a Yeo ≥ 1e11 `[chain: measured grind experiment]`.
 
 The full mechanics of the shared orbit — and how the same design choice
 makes the treasury-side MATH/RNG pair predictable — are consolidated on

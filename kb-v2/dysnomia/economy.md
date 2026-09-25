@@ -49,7 +49,7 @@ Every token in the DYSNOMIA family carries `Purchase`/`Redeem` at
 internally-tracked market rates, with **AFFECTION**
 `0x24F0154C1dCe548AdF15da2098Fdd8B8A3B8151D` seeded 1:1 everywhere
 `[src: 01_dysnomia.sol]` — so Ⓐ buys Dysnomia assets directly, and wallets
-use it that way `[chain: session-34 Purchase(address,uint256) census]`.
+use it that way `[chain: Purchase(address,uint256) census]`.
 The YUE desk goes further: `Hong(spend, qing, amount)` / `Hung(qing,
 receive, amount)` exchange QING-family assets by walking the
 QING-on-QING derivative chain and multiplying rates with a 777-mod

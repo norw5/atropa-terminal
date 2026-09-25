@@ -20,7 +20,7 @@
 | Type | `Type()` inherited family face; Parent = the creator's LAU |
 | Factory | [PKMinter](/dysnomia/dev/pkminter) `0x9f4E1471e614747A9a56A33eb0338671ebA1dE2B` |
 | Reference instance | the constructor demo: "PKI Tester" / ㊵, 40-of-40 signer set with embedded signatures `[src]` |
-| Census | no factory-children census beyond the demo (no user TTs observed at the session-27 pass) `[chain]` |
+| Census | no factory-children census beyond the demo (no user TTs ever observed) `[chain]` |
 | Source | `domain/dan/pkminter.sol` (contract `TT` at the bottom of the file) |
 
 ## 2. Role
@@ -50,7 +50,7 @@ inbox), `PublicKeys[]`, `Complexity`, `UsedNonces`.
 
 <!-- fntable: TT @ domain/dan/pkminter.sol -->
 <!-- fntable-begin: TT @ domain/dan/pkminter.sol -->
-Function table extracted mechanically from `domain/dan/pkminter.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `domain/dan/pkminter.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -94,5 +94,5 @@ gate for plain PLS.
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/domain/dan/pkminter.sol`.
+- [src] `domain/dan/pkminter.sol`.
 - [chain] demo instance via PKMinter constructor (`verify_selectors`).

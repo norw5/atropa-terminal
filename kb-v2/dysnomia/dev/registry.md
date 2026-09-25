@@ -2,7 +2,7 @@
 
 > **NOT DEPLOYED** — complete in source; nothing in the recovered tree
 > imports it and no deployment exists onchain `[chain]`. Documented because
-> the recovered community docs cover it (session 29) and the fn-table layer
+> the recovered community docs cover it and the fn-table layer
 > tables it; it is part of the dev's general-purpose kit, not the live
 > system.
 
@@ -42,7 +42,7 @@ accessor wall.
 
 <!-- fntable: Registry @ lib/registry.sol -->
 <!-- fntable-begin: Registry @ lib/registry.sol -->
-Function table extracted mechanically from `lib/registry.sol` (`tools/dys_fntable.py`, artifact `data/dysnomia/fn_tables.json`). Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
+Function table extracted mechanically from `lib/registry.sol`. Gate: `public` = anyone · `owners` = MultiOwnable set, **msg.sender OR tx.origin** · `bouncers` = QING bouncer rule · `single-owner` = classic owner · `deployer` = constructor wiring. `meter` = the call self-mints one unit via `_mintToCap()` (a call-counter against the constructor-lottery `maxSupply`).
 
 | signature | gate | meter | events | reverts |
 |---|---|---|---|---|
@@ -99,7 +99,7 @@ Function table extracted mechanically from `lib/registry.sol` (`tools/dys_fntabl
 
 ## 7. Provenance
 
-- [src] `docs/solidity/dysnomia/lib/registry.sol`.
+- [src] `lib/registry.sol`.
 - [chain] absence (nothing in the perimeter; no references onchain).
 - [ext] the recovered community docs carry a technical page for it
-  (`docs/dysnomia_pages/technical_lib_REGISTRY.md`, session-29 comparison).
+  (community-doc comparison).
