@@ -62,7 +62,9 @@ monthly curve are generated below from the onchain event scan.
 
 ## Lineage views
 
-The generated trees: [FDIC spine](/lineage/0x812571a12330a74e2a3c1ff8953f6f3aac7a83e9)
-· [POOR spine](/lineage/0xaa1505c928fd85e10a550cfde9e8f464c3574d8a).
+The generated tree (both spines root at FED):
+[FED root tree](/lineage/0x1d177cb9efeea49a8b97ab1c72785a3a37abc9ff)
+— FDIC and POOR are nodes inside it; use the walker's deep links to
+start at either.
 Entity pages: [FDIC](/tokens/0x812571a12330a74e2a3c1ff8953f6f3aac7a83e9)
 · [POOR](/tokens/0xaa1505c928fd85e10a550cfde9e8f464c3574d8a).

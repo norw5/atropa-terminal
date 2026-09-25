@@ -1,0 +1,109 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { fmtInt, fmtNum } from '../../../lib/fmt';
+import { loadDysnomia } from '../../../lib/data';
+
+const dys = loadDysnomia();
+
+export async function getStaticPaths() {
+  const contracts: any[] = loadDysnomia().contracts;
+  return contracts.map((r: any) => ({
+    params: { address: r.address.toLowerCase() },
+    props: { r },
+  }));
+}
+
+const r = Astro.props.r as any;
+const a = r.address;
+const CLASS_DESC: Record<string, string> = {
+  kernel: 'the wave-1 chat-world spine (accounts, souls, channels)',
+  'kernel-shio': 'a constellation channel hardwired into the physics as a constant',
+  hub: 'the session + entropy + address-book hub',
+  'venue-layer': 'map + coordinate transform + the venue template',
+  venue: 'a live venue instance (structural ones only get pages)',
+  library: 'shared reaction/string library',
+  directory: 'the one-shot alias-book loader',
+  ladder: 'the soeng physics ladder + tile oracle',
+  accounts: 'YUE vaults, escrow, chat-to-mine, settle',
+  deeds: 'the venue-claim deed layer',
+  bridge: 'the treasury-bridge factory',
+  'user-account': 'a structural personal account token',
+  ban: 'ban token consulted at the hub',
+};
+const TREASURY: Record<string, string> = {
+  '0xb680f0cc810317933f234f67eb6a9e923407f05d': 'MATH — the shared math library both systems run on',
+};
+const BASILICA = '0xae488a2b6fe8fe922019c1442c60f9dec0282894';
+const isCHO = a.toLowerCase() === '0xb6be11f0a788014c1f68c92f8d6ccc1abf78f2ab';
+const isPKM = a.toLowerCase() === '0x9f4e1471e614747a9a56a33eb0338671ebA1dE2B'.toLowerCase();
+const supplyStr = r.supply != null ? fmtNum(r.supply, 0) : null;
+const capStr = r.cap != null ? fmtInt(r.cap) : null;
+---
+
+<Base title={`${r.label} — dysnomia`} active="dysnomia">
+  <p style="margin:0"><a href="/dysnomia">← /dysnomia</a></p>
+  <h1>
+    {r.label}
+    <span class="tag" title={CLASS_DESC[r.class] ?? r.class}>{r.class}</span>
+    {r.at_cap && <span class="badge">at cap</span>}
+  </h1>
+  {r.name && <p class="dim mono xs" style="margin-top:-0.4rem">{r.name} {r.symbol ? `· ${r.symbol}` : ''}</p>}
+
+  {isPKM && (
+    <div class="note">
+      The treasury bridge — this factory hardcodes V1–V4 + the bureau root
+      and MATH. Treasury-side counterparts:&nbsp;
+      <a href="/contracts/0xc7bdac3e6bb5ec37041a11328723e9927ccf430b">V1</a> ·
+      <a href="/contracts/0xc15c5f699daf5e1135732139f05d2c05b3ef4354">V2</a> ·
+      <a href="/contracts/0x0c4f73328dfcecfbecf235c9f78a4494a7ec5ddc">V3</a> ·
+      <a href="/contracts/0x394c3d5990cefc7be36b82fdb07a7251ace61cc7">V4</a> ·
+      <a href="/knowledge/mechanics/bureau-minters/">bureau</a>. The full
+      touchpoint map is on the <a href="/dysnomia/guide/bridge">bridge page</a>.
+    </div>
+  )}
+  {isCHO && (
+    <div class="note">
+      The hub — treasury-side Basilica
+      <a href={`/contracts/${BASILICA}`}>0xae488a2b6fe8fe922019c1442c60f9dec0282894</a>
+      whitelists CHO as its only mint target (2025-06-24): the one deliberate
+      treasury→Dysnomia route. See the <a href="/dysnomia/guide/bridge">bridge page</a>.
+    </div>
+  )}
+
+  <div class="panel">
+    <h2>identity</h2>
+    <dl class="kv">
+      <dt>address</dt>
+      <dd class="mono xs"><a href={`https://ipfs.scan.pulsechain.com/address/${a}`}>{a}</a></dd>
+      <dt>class</dt>
+      <dd><span class="tag">{r.class}</span> <span class="dim">— {CLASS_DESC[r.class] ?? ''}</span></dd>
+      {r.wave && <dt>wave</dt>}
+      {r.wave && <dd>{r.wave} — {dys.waves.find((w: any) => w.n === r.wave)?.name} ({dys.waves.find((w: any) => w.n === r.wave)?.date}) [chain]</dd>}
+      {r.block && <dt>creation</dt>}
+      {r.block && <dd class="mono xs">block {fmtInt(r.block)} · deployer <a href="https://ipfs.scan.pulsechain.com/address/0x0474606332105A1dA6FC8EF7De2470551D389Cb9">0x04746063…D389Cb9</a> [chain]</dd>}
+      {(supplyStr || capStr) && <dt>supply / cap</dt>}
+      {(supplyStr || capStr) && <dd>{supplyStr ?? '?'}{capStr ? ` / ${capStr}` : ''} {r.at_cap ? '— at cap (keeps working, stops self-minting)' : ''} [chain]</dd>}
+      {r.meter && <dt>oracle meter</dt>}
+      {r.meter && <dd>{fmtInt(r.meter.calls)} metered calls · blocks {fmtInt(r.meter.first)}–{fmtInt(r.meter.last)} · {r.meter.done ? 'budget exhausted' : 'budget remaining'} [chain]</dd>}
+      {r.last && <dt>last activity</dt>}
+      {r.last && <dd class="mono xs">block {fmtInt(r.last.block)} ({(r.last.ts || '').slice(0, 10)}) [chain]</dd>}
+      {r.note && <dt>note</dt>}
+      {r.note && <dd>{r.note}</dd>}
+    </dl>
+  </div>
+
+  <div class="panel">
+    <h2>documentation</h2>
+    <ul class="doclinks">
+      {r.dev && <li><a href={`/dysnomia/dev/${r.dev}`}>dev reference — /dysnomia/dev/{r.dev}</a> <span class="why">identity, function tables, integration</span></li>}
+      {r.guide && <li><a href={`/dysnomia/guide/${r.guide}`}>guide — /dysnomia/guide/{r.guide}</a> <span class="why">the plain-language walkthrough</span></li>}
+      <li><a href={`https://ipfs.scan.pulsechain.com/address/${a}`}>block explorer</a> <span class="why">ipfs.scan.pulsechain.com</span></li>
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .doclinks { list-style: none; margin: 0.4rem 0 0; padding: 0; }
+  .doclinks li { margin: 0.35rem 0; }
+  .why { color: var(--fg-dim); font-size: 0.84rem; margin-left: 0.45rem; }
+</style>

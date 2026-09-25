@@ -14,6 +14,7 @@ const copies = [
   ['../portal-v2-data/irc.compact.json', 'irc.compact.json'],
   ['../portal-v2-data/timeline.compact.json', 'timeline.compact.json'],
   ['../portal-v2-data/pools.compact.json', 'pools.compact.json'],
+  ['../portal-v2-data/dysnomia.compact.json', 'dysnomia.compact.json'],
   ['../portal-data/shared_infra.compact.json', 'shared_infra.compact.json'],
   ['../portal-data/graph_atropa_subgraph.json', 'graph_atropa_subgraph.json'],
   ['../data/tokens.csv', 'tokens.csv'],

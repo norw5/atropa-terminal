@@ -1,16 +1,21 @@
 {
- "generated": "2026-09-16T11:19:44.020905+00:00",
+ "generated": "2026-09-24T23:26:36.506274+00:00",
  "contents": [
   {
    "path": "kb-v2/",
-   "files": 28,
-   "what": "public KB content tree (normative mechanics/method/taxonomy)"
+   "files": 87,
+   "what": "public KB content tree (mechanics/method/taxonomy + the dysnomia guide and dev reference)"
   },
   {
    "path": "solidity/",
    "files": 21,
-   "what": "recovered + blockscout-verified sources [src]; dysnomia/wallet trees excluded (out of scope)"
+   "what": "recovered + blockscout-verified treasury sources [src]"
+  },
+  {
+   "path": "solidity/dysnomia/",
+   "files": 102,
+   "what": "recovered Dysnomia sources [src] \u2014 the provenance back-end of /dysnomia (wallet tree stays excluded)"
   }
  ],
- "tarball_sha256": "4fe736bb765b7525b5791e82f6ef2af8868deec87cf1ab95cd32d594194f62bc"
+ "tarball_sha256": "dd56640bfd6a32ac7019eca276edd52f802ce451ab447f00ad57fab13539e784"
 }

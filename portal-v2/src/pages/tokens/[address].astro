@@ -8,7 +8,7 @@ import { fmtNum, fmtInt, fmtDate } from '../../lib/fmt';
 import {
   loadTokensFull, loadTokensMeta, loadActivityPerToken, loadLiquidity,
   loadEntityLabels, loadSpineMemberships, loadClaimsByEntity, buildChildrenMap, ancestorChain,
-  loadArtifactsIndex,
+  loadArtifactsIndex, lineageRoots,
 } from '../../lib/data';
 
 const tokens = loadTokensFull();
@@ -21,6 +21,7 @@ const claimsBy = loadClaimsByEntity();
 const censusSet = new Set(tokens.map((t: any) => t.address.toLowerCase()));
 const byAddress = new Map(tokens.map((t: any) => [t.address.toLowerCase(), t]));
 const childrenMap = buildChildrenMap(tokens);
+const lineageRootAddrSet = new Set(lineageRoots(tokens, childrenMap).map((r: any) => r.root));
 
 const DIMS: [string, string][] = [
   ['tax_creation', 'creation path'],
@@ -85,7 +86,7 @@ const monthlyBars = monthly
 ---
 
 <Base title={title} active="tokens">
-  <p style="margin:0"><a href="/tokens">← /tokens</a>{t.parent && hasPage(t.parent) && <span> · <a href={`/lineage/${t.spine_root ? t.spine_root.toLowerCase() : t.parent.toLowerCase()}`}>lineage</a></span>}</p>
+  <p style="margin:0"><a href="/tokens">← /tokens</a>{t.parent && hasPage(t.parent) && lineageRootAddrSet.has((t.spine_root ? t.spine_root : t.parent).toLowerCase()) && <span> · <a href={`/lineage/${t.spine_root ? t.spine_root.toLowerCase() : t.parent.toLowerCase()}`}>lineage</a></span>}</p>
   <h1>
     {clipTxt(displayName, 64)}
     <span style="color:var(--fg-dim);font-weight:400"> {clipTxt(rawSym, 24)}</span>
@@ -168,7 +169,9 @@ const monthlyBars = monthly
       <dd>
         {kids.length > 0 ? (
           <>
-            <a href={`/lineage/${t.spine_root ? t.spine_root.toLowerCase() : t.address.toLowerCase()}`}>{kids.length} direct</a>
+            {lineageRootAddrSet.has((t.spine_root ? t.spine_root : t.address).toLowerCase())
+              ? <a href={`/lineage/${t.spine_root ? t.spine_root.toLowerCase() : t.address.toLowerCase()}`}>{kids.length} direct</a>
+              : <span>{kids.length} direct</span>}
             {' — '}
             <span class="mono xs">
               {kids.slice(0, 8).map((c: any, i: number) => (
@@ -188,7 +191,7 @@ const monthlyBars = monthly
               : spineRootLabel !== spineRootAddr
                 ? <span title={spineRootAddr}>{spineRootLabel}</span>
                 : <Addr address={spineRootAddr} />}
-            {' · '}<a href={`/lineage/${spineRootAddr}`}>tree</a>
+            {' · '}{lineageRootAddrSet.has(spineRootAddr) ? <a href={`/lineage/${spineRootAddr}`}>tree</a> : <span title="root has no page of its own">tree</span>}
           </span>
         ) : '— (V1 root)'} · depth {t.spine_depth ?? '—'}
       </dd>

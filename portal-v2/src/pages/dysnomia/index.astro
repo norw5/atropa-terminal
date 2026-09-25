@@ -1,0 +1,200 @@
+---
+import Base from '../../layouts/Base.astro';
+import { fmtInt, fmtNum } from '../../lib/fmt';
+import { loadDysnomia } from '../../lib/data';
+
+const dys = loadDysnomia();
+const meta = dys._meta;
+const contracts: any[] = dys.contracts;
+const c = dys.censuses;
+
+const byClass: Record<string, number> = {};
+for (const r of contracts) byClass[r.class] = (byClass[r.class] ?? 0) + 1;
+const classOrder = ['kernel', 'kernel-shio', 'hub', 'venue-layer', 'venue', 'library', 'directory', 'ladder', 'accounts', 'deeds', 'bridge', 'user-account', 'ban'];
+const CLASS_DESC: Record<string, string> = {
+  kernel: 'the wave-1 chat-world spine (accounts, souls, channels)',
+  'kernel-shio': 'the constellation channels hardwired into the physics',
+  hub: 'the session + entropy + address-book hub',
+  'venue-layer': 'map + coordinate transform + the venue template',
+  venue: 'live venue instances (structural ones only)',
+  library: 'shared reaction/string libraries',
+  directory: 'the one-shot alias-book loader',
+  ladder: 'the soeng physics ladder + tile oracle',
+  accounts: 'YUE vaults, escrow, chat-to-mine, settle',
+  deeds: 'the venue-claim deed layer',
+  bridge: 'the treasury-bridge factory',
+  'user-account': 'structural personal account tokens',
+  ban: 'ban tokens consulted at the hub',
+};
+const guideFor = (cls: string): string | null => ({
+  kernel: 'accounts-and-chat', 'kernel-shio': 'accounts-and-chat', library: 'accounts-and-chat',
+  hub: 'venues', 'venue-layer': 'venues', venue: 'venues', deeds: 'venues',
+  ladder: 'the-ladder', accounts: 'economy', bridge: 'bridge', directory: 'bridge',
+  'user-account': 'accounts-and-chat', ban: 'venues',
+} as Record<string, string>)[cls] ?? null;
+
+const GUIDE_PAGES: [string, string][] = [
+  ['overview', 'what Dysnomia is, the three design pillars, the user journey'],
+  ['accounts-and-chat', 'LAU accounts, Souls, SHIO channels, the chat substrate'],
+  ['venues', 'the CHO hub, MAP/QING/HECKE, bouncers, bans, the venue census'],
+  ['economy', 'YUE vaults, chat-to-mine bounties, the CHAN escrow, the exchange desk'],
+  ['the-ladder', 'the soeng physics chain, the tile oracle, the rolling-state engine'],
+  ['bridge', 'every touchpoint to the treasury system'],
+  ['glossary', 'the vocabulary, decoded'],
+];
+
+const sorted = [...contracts].sort((a, b) => (a.block ?? 9e9) - (b.block ?? 9e9) || a.label.localeCompare(b.label));
+const monthsToShow = c.lau.monthly.slice(-24);
+const qtop: any[] = c.qing_top;
+const BLOCK = meta.perimeter_block;
+---
+
+<Base title="dysnomia" active="dysnomia">
+  <h1>dysnomia <span class="dim">— the on-chain social operating system</span></h1>
+  <p class="dim">
+    A fully on-chain chat world where every account, channel and venue is an
+    ERC-20 and usage mints supply against a lottery-drawn lifetime budget —
+    built by the same workshop as the treasury system, on the same math
+    backbone. The kernel booted 2024-08-23, four months before treasury V1.
+    New here?&nbsp;<a href="/dysnomia/guide/overview">Read the guide
+    overview</a> — or the one-paragraph facts below.
+  </p>
+
+  <div class="panel">
+    <h2>the system in five facts <span class="sub">all [chain]/[src], pinned at the stated blocks</span></h2>
+    <dl class="kv">
+      <dt>what it is</dt>
+      <dd>~30 system contracts + factory-spawned children: accounts (LAU), chat channels (SHIO), venues (QING), vaults (YUE) — every object a token, every action metered</dd>
+      <dt>who deployed it</dt>
+      <dd class="mono xs"><a href="https://ipfs.scan.pulsechain.com/address/0x0474606332105A1dA6FC8EF7De2470551D389Cb9">0x0474606332105A1dA6FC8EF7De2470551D389Cb9</a> — funded 300k PLS by Maria #2 at block {fmtInt(meta.funding[0].block)} (tx <a class="mono" href="https://ipfs.scan.pulsechain.com/tx/{meta.funding[0].tx}">{meta.funding[0].tx}</a>), +100M PLS at block {fmtInt(meta.funding[1].block)} (tx <a class="mono" href="https://ipfs.scan.pulsechain.com/tx/{meta.funding[1].tx}">{meta.funding[1].tx}</a>)</dd>
+      <dt>the shared backbone</dt>
+      <dd>MATH <a href="/contracts/0xb680f0cc810317933f234f67eb6a9e923407f05d">0xB680F0cc…407f05D</a> as <span class="mono xs">Xiao()</span> on every system contract — the same token behind every treasury TT; the two randomness engines are consolidated on the <a href="/knowledge/reference/randomness/">randomness reference</a></dd>
+      <dt>the treasury bridge</dt>
+      <dd><a href="/dysnomia/contracts/0x9f4e1471e614747a9a56a33eb0338671eba1de2b">PKMinter</a> (2026-05-30) hardcodes all five treasury minters; treasury-side Basilica mints through the CHO hub — <a href="/dysnomia/guide/bridge">the full map</a></dd>
+      <dt>alive?</dt>
+      <dd>yes — venues, chats and oracle calls still land weekly at the census blocks below; most heavy-machinery meters sit at cap (functions keep working, stop self-minting)</dd>
+    </dl>
+  </div>
+
+  <div class="panel">
+    <h2>census aggregates <span class="sub">generated — counts only, never the 18k-row lists</span></h2>
+    <div class="statgrid">
+      <div class="stat"><div class="v">{fmtInt(c.lau.count)}</div><div class="k">LAU accounts [chain]<br /><span class="dim">{c.lau.pct_named.toFixed(1)}% carry a readable Username; {fmtInt(c.lau.reverted)} revert on read</span></div></div>
+      <div class="stat"><div class="v">{fmtInt(c.shio.count)}</div><div class="k">SHIO channels [chain]</div></div>
+      <div class="stat"><div class="v">{fmtInt(c.qing.venues)}</div><div class="k">QING venues [chain]<br /><span class="dim">{fmtInt(c.qing.creates)} MAP creates · {fmtInt(c.qing.alive30)} active in 30d · {fmtInt(c.qing.alive365)} in 365d</span></div></div>
+      <div class="stat"><div class="v">{fmtInt(c.yue.count)}</div><div class="k">YUE vault tokens [chain]</div></div>
+      <div class="stat"><div class="v">{fmtInt(c.beat.txs)}</div><div class="k">META.Beat calls [chain]<br /><span class="dim">{fmtInt(c.beat.callers)} callers · blocks {fmtInt(c.beat.first_block)}–{fmtInt(c.beat.last_block)} · median {fmtNum(c.beat.gas_median / 1e6, 2)}M gas</span></div></div>
+      <div class="stat"><div class="v">{fmtInt(meta.counts.at_cap)}/{fmtInt(contracts.filter((r: any) => r.cap).length)}</div><div class="k">capped contracts [chain]<br /><span class="dim">lifetime budgets exhausted exactly — the meter analogy</span></div></div>
+    </div>
+    <p class="mono xs" style="color:var(--fg-faint)">
+      account creation by month (last 24): {monthsToShow.map(([m, n]: any) => `${m} ${n.toLocaleString()}`).join(' · ')} [chain]
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>the seven waves <span class="sub">all creates by the deployer EOA, block-exact [chain]</span></h2>
+    <table class="sortable">
+      <thead><tr><th class="num">#</th><th>wave</th><th>deployed</th><th>blocks</th><th>contents</th></tr></thead>
+      <tbody>
+        {dys.waves.map((w: any) => (
+          <tr>
+            <td class="num">{w.n}</td>
+            <td>{w.name}</td>
+            <td class="mono xs">{w.date}</td>
+            <td class="mono xs">{fmtInt(w.blocks[0])}–{fmtInt(w.blocks[1])}</td>
+            <td class="wrapok">{w.contents}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h2>venue activity leaders <span class="sub">generated — 365d event scan, top 8 [chain]</span></h2>
+    <table class="sortable">
+      <thead><tr><th>venue</th><th class="num">events 365d</th><th class="num">events 30d</th><th class="num">last block</th><th>wrapped asset</th></tr></thead>
+      <tbody>
+        {qtop.map((t: any) => (
+          <tr>
+            <td class="wrapok">{t.qing.toLowerCase() === '0xb0ba7d36b7f0505879179ece7401f24eb653c6e1'
+              ? <a href="/dysnomia/contracts/0xb0ba7d36b7f0505879179ece7401f24eb653c6e1">{t.name || 'QING'}</a>
+              : (t.name || 'QING')}</td>
+            <td class="num">{fmtInt(t.ev365)}</td>
+            <td class="num">{fmtInt(t.ev30)}</td>
+            <td class="num">{fmtInt(t.last_block)}</td>
+            <td class="mono xs">{t.asset ? <a href={`https://ipfs.scan.pulsechain.com/address/${t.asset}`}>{t.asset.slice(0, 12)}…</a> : '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="mono xs" style="color:var(--fg-faint)">
+      {c.qing.note} — the leaderboard venues are community assets; only structural tokens get entity pages here
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>the guide <span class="sub">the definitive walkthrough — /dysnomia/guide/…</span></h2>
+    <ul class="guidelist">
+      {GUIDE_PAGES.map(([slug, desc]) => (
+        <li><a href={`/dysnomia/guide/${slug}`}>{slug}</a> <span class="why"> — {desc}</span></li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>system contracts <span class="sub">generated — every perimeter row + the structural specials; entity page per row</span></h2>
+    <p class="dim" style="margin:0.2rem 0 0.6rem">
+      Classes: {classOrder.filter((k) => byClass[k]).map((k) => `${k} (${byClass[k]})`).join(' · ')}
+    </p>
+    <table class="sortable" data-sort="desc">
+      <thead><tr><th>contract</th><th>class</th><th>wave</th><th class="num">block</th><th class="num">supply / cap</th><th>last activity</th><th>links</th></tr></thead>
+      <tbody>
+        {sorted.map((r: any) => (
+          <tr>
+            <td class="wrapok">
+              <a href={`/dysnomia/contracts/${r.address.toLowerCase()}`}>{r.label}</a>
+              {r.at_cap && <span class="badge">at cap</span>}
+              {r.special && <span class="badge dim">structural</span>}
+            </td>
+            <td><span class="tag" title={CLASS_DESC[r.class] ?? r.class}>{r.class}</span></td>
+            <td class="num">{r.wave ?? '—'}</td>
+            <td class="num">{r.block ? fmtInt(r.block) : '—'}</td>
+            <td class="num">{r.cap != null ? `${r.supply != null ? fmtNum(r.supply, 0) : '?'} / ${fmtInt(r.cap)}` : r.supply != null ? fmtNum(r.supply, 0) : '—'}</td>
+            <td class="mono xs">{r.last ? `${(r.last.ts || '').slice(0, 10)}` : '—'}</td>
+            <td class="mono xs">
+              {r.dev && <><a href={`/dysnomia/dev/${r.dev}`}>dev doc</a>{' · '}</>}
+              {r.guide && <a href={`/dysnomia/guide/${r.guide}`}>guide</a>}
+              {' · '}<a href={`https://ipfs.scan.pulsechain.com/address/${r.address}`}>explorer</a>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="mono xs" style="color:var(--fg-faint)">
+      perimeter state @ block {fmtInt(BLOCK)}; liveness + signup censuses @ ~{fmtInt(c.qing.liveness_head)} [chain] — factory children (LAU/SHIO/QING/YUE) are census aggregates by policy, not list pages
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>the dev reference <span class="sub">shipped largely as-is from the research layer</span></h2>
+    <p style="margin:0.2rem 0 0.4rem">
+      One engineering doc per contract — identity tables, mechanical function
+      tables, integration notes — including the designed-but-never-deployed
+      world layer. Denser than the guide; provenance tags throughout.
+    </p>
+    <p><a class="mono" href="/dysnomia/dev">/dysnomia/dev — the index</a></p>
+  </div>
+</Base>
+
+<style>
+  h2 .sub { color: var(--fg-faint); font-weight: 400; font-size: 0.8rem; margin-left: 0.5rem; }
+  .statgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.7rem; margin: 0.6rem 0; }
+  .stat { border: 1px solid var(--border); padding: 0.6rem 0.8rem; }
+  .stat .v { font-size: 1.5rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .stat .k { font-size: 0.78rem; color: var(--fg-dim); margin-top: 0.15rem; }
+  ul.guidelist { list-style: none; margin: 0.4rem 0 0; padding: 0; }
+  ul.guidelist li { margin: 0.3rem 0; }
+  ul.guidelist a { font-weight: 600; }
+  .why { color: var(--fg-dim); font-size: 0.86rem; }
+  .badge.dim { opacity: 0.75; }
+</style>

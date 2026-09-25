@@ -102,8 +102,20 @@ for (const rc of mintRouting?.recipients ?? []) if (!cdcDistinct.includes(rc)) c
       This page carries the entity half only: taxonomy, identity,
       liquidity profile, ownership state. Shared infrastructure (MATH/RNG/the
       math family — the backbone both ecosystems run on) is authoritative
-      here: <a href="/shared-infra">/shared-infra</a>. Both portals consume
+      here: <a href="/shared-infra">/shared-infra</a>; the Dysnomia side of
+      the family (Ⓐ is seeded 1:1 on every Dysnomia token) is documented
+      under <a href="/dysnomia">/dysnomia</a>. Both portals consume
       the same data bundle (<span class="mono xs">shared_infra.compact.json</span>).
+    </div>
+  )}
+  {aLower === '0xae488a2b6fe8fe922019c1442c60f9dec0282894' && (
+    <div class="note">
+      Cross-system dependency: Basilica's only allowed mint target is
+      "Dysnomia Cho"
+      <a href="/dysnomia/contracts/0xb6be11f0a788014c1f68c92f8d6ccc1abf78f2ab">0xB6be11F0A788014C1F68C92F8D6CcC1AbF78F2aB</a>
+      — a treasury-side contract routing its mint through the Dysnomia hub
+      (hardcoded after CHO was already four months live). The touchpoint
+      map: <a href="/dysnomia/guide/bridge">/dysnomia/guide/bridge</a>.
     </div>
   )}
   {isMinter && (

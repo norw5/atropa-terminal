@@ -31,6 +31,7 @@ const DESC: Record<string, string> = {
   'mechanics/multipliers': 'V3 step and V4 self-scaled pricing, with worked examples',
   'mechanics/hu-ladder': 'the per-token permission ladder — levels 1/5/10/100/255',
   'reference/shared-infra': 'MATH/RNG orbit mechanics, cap semantics, the mints-per-Generate reconciliation',
+  'reference/randomness': 'the two deterministic engines — the MATH/RNG oracle + the Dysnomia kernel chain, consumers, prior audits reconciled',
   'reference/liquidity': 'pool classes, the burnt-LP census, the numeraire taxonomy',
   'reference/admin-surface': 'what every live owner key in the registry can actually do',
   'taxonomy/readme': 'the eight machine-derivable dimensions and their rules',
@@ -64,12 +65,14 @@ const PATH2: [string, string, string][] = [
 const PATH3: [string, string][] = [
   ['/tokens', 'every census child, filterable'],
   ['/contracts', 'every classified contract'],
+  ['/dysnomia', 'the second system — guide, entity pages, dev reference'],
   ['/lineage', 'the parent→child forests'],
   ['/timeline', 'the block-exact chronology'],
   ['/taxonomy', 'the live taxonomy panel'],
   ['/claims', 'the machine-checkable claim registry'],
   ['/irc', 'the complete dev-channel corpus'],
   ['/export', 'every bundle + the docs tarball'],
+  ['/links', 'external ecosystem resources — community, third-party, labeled'],
 ];
 
 const sections: [string, string][] = [
@@ -90,7 +93,9 @@ const roots = docs.filter((d) => !d.id.includes('/'));
     an&nbsp;<a href="/knowledge/overview">overview</a> for newcomers and three
     reading paths below. Entity pages live under&nbsp;
     <a href="/tokens">/tokens</a> and <a href="/contracts">/contracts</a>;
-    lineage under <a href="/lineage">/lineage</a>.
+    the second system has its own section under&nbsp;
+    <a href="/dysnomia">/dysnomia</a> (guide + entity pages + the per-contract
+    dev reference); lineage under <a href="/lineage">/lineage</a>.
   </p>
 
   <div class="panel">
@@ -104,7 +109,7 @@ const roots = docs.filter((d) => !d.id.includes('/'));
       ))}
       <li value="7">
         <span class="step"><a href="/tokens">browse the tokens</a></span>
-        <span class="why">3,129 census children, every one with its own entity page — pick any</span>
+        <span class="why">3,141 census children, every one with its own entity page — pick any</span>
       </li>
     </ol>
   </div>
@@ -128,6 +133,32 @@ const roots = docs.filter((d) => !d.id.includes('/'));
       <a href="/knowledge/deep/atropa">Atropa</a> — and
       the&nbsp;<a href="/knowledge/method/provenance">method pages</a> behind everything.
     </p>
+  </div>
+
+  <div class="panel">
+    <h2>reading path — the second system <span class="sub">Dysnomia, the on-chain social OS</span></h2>
+    <ol class="path dense">
+      <li>
+        <span class="step"><a href="/dysnomia/guide/overview">guide/overview</a></span>
+        <span class="why">what Dysnomia is — accounts, chat, venues, all as tokens</span>
+      </li>
+      <li>
+        <span class="step"><a href="/dysnomia/guide/venues">guide/venues</a></span>
+        <span class="why">the hub, the map, QING venues — where the two systems' actors meet</span>
+      </li>
+      <li>
+        <span class="step"><a href="/dysnomia/guide/the-ladder">guide/the-ladder</a></span>
+        <span class="why">the derived-physics chain and the tile oracle</span>
+      </li>
+      <li>
+        <span class="step"><a href="/dysnomia/guide/bridge">guide/bridge</a></span>
+        <span class="why">every touchpoint back to the treasury system</span>
+      </li>
+      <li>
+        <span class="step"><a href="/knowledge/reference/randomness">randomness</a></span>
+        <span class="why">the two deterministic engines both systems run on, consolidated</span>
+      </li>
+    </ol>
   </div>
 
   <div class="panel">

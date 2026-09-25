@@ -10,6 +10,7 @@ const navGroups: [string, [string, string, string][]][] = [
   ['browse', [
     ['/tokens', 'tokens', 'tokens'],
     ['/contracts', 'contracts', 'contracts'],
+    ['/dysnomia', 'dysnomia', 'dysnomia'],
     ['/lineage', 'lineage', 'lineage'],
   ]],
   ['tools', [
@@ -27,6 +28,7 @@ const navGroups: [string, [string, string, string][]][] = [
     ['/claims', 'claims', 'claims'],
     ['/export', 'export', 'export'],
     ['/knowledge', 'knowledge', 'knowledge'],
+    ['/links', 'links', 'links'],
   ]],
 ];
 ---
@@ -66,7 +68,7 @@ const navGroups: [string, [string, string, string][]][] = [
       <a href="/knowledge">/knowledge</a> (mechanics · liquidity ·&nbsp;
       <a href="/shared-infra">shared-infra</a>). Tools are pure client-side + injected wallet, no server, keys
       or third-party contracts in the path. Not affiliated with the Atropa
-      developer.
+      developer. Community resources:&nbsp;<a href="/links">/links</a>.
     </footer>
     <script>
       const numKey = (s: string): number | null => {

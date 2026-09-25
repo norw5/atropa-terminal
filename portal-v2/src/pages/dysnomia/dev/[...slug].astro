@@ -1,0 +1,49 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import { loadDysnomia } from '../../../lib/data';
+
+const dys = loadDysnomia();
+const docByDev: Record<string, any> = {};
+for (const r of dys.contracts) {
+  if (r.dev) docByDev[r.dev] = r;
+}
+
+export async function getStaticPaths() {
+  const docs = (await getCollection('dys')).filter((d) => d.id.startsWith('dev/') && d.id !== 'dev/readme');
+  return docs.map((d) => ({
+    params: { slug: d.id.replace(/^dev\//, '').replace(/\.md$/, '') },
+    props: { doc: d },
+  }));
+}
+
+const { doc } = Astro.props;
+const { Content } = await render(doc);
+const slug = doc.id.replace(/^dev\//, '').replace(/\.md$/, '');
+const ent = docByDev[slug];
+const UNDEPLOYED = ['world', 'war', 'h2o', 'vitus', 'gwat', 'encrypt', 'nym', 'cabs-market-machine', 'db-manager', 'vmreq'];
+const isUndeployed = UNDEPLOYED.includes(slug);
+---
+
+<Base title={`dysnomia dev — ${slug}`} active="dysnomia">
+  <p style="margin:0"><a href="/dysnomia">← /dysnomia</a> · <a href="/dysnomia/dev">dev index</a></p>
+
+  {isUndeployed && (
+    <div class="note">
+      This contract was <strong>never deployed</strong> — the doc describes
+      the designed system as recovered from source. No code exists at any
+      candidate address [chain].
+    </div>
+  )}
+  {ent && (
+    <div class="note">
+      {ent.at_cap ? 'At cap [chain] — ' : ''}entity data (deployment, supply/cap, liveness):
+      <a href={`/dysnomia/contracts/${ent.address.toLowerCase()}`}>/dysnomia/contracts/{ent.address.slice(0, 10)}…</a>
+      {ent.guide && <> · plain-language: <a href={`/dysnomia/guide/${ent.guide}`}>guide/{ent.guide}</a></>}
+    </div>
+  )}
+
+  <div class="prose">
+    <Content />
+  </div>
+</Base>

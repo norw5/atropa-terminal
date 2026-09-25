@@ -8,9 +8,10 @@ interface Props {
   depth: number;
   sizes: Map<string, number>;
   linkable: Set<string>;
+  tokenSet?: Set<string>;
   isRoot?: boolean;
 }
-const { node, childrenMap, depth, sizes, linkable, isRoot = false } = Astro.props;
+const { node, childrenMap, depth, sizes, linkable, tokenSet = linkable, isRoot = false } = Astro.props;
 
 const a = typeof node === 'string' ? node : node.address.toLowerCase();
 const kids = childrenMap.get(a) ?? [];
@@ -23,11 +24,12 @@ const ver = typeof node === 'string' ? null : node.minter_version;
 const verClass = ver ? (String(ver).toLowerCase().startsWith('b') ? 'br' : String(ver).toLowerCase()) : '';
 const open = depth < 1 || (isRoot && depth < 2);
 const known = linkable.has(a);
+const href = tokenSet.has(a) ? `/tokens/${a}` : `/contracts/${a}`;
 ---
 {kids.length === 0 ? (
   <li class="tree-node">
     {known ? (
-      <a href={`/tokens/${a}`} title={typeof node === 'string' ? node : node.address}>{label}</a>
+      <a href={href} title={typeof node === "string" ? node : node.address}>{label}</a>
     ) : (
       <span class="addr mono xs" title={typeof node === 'string' ? node : node.address}>{label}</span>
     )}
@@ -38,7 +40,7 @@ const known = linkable.has(a);
     <details open={open}>
       <summary class="tree-node">
         {known ? (
-          <a href={`/tokens/${a}`} title={typeof node === 'string' ? node : node.address}>{label}</a>
+          <a href={href} title={typeof node === "string" ? node : node.address}>{label}</a>
         ) : (
           <span class="addr mono xs" title={typeof node === 'string' ? node : node.address}>{label}</span>
         )}
@@ -47,7 +49,7 @@ const known = linkable.has(a);
       </summary>
       <ul class="tree">
         {kids.map((k: any) => (
-          <TreeNode node={k} childrenMap={childrenMap} depth={depth + 1} sizes={sizes} linkable={linkable} />
+          <TreeNode node={k} childrenMap={childrenMap} depth={depth + 1} sizes={sizes} linkable={linkable} tokenSet={tokenSet} />
         ))}
       </ul>
     </details>

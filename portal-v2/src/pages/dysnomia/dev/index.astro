@@ -1,0 +1,74 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import { loadDysnomia } from '../../../lib/data';
+
+const dys = loadDysnomia();
+const docByDev: Record<string, any> = {};
+for (const r of dys.contracts) {
+  if (r.dev) docByDev[r.dev] = r;
+}
+const docs = await getCollection('dys');
+if (process.env.DEBUG_DYS) console.log('DYSIDS', JSON.stringify(docs.map((d) => d.id)));
+const readme = docs.find((d) => d.id === 'dev/readme')!;
+const { Content } = await render(readme);
+const others = docs
+  .filter((d) => d.id.startsWith('dev/') && d.id !== 'dev/readme')
+  .map((d) => d.id.replace(/^dev\//, '').replace(/\.md$/, ''))
+  .sort();
+const entFor = (slug: string) => docByDev[slug] ?? null;
+const UNDEPLOYED = new Set(['world', 'war', 'h2o', 'vitus', 'gwat', 'encrypt', 'nym', 'cabs-market-machine', 'db-manager', 'vmreq']);
+---
+
+<Base title="dysnomia dev reference" active="dysnomia">
+  <p style="margin:0"><a href="/dysnomia">← /dysnomia</a></p>
+
+  <div class="note">
+    The per-contract engineering reference — one doc per contract
+    ({others.length} + this index), shipped largely as-is from the
+    project's research layer: identity tables, mechanical function tables
+    (generated from the recovered sources, never hand-transcribed),
+    integration notes, provenance tags. References to research artifacts
+    (data files, session notes) are kept as pointers; the
+    <a href="/dysnomia/guide">guide</a> is the distilled companion and the
+    <a href="/dysnomia">hub</a> the generated state view. Docs for
+    never-deployed contracts carry a banner on their own pages.
+  </div>
+
+  <div class="panel">
+    <h2>the index <span class="sub">grouped: deployed-with-entity-page · deployed · never deployed</span></h2>
+    <ul class="devlist">
+      {others.filter((s: string) => entFor(s) && !UNDEPLOYED.has(s)).map((s: string) => {
+        const e = entFor(s)!;
+        return (
+          <li>
+            <a href={`/dysnomia/dev/${s}`}>{s}</a>
+            <span class="why">{e.label} · {e.class}{e.at_cap ? ' · at cap' : ''}</span>
+            <span class="lnks"><a href={`/dysnomia/contracts/${e.address.toLowerCase()}`}>entity</a></span>
+          </li>
+        );
+      })}
+      {others.filter((s: string) => !entFor(s) && !UNDEPLOYED.has(s)).map((s: string) => (
+        <li><a href={`/dysnomia/dev/${s}`}>{s}</a> <span class="why">family/template doc</span></li>
+      ))}
+      {others.filter((s: string) => UNDEPLOYED.has(s)).map((s: string) => (
+        <li><a href={`/dysnomia/dev/${s}`}>{s}</a> <span class="why">never deployed [chain]</span></li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="prose">
+    <Content />
+  </div>
+</Base>
+
+<style>
+  h2 .sub { color: var(--fg-faint); font-weight: 400; font-size: 0.8rem; margin-left: 0.5rem; }
+  ul.devlist { list-style: none; margin: 0.4rem 0 0.8rem; padding: 0; columns: 3; column-gap: 2rem; }
+  ul.devlist li { margin: 0.24rem 0; break-inside: avoid; }
+  ul.devlist a { font-weight: 600; }
+  .why { color: var(--fg-dim); font-size: 0.8rem; margin-left: 0.4rem; }
+  .lnks { margin-left: 0.45rem; font-size: 0.8rem; }
+  @media (max-width: 1000px) { ul.devlist { columns: 2; } }
+  @media (max-width: 640px) { ul.devlist { columns: 1; } }
+</style>

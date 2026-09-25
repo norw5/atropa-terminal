@@ -1,0 +1,23 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const docs = (await getCollection('dys')).filter((d) => !d.id.startsWith('dev/') && d.id !== 'readme');
+  return docs.map((d) => ({
+    params: { slug: d.id.replace(/\.md$/, '') },
+    props: { doc: d },
+  }));
+}
+
+const { doc } = Astro.props;
+const { Content } = await render(doc);
+const slug = doc.id.replace(/\.md$/, '');
+---
+
+<Base title={`dysnomia guide — ${slug}`} active="dysnomia">
+  <p style="margin:0"><a href="/dysnomia">← /dysnomia</a> · <a href="/dysnomia/guide">guide index</a></p>
+  <div class="prose">
+    <Content />
+  </div>
+</Base>

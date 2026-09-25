@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+
+const SECTIONS: [string, string, [string, string, string][]][] = [
+  ['our terminals', 'built and managed by this project', [
+    ['https://atropa-terminal.vercel.app/', 'Atropa Terminal', 'this portal — the ecosystem reference core + tools you are reading now'],
+    ['https://dysnomia-terminal.vercel.app/', 'Dysnomia Terminal', 'our terminal for the second system — the on-chain social OS'],
+    ['https://affection-terminal.vercel.app/', 'AFFECTION Terminal', 'the canonical AFFECTION™ knowledge base — shared infrastructure documented on both sides'],
+  ]],
+  ['Dysnomia frontends', 'community-built ways to interact with the live system', [
+    ['https://systm0.vercel.app/', 'systm0', 'community Dysnomia frontend'],
+    ['https://systm1.ai/', 'systm1', 'community Dysnomia frontend'],
+  ]],
+  ['treasury frontends', 'community-built windows into the treasury system', [
+    ['https://treasurysystem.win/', 'treasurysystem.win', 'the original community Treasury System frontend'],
+    ['https://atropa-explorer-nu.vercel.app/', 'Atropa explorer (nu)', 'v3/v4 treasury-token explorer'],
+    ['https://spinetracker.vercel.app/', 'SpineTracker', 'dynamic spine-token tracker'],
+  ]],
+  ['AFFECTION', 'the Ⓐ ecosystem beside the treasury system', [
+    ['https://affectionmint.vercel.app/', 'affectionmint', 'AFFECTION burns and mints statistics'],
+  ]],
+  ['ecosystem tools', 'standalone community utilities', [
+    ['https://dexdenom.com/', 'DexDenom', 'ecosystem tooling'],
+    ['https://pbank.info/', 'pBank', 'ecosystem tooling'],
+    ['https://liquidity-pools.vercel.app/', 'liquidity pools fetcher', 'pool lookup over the DEX graph'],
+  ]],
+  ['community content', 'writing, video and social from around the ecosystem', [
+    ['https://www.youtube.com/@%E9%9D%88%E8%84%85%E7%94%A8', "Maria's YouTube channel (@靈脅用)", 'the developer — the one possibly-official channel in this list'],
+    ['https://www.youtube.com/watch?v=tda1Kv7AYNU&list=PLKWJkv09grXk64OgPCYvakQCiEYQYvzNb', 'Coexistence — the Steven Atropa playlist', 'community video series'],
+    ['https://minefullness-writes.gitbook.io/', 'Minefullness writes', 'community writing'],
+    ['https://x.com/Atropa_414', '@Atropa_414 on X', 'community-run account'],
+  ]],
+];
+---
+
+<Base title="links" active="links">
+  <h1><span style="color:var(--fg-faint)">ln -s</span> /links — ecosystem resources</h1>
+  <p style="color:var(--fg-dim);max-width:64rem">
+    External resources around the Atropa ecosystem — frontends, trackers,
+    tools and community content. Everything here is
+    <b>third-party and community-run unless marked otherwise</b>: this
+    portal is not affiliated with any of them, links are not endorsements,
+    and none of this material carries this knowledge base's
+    <a href="/knowledge/method/provenance/">provenance guarantees</a>
+    (that is exactly why none of it is used as a citation source — see
+    the <a href="/knowledge/method/coverage/">method pages</a>). The one
+    possibly-official entry is the developer's own YouTube channel.
+  </p>
+
+  {SECTIONS.map(([name, sub, rows]) => (
+    <div class="panel">
+      <h2>{name} <span class="sub">{sub}</span></h2>
+      <table>
+        <tbody>
+          {rows.map(([href, label, desc]) => (
+            <tr>
+              <td class="lbl"><a href={href} rel="noopener noreferrer">{label}</a></td>
+              <td class="mono xs url">{href.replace(/^https?:\/\//, '').replace(/\/$/, '')}</td>
+              <td class="wrapok desc" style="vertical-align:top">{desc}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ))}
+
+  <p class="mono xs" style="color:var(--fg-faint)">
+    A resource missing from this list is not a judgment — collection is
+    incidental, not exhaustive. Everything normative about the ecosystem
+    itself lives inside <a href="/knowledge">/knowledge</a> and
+    <a href="/dysnomia">/dysnomia</a>.
+  </p>
+</Base>
+
+<style>
+  h2 .sub { color: var(--fg-faint); font-weight: 400; font-size: 0.8rem; margin-left: 0.5rem; }
+  td.lbl { white-space: normal; max-width: 34ch; min-width: 18ch; font-weight: 600; vertical-align: top; }
+  td.url { color: var(--fg-faint); white-space: nowrap; }
+  td.desc { color: var(--fg-dim); }
+</style>

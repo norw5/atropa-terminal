@@ -89,10 +89,12 @@ const VIEWS = [
   ['/graph', 'graph', 'the liquidity web as a 1,981-node graph — 2D canvas and 3D WebGL, click-to-detail with pool aggregates'],
 ];
 const KB_ENTRIES = [
-  ['/knowledge/overview/', 'overview', 'what the system is · the actors · how the pieces fit · the eras — start here'],
+  ['/knowledge/overview/', 'overview', 'what the ecosystem is · the two systems · the actors · the eras — start here'],
   ['/knowledge/', 'the knowledge base', 'guided reading paths · method · mechanics · deep dives · reference pages'],
+  ['/dysnomia', 'dysnomia', 'the second system — the on-chain social OS: guide · entity pages · dev reference'],
   ['/knowledge/deep/', 'deep dives', 'FED · TBILL · MV · math family · Keys Of Ong · TeddyBear · Atropa · the FDIC/POOR spines'],
   ['/knowledge/mechanics/', 'mechanics', 'V1–V4 + bureau minters · registry/tx.origin · claim & publish · multipliers'],
+  ['/knowledge/reference/randomness/', 'randomness', 'the two deterministic engines — the MATH/RNG oracle + the Dysnomia kernel chain'],
   ['/knowledge/reference/liquidity/', 'liquidity reference', 'pool classes · burnt census · forked vs bridge numeraires'],
   ['/knowledge/reference/admin-surface/', 'admin surface', 'who owns what, and what the keys can actually do'],
   ['/shared-infra', 'shared infra', 'MATH · RNG · the math family — the backbone both portals consume'],
@@ -107,8 +109,9 @@ const KB_ENTRIES = [
     <h1><span class="ps1 dim">~/</span>atropa.terminal — the Atropa ecosystem reference core</h1>
     <p class="hero-sub">
       A machine-checked knowledge base and toolset for the Atropa ecosystem:
-      every factory child of the treasury system, every classified contract,
-      the mechanics that govern them, and the liquidity web around them —
+      the treasury system's every factory child and mechanic, the Dysnomia
+      social operating system beside it, the classified contracts, and the
+      liquidity web around them —
       each fact tied to recovered source or an onchain read.
     </p>
     <pre class="bootlog mono">$ atropa --census --registry --chronology --tools
@@ -190,6 +193,10 @@ const KB_ENTRIES = [
       <div class="homecard">
         <h3><a href="/export">/export</a></h3>
         <p class="dim">every bundle, the census CSV, sources + bytecode artifacts and the docs tarball — views of the same data layer this site renders from.</p>
+      </div>
+      <div class="homecard">
+        <h3><a href="/links">/links</a></h3>
+        <p class="dim">external ecosystem resources — community frontends, trackers, tools and content; third-party and labeled, never citation sources.</p>
       </div>
     </div>
   </div>

@@ -87,7 +87,7 @@ const title = `lineage: ${rootName ?? root.slice(0, 12)}`;
       <p class="dim">No descendants — this root anchors nothing (data integrity note: reported as spine root but no parent edges resolve to it).</p>
     ) : (
       <ul class="tree" style="padding-left:0;border-left:none">
-        <TreeNode node={rootNode} childrenMap={childrenMap} depth={0} sizes={sizes} linkable={linkable} isRoot />
+        <TreeNode node={rootNode} childrenMap={childrenMap} depth={0} sizes={sizes} linkable={linkable} tokenSet={censusSet} isRoot />
       </ul>
     )}
   </div>

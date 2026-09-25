@@ -94,6 +94,10 @@ export function loadTimeline(): any {
   return readJson('portal-v2-data/timeline.compact.json');
 }
 
+export function loadDysnomia(): any {
+  return readJson('portal-v2-data/dysnomia.compact.json');
+}
+
 export function loadSpineMemberships(): Record<string, { slug: string; name: string; kind: string }[]> {
   const by = readJson('portal-data/spines.compact.json').by_address ?? {};
   const out: Record<string, { slug: string; name: string; kind: string }[]> = {};

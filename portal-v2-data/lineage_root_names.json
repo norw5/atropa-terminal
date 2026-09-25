@@ -1,11 +1,11 @@
 {
  "_meta": {
-  "block": 27512004,
-  "named": 26,
+  "block": 27631132,
+  "named": 29,
   "note": "external lineage roots absent from names.compact.json \u2014 probed onchain (name()/symbol())",
   "probed": "2026-09-10",
   "provenance": "[chain]",
-  "roots_probed": 30
+  "roots_probed": 33
  },
  "roots": {
   "0x05d858d82eae53a623fffdb71f9593dda14d0a50": {
@@ -16,9 +16,21 @@
    "name": "PulseX LP",
    "symbol": "PLP"
   },
+  "0x070590749d5554bc1f5ca6d8e2f5f1c1e69fb0bb": {
+   "name": "PulseX LP",
+   "symbol": "PLP"
+  },
   "0x0d2ddcd2dbd168571ba1a14d0778194b19fdfaa0": {
    "name": "SL12A",
    "symbol": "SL12A"
+  },
+  "0x163eabf945388ba0edc289d85defdbe0459f0b90": {
+   "name": "PulseX LP",
+   "symbol": "PLP"
+  },
+  "0x176ba4b218608fa5d449c54be0f8459a4a39b768": {
+   "name": "PulseX LP",
+   "symbol": "PLP"
   },
   "0x1a3bef4c9379ae7f4b3e7bb31b21b55646ef302e": {
    "name": "Matrice 2",

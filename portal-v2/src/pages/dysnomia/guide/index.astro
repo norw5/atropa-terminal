@@ -1,0 +1,21 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+const docs = await getCollection('dys');
+const readme = docs.find((d) => d.id === 'readme')!;
+const { Content } = await render(readme);
+---
+
+<Base title="dysnomia guide" active="dysnomia">
+  <p style="margin:0"><a href="/dysnomia">← /dysnomia</a></p>
+  <div class="prose">
+    <Content />
+  </div>
+  <div class="note">
+    The engineering counterpart to this guide — one doc per contract with
+    mechanical function tables — ships under&nbsp;
+    <a href="/dysnomia/dev">/dysnomia/dev</a>. Generated state (waves,
+    censuses, entity pages) lives on the <a href="/dysnomia">hub</a>.
+  </div>
+</Base>

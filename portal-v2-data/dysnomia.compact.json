@@ -1,0 +1,1079 @@
+{
+ "_meta": {
+  "generated": "2026-09-24T23:26:41+00:00",
+  "provenance": "[chain]/[src] \u2014 perimeter @ block 27584967, liveness + signup censuses @ ~27.6M, Beat census session 32; curated wave/funding tables from the research tree",
+  "perimeter_block": 27584967,
+  "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+  "funding": [
+   {
+    "from": "Maria #2",
+    "pls": 300000,
+    "block": 21220651,
+    "tx": "0xc9ed1cac0fe5f65a2c36d159fc4c0b2f5d7364e632c44fc61c811a4edabb1194"
+   },
+   {
+    "from": "Maria #2",
+    "pls": 100000000,
+    "block": 23043490,
+    "tx": "0xf13591ec377b23d23695de14eaa67ea409599cf25e19a3bb6547a1acd1457e5c"
+   }
+  ],
+  "counts": {
+   "contracts": 39,
+   "at_cap": 21
+  }
+ },
+ "waves": [
+  {
+   "n": 1,
+   "name": "kernel",
+   "date": "2024-08-23",
+   "blocks": [
+    21220676,
+    21220719
+   ],
+   "contents": "SHAFactory, SHIOFactory, YI, ZHENG, ZHOU, YAU, YANG, SIU, VOID, LibAttribute, LAUFactory"
+  },
+  {
+   "n": 2,
+   "name": "CHO era",
+   "date": "2025-02-25 .. 02-27",
+   "blocks": [
+    22804034,
+    22819500
+   ],
+   "contents": "ReactionsLib, LibStrings, CHO, alias-dir, HECKE, MAP, the first QING (Phobos)"
+  },
+  {
+   "n": 3,
+   "name": "soeng I",
+   "date": "2025-03-24 .. 03-25",
+   "blocks": [
+    23033185,
+    23040923
+   ],
+   "contents": "QI, MAI, XIA (+1 failed create)"
+  },
+  {
+   "n": 4,
+   "name": "soeng II",
+   "date": "2025-05-28 .. 05-30",
+   "blocks": [
+    23585994,
+    23599003
+   ],
+   "contents": "XIE, CHAN"
+  },
+  {
+   "n": 5,
+   "name": "accounts + tile oracle",
+   "date": "2025-06-13 .. 06-16",
+   "blocks": [
+    23713503,
+    23746306
+   ],
+   "contents": "SEI, CHEON, CHOA, ZI, PANG, META (+1 failed WORLD-shaped create)"
+  },
+  {
+   "n": 6,
+   "name": "DO deeds",
+   "date": "2025-06-27",
+   "blocks": [
+    23833823,
+    23833935
+   ],
+   "contents": "DO-1 (check-only draft), DO-2 (the venue-claim deed layer)"
+  },
+  {
+   "n": 7,
+   "name": "the treasury bridge",
+   "date": "2026-05-30",
+   "blocks": [
+    26657637,
+    26657637
+   ],
+   "contents": "PKMinter \u2014 hardcodes all five treasury minters + MATH"
+  }
+ ],
+ "contracts": [
+  {
+   "address": "0x7207BdB5746e39d4bb27A8b9f206047e8432D9aC",
+   "label": "alias-dir",
+   "class": "directory",
+   "wave": 2,
+   "block": null,
+   "dev": "alias-dir",
+   "special": true,
+   "note": "the one-shot loader that wrote CHO's ~90-alias system address book at boot",
+   "guide": "bridge"
+  },
+  {
+   "address": "0x173216Ed67eBF3E6767D86e8b3Ff32e0d64437bF",
+   "label": "WITHOUT",
+   "class": "ban",
+   "wave": null,
+   "block": null,
+   "dev": "cho",
+   "special": true,
+   "note": "ban token: any balance blocks CHO entry and MAP chat [src: 01_cho.sol:90, map.sol:55]",
+   "guide": "venues"
+  },
+  {
+   "address": "0xEf2125f5d1f7A3d68038F27e681258d13a73E718",
+   "label": "RESTRAININGORDER",
+   "class": "ban",
+   "wave": null,
+   "block": null,
+   "dev": "cho",
+   "special": true,
+   "note": "the second ban token consulted by the hub's entry checks [src]",
+   "guide": "venues"
+  },
+  {
+   "address": "0x4208333d65a90577e3da39b84d6a95eb9db717d2",
+   "label": "SHAFactory",
+   "name": null,
+   "symbol": null,
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220676,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": null,
+   "cap": null,
+   "at_cap": false,
+   "dev": "shafactory",
+   "owner_deployer": null,
+   "last": {
+    "block": 25689614,
+    "ts": "2026-02-02T21:45:55.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x5063d2a97960dde8dc5e3e5a69aaa379c6301f1c",
+   "label": "SHIOFactory",
+   "name": null,
+   "symbol": null,
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220681,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": null,
+   "cap": null,
+   "at_cap": false,
+   "dev": "shiofactory",
+   "owner_deployer": null,
+   "last": {
+    "block": 25689621,
+    "ts": "2026-02-02T21:47:05.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x4757438723055f14a1af5c9651c2e37730f41a9e",
+   "label": "YI",
+   "name": "CHATLOG Yi",
+   "symbol": "YI",
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220685,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 55772.0,
+   "cap": 55772,
+   "at_cap": true,
+   "dev": "yi",
+   "owner_deployer": true,
+   "last": {
+    "block": 27411053,
+    "ts": "2026-08-29T17:33:25.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0xf6c50ffe7efbdee63a92e52a4d5e9aff7fb4a4d7",
+   "label": "(Fornax) Shio",
+   "name": "CHATLOG Shio",
+   "symbol": "SHIO",
+   "class": "kernel-shio",
+   "wave": 1,
+   "block": 21220685,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 50977.0,
+   "cap": 50977,
+   "at_cap": true,
+   "dev": "shio",
+   "owner_deployer": true,
+   "last": {
+    "block": 27583080,
+    "ts": "2026-09-19T06:06:35.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x24e62c39e34d7fe2b7df1162e1344eb6eb3b3e15",
+   "label": "ZHENG",
+   "name": "CHATLOG Zheng",
+   "symbol": "ZHENG",
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220689,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 43762.0,
+   "cap": 43762,
+   "at_cap": true,
+   "dev": "zheng",
+   "owner_deployer": true,
+   "last": {
+    "block": 27447872,
+    "ts": "2026-09-03T02:43:25.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x5cc318d0c01fed5942b5ed2f53db07727d36e261",
+   "label": "ZHOU",
+   "name": "CHATLOG Zhou",
+   "symbol": "ZHOU",
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220693,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 37636.0,
+   "cap": 37636,
+   "at_cap": true,
+   "dev": "zhou",
+   "owner_deployer": true,
+   "last": {
+    "block": 26887540,
+    "ts": "2026-06-27T03:38:15.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x7ae73c498a308247be73688c09c96b3fd06ddb84",
+   "label": "(Fomalhaute) Shio",
+   "name": "CHATLOG Shio",
+   "symbol": "SHIO",
+   "class": "kernel-shio",
+   "wave": 1,
+   "block": 21220693,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 25933.0,
+   "cap": 25933,
+   "at_cap": true,
+   "dev": "shio",
+   "owner_deployer": true,
+   "last": {
+    "block": 27577947,
+    "ts": "2026-09-18T15:27:35.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x7e91d862a346659daeed93726e733c8c1347a225",
+   "label": "YAU",
+   "name": "CHATLOG Yau",
+   "symbol": "YAU",
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220696,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 4453.0,
+   "cap": 92074,
+   "at_cap": false,
+   "dev": "yau",
+   "owner_deployer": true,
+   "last": {
+    "block": 26887626,
+    "ts": "2026-06-27T03:53:25.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0xb702b3ec6d9de1011be963efe30a28b6ddfbe011",
+   "label": "YANG",
+   "name": "CHATLOG Yang",
+   "symbol": "YANG",
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220699,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 92.0,
+   "cap": 4932,
+   "at_cap": false,
+   "dev": "yang",
+   "owner_deployer": true,
+   "last": {
+    "block": 25750625,
+    "ts": "2026-02-10T03:15:05.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0xe843765114992e18061498aed708537ce9d924fa",
+   "label": "(Eris) Shio",
+   "name": "CHATLOG Shio",
+   "symbol": "SHIO",
+   "class": "kernel-shio",
+   "wave": 1,
+   "block": 21220699,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 99279.0,
+   "cap": 99279,
+   "at_cap": true,
+   "dev": "shio",
+   "owner_deployer": true,
+   "last": {
+    "block": 27509554,
+    "ts": "2026-09-10T11:09:05.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x43136735603d4060f226c279613a4dd97146937c",
+   "label": "SIU",
+   "name": "CHATLOG Siu",
+   "symbol": "SIU",
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220702,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 8292.0,
+   "cap": 8292,
+   "at_cap": true,
+   "dev": "siu",
+   "owner_deployer": true,
+   "last": {
+    "block": 26883085,
+    "ts": "2026-06-26T14:42:15.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x965b0d74591bf30327075a247c47dbf487dcff08",
+   "label": "VOID",
+   "name": "CHATLOG Void",
+   "symbol": "VOID",
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220706,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 80373.0,
+   "cap": 80373,
+   "at_cap": true,
+   "dev": "void",
+   "owner_deployer": true,
+   "last": {
+    "block": 27516585,
+    "ts": "2026-09-11T07:12:25.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x529e3e15da19c7c828f9cce13c53f7031a30ec7c",
+   "label": "LibAttribute",
+   "name": "CHATLOG LibAttribute",
+   "symbol": "LibAttribute",
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220714,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 18912.0,
+   "cap": 32458,
+   "at_cap": false,
+   "dev": "libattribute",
+   "owner_deployer": true,
+   "last": {
+    "block": 27487993,
+    "ts": "2026-09-07T21:27:55.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0xba6ccd38992839aee20d5bf9125b1d94190b091c",
+   "label": "LAUFactory",
+   "name": null,
+   "symbol": null,
+   "class": "kernel",
+   "wave": 1,
+   "block": 21220719,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": null,
+   "cap": null,
+   "at_cap": false,
+   "dev": "laufactory",
+   "owner_deployer": null,
+   "last": {
+    "block": 27570817,
+    "ts": "2026-09-17T19:01:15.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0xD32c39fEE49391c7952d1b30b15921b0D3b42E69",
+   "label": "mariarahel LAU",
+   "class": "user-account",
+   "wave": 1,
+   "block": 21220723,
+   "dev": "lau",
+   "special": true,
+   "supply": 5977,
+   "cap": null,
+   "note": "the dev's in-world account token (name mariarahel, symbol \u502b); receives the RandomGenerator diyat gas tax",
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x8704d7740735f6dea0103366fe297ba3f9fcacc4",
+   "label": "ReactionsLib",
+   "name": "DYSNOMIA ReactionsLib",
+   "symbol": "ReactionsLib",
+   "class": "library",
+   "wave": 2,
+   "block": 22804034,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 71736.0,
+   "cap": 71736,
+   "at_cap": true,
+   "dev": "reactionslib",
+   "owner_deployer": true,
+   "last": {
+    "block": 25393759,
+    "ts": "2025-12-29T17:32:05.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0x4ab87f1dbdf6f741ed8bf481c7346103a86f1068",
+   "label": "LibStrings",
+   "name": "DYSNOMIA LibStrings",
+   "symbol": "LibStrings",
+   "class": "library",
+   "wave": 2,
+   "block": 22804467,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 1.0,
+   "cap": 45114,
+   "at_cap": false,
+   "dev": "libstrings",
+   "owner_deployer": true,
+   "last": {
+    "block": 23611246,
+    "ts": "2025-05-31T19:34:05.000000Z"
+   },
+   "guide": "accounts-and-chat"
+  },
+  {
+   "address": "0xb6be11f0a788014c1f68c92f8d6ccc1abf78f2ab",
+   "label": "(Tethys) Cho",
+   "name": "Dysnomia Cho",
+   "symbol": "CHO",
+   "class": "hub",
+   "wave": 2,
+   "block": 22813850,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 26995.0,
+   "cap": 26995,
+   "at_cap": true,
+   "dev": "cho",
+   "owner_deployer": true,
+   "last": {
+    "block": 27583122,
+    "ts": "2026-09-19T06:13:45.000000Z"
+   },
+   "guide": "venues"
+  },
+  {
+   "address": "0x29a924d9b0233026b9844f2afeb202f1791d7593",
+   "label": "HECKE",
+   "name": "Dysnomia Hecke",
+   "symbol": "HECKE",
+   "class": "venue-layer",
+   "wave": 2,
+   "block": 22813908,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 51560.0,
+   "cap": 51560,
+   "at_cap": true,
+   "dev": "hecke",
+   "owner_deployer": true,
+   "last": {
+    "block": 26957543,
+    "ts": "2026-07-05T17:43:45.000000Z"
+   },
+   "guide": "venues"
+  },
+  {
+   "address": "0xd3a7a95012edd46ea115c693b74c5e524b3dda75",
+   "label": "MAP",
+   "name": "Dysnomia Map",
+   "symbol": "MAP",
+   "class": "venue-layer",
+   "wave": 2,
+   "block": 22813947,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 9136.0,
+   "cap": 93659,
+   "at_cap": false,
+   "dev": "map",
+   "owner_deployer": true,
+   "last": {
+    "block": 27565448,
+    "ts": "2026-09-17T03:38:35.000000Z"
+   },
+   "guide": "venues"
+  },
+  {
+   "address": "0xb0ba7d36b7f0505879179ece7401f24eb653c6e1",
+   "label": "(Phobos) qZu",
+   "name": "Z\u00fcrich QING",
+   "symbol": "qZ\u016f",
+   "class": "venue",
+   "wave": 2,
+   "block": 22819500,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 542.0,
+   "cap": 58364,
+   "at_cap": false,
+   "dev": "qing",
+   "owner_deployer": true,
+   "last": {
+    "block": 27583084,
+    "ts": "2026-09-19T06:07:15.000000Z"
+   },
+   "guide": "venues"
+  },
+  {
+   "address": "0x4d9ce396be95dbc5f71808c38107eb7422fd9a03",
+   "label": "QI",
+   "name": "DYSNOMIA Qi",
+   "symbol": "QI",
+   "class": "ladder",
+   "wave": 3,
+   "block": 23033185,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 98253.0,
+   "cap": 98253,
+   "at_cap": true,
+   "dev": "qi",
+   "owner_deployer": true,
+   "last": {
+    "block": 27516600,
+    "ts": "2026-09-11T07:14:55.000000Z"
+   },
+   "meter": {
+    "calls": 91769,
+    "done": true,
+    "first": 23033185,
+    "last": 26330380
+   },
+   "guide": "the-ladder"
+  },
+  {
+   "address": "0xc48b0a4e79ef302c8eb5be71f562d08fb8e6a3d8",
+   "label": "MAI",
+   "name": "Dysnomia MAI",
+   "symbol": "MAI",
+   "class": "ladder",
+   "wave": 3,
+   "block": 23034482,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 26563.0,
+   "cap": 26563,
+   "at_cap": true,
+   "dev": "mai",
+   "owner_deployer": true,
+   "last": {
+    "block": 27516602,
+    "ts": "2026-09-11T07:15:15.000000Z"
+   },
+   "meter": {
+    "calls": 26373,
+    "done": true,
+    "first": 23034482,
+    "last": 25210505
+   },
+   "guide": "the-ladder"
+  },
+  {
+   "address": "0x7f4a4dd4a6f233d2d82be38b2f9fc0fef46f25fa",
+   "label": "XIA",
+   "name": "Dysnomia Xia",
+   "symbol": "XIA",
+   "class": "ladder",
+   "wave": 3,
+   "block": 23040923,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 6140.0,
+   "cap": 6140,
+   "at_cap": true,
+   "dev": "xia",
+   "owner_deployer": true,
+   "last": {
+    "block": 27580158,
+    "ts": "2026-09-18T21:46:05.000000Z"
+   },
+   "meter": {
+    "calls": 5551,
+    "done": true,
+    "first": 23040923,
+    "last": 25087936
+   },
+   "guide": "the-ladder"
+  },
+  {
+   "address": "0x4df51741f2926525a21bf63e4769ba70633d2792",
+   "label": "XIE",
+   "name": "Dysnomia Xie",
+   "symbol": "XIE",
+   "class": "ladder",
+   "wave": 4,
+   "block": 23585994,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 20930.0,
+   "cap": 20930,
+   "at_cap": true,
+   "dev": "xie",
+   "owner_deployer": true,
+   "last": {
+    "block": 27530418,
+    "ts": "2026-09-12T22:45:15.000000Z"
+   },
+   "meter": {
+    "calls": 20846,
+    "done": true,
+    "first": 23585994,
+    "last": 25210549
+   },
+   "guide": "the-ladder"
+  },
+  {
+   "address": "0xe250bf9729076b14a8399794b61c72d0f4aefcd8",
+   "label": "CHAN",
+   "name": "Dysnomia Chan",
+   "symbol": "CHAN",
+   "class": "accounts",
+   "wave": 4,
+   "block": 23599003,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 86623.0,
+   "cap": 86623,
+   "at_cap": true,
+   "dev": "chan",
+   "owner_deployer": true,
+   "last": {
+    "block": 27566791,
+    "ts": "2026-09-17T07:27:55.000000Z"
+   },
+   "guide": "economy"
+  },
+  {
+   "address": "0x3dc54d46e030c42979f33c9992348a990acb6067",
+   "label": "SEI",
+   "name": "Dysnomia Sei",
+   "symbol": "SEI",
+   "class": "accounts",
+   "wave": 5,
+   "block": 23713503,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 20452.0,
+   "cap": 20452,
+   "at_cap": true,
+   "dev": "sei",
+   "owner_deployer": true,
+   "last": {
+    "block": 27565442,
+    "ts": "2026-09-17T03:37:35.000000Z"
+   },
+   "guide": "economy"
+  },
+  {
+   "address": "0x3d23084ca3f40465553797b5138cfc456e61fb5d",
+   "label": "CHEON",
+   "name": "Dysnomia Cheon",
+   "symbol": "CHEON",
+   "class": "accounts",
+   "wave": 5,
+   "block": 23720373,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 91700.0,
+   "cap": 91700,
+   "at_cap": true,
+   "dev": "cheon",
+   "owner_deployer": true,
+   "last": {
+    "block": 27570875,
+    "ts": "2026-09-17T19:11:15.000000Z"
+   },
+   "guide": "economy"
+  },
+  {
+   "address": "0x0f5a352fd4ca4850c2099c15b3600ff085b66197",
+   "label": "CHOA",
+   "name": "Dysnomia Chao",
+   "symbol": "CHOA",
+   "class": "accounts",
+   "wave": 5,
+   "block": 23720409,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 46329.0,
+   "cap": 46329,
+   "at_cap": true,
+   "dev": "choa",
+   "owner_deployer": true,
+   "last": {
+    "block": 27566765,
+    "ts": "2026-09-17T07:23:35.000000Z"
+   },
+   "meter": {
+    "calls": 42096,
+    "done": true,
+    "first": 23720409,
+    "last": 26328898
+   },
+   "guide": "economy"
+  },
+  {
+   "address": "0xcbadd3c3957bd9d6c036863cb053feccf3d53338",
+   "label": "ZI",
+   "name": "Dysnomia Zi",
+   "symbol": "ZI",
+   "class": "ladder",
+   "wave": 5,
+   "block": 23722497,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 14569.0,
+   "cap": 14569,
+   "at_cap": true,
+   "dev": "zi",
+   "owner_deployer": true,
+   "last": {
+    "block": 27394031,
+    "ts": "2026-08-27T16:55:55.000000Z"
+   },
+   "meter": {
+    "calls": 13185,
+    "done": true,
+    "first": 23722497,
+    "last": 25260531
+   },
+   "guide": "the-ladder"
+  },
+  {
+   "address": "0xee25ccd41671f3b67d660cf6532085586aec8457",
+   "label": "PANG",
+   "name": "Dysnomia Pang",
+   "symbol": "PANG",
+   "class": "ladder",
+   "wave": 5,
+   "block": 23730519,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 16602.0,
+   "cap": 16602,
+   "at_cap": true,
+   "dev": "pang",
+   "owner_deployer": true,
+   "last": {
+    "block": 27448311,
+    "ts": "2026-09-03T03:59:45.000000Z"
+   },
+   "meter": {
+    "calls": 15389,
+    "done": false,
+    "first": 23730519,
+    "last": 25268686
+   },
+   "guide": "the-ladder"
+  },
+  {
+   "address": "0x1574c84ec7fa78fc6c749e1d242dbde163675e72",
+   "label": "RING",
+   "name": "Dysnomia Ring",
+   "symbol": "RING",
+   "class": "ladder",
+   "wave": 5,
+   "block": 23740595,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 3670.0,
+   "cap": 56866,
+   "at_cap": false,
+   "dev": "ring",
+   "owner_deployer": true,
+   "last": {
+    "block": 27394038,
+    "ts": "2026-08-27T16:57:15.000000Z"
+   },
+   "guide": "the-ladder"
+  },
+  {
+   "address": "0xe77bdae31b2219e032178d88504cc0170a5b9b97",
+   "label": "META",
+   "name": "Dysnomia Meta",
+   "symbol": "META",
+   "class": "ladder",
+   "wave": 5,
+   "block": 23746306,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 937.0,
+   "cap": 90767,
+   "at_cap": false,
+   "dev": "meta",
+   "owner_deployer": true,
+   "last": {
+    "block": 27583126,
+    "ts": "2026-09-19T06:14:25.000000Z"
+   },
+   "guide": "the-ladder"
+  },
+  {
+   "address": "0x3012e0F5eD16C24f61A62100cCEa50cb1E288d08",
+   "label": "DO-1",
+   "class": "deeds",
+   "wave": 6,
+   "block": 23833823,
+   "dev": "do",
+   "special": true,
+   "supply": 0,
+   "cap": null,
+   "note": "check-only draft; the live deed layer is DO-2",
+   "guide": "venues"
+  },
+  {
+   "address": "0x98dbd5e4f78e53884c77573407727c3779ca3bad",
+   "label": "DO",
+   "name": "DO",
+   "symbol": "\u641e",
+   "class": "deeds",
+   "wave": 6,
+   "block": 23833935,
+   "deployer": "0x0474606332105A1dA6FC8EF7De2470551D389Cb9",
+   "supply": 54.0,
+   "cap": null,
+   "at_cap": false,
+   "dev": "do",
+   "owner_deployer": null,
+   "last": {
+    "block": 27582651,
+    "ts": "2026-09-19T04:52:45.000000Z"
+   },
+   "guide": "venues"
+  },
+  {
+   "address": "0x9f4E1471e614747A9a56A33eb0338671ebA1dE2B",
+   "label": "PKMinter",
+   "class": "bridge",
+   "wave": 7,
+   "block": 26657637,
+   "dev": "pkminter",
+   "special": true,
+   "note": "the treasury bridge: hardcodes V1-V4 + bureau minters + MATH; 40-of-40 demo token deployed",
+   "guide": "bridge"
+  }
+ ],
+ "censuses": {
+  "lau": {
+   "count": 18660,
+   "named": 18248,
+   "pct_named": 97.79,
+   "reverted": 412,
+   "monthly": [
+    [
+     "2024-08",
+     41
+    ],
+    [
+     "2024-09",
+     75
+    ],
+    [
+     "2024-10",
+     105
+    ],
+    [
+     "2024-11",
+     57
+    ],
+    [
+     "2024-12",
+     187
+    ],
+    [
+     "2025-01",
+     43
+    ],
+    [
+     "2025-02",
+     2
+    ],
+    [
+     "2025-03",
+     4
+    ],
+    [
+     "2025-06",
+     3731
+    ],
+    [
+     "2025-07",
+     2958
+    ],
+    [
+     "2025-08",
+     910
+    ],
+    [
+     "2025-09",
+     637
+    ],
+    [
+     "2025-10",
+     950
+    ],
+    [
+     "2025-11",
+     2673
+    ],
+    [
+     "2025-12",
+     2703
+    ],
+    [
+     "2026-01",
+     2797
+    ],
+    [
+     "2026-02",
+     47
+    ],
+    [
+     "2026-03",
+     5
+    ],
+    [
+     "2026-04",
+     19
+    ],
+    [
+     "2026-05",
+     1
+    ],
+    [
+     "2026-06",
+     3
+    ],
+    [
+     "2026-07",
+     14
+    ],
+    [
+     "2026-08",
+     13
+    ],
+    [
+     "2026-09",
+     273
+    ]
+   ],
+   "note": "LAUFactory children [chain]; named = readable Username attribute (session-34 sweep)"
+  },
+  "shio": {
+   "count": 12460,
+   "note": "SHIOFactory channels [chain]"
+  },
+  "qing": {
+   "venues": 917,
+   "alive30": 23,
+   "alive365": 898,
+   "dead365": 19,
+   "events365": 15221,
+   "creates": 988,
+   "liveness_head": 27614039,
+   "note": "MAP creates vs live venues + 365d Transfer-scan liveness [chain] (session 34)"
+  },
+  "yue": {
+   "count": 93,
+   "note": "SEI-minted personal account tokens [chain]"
+  },
+  "beat": {
+   "txs": 318,
+   "callers": 33,
+   "first_block": 23761898,
+   "last_block": 27591623,
+   "gas_median": 1916016,
+   "note": "META.Beat census [chain] (session 32, erratum round)"
+  },
+  "qing_top": [
+   {
+    "qing": "0xb0ba7d36b7f0505879179ece7401f24eb653c6e1",
+    "name": "Z\u00fcrich QING",
+    "asset": "0x583d1c1427308f7f96bfd3e0d7a3f9674d8bf8ec",
+    "ev365": 5333,
+    "ev30": 785,
+    "last_block": 27611690,
+    "probed_name": false
+   },
+   {
+    "qing": "0xd09e21d3b66354687b562dbe7e13977f08644d85",
+    "name": "FlowBorne QING",
+    "asset": "0xa2c6cf06b30aa91862c726279c2bddac74784874",
+    "ev365": 3191,
+    "ev30": 0,
+    "last_block": 26303875,
+    "probed_name": true
+   },
+   {
+    "qing": "0x553c41d0ef132c4e3ad993b6d74d871e2238cbb4",
+    "name": "Hijinks QING",
+    "asset": "0xfb39ac1135b91109e56a69448ed2cbef59348974",
+    "ev365": 1318,
+    "ev30": 157,
+    "last_block": 27612224,
+    "probed_name": false
+   },
+   {
+    "qing": "0xd11f6892e2d7df8422fba01680ec8c7cd7d28457",
+    "name": "PP4000 QING",
+    "asset": "0x142c18fa7617393b7d33aaa1aa7a58d323112326",
+    "ev365": 1052,
+    "ev30": 112,
+    "last_block": 27609163,
+    "probed_name": false
+   },
+   {
+    "qing": "0xc4a2994e5c1ccc3db0b5a8a30f2ba349aba8f037",
+    "name": "Shell City",
+    "asset": "0xe0f70d69f170bc7d0586bfaedfd9db30c6fb8d8d",
+    "ev365": 724,
+    "ev30": 0,
+    "last_block": 26762079,
+    "probed_name": true
+   },
+   {
+    "qing": "0xd127839b83cbf537c29b7d268c135f745a0da2e8",
+    "name": "Illinois Coin QING",
+    "asset": "0x81a6923ca480fada78cb15254c8d8cc382d2fbc0",
+    "ev365": 707,
+    "ev30": 28,
+    "last_block": 27598015,
+    "probed_name": false
+   },
+   {
+    "qing": "0x49b63324b5288908989fcbe613a6fa5b988fd9ad",
+    "name": "Coexistence Steven",
+    "asset": "0x40daa09334d4e7788830b2d53c8ccbcda60b2364",
+    "ev365": 503,
+    "ev30": 18,
+    "last_block": 27610555,
+    "probed_name": true
+   },
+   {
+    "qing": "0xe4169cf239e2fdc6e6e4a3a6fa0a703058ce400b",
+    "name": "RatKing",
+    "asset": "0x1f45433da3d6388602598438532d269dcc18c74f",
+    "ev365": 306,
+    "ev30": 0,
+    "last_block": 25874810,
+    "probed_name": true
+   }
+  ]
+ }
+}
